@@ -123,6 +123,19 @@
         </DCCReference>
         <DCCReference Include="..\pas\Model\UProps.pas"/>
         <DCCReference Include="..\pas\Controller\UPropController.pas"/>
+        <DCCReference Include="..\pas\View\Dictonary\Products\UfrmProps.pas">
+            <Form>frmProps</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Products\UFrameProps.pas">
+            <Form>frameProps</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Products\UfrmPropEdit.pas">
+            <Form>frmPropEditDict</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

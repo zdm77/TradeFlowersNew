@@ -12,7 +12,10 @@ uses
   UDmMain in '..\pas\UDmMain.pas' {DMMain: TDataModule},
   UProduct in '..\pas\View\Dictonary\Products\UProduct.pas' {frmProduct},
   UProps in '..\pas\Model\UProps.pas',
-  UPropController in '..\pas\Controller\UPropController.pas';
+  UPropController in '..\pas\Controller\UPropController.pas',
+  UfrmProps in '..\pas\View\Dictonary\Products\UfrmProps.pas' {frmProps},
+  UFrameProps in '..\pas\View\Dictonary\Products\UFrameProps.pas' {frameProps: TFrame},
+  UfrmPropEdit in '..\pas\View\Dictonary\Products\UfrmPropEdit.pas' {frmPropEditDict};
 
 {$R *.res}
 
@@ -21,6 +24,8 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
+  Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
+  // Application.CreateForm(TfrmProps, frmProps);
   //  Application.CreateForm(TfrmProductEdit, frmProductEdit);
 //  Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
 //  Application.CreateForm(TfrmPropEdit, frmPropEdit);

@@ -30,9 +30,11 @@ type
     N1: TMenuItem;
     N2: TMenuItem;
     tabMain: TdxTabbedMDIManager;
+    N3: TMenuItem;
     procedure btn1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N2Click(Sender: TObject);
+    procedure N3Click(Sender: TObject);
   private
     listProduct: TList<TProduct>;
     { Private declarations }
@@ -47,7 +49,7 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategory, UProductEdit, UCategoryEdit, UProduct;
+  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
 var
@@ -86,6 +88,15 @@ begin
   if frmProduct = nil then
     Application.CreateForm(TfrmProduct, frmProduct);
   frmProduct.Show;
+end;
+
+procedure TfrmMain.N3Click(Sender: TObject);
+begin
+ if frmProps = nil then
+    Application.CreateForm(TfrmProps, frmProps);
+
+  frmProps.Show;
+
 end;
 
 end.
