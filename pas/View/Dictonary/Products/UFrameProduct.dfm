@@ -1,7 +1,7 @@
 object frameProduct: TframeProduct
   Left = 0
   Top = 0
-  Width = 811
+  Width = 945
   Height = 539
   TabOrder = 0
   object gridCategory: TcxGrid
@@ -44,6 +44,27 @@ object frameProduct: TframeProduct
     TabOrder = 2
     OnClick = btnCategoryEditClick
   end
+  object gridProduct: TcxGrid
+    Left = 416
+    Top = 40
+    Width = 427
+    Height = 361
+    TabOrder = 3
+    object viewProduct: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      object column1: TcxGridDBColumn
+        Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+        DataBinding.FieldName = 'name'
+        Width = 488
+      end
+    end
+    object level1: TcxGridLevel
+      GridView = viewProduct
+    end
+  end
   object dsCategory: TUniDataSource
     DataSet = queryCategoty
     Left = 184
@@ -51,6 +72,15 @@ object frameProduct: TframeProduct
   end
   object queryCategoty: TUniQuery
     Left = 264
+    Top = 456
+  end
+  object dsProduct: TUniDataSource
+    DataSet = queryProduct
+    Left = 600
+    Top = 456
+  end
+  object queryProduct: TUniQuery
+    Left = 672
     Top = 456
   end
 end

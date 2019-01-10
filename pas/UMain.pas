@@ -32,12 +32,6 @@ type
     btn3: TButton;
     Button1: TButton;
     Button2: TButton;
-    dsProduct: TUniDataSource;
-    queryProduct: TUniQuery;
-    cxGrid1: TcxGrid;
-    cxGridDBTableView1: TcxGridDBTableView;
-    cxGridDBColumn1: TcxGridDBColumn;
-    cxGridLevel1: TcxGridLevel;
     mm1: TMainMenu;
     N1: TMenuItem;
     N2: TMenuItem;

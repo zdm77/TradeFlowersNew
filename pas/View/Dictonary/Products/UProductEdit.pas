@@ -6,11 +6,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxTextEdit,
-  cxDBEdit, Vcl.StdCtrls, Data.DB, MemDS, DBAccess, Uni, UCategory, cxStyles,
-  cxVGrid, cxInplaceContainer, cxDBVGrid, cxCustomData, cxFilter, cxData,
+  cxDBEdit, Vcl.StdCtrls, Data.DB, MemDS, DBAccess, Uni, cxStyles,
+  cxVGrid, cxInplaceContainer, cxDBVGrid,
   cxDataStorage, cxNavigator, cxDBData, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Vcl.ExtCtrls,
-  Vcl.DBCtrls;
+  Vcl.DBCtrls, cxCustomData, cxFilter, cxData;
 
 type
   TfrmProductEdit = class(TForm)
@@ -43,7 +43,7 @@ var
 implementation
 
 uses
-  UMain, UDmMain;
+  UDmMain;
 
 {$R *.dfm}
 

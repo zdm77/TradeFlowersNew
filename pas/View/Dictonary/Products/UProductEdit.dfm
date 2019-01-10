@@ -79,7 +79,6 @@ object frmProductEdit: TfrmProductEdit
     Top = 9
   end
   object queryProduct: TUniQuery
-    Connection = frmMain.conMain
     Left = 536
     Top = 9
   end
@@ -93,7 +92,6 @@ object frmProductEdit: TfrmProductEdit
       'update prod_prop'
       'set  prop_value=:prop_value'
       'where id=:id')
-    Connection = frmMain.conMain
     SQL.Strings = (
       'SELECT '
       'prd.id,'

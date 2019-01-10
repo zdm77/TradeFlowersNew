@@ -57,40 +57,9 @@ object frmMain: TfrmMain
     Caption = '+'#1058#1086#1074
     TabOrder = 4
   end
-  object cxGrid1: TcxGrid
-    Left = 480
-    Top = 40
-    Width = 427
-    Height = 361
-    TabOrder = 5
-    object cxGridDBTableView1: TcxGridDBTableView
-      Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = dsProduct
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-      object cxGridDBColumn1: TcxGridDBColumn
-        Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-        DataBinding.FieldName = 'name'
-        Width = 488
-      end
-    end
-    object cxGridLevel1: TcxGridLevel
-      GridView = cxGridDBTableView1
-    end
-  end
   object prov1: TPostgreSQLUniProvider
     Left = 568
     Top = 504
-  end
-  object dsProduct: TUniDataSource
-    DataSet = queryProduct
-    Left = 600
-    Top = 456
-  end
-  object queryProduct: TUniQuery
-    Left = 672
-    Top = 456
   end
   object mm1: TMainMenu
     Left = 264

@@ -14,4 +14,8 @@ object DMMain: TDMMain
     Top = 24
     EncryptedPassword = 'B4FF94FF9BFFCCFFC8FFBCFF94FF8EFF99FF92FF'
   end
+  object prov1: TPostgreSQLUniProvider
+    Left = 120
+    Top = 23
+  end
 end
