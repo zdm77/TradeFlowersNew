@@ -4,11 +4,13 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UFrameProduct;
 
 type
   TfrmProduct = class(TForm)
+    frameProduct1: TframeProduct;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,6 +28,11 @@ procedure TfrmProduct.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
  Action := caFree;
  frmProduct:=nil;
+end;
+
+procedure TfrmProduct.FormShow(Sender: TObject);
+begin
+  frameProduct1.Init;
 end;
 
 end.

@@ -8,7 +8,7 @@ uses
   cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
   cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, MemDS, DBAccess,
   Uni, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
-  cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls, UniProvider,
+  cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
   Vcl.Menus;
@@ -26,12 +26,6 @@ type
   end;
 
   TfrmMain = class(TForm)
-    btn1: TButton;
-    prov1: TPostgreSQLUniProvider;
-    btn2: TButton;
-    btn3: TButton;
-    Button1: TButton;
-    Button2: TButton;
     mm1: TMainMenu;
     N1: TMenuItem;
     N2: TMenuItem;
@@ -59,6 +53,7 @@ procedure TfrmMain.btn1Click(Sender: TObject);
 var
   product: TProduct;
   i: Integer;
+ //s:TStringBuilder;
 begin
   product := TProduct.Create;
   product.Name := 'Иван';

@@ -10,7 +10,9 @@ uses
   UPropEdit in '..\pas\View\Dictonary\Products\UPropEdit.pas' {frmPropEdit},
   UFrameProduct in '..\pas\View\Dictonary\Products\UFrameProduct.pas' {frameProduct: TFrame},
   UDmMain in '..\pas\UDmMain.pas' {DMMain: TDataModule},
-  UProduct in '..\pas\View\Dictonary\Products\UProduct.pas' {frmProduct};
+  UProduct in '..\pas\View\Dictonary\Products\UProduct.pas' {frmProduct},
+  UProps in '..\pas\Model\UProps.pas',
+  UPropController in '..\pas\Controller\UPropController.pas';
 
 {$R *.res}
 
@@ -18,10 +20,11 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
-//  Application.CreateForm(TfrmProductEdit, frmProductEdit);
+  Application.CreateForm(TDMMain, DMMain);
+  //  Application.CreateForm(TfrmProductEdit, frmProductEdit);
 //  Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
 //  Application.CreateForm(TfrmPropEdit, frmPropEdit);
-//  Application.CreateForm(TDMMain, DMMain);
+//
 //  Application.CreateForm(TfrmProduct, frmProduct);
   Application.Run;
 end.

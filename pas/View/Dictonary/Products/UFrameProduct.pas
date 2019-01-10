@@ -9,7 +9,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, Vcl.StdCtrls,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid, MemDS, DBAccess, Uni, cxCustomData,
-  cxFilter, cxData;
+  cxFilter, cxData, UCategory;
 
 type
   TframeProduct = class(TFrame)
@@ -27,11 +27,17 @@ type
     level1: TcxGridLevel;
     dsProduct: TUniDataSource;
     queryProduct: TUniQuery;
+    btnProdAdd: TButton;
+    btnProdEdit: TButton;
     procedure btnCategoryAddClick(Sender: TObject);
     procedure btnCategoryEditClick(Sender: TObject);
   private
+    category: TCategory;
+    procedure CategoryInsEdt(isNew: Boolean);
+    procedure ShowCategory;
     { Private declarations }
   public
+    procedure Init;
     { Public declarations }
   end;
 
@@ -39,18 +45,34 @@ implementation
 
 {$R *.dfm}
 
-uses UCategoryEdit;
+uses UCategoryEdit, UDmMain;
 
 procedure TframeProduct.btnCategoryAddClick(Sender: TObject);
 begin
-  frmCategoryEdit.setParam(queryCategoty, true);
-  frmCategoryEdit.Show;
+  CategoryInsEdt(true);
 end;
 
 procedure TframeProduct.btnCategoryEditClick(Sender: TObject);
 begin
-  frmCategoryEdit.setParam(queryCategoty, false);
+  CategoryInsEdt(false);
+end;
+
+procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
+begin
+  Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
+  frmCategoryEdit.setParam(queryCategoty, isNew);
   frmCategoryEdit.Show;
+end;
+
+procedure TframeProduct.Init;
+begin
+  category := TCategory.Create;
+  ShowCategory;
+end;
+
+procedure TframeProduct.ShowCategory;
+begin
+  category.GetSelectSQL(queryCategoty);
 end;
 
 end.

@@ -2,8 +2,8 @@ object frmProduct: TfrmProduct
   Left = 0
   Top = 0
   Caption = 'frmProduct'
-  ClientHeight = 505
-  ClientWidth = 717
+  ClientHeight = 504
+  ClientWidth = 903
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,17 @@ object frmProduct: TfrmProduct
   OldCreateOrder = False
   Visible = True
   OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  inline frameProduct1: TframeProduct
+    Left = 0
+    Top = 0
+    Width = 903
+    Height = 504
+    Align = alClient
+    TabOrder = 0
+    ExplicitLeft = -228
+    ExplicitTop = -34
+  end
 end

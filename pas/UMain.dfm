@@ -16,51 +16,6 @@ object frmMain: TfrmMain
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object btn1: TButton
-    Left = 64
-    Top = 520
-    Width = 75
-    Height = 25
-    Caption = 'btn1'
-    TabOrder = 0
-    OnClick = btn1Click
-  end
-  object btn2: TButton
-    Left = 152
-    Top = 520
-    Width = 75
-    Height = 25
-    Caption = #1088#1077#1076' '#1050#1072#1090
-    TabOrder = 1
-  end
-  object btn3: TButton
-    Left = 241
-    Top = 520
-    Width = 75
-    Height = 25
-    Caption = '+'#1050#1072#1090
-    TabOrder = 2
-  end
-  object Button1: TButton
-    Left = 360
-    Top = 520
-    Width = 75
-    Height = 25
-    Caption = #1088#1077#1076' '#1058#1086#1074
-    TabOrder = 3
-  end
-  object Button2: TButton
-    Left = 441
-    Top = 520
-    Width = 75
-    Height = 25
-    Caption = '+'#1058#1086#1074
-    TabOrder = 4
-  end
-  object prov1: TPostgreSQLUniProvider
-    Left = 568
-    Top = 504
-  end
   object mm1: TMainMenu
     Left = 264
     Top = 576

@@ -104,7 +104,7 @@ procedure TfrmCategoryEdit.btnSaveClick(Sender: TObject);
 begin
   queryCategory.Post;
   _senderQuery.Refresh;
-  //ShowMessage(queryCategory.FieldByName('id').AsString);
+  // ShowMessage(queryCategory.FieldByName('id').AsString);
   _senderQuery.Locate('id', queryCategory.FieldByName('id').AsInteger, []);
   // Close;
 end;
@@ -118,38 +118,37 @@ procedure TfrmCategoryEdit.btnPropAddClick(Sender: TObject);
 var
   queryUpd: TUniQuery;
 begin
+  Application.CreateForm(TfrmPropEdit, frmPropEdit);
   frmPropEdit.setParam(queryProps, True);
   frmPropEdit.ShowModal;
   if frmMain.ModalResult = mrOk then
   begin
-
-      queryUpd := TUniQuery.Create(nil);
-      with   queryUpd do
-      begin
-    queryUpd.Connection := DMMain.conMain;
-    queryUpd.Close;
-    SQL.Clear;
-    SQL.Add(' INSERT INTO');
-    SQL.Add(' public.category_props');
-    SQL.Add(' (');
-    SQL.Add(' category_id,');
-    SQL.Add(' prop_id,');
-    SQL.Add(' order_by,');
-    SQL.Add(' in_name');
-    SQL.Add(' )');
-    SQL.Add(' VALUES (');
-    SQL.Add(' :id,');
-    SQL.Add(' :category_id,');
-    SQL.Add(' :prop_id,');
-    SQL.Add(' :order_by,');
-    SQL.Add(' :in_name');
-    SQL.Add(' );');
-
-//    ParamByName('category_id').Value:= .Value;
-//    ParamByName('prop_id').Value:= .Value;
-//    ParamByName('order_by').Value:= .Value;
-//    ParamByName('in_name').Value:= .Value ;
-      end;
+    queryUpd := TUniQuery.Create(nil);
+    with queryUpd do
+    begin
+      queryUpd.Connection := DMMain.conMain;
+      queryUpd.Close;
+      SQL.Clear;
+      SQL.Add(' INSERT INTO');
+      SQL.Add(' public.category_props');
+      SQL.Add(' (');
+      SQL.Add(' category_id,');
+      SQL.Add(' prop_id,');
+      SQL.Add(' order_by,');
+      SQL.Add(' in_name');
+      SQL.Add(' )');
+      SQL.Add(' VALUES (');
+      SQL.Add(' :id,');
+      SQL.Add(' :category_id,');
+      SQL.Add(' :prop_id,');
+      SQL.Add(' :order_by,');
+      SQL.Add(' :in_name');
+      SQL.Add(' );');
+      // ParamByName('category_id').Value:= .Value;
+      // ParamByName('prop_id').Value:= .Value;
+      // ParamByName('order_by').Value:= .Value;
+      // ParamByName('in_name').Value:= .Value ;
+    end;
   end;
 end;
 

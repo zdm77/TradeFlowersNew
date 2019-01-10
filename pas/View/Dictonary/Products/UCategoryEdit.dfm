@@ -125,6 +125,7 @@ object frmCategoryEdit: TfrmCategoryEdit
     Top = 9
   end
   object queryCategory: TUniQuery
+    Connection = DMMain.conMain
     SQL.Strings = (
       'select * from category where id=1')
     Left = 536
@@ -144,6 +145,7 @@ object frmCategoryEdit: TfrmCategoryEdit
     Top = 241
   end
   object queryProps: TUniQuery
+    Connection = DMMain.conMain
     SQL.Strings = (
       'SELECT '
       '  cp.id,'
