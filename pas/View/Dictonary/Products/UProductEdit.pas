@@ -43,7 +43,7 @@ var
 implementation
 
 uses
-  UMain;
+  UMain, UDmMain;
 
 {$R *.dfm}
 
@@ -90,9 +90,9 @@ begin
     end;
   end;
   queryTempPropCat := TUniQuery.Create(nil);
-  queryTempPropCat.Connection := frmMain.conMain;
+  queryTempPropCat.Connection := DMMain.conMain;
   queryUpd := TUniQuery.Create(nil);
-  queryUpd.Connection := frmMain.conMain;
+  queryUpd.Connection := DMMain.conMain;
   queryUpd.Close;
   queryUpd.SQL.Text := 'insert into prod_prop ( "category_propsId",  "productId") values (:category_propsId, :productId)';
   with queryTempPropCat do

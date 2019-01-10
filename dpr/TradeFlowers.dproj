@@ -107,6 +107,20 @@
             <Form>frmPropEdit</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Products\UFrameProduct.pas">
+            <Form>frameProduct</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\pas\UDmMain.pas">
+            <Form>DMMain</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Products\UProduct.pas">
+            <Form>frmProduct</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

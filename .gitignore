@@ -1,0 +1,13 @@
+~*dsk
+.*dsk*
+*~
+~*~
+__history
+*.exe
+*.dcu
+.svn
+*.dsk
+*.identcache
+*.~dsk
+*.dsk
+*.local

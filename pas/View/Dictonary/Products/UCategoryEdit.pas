@@ -61,7 +61,7 @@ implementation
 {$R *.dfm}
 
 uses
-  UMain, UPropEdit;
+  UMain, UPropEdit, UDmMain;
 
 procedure TfrmCategoryEdit.UpDawnProp(up: Boolean);
 var
@@ -81,7 +81,7 @@ begin
     else
       new_order := order + 1;
     queryUpd := TUniQuery.Create(nil);
-    queryUpd.Connection := frmMain.conMain;
+    queryUpd.Connection := DMMain.conMain;
     queryUpd.Close;
     queryUpd.SQL.Text := 'update category_props set order_by=' + IntToStr(new_order) +
       ' where id=' + id;
@@ -125,7 +125,7 @@ begin
       queryUpd := TUniQuery.Create(nil);
       with   queryUpd do
       begin
-    queryUpd.Connection := frmMain.conMain;
+    queryUpd.Connection := DMMain.conMain;
     queryUpd.Close;
     SQL.Clear;
     SQL.Add(' INSERT INTO');

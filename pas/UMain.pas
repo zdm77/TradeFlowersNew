@@ -10,7 +10,8 @@ uses
   Uni, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls, UniProvider,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
-  Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids;
+  Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
+  Vcl.Menus;
 
 type
   TProduct = class
@@ -25,13 +26,6 @@ type
   end;
 
   TfrmMain = class(TForm)
-    conMain: TUniConnection;
-    viewGrid1DBTableView1: TcxGridDBTableView;
-    levelGrid1Level1: TcxGridLevel;
-    grid1: TcxGrid;
-    dsMain: TUniDataSource;
-    columnName: TcxGridDBColumn;
-    queryMain: TUniQuery;
     btn1: TButton;
     prov1: TPostgreSQLUniProvider;
     btn2: TButton;
@@ -44,11 +38,13 @@ type
     cxGridDBTableView1: TcxGridDBTableView;
     cxGridDBColumn1: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
+    mm1: TMainMenu;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    tabMain: TdxTabbedMDIManager;
     procedure btn1Click(Sender: TObject);
-    procedure btn2Click(Sender: TObject);
-    procedure btn3Click(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure N2Click(Sender: TObject);
   private
     listProduct: TList<TProduct>;
     { Private declarations }
@@ -63,57 +59,44 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategory, UProductEdit, UCategoryEdit;
+  UCategory, UProductEdit, UCategoryEdit, UProduct;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
 var
   product: TProduct;
   i: Integer;
 begin
-
   product := TProduct.Create;
   product.Name := 'Иван';
   listProduct := TList<TProduct>.Create;
   listProduct.Add(product);
   listProduct.Add(product);
 
-//  for  I := 0 to listProduct.Count-1 do
-//       OutputDebugString(PChar(product.Name));
-
-end;
-
-procedure TfrmMain.btn2Click(Sender: TObject);
-begin
-  frmCategoryEdit.setParam(queryMain, false);
-  frmCategoryEdit.Show;
-end;
-
-procedure TfrmMain.btn3Click(Sender: TObject);
-begin
-  frmCategoryEdit.setParam(queryMain, true);
-  frmCategoryEdit.Show;
-end;
-
-procedure TfrmMain.Button1Click(Sender: TObject);
-begin
-  frmProductEdit.setParam(queryProduct, false);
-  frmProductEdit.Show;
+  // for  I := 0 to listProduct.Count-1 do
+  // OutputDebugString(PChar(product.Name));
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
-  with queryMain do
-  begin
-    Close;
-    SQL.Text := 'select * from category';
-    Open;
-  end;
-  with queryProduct do
-  begin
-    Close;
-    SQL.Text := 'select * from prod_poduct';
-    Open;
-  end;
+  // with queryMain do
+  // begin
+  // Close;
+  // SQL.Text := 'select * from category';
+  // Open;
+  // end;
+  // with queryProduct do
+  // begin
+  // Close;
+  // SQL.Text := 'select * from prod_poduct';
+  // Open;
+  // end;
+end;
+
+procedure TfrmMain.N2Click(Sender: TObject);
+begin
+  if frmProduct = nil then
+    Application.CreateForm(TfrmProduct, frmProduct);
+  frmProduct.Show;
 end;
 
 end.
