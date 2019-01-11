@@ -23,8 +23,6 @@ type
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
     btnDel: TButton;
-    edtName: TEdit;
-    edtqqq: TEdit;
     columnProd: TcxGridDBColumn;
     queryProd: TUniQuery;
     dsProd: TUniDataSource;

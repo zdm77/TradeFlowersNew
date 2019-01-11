@@ -16,6 +16,7 @@ object frameProps: TframeProps
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      EditForm.ItemHotTrack = True
       EditForm.MasterRowDblClickAction = dcaShowEditForm
       EditForm.UseDefaultLayout = False
       OptionsBehavior.EditMode = emInplaceEditFormHideCurrentRow
@@ -43,6 +44,8 @@ object frameProps: TframeProps
         Properties.ValueChecked = '1'
         Properties.ValueUnchecked = '0'
         LayoutItem = viewPropsLayoutItem3.Owner
+        MinWidth = 0
+        Width = 69
       end
       object viewPropsRootGroup: TcxGridInplaceEditFormGroup
         AlignHorz = ahLeft
@@ -67,7 +70,8 @@ object frameProps: TframeProps
         Parent = viewPropsRootGroup
         AlignHorz = ahLeft
         AlignVert = avTop
-        SizeOptions.Width = 132
+        SizeOptions.Width = 40
+        SizeOptions.MaxWidth = 40
         Index = 2
       end
     end
@@ -101,22 +105,6 @@ object frameProps: TframeProps
     Caption = #1059#1076#1072#1083#1080#1090#1100
     TabOrder = 3
     OnClick = btnDelClick
-  end
-  object edtName: TEdit
-    Left = 403
-    Top = 252
-    Width = 121
-    Height = 21
-    TabOrder = 4
-    Text = 'edtName'
-  end
-  object edtqqq: TEdit
-    Left = 408
-    Top = 298
-    Width = 121
-    Height = 21
-    TabOrder = 5
-    Text = 'edtqqq'
   end
   object dsProps: TUniDataSource
     DataSet = queryProps
