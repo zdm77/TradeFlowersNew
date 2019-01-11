@@ -10,7 +10,7 @@ uses
   DBAccess, Uni, Vcl.StdCtrls, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, UProps,
   cxDBLookupComboBox, dxLayoutContainer, cxGridInplaceEditForm, cxLabel,
-  cxCheckBox;
+  cxCheckBox, cxDBNavigator;
 
 type
   TframeProps = class(TFrame)
@@ -18,15 +18,13 @@ type
     viewProps: TcxGridDBTableView;
     columnName: TcxGridDBColumn;
     levelGrid1Level1: TcxGridLevel;
-    btnAdd: TButton;
-    btnEdit: TButton;
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
-    btnDel: TButton;
     columnProd: TcxGridDBColumn;
     queryProd: TUniQuery;
     dsProd: TUniDataSource;
     columnPropsColumn1: TcxGridDBColumn;
+    nav1: TcxDBNavigator;
     procedure btnAddClick(Sender: TObject);
     procedure btnDelClick(Sender: TObject); pascal;
     procedure btnEditClick(Sender: TObject);
@@ -34,6 +32,8 @@ type
     prop: TProps;
     procedure InsEdit(isNew: Boolean);
     procedure ShowProps;
+    procedure UserNavigatorButtonsButtonClick(Sender: TObject;
+  AButtonIndex: Integer; var ADone: Boolean);
     { Private declarations }
   public
     procedure Init;
@@ -44,11 +44,11 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmPropEdit;
+uses UfrmPropEdit, UMain;
 
 procedure TframeProps.btnAddClick(Sender: TObject);
 begin
-  InsEdit(true);
+//  InsEdit(true);
 end;
 
 procedure TframeProps.btnDelClick(Sender: TObject);
@@ -56,22 +56,19 @@ var
   i: Integer;
 begin
   // prop.DeleteE;
-  for i := 0 to ComponentCount - 1 do
-  begin
-    if (Components[i] is TEdit) then
-    begin
-      ShowMessage((Components[i] as TEdit).Name);
-    end;
-  end;
+ 
 end;
 
 procedure TframeProps.btnEditClick(Sender: TObject);
 begin
-  InsEdit(false);
+//  InsEdit(false);
 end;
 
 procedure TframeProps.Init;
+var
+  AButton: TcxNavigatorCustomButton;
 begin
+  nav1.Buttons.OnButtonClick :=UserNavigatorButtonsButtonClick;
   prop := TProps.Create(queryProps);
   ShowProps;
 end;
@@ -90,6 +87,11 @@ begin
   queryProps.Open;
   queryProd.Close;
   queryProd.Open;
+end;
+
+procedure TframeProps.UserNavigatorButtonsButtonClick(Sender: TObject;
+  AButtonIndex: Integer; var ADone: Boolean);
+begin
 end;
 
 end.

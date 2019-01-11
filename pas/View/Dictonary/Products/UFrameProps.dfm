@@ -5,10 +5,10 @@ object frameProps: TframeProps
   Height = 644
   TabOrder = 0
   object gridProps: TcxGrid
-    Left = 8
-    Top = 41
+    Left = 1
+    Top = 45
     Width = 751
-    Height = 489
+    Height = 482
     TabOrder = 0
     object viewProps: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
@@ -18,7 +18,11 @@ object frameProps: TframeProps
       DataController.Summary.SummaryGroups = <>
       EditForm.MasterRowDblClickAction = dcaShowEditForm
       EditForm.UseDefaultLayout = False
+      OptionsBehavior.FocusCellOnTab = True
+      OptionsBehavior.FocusFirstCellOnNewRecord = True
       OptionsBehavior.EditMode = emInplaceEditFormHideCurrentRow
+      OptionsBehavior.FocusCellOnCycle = True
+      OptionsView.GroupByBox = False
       object columnName: TcxGridDBColumn
         Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
@@ -41,6 +45,7 @@ object frameProps: TframeProps
         DataBinding.FieldName = 'chk'
         PropertiesClassName = 'TcxCheckBoxProperties'
         Properties.ValueChecked = '1'
+        Properties.ValueGrayed = 0
         Properties.ValueUnchecked = '0'
         LayoutItem = viewPropsLayoutItem3.Owner
       end
@@ -75,44 +80,46 @@ object frameProps: TframeProps
       GridView = viewProps
     end
   end
-  object btnAdd: TButton
-    Left = 8
-    Top = 9
-    Width = 75
-    Height = 25
-    Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+  object nav1: TcxDBNavigator
+    Left = -1
+    Top = 5
+    Width = 150
+    Height = 32
+    Buttons.CustomButtons = <
+      item
+        ImageIndex = 10
+      end>
+    Buttons.Images = frmMain.imgMidle
+    Buttons.First.Visible = False
+    Buttons.PriorPage.Visible = False
+    Buttons.Prior.Visible = False
+    Buttons.Next.Visible = False
+    Buttons.NextPage.Visible = False
+    Buttons.Last.Visible = False
+    Buttons.Insert.ImageIndex = 3
+    Buttons.Append.Visible = False
+    Buttons.Delete.ImageIndex = 5
+    Buttons.Edit.ImageIndex = 4
+    Buttons.Post.Visible = False
+    Buttons.Cancel.Visible = False
+    Buttons.Refresh.ImageIndex = 6
+    Buttons.SaveBookmark.Visible = False
+    Buttons.GotoBookmark.Visible = False
+    Buttons.Filter.Visible = False
+    DataSource = dsProps
     TabOrder = 1
-    OnClick = btnAddClick
-  end
-  object btnEdit: TButton
-    Left = 89
-    Top = 9
-    Width = 88
-    Height = 25
-    Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
-    TabOrder = 2
-    OnClick = btnEditClick
-  end
-  object btnDel: TButton
-    Left = 183
-    Top = 9
-    Width = 88
-    Height = 25
-    Caption = #1059#1076#1072#1083#1080#1090#1100
-    TabOrder = 3
-    OnClick = btnDelClick
   end
   object dsProps: TUniDataSource
     DataSet = queryProps
-    Left = 93
-    Top = 540
+    Left = 150
+    Top = 433
   end
   object queryProps: TUniQuery
     SQLInsert.Strings = (
-      'INSERT INTO view_prop_test'
-      '  (id, name, p_name, product_id, chk)'
+      'INSERT INTO "Props"'
+      '  (name, product_id, chk)'
       'VALUES'
-      '  (:id, :name, :p_name, :product_id, :chk)')
+      '  (:name, :product_id, :chk)')
     SQLDelete.Strings = (
       'DELETE FROM view_prop_test'
       'WHERE'
@@ -141,8 +148,8 @@ object frameProps: TframeProps
     SQL.Strings = (
       'select * from'
       'view_prop_test')
-    Left = 171
-    Top = 537
+    Left = 207
+    Top = 428
   end
   object queryProd: TUniQuery
     SQLUpdate.Strings = (
