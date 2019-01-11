@@ -155,8 +155,16 @@ object frameProps: TframeProps
       ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
-      'SELECT '
-      ' * from view_prop_test')
+      'select * from'
+      '('
+      ' SELECT pr.id,'
+      '         pr.name,'
+      '         p.name AS p_name,'
+      '         p.id AS product_id,'
+      '         pr.chk'
+      '  FROM prod_poduct p'
+      '       JOIN "Props" pr ON p.id = pr.product_id'
+      ') as qq')
     Left = 171
     Top = 537
   end
