@@ -81,8 +81,8 @@ object frameProps: TframeProps
     end
   end
   object nav1: TcxDBNavigator
-    Left = -1
-    Top = 5
+    Left = -2
+    Top = 6
     Width = 150
     Height = 32
     Buttons.CustomButtons = <
