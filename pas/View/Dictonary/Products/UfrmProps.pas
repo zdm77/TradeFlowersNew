@@ -4,11 +4,12 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UFrameProps;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UFrameProps, UFrameTopPanelMain;
 
 type
   TfrmProps = class(TForm)
     frameProps1: TframeProps;
+    frameTopPanelMain1: TframeTopPanelMain;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
   private

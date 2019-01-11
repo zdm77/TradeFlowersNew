@@ -20,7 +20,9 @@ type
     btnEdit: TButton;
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
+    btnDel: TButton;
     procedure btnAddClick(Sender: TObject);
+    procedure btnDelClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
   private
     prop: TProps;
@@ -43,14 +45,19 @@ begin
   InsEdit(true);
 end;
 
+procedure TframeProps.btnDelClick(Sender: TObject);
+begin
+  prop.DeleteE;
+end;
+
 procedure TframeProps.btnEditClick(Sender: TObject);
 begin
-  InsEdit(False);
+  InsEdit(false);
 end;
 
 procedure TframeProps.Init;
 begin
-  prop := TProps.Create;
+  prop := TProps.Create(queryProps);
   ShowProps;
 end;
 
@@ -63,7 +70,7 @@ end;
 
 procedure TframeProps.ShowProps;
 begin
-  prop.GetSelectSQL(queryProps);
+  prop.GetSelectSQL();
 end;
 
 end.

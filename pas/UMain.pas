@@ -11,7 +11,7 @@ uses
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
-  Vcl.Menus;
+  Vcl.Menus, Vcl.ImgList;
 
 type
   TProduct = class
@@ -31,6 +31,9 @@ type
     N2: TMenuItem;
     tabMain: TdxTabbedMDIManager;
     N3: TMenuItem;
+    imgMidle: TcxImageList;
+    imgSmall: TcxImageList;
+    imgLarge: TcxImageList;
     procedure btn1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N2Click(Sender: TObject);

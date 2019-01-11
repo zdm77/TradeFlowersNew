@@ -15,7 +15,8 @@ uses
   UPropController in '..\pas\Controller\UPropController.pas',
   UfrmProps in '..\pas\View\Dictonary\Products\UfrmProps.pas' {frmProps},
   UFrameProps in '..\pas\View\Dictonary\Products\UFrameProps.pas' {frameProps: TFrame},
-  UfrmPropEdit in '..\pas\View\Dictonary\Products\UfrmPropEdit.pas' {frmPropEditDict};
+  UfrmPropEdit in '..\pas\View\Dictonary\Products\UfrmPropEdit.pas' {frmPropEditDict},
+  UFrameTopPanelMain in '..\pas\UFrameTopPanelMain.pas' {frameTopPanelMain: TFrame};
 
 {$R *.res}
 
@@ -24,7 +25,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
-  Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
+  // Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
   // Application.CreateForm(TfrmProps, frmProps);
   //  Application.CreateForm(TfrmProductEdit, frmProductEdit);
 //  Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);

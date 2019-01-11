@@ -16,6 +16,7 @@ object frameProps: TframeProps
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.EditMode = emInplaceEditForm
       object columnName: TcxGridDBColumn
         Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
@@ -43,6 +44,15 @@ object frameProps: TframeProps
     Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
     TabOrder = 2
     OnClick = btnEditClick
+  end
+  object btnDel: TButton
+    Left = 183
+    Top = 9
+    Width = 88
+    Height = 25
+    Caption = #1059#1076#1072#1083#1080#1090#1100
+    TabOrder = 3
+    OnClick = btnDelClick
   end
   object dsProps: TUniDataSource
     DataSet = queryProps

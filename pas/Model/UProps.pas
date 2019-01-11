@@ -8,28 +8,45 @@ uses
 type
   TProps = class(TObject)
   private
+    QueryProp: TUniQuery;
     FName: string;
     procedure SetName(const Value: string);
   public
-    procedure GetSelectSQL(query: TUniQuery);
+    procedure DeleteE();
+    procedure GetSelectSQL();
     property Name: string read FName write SetName;
+
+    constructor Create(query: TUniQuery); overload;
   end;
 
 implementation
 
-procedure TProps.GetSelectSQL(query: TUniQuery);
+uses UFuncAndProc;
+
+constructor TProps.Create(query: TUniQuery);
+begin
+
+  QueryProp := query;
+end;
+
+procedure TProps.DeleteE();
+begin
+  UFuncAndProc.standartDelete(QueryProp);
+end;
+
+procedure TProps.GetSelectSQL();
 var
   SQL: TStringBuilder;
 begin
   SQL := TStringBuilder.Create;
-  query.Close;
+  QueryProp.Close;
   SQL.Append(' SELECT');
   SQL.Append(' id,');
   SQL.Append(' name');
   SQL.Append(' FROM');
   SQL.Append(' "Props" ;');
-  query.SQL.Text := SQL.ToString;
-  query.Open;
+  QueryProp.SQL.Text := SQL.ToString;
+  QueryProp.Open;
 end;
 
 procedure TProps.SetName(const Value: string);
