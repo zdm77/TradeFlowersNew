@@ -40,11 +40,18 @@ var
 begin
   SQL := TStringBuilder.Create;
   QueryProp.Close;
-  SQL.Append(' SELECT');
-  SQL.Append(' id,');
-  SQL.Append(' name');
-  SQL.Append(' FROM');
-  SQL.Append(' "Props" ;');
+//  SQL.Append(' SELECT');
+//  SQL.Append(' id,');
+//  SQL.Append(' name');
+//  SQL.Append(' FROM');
+//  SQL.Append(' "Props" ;');
+ SQL.Append(' SELECT');
+    SQL.Append(' pr.name,');
+    SQL.Append(' pr.id,');
+    SQL.Append(' p.name');
+    SQL.Append(' FROM');
+    SQL.Append(' public.prod_poduct p');
+    SQL.Append(' INNER JOIN public."Props" pr ON (p.id = pr.product_id)');
   QueryProp.SQL.Text := SQL.ToString;
   QueryProp.Open;
 end;

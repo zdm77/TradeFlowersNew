@@ -8,7 +8,9 @@ uses
   cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
   cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, MemDS,
   DBAccess, Uni, Vcl.StdCtrls, cxGridLevel, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, UProps;
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, UProps,
+  cxDBLookupComboBox, dxLayoutContainer, cxGridInplaceEditForm, cxLabel,
+  cxCheckBox;
 
 type
   TframeProps = class(TFrame)
@@ -21,8 +23,14 @@ type
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
     btnDel: TButton;
+    edtName: TEdit;
+    edtqqq: TEdit;
+    columnProd: TcxGridDBColumn;
+    queryProd: TUniQuery;
+    dsProd: TUniDataSource;
+    columnPropsColumn1: TcxGridDBColumn;
     procedure btnAddClick(Sender: TObject);
-    procedure btnDelClick(Sender: TObject);
+    procedure btnDelClick(Sender: TObject); pascal;
     procedure btnEditClick(Sender: TObject);
   private
     prop: TProps;
@@ -46,8 +54,17 @@ begin
 end;
 
 procedure TframeProps.btnDelClick(Sender: TObject);
+var i:Integer;
 begin
-  prop.DeleteE;
+//  prop.DeleteE;
+for I := 0 to ComponentCount-1 do
+ begin
+   if (Components[i] is TEdit) then
+   begin
+      ShowMessage((Components[i] as TEdit).Name);
+   end;
+
+ end;
 end;
 
 procedure TframeProps.btnEditClick(Sender: TObject);
@@ -70,7 +87,12 @@ end;
 
 procedure TframeProps.ShowProps;
 begin
-  prop.GetSelectSQL();
+//  prop.GetSelectSQL();
+queryProps.Close;
+queryProps.Open;
+queryProd.Close;
+queryProd.Open;
+
 end;
 
 end.

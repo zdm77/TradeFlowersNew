@@ -30,15 +30,51 @@ object frmPropEditDict: TfrmPropEditDict
     Width = 465
   end
   object btnSave: TButton
-    Left = 24
-    Top = 120
+    Left = 19
+    Top = 167
     Width = 75
     Height = 25
     Caption = 'btnSave'
     TabOrder = 1
     OnClick = btnSaveClick
   end
+  object cbbProd: TcxDBLookupComboBox
+    Left = 36
+    Top = 117
+    Properties.ListColumns = <>
+    TabOrder = 2
+    Width = 259
+  end
   object queryProps: TUniQuery
+    SQLInsert.Strings = (
+      'INSERT INTO public."Props"'
+      '  (name)'
+      'VALUES'
+      '  (:name)')
+    SQLDelete.Strings = (
+      'DELETE FROM public."Props"'
+      'WHERE'
+      '  id = :Old_id')
+    SQLUpdate.Strings = (
+      'UPDATE public."Props"'
+      'SET'
+      '  name = :name'
+      'WHERE'
+      '  id = :Old_id')
+    SQLLock.Strings = (
+      'SELECT * FROM public."Props"'
+      'WHERE'
+      '  id = :Old_id'
+      'FOR UPDATE NOWAIT')
+    SQLRefresh.Strings = (
+      'SELECT name FROM public."Props"'
+      'WHERE'
+      '  id = :id')
+    SQLRecCount.Strings = (
+      'SELECT count(*) FROM ('
+      'SELECT * FROM public."Props"'
+      ''
+      ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
       'SELECT '
@@ -66,5 +102,21 @@ object frmPropEditDict: TfrmPropEditDict
     DataSet = queryProps
     Left = 312
     Top = 217
+  end
+  object queryProd: TUniQuery
+    SQLUpdate.Strings = (
+      'update "Props" set product_id=:id')
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'SELECT '
+      'id as product_id, name as p_name from prod_poduct')
+    Active = True
+    Left = 130
+    Top = 289
+  end
+  object dsProd: TUniDataSource
+    DataSet = queryProd
+    Left = 209
+    Top = 289
   end
 end
