@@ -102,22 +102,6 @@ object frameProps: TframeProps
     TabOrder = 3
     OnClick = btnDelClick
   end
-  object edtName: TEdit
-    Left = 403
-    Top = 252
-    Width = 121
-    Height = 21
-    TabOrder = 4
-    Text = 'edtName'
-  end
-  object edtqqq: TEdit
-    Left = 408
-    Top = 298
-    Width = 121
-    Height = 21
-    TabOrder = 5
-    Text = 'edtqqq'
-  end
   object dsProps: TUniDataSource
     DataSet = queryProps
     Left = 93
@@ -156,15 +140,7 @@ object frameProps: TframeProps
     Connection = DMMain.conMain
     SQL.Strings = (
       'select * from'
-      '('
-      ' SELECT pr.id,'
-      '         pr.name,'
-      '         p.name AS p_name,'
-      '         p.id AS product_id,'
-      '         pr.chk'
-      '  FROM prod_poduct p'
-      '       JOIN "Props" pr ON p.id = pr.product_id'
-      ') as qq')
+      'view_prop_test')
     Left = 171
     Top = 537
   end

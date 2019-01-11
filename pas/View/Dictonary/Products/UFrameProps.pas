@@ -23,8 +23,6 @@ type
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
     btnDel: TButton;
-    edtName: TEdit;
-    edtqqq: TEdit;
     columnProd: TcxGridDBColumn;
     queryProd: TUniQuery;
     dsProd: TUniDataSource;
@@ -54,17 +52,17 @@ begin
 end;
 
 procedure TframeProps.btnDelClick(Sender: TObject);
-var i:Integer;
+var
+  i: Integer;
 begin
-//  prop.DeleteE;
-for I := 0 to ComponentCount-1 do
- begin
-   if (Components[i] is TEdit) then
-   begin
+  // prop.DeleteE;
+  for i := 0 to ComponentCount - 1 do
+  begin
+    if (Components[i] is TEdit) then
+    begin
       ShowMessage((Components[i] as TEdit).Name);
-   end;
-
- end;
+    end;
+  end;
 end;
 
 procedure TframeProps.btnEditClick(Sender: TObject);
@@ -87,12 +85,11 @@ end;
 
 procedure TframeProps.ShowProps;
 begin
-//  prop.GetSelectSQL();
-queryProps.Close;
-queryProps.Open;
-queryProd.Close;
-queryProd.Open;
-
+  // prop.GetSelectSQL();
+  queryProps.Close;
+  queryProps.Open;
+  queryProd.Close;
+  queryProd.Open;
 end;
 
 end.
