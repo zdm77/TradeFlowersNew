@@ -11,16 +11,20 @@ type
     FId: Integer;
     FlistProp: TList;
     FName: string;
+    FParentId: Integer;
     function GetdsCategory: TUniDataSource;
     procedure SetId(const Value: Integer);
     procedure SetlistProp(const Value: TList);
     procedure SetName(const Value: string);
+    procedure SetParentId(const Value: Integer);
   public
     property dsCategory: TUniDataSource read GetdsCategory;
     property Id: Integer read FId write SetId;
     property listProp: TList read FlistProp write SetlistProp;
     property Name: string read FName write SetName;
-    procedure GetSelectSQL(query: TUniQuery);
+    property ParentId: Integer read FParentId write SetParentId;
+    procedure GetCategories(query: TUniQuery);
+    procedure SetCategory(query: TUniQuery);
   end;
 
 implementation
@@ -48,7 +52,7 @@ begin
   Result := dsCategory;
 end;
 
-procedure TCategory.GetSelectSQL(query: TUniQuery);
+procedure TCategory.GetCategories(query: TUniQuery);
 var
   SQL: TStringBuilder;
 begin
@@ -62,7 +66,18 @@ begin
   SQL.Append(' dictonary.category ;');
   query.SQL.Text := SQL.ToString;
   query.Open;
+  SetCategory(query);
   // Result := SQL.ToString;
+end;
+
+procedure TCategory.SetCategory(query: TUniQuery);
+begin
+ if query.RecordCount>0 then
+ begin
+  SetId(query.FieldByName('id').Value);
+  SetParentId(query.FieldByName('pid').Value);
+  SetName(query.FieldByName('name').Value);
+ end;
 end;
 
 procedure TCategory.SetId(const Value: Integer);
@@ -78,6 +93,11 @@ end;
 procedure TCategory.SetName(const Value: string);
 begin
   FName := Value;
+end;
+
+procedure TCategory.SetParentId(const Value: Integer);
+begin
+  FParentId := Value;
 end;
 
 end.

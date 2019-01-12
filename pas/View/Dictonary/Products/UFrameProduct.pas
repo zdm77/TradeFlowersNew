@@ -10,7 +10,7 @@ uses
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid, MemDS, DBAccess, Uni, cxCustomData,
   cxFilter, cxData, UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu,
-  cxInplaceContainer, cxDBTL, cxTLData;
+  cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator;
 
 type
   TframeProduct = class(TFrame)
@@ -28,12 +28,18 @@ type
     btnProdEdit: TButton;
     lstCategory: TcxDBTreeList;
     columnNameC: TcxDBTreeListColumn;
+    navCategory: TcxDBNavigator;
     procedure btnCategoryAddClick(Sender: TObject);
     procedure btnCategoryEditClick(Sender: TObject);
+    procedure lstCategoryClick(Sender: TObject);
+    procedure navCategoryButtonsButtonClick(Sender: TObject;
+      AButtonIndex: Integer; var ADone: Boolean);
   private
+    product: TProduct;
     category: TCategory;
     procedure CategoryInsEdt(isNew: Boolean);
     procedure ShowCategory;
+    procedure ShowProduct;
     { Private declarations }
   public
     procedure Init;
@@ -66,12 +72,41 @@ end;
 procedure TframeProduct.Init;
 begin
   category := TCategory.Create;
+  product := TProduct.Create;
   ShowCategory;
+  ShowProduct;
+end;
+
+procedure TframeProduct.lstCategoryClick(Sender: TObject);
+begin
+  if category.Id <> queryCategoty.FieldByName('id').AsInteger then
+  begin
+    category.SetCategory(queryCategoty);
+    ShowProduct;
+  end;
+end;
+
+
+
+procedure TframeProduct.navCategoryButtonsButtonClick(Sender: TObject;
+  AButtonIndex: Integer; var ADone: Boolean);
+begin
+case AButtonIndex of
+//добавить
+  16:  CategoryInsEdt(true);
+  //редактировать
+  17:  CategoryInsEdt(false);
+end;
 end;
 
 procedure TframeProduct.ShowCategory;
 begin
-  category.GetSelectSQL(queryCategoty);
+  category.GetCategories(queryCategoty);
+end;
+
+procedure TframeProduct.ShowProduct;
+begin
+  product.GetProducts(queryProduct, category.Id);
 end;
 
 end.

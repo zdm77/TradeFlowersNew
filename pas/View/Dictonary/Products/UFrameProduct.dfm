@@ -23,13 +23,14 @@ object frameProduct: TframeProduct
     OnClick = btnCategoryEditClick
   end
   object gridProduct: TcxGrid
-    Left = 416
-    Top = 40
+    Left = 417
+    Top = 41
     Width = 427
     Height = 361
     TabOrder = 2
     object viewProduct: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
+      DataController.DataSource = dsProduct
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -60,8 +61,8 @@ object frameProduct: TframeProduct
     TabOrder = 4
   end
   object lstCategory: TcxDBTreeList
-    Left = 15
-    Top = 56
+    Left = 12
+    Top = 94
     Width = 289
     Height = 349
     Bands = <
@@ -71,8 +72,11 @@ object frameProduct: TframeProduct
     DataController.ParentField = 'pid'
     DataController.KeyField = 'id'
     Navigator.Buttons.CustomButtons = <>
+    OptionsData.Editing = False
+    OptionsData.Deleting = False
     RootValue = -1
     TabOrder = 5
+    OnClick = lstCategoryClick
     object columnNameC: TcxDBTreeListColumn
       DataBinding.FieldName = 'name'
       Width = 255
@@ -82,6 +86,49 @@ object frameProduct: TframeProduct
       Summary.FooterSummaryItems = <>
       Summary.GroupFooterSummaryItems = <>
     end
+  end
+  object navCategory: TcxDBNavigator
+    Left = 14
+    Top = 52
+    Width = 120
+    Height = 32
+    Buttons.OnButtonClick = navCategoryButtonsButtonClick
+    Buttons.CustomButtons = <
+      item
+        ImageIndex = 3
+      end
+      item
+        ImageIndex = 4
+      end
+      item
+        ImageIndex = 5
+      end
+      item
+        ImageIndex = 6
+      end>
+    Buttons.Images = frmMain.imgMidle
+    Buttons.First.Visible = False
+    Buttons.PriorPage.Visible = False
+    Buttons.Prior.Visible = False
+    Buttons.Next.Visible = False
+    Buttons.NextPage.Visible = False
+    Buttons.Last.Visible = False
+    Buttons.Insert.ImageIndex = 3
+    Buttons.Insert.Visible = False
+    Buttons.Append.Visible = False
+    Buttons.Delete.ImageIndex = 5
+    Buttons.Delete.Visible = False
+    Buttons.Edit.ImageIndex = 4
+    Buttons.Edit.Visible = False
+    Buttons.Post.Visible = False
+    Buttons.Cancel.Visible = False
+    Buttons.Refresh.ImageIndex = 6
+    Buttons.Refresh.Visible = False
+    Buttons.SaveBookmark.Visible = False
+    Buttons.GotoBookmark.Visible = False
+    Buttons.Filter.Visible = False
+    DataSource = dsCategory
+    TabOrder = 6
   end
   object dsCategory: TUniDataSource
     DataSet = queryCategoty

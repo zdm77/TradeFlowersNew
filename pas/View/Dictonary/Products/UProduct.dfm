@@ -24,7 +24,7 @@ object frmProduct: TfrmProduct
     Height = 504
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = -228
-    ExplicitTop = -34
+    ExplicitLeft = -42
+    ExplicitTop = -35
   end
 end

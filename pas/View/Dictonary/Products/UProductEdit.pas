@@ -102,7 +102,7 @@ begin
     SQL.Add(' select cp.id, p.name');
     SQL.Add(' from category_props cp');
     SQL.Add(' inner join properties p on p.id = cp."propId"');
-    SQL.Add(' where "categoryId" = ' + _senderQuery.FieldByName('product_category_id').AsString + ' and');
+    SQL.Add(' where "categoryId" = ' + _senderQuery.FieldByName('category_id').AsString + ' and');
     SQL.Add(' cp.id not in (');
     SQL.Add(' select "category_propsId"');
     SQL.Add(' from prod_prop pp');

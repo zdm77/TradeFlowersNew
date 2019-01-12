@@ -46,10 +46,6 @@ object frameProps: TframeProps
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 1
-    ExplicitLeft = 107
-    ExplicitTop = 148
-    ExplicitWidth = 185
-    ExplicitHeight = 105
     Height = 606
     Width = 803
     object gridProps: TcxGrid
@@ -59,10 +55,6 @@ object frameProps: TframeProps
       Height = 602
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 0
-      ExplicitTop = 421
-      ExplicitWidth = 803
-      ExplicitHeight = 185
       object viewProps: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps
