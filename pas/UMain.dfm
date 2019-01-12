@@ -3833,8 +3833,6 @@ object frmMain: TfrmMain
       end>
   end
   object cxLocalizer1: TcxLocalizer
-    Active = True
-    FileName = '..\ini\LanguagesUnicode.ini'
     Left = 132
     Top = 420
   end

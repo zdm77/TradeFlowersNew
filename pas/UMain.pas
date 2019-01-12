@@ -11,7 +11,7 @@ uses
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
-  Vcl.Menus, Vcl.ImgList, cxLocalization;
+  Vcl.Menus, Vcl.ImgList, cxLocalization, MemTableDataEh, MemTableEh;
 
 type
   TProduct = class

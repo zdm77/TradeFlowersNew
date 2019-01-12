@@ -41,7 +41,7 @@ begin
     SQL.Add(' name,');
     SQL.Add(' pid');
     SQL.Add(' FROM');
-    SQL.Add(' public.category ;');
+    SQL.Add(' dictonary.category ;');
     Open;
   end;
   dsCategory.DataSet := query;
@@ -59,7 +59,7 @@ begin
   SQL.Append(' name,');
   SQL.Append(' pid');
   SQL.Append(' FROM');
-  SQL.Append(' public.category ;');
+  SQL.Append(' dictonary.category ;');
   query.SQL.Text := SQL.ToString;
   query.Open;
   // Result := SQL.ToString;

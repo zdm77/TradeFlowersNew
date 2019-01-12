@@ -9,16 +9,13 @@ uses
   cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, Vcl.StdCtrls,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid, MemDS, DBAccess, Uni, cxCustomData,
-  cxFilter, cxData, UCategory;
+  cxFilter, cxData, UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu,
+  cxInplaceContainer, cxDBTL, cxTLData;
 
 type
   TframeProduct = class(TFrame)
     dsCategory: TUniDataSource;
     queryCategoty: TUniQuery;
-    gridCategory: TcxGrid;
-    viewCategory: TcxGridDBTableView;
-    columnName: TcxGridDBColumn;
-    levelGrid1Level1: TcxGridLevel;
     btnCategoryAdd: TButton;
     btnCategoryEdit: TButton;
     gridProduct: TcxGrid;
@@ -29,6 +26,8 @@ type
     queryProduct: TUniQuery;
     btnProdAdd: TButton;
     btnProdEdit: TButton;
+    lstCategory: TcxDBTreeList;
+    columnNameC: TcxDBTreeListColumn;
     procedure btnCategoryAddClick(Sender: TObject);
     procedure btnCategoryEditClick(Sender: TObject);
   private
