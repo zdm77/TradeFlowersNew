@@ -27,7 +27,6 @@ object frmCategoryEdit: TfrmCategoryEdit
     Width = 26
     Height = 13
     Caption = 'name'
-    FocusControl = edtParentName
   end
   object edtname: TcxDBTextEdit
     Left = 40
@@ -127,21 +126,12 @@ object frmCategoryEdit: TfrmCategoryEdit
     Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1085#1072#1079#1074#1072#1085#1080#1103
     TabOrder = 7
   end
-  object edtParentName: TcxDBTextEdit
-    Left = 39
-    Top = 35
-    DataBinding.DataField = 'name'
-    DataBinding.DataSource = dsMain
+  object edtParentName: TcxTextEdit
+    Left = 74
+    Top = 31
+    Enabled = False
     TabOrder = 8
-    Width = 465
-  end
-  object edt1: TEdit
-    Left = 532
-    Top = 357
-    Width = 171
-    Height = 21
-    TabOrder = 9
-    Text = 'edt1'
+    Width = 284
   end
   object dsMain: TUniDataSource
     DataSet = queryCategory
@@ -149,11 +139,40 @@ object frmCategoryEdit: TfrmCategoryEdit
     Top = 68
   end
   object queryCategory: TUniQuery
+    SQLInsert.Strings = (
+      'INSERT INTO dictonary.category'
+      '  ( name, pid)'
+      'VALUES'
+      '  ( :name, :pid)')
+    SQLDelete.Strings = (
+      'DELETE FROM dictonary.category'
+      'WHERE'
+      '  id = :Old_id')
+    SQLUpdate.Strings = (
+      'UPDATE dictonary.category'
+      'SET'
+      '  id = :id, name = :name, pid = :pid'
+      'WHERE'
+      '  id = :Old_id')
+    SQLLock.Strings = (
+      'SELECT * FROM dictonary.category'
+      'WHERE'
+      '  id = :Old_id'
+      'FOR UPDATE NOWAIT')
+    SQLRefresh.Strings = (
+      'SELECT id, name, pid FROM dictonary.category'
+      'WHERE'
+      '  id = :id')
+    SQLRecCount.Strings = (
+      'SELECT count(*) FROM ('
+      'SELECT * FROM dictonary.category'
+      ''
+      ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from category where id=1')
-    Left = 574
-    Top = 66
+      'select * from dictonary.category')
+    Left = 613
+    Top = 330
     object fieldMainid: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'id'
@@ -161,6 +180,9 @@ object frmCategoryEdit: TfrmCategoryEdit
     object fieldMainname: TStringField
       FieldName = 'name'
       Size = 255
+    end
+    object queryCategorypid: TIntegerField
+      FieldName = 'pid'
     end
   end
   object dsProps: TUniDataSource
@@ -192,5 +214,17 @@ object frmCategoryEdit: TfrmCategoryEdit
         Name = 'id'
         Value = nil
       end>
+  end
+  object bind1: TBindSourceDB
+    DataSet = queryCategory
+    ScopeMappings = <>
+    Left = 368
+    Top = 259
+  end
+  object bindList1: TBindingsList
+    Methods = <>
+    OutputConverters = <>
+    Left = 20
+    Top = 5
   end
 end

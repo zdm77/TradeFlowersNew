@@ -10,7 +10,8 @@ uses
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls, cxTextEdit, cxDBEdit, MemDS,
   DBAccess, Uni, cxButtonEdit, cxCheckBox, cxCalc, cxCustomData, cxFilter,
-  cxData, UCategory;
+  cxData, UCategory, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
+  Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope;
 
 type
   TfrmCategoryEdit = class(TForm)
@@ -34,9 +35,11 @@ type
     btnPropAdd: TButton;
     btnPropEdit: TButton;
     btnFormat: TButton;
-    edtParentName: TcxDBTextEdit;
     lbl2: TLabel;
-    edt1: TEdit;
+    bind1: TBindSourceDB;
+    bindList1: TBindingsList;
+    edtParentName: TcxTextEdit;
+    queryCategorypid: TIntegerField;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
     procedure btnPropAddClick(Sender: TObject);
@@ -46,12 +49,13 @@ type
     FEnableDawn: Boolean;
     FEnableUp: Boolean;
     _senderQuery: TUniQuery;
+    _category: TCategory;
     procedure SetEnableDawn(const Value: Boolean);
     procedure SetEnableUp(const Value: Boolean);
     procedure UpDawnProp(up: Boolean);
     { Private declarations }
   public
-    procedure setParam(category: TCategory; isNew: Boolean);
+    procedure init(category: TCategory; isNew: Boolean; senderQuery: TUniQuery);
     property EnableDawn: Boolean read FEnableDawn write SetEnableDawn;
     property EnableUp: Boolean read FEnableUp write SetEnableUp;
     // property EnableDawn: Boolean read FEnableDawn write SetEnableDawn;
@@ -105,10 +109,11 @@ end;
 
 procedure TfrmCategoryEdit.btnSaveClick(Sender: TObject);
 begin
+  queryCategorypid.Value := _category.ParentId;
   queryCategory.Post;
- // _senderQuery.Refresh;
+  _senderQuery.Refresh;
   // ShowMessage(queryCategory.FieldByName('id').AsString);
-  _senderQuery.Locate('id', queryCategory.FieldByName('id').AsInteger, []);
+  _senderQuery.Locate('id', _category.id, []);
   // Close;
 end;
 
@@ -197,25 +202,32 @@ begin
   end;
 end;
 
-procedure TfrmCategoryEdit.setParam(category: TCategory; isNew: Boolean);
+procedure TfrmCategoryEdit.init(category: TCategory; isNew: Boolean; senderQuery: TUniQuery);
 begin
-  //_senderQuery := senderQuery;
+  _senderQuery := senderQuery;
+  _category := category;
+  _category.assignCategoryById(category.id, queryCategory);
+  with queryCategory do
   begin
-    with queryCategory do
+    // Close;
+    // SQL.Text := 'select * from dictonary.category where id=' + IntToStr(category.id);
+    // Open;
+    if isNew = True then
     begin
-      Close;
-      SQL.Text := 'select * from dictonary.category where id=' + IntToStr(category.Id);
-      Open;
-      if isNew = True then
-        Insert
-      else
-        Update;
+      Insert;
+      edtParentName.Text := _category.Name;
+      _category.ParentId := category.id;
+    end
+    else
+    begin
+      edtParentName.Text := _category.GetParent(category.ParentId).Name;
+      Update;
     end;
   end;
   with queryProps do
   begin
     Close;
-    ParamByName('id').Value := IntToStr(category.Id);
+    ParamByName('id').Value := IntToStr(category.id);
     Open;
   end;
 end;

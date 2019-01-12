@@ -13,6 +13,7 @@ uses
   cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator;
 
 type
+
   TframeProduct = class(TFrame)
     dsCategory: TUniDataSource;
     queryCategoty: TUniQuery;
@@ -68,7 +69,7 @@ end;
 procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
 begin
   Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
-  frmCategoryEdit.setParam(category, isNew);
+  frmCategoryEdit.init(category, isNew, queryCategoty);
   frmCategoryEdit.Show;
 end;
 
@@ -114,7 +115,6 @@ end;
 
 procedure TframeProduct.ShowProduct;
 begin
-
   product.GetProducts(queryProduct, category.Id);
 end;
 

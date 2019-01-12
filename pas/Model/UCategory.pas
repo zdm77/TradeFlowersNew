@@ -27,6 +27,8 @@ type
     property Name: string read FName write SetName;
     property ParentId: Integer read FParentId write SetParentId;
     procedure GetCategories(query: TUniQuery);
+    procedure assignCategoryById(_id: Integer; query: TUniQuery);
+    function GetParent(_pid: Integer): TCategory;
     procedure SetCategory(query: TUniQuery);
   end;
 
@@ -73,14 +75,65 @@ begin
   // Result := SQL.ToString;
 end;
 
+procedure TCategory.assignCategoryById(_id: Integer; query: TUniQuery);
+var
+  SQL: TStringBuilder;
+begin
+  SQL := TStringBuilder.Create;
+  SQL.Clear;
+  SQL.Append(' SELECT');
+  SQL.Append(' id,');
+  SQL.Append(' name,');
+  SQL.Append(' pid');
+  SQL.Append(' FROM');
+  SQL.Append(' dictonary.category');
+  SQL.Append(' where ');
+  SQL.Append(' id= ');
+  SQL.Append(IntToStr(_id));
+  query.Close;
+  query.SQL.Text := SQL.ToString;
+  query.Open;
+end;
+
+function TCategory.GetParent(_pid: Integer): TCategory;
+var
+  query: TUniQuery;
+  category_out: TCategory;
+  SQL: TStringBuilder;
+begin
+  query := TUniQuery.Create(nil);
+  query.Connection := DMMain.conMain;
+  SQL := TStringBuilder.Create;
+  SQL.Clear;
+  SQL.Append(' SELECT');
+  SQL.Append(' id,');
+  SQL.Append(' name,');
+  SQL.Append(' pid');
+  SQL.Append(' FROM');
+  SQL.Append(' dictonary.category');
+  SQL.Append(' where ');
+  SQL.Append(' id= ');
+  SQL.Append(IntToStr(_pid));
+  query.Close;
+  query.SQL.Text := SQL.ToString;
+  query.Open;
+  if query.RecordCount > 0 then
+  begin
+    category_out := TCategory.Create;
+    category_out.SetCategory(query);
+    Result := category_out;
+  end;
+  // TODO -cMM: TCategory.GetParent default body inserted
+end;
+
 procedure TCategory.SetCategory(query: TUniQuery);
 begin
- if query.RecordCount>0 then
- begin
-  SetId(query.FieldByName('id').Value);
-  SetParentId(query.FieldByName('pid').Value);
-  SetName(query.FieldByName('name').Value);
- end;
+  if query.RecordCount > 0 then
+  begin
+    SetId(query.FieldByName('id').Value);
+    SetParentId(query.FieldByName('pid').Value);
+    SetName(query.FieldByName('name').Value);
+  end;
 end;
 
 procedure TCategory.SetId(const Value: Integer);
