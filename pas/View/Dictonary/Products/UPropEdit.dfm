@@ -47,7 +47,6 @@ object frmPropEdit: TfrmPropEdit
     Top = 65
   end
   object queryProp: TUniQuery
-    Connection = frmMain.conMain
     Left = 224
     Top = 57
   end

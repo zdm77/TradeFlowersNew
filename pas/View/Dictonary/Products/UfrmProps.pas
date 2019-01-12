@@ -8,7 +8,6 @@ uses
 
 type
   TfrmProps = class(TForm)
-    frameTopPanelMain1: TframeTopPanelMain;
     frameProps1: TframeProps;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);

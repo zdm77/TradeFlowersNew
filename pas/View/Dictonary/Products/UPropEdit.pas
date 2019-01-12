@@ -38,7 +38,7 @@ begin
     with queryProp do
     begin
       Close;
-      sql.Text := 'select * from "Props" ';
+      sql.Text := 'select * from properties ';
       if (senderQuery.RecordCount > 0) then
       begin
         sql.Add(' where id not in (select prop_id from category_props where category_id=' +

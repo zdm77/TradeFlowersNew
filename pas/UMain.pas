@@ -11,7 +11,7 @@ uses
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
-  Vcl.Menus, Vcl.ImgList;
+  Vcl.Menus, Vcl.ImgList, cxLocalization;
 
 type
   TProduct = class
@@ -34,6 +34,7 @@ type
     imgMidle: TcxImageList;
     imgSmall: TcxImageList;
     imgLarge: TcxImageList;
+    cxLocalizer1: TcxLocalizer;
     procedure btn1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N2Click(Sender: TObject);
@@ -58,20 +59,22 @@ procedure TfrmMain.btn1Click(Sender: TObject);
 var
   product: TProduct;
   i: Integer;
- //s:TStringBuilder;
+  // s:TStringBuilder;
 begin
   product := TProduct.Create;
   product.Name := 'Иван';
   listProduct := TList<TProduct>.Create;
   listProduct.Add(product);
   listProduct.Add(product);
-
   // for  I := 0 to listProduct.Count-1 do
   // OutputDebugString(PChar(product.Name));
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
+  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) + '\..\INI\LanguagesUnicode.ini');
+  cxLocalizer1.Active := true;
+  cxLocalizer1.Locale := 1049;
   // with queryMain do
   // begin
   // Close;
@@ -95,11 +98,9 @@ end;
 
 procedure TfrmMain.N3Click(Sender: TObject);
 begin
- if frmProps = nil then
+  if frmProps = nil then
     Application.CreateForm(TfrmProps, frmProps);
-
   frmProps.Show;
-
 end;
 
 end.

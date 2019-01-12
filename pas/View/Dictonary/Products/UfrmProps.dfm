@@ -17,62 +17,47 @@ object frmProps: TfrmProps
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  inline frameTopPanelMain1: TframeTopPanelMain
+  inline frameProps1: TframeProps
     Left = 0
     Top = 0
     Width = 811
-    Height = 34
-    Align = alTop
-    TabOrder = 0
-    ExplicitWidth = 811
-    inherited barProduct: TdxBarManager
-      DockControlHeights = (
-        0
-        0
-        69
-        0)
-    end
-  end
-  inline frameProps1: TframeProps
-    Left = 0
-    Top = 34
-    Width = 811
-    Height = 527
+    Height = 561
     Align = alClient
-    TabOrder = 1
-    ExplicitLeft = 8
+    TabOrder = 0
     ExplicitTop = 34
-    ExplicitWidth = 527
-    ExplicitHeight = 803
-    inherited gridProps: TcxGrid
-      inherited viewProps: TcxGridDBTableView
-        inherited columnName: TcxGridDBColumn
-          LayoutItem = viewPropsLayoutItem1.Owner
-        end
-        inherited columnProd: TcxGridDBColumn
-          LayoutItem = viewPropsLayoutItem2.Owner
-        end
-        inherited columnPropsColumn1: TcxGridDBColumn
-          LayoutItem = viewPropsLayoutItem3.Owner
-        end
-        inherited viewPropsRootGroup: TcxGridInplaceEditFormGroup
-          Index = -1
-        end
-        inherited viewPropsLayoutItem1: TcxGridInplaceEditFormLayoutItem
-          SizeOptions.Width = 440
-          Index = 0
-        end
-        inherited viewPropsLayoutItem2: TcxGridInplaceEditFormLayoutItem
-          SizeOptions.Width = 135
-          Index = 1
-        end
-        inherited viewPropsLayoutItem3: TcxGridInplaceEditFormLayoutItem
-          Index = -1
+    ExplicitWidth = 811
+    ExplicitHeight = 527
+    inherited cxGroupBox1: TcxGroupBox
+      ExplicitWidth = 811
+      Width = 811
+    end
+    inherited cxGroupBox2: TcxGroupBox
+      ExplicitLeft = 0
+      ExplicitTop = 38
+      ExplicitWidth = 811
+      ExplicitHeight = 489
+      Height = 523
+      Width = 811
+      inherited gridProps: TcxGrid
+        Width = 807
+        Height = 519
+        ExplicitLeft = 2
+        ExplicitTop = 2
+        ExplicitWidth = 807
+        ExplicitHeight = 485
+        inherited viewProps: TcxGridDBTableView
+          inherited columnName: TcxGridDBColumn
+            LayoutItem = viewPropsLayoutItem1.Owner
+          end
+          inherited viewPropsRootGroup: TcxGridInplaceEditFormGroup
+            Index = -1
+          end
+          inherited viewPropsLayoutItem1: TcxGridInplaceEditFormLayoutItem
+            SizeOptions.Width = 440
+            Index = 0
+          end
         end
       end
-    end
-    inherited queryProps: TUniQuery
-      Active = False
     end
   end
 end

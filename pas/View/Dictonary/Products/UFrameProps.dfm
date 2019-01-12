@@ -4,109 +4,110 @@ object frameProps: TframeProps
   Width = 803
   Height = 644
   TabOrder = 0
-  object gridProps: TcxGrid
-    Left = 8
-    Top = 41
-    Width = 751
-    Height = 489
+  object cxGroupBox1: TcxGroupBox
+    Left = 0
+    Top = 0
+    Align = alTop
+    PanelStyle.Active = True
     TabOrder = 0
-    object viewProps: TcxGridDBTableView
-      Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = dsProps
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-      EditForm.ItemHotTrack = True
-      EditForm.UseDefaultLayout = False
-      OptionsBehavior.FocusCellOnTab = True
-      OptionsBehavior.FocusFirstCellOnNewRecord = True
-      OptionsBehavior.EditMode = emInplaceEditFormHideCurrentRow
-      OptionsBehavior.FocusCellOnCycle = True
-      object columnName: TcxGridDBColumn
-        Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-        DataBinding.FieldName = 'name'
-        LayoutItem = viewPropsLayoutItem1.Owner
-        Width = 100
-      end
-      object columnProd: TcxGridDBColumn
-        DataBinding.FieldName = 'product_id'
-        PropertiesClassName = 'TcxLookupComboBoxProperties'
-        Properties.KeyFieldNames = 'product_id'
-        Properties.ListColumns = <
-          item
-            FieldName = 'p_name'
-          end>
-        Properties.ListSource = dsProd
-        LayoutItem = viewPropsLayoutItem2.Owner
-        Width = 190
-      end
-      object columnPropsColumn1: TcxGridDBColumn
-        DataBinding.FieldName = 'chk'
-        PropertiesClassName = 'TcxCheckBoxProperties'
-        Properties.ValueChecked = '1'
-        Properties.ValueUnchecked = '0'
-        LayoutItem = viewPropsLayoutItem3.Owner
-        MinWidth = 0
-        Width = 69
-      end
-      object viewPropsRootGroup: TcxGridInplaceEditFormGroup
-        AlignHorz = ahLeft
-        AlignVert = avTop
-        CaptionOptions.Text = 'Template Card'
-        ButtonOptions.Buttons = <>
-        Hidden = True
-        ShowBorder = False
-        Index = -1
-      end
-      object viewPropsLayoutItem1: TcxGridInplaceEditFormLayoutItem
-        Parent = viewPropsRootGroup
-        AlignHorz = ahLeft
-        AlignVert = avTop
-        Index = 0
-      end
-      object viewPropsLayoutItem2: TcxGridInplaceEditFormLayoutItem
-        Parent = viewPropsRootGroup
-        Index = 1
-      end
-      object viewPropsLayoutItem3: TcxGridInplaceEditFormLayoutItem
-        Parent = viewPropsRootGroup
-        AlignHorz = ahLeft
-        AlignVert = avTop
-        SizeOptions.Width = 40
-        SizeOptions.MaxWidth = 40
-        Index = 2
-      end
-    end
-    object levelGrid1Level1: TcxGridLevel
-      GridView = viewProps
+    Height = 38
+    Width = 803
+    object nav1: TcxDBNavigator
+      Left = 4
+      Top = 3
+      Width = 240
+      Height = 32
+      Buttons.OnButtonClick = nav1ButtonsButtonClick
+      Buttons.CustomButtons = <>
+      Buttons.Images = frmMain.imgMidle
+      Buttons.First.Visible = False
+      Buttons.PriorPage.Visible = False
+      Buttons.Prior.Visible = False
+      Buttons.Next.Visible = False
+      Buttons.NextPage.Visible = False
+      Buttons.Last.Visible = False
+      Buttons.Insert.ImageIndex = 3
+      Buttons.Append.Visible = False
+      Buttons.Delete.ImageIndex = 5
+      Buttons.Edit.ImageIndex = 4
+      Buttons.Post.Visible = False
+      Buttons.Cancel.Visible = False
+      Buttons.Refresh.ImageIndex = 6
+      Buttons.SaveBookmark.Visible = False
+      Buttons.GotoBookmark.Visible = False
+      Buttons.Filter.Visible = False
+      DataSource = dsProps
+      TabOrder = 0
     end
   end
-  object btnAdd: TButton
-    Left = 8
-    Top = 9
-    Width = 75
-    Height = 25
-    Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+  object cxGroupBox2: TcxGroupBox
+    Left = 0
+    Top = 38
+    Align = alClient
+    PanelStyle.Active = True
     TabOrder = 1
-    OnClick = btnAddClick
-  end
-  object btnEdit: TButton
-    Left = 89
-    Top = 9
-    Width = 88
-    Height = 25
-    Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
-    TabOrder = 2
-    OnClick = btnEditClick
-  end
-  object btnDel: TButton
-    Left = 183
-    Top = 9
-    Width = 88
-    Height = 25
-    Caption = #1059#1076#1072#1083#1080#1090#1100
-    TabOrder = 3
-    OnClick = btnDelClick
+    ExplicitLeft = 107
+    ExplicitTop = 148
+    ExplicitWidth = 185
+    ExplicitHeight = 105
+    Height = 606
+    Width = 803
+    object gridProps: TcxGrid
+      Left = 2
+      Top = 2
+      Width = 799
+      Height = 602
+      Align = alClient
+      TabOrder = 0
+      ExplicitLeft = 0
+      ExplicitTop = 421
+      ExplicitWidth = 803
+      ExplicitHeight = 185
+      object viewProps: TcxGridDBTableView
+        Navigator.Buttons.CustomButtons = <>
+        DataController.DataSource = dsProps
+        DataController.Options = [dcoAnsiSort, dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding]
+        DataController.Summary.DefaultGroupSummaryItems = <>
+        DataController.Summary.FooterSummaryItems = <>
+        DataController.Summary.SummaryGroups = <>
+        EditForm.ItemHotTrack = True
+        EditForm.UseDefaultLayout = False
+        OptionsBehavior.FocusCellOnTab = True
+        OptionsBehavior.FocusFirstCellOnNewRecord = True
+        OptionsBehavior.EditMode = emInplaceEditFormHideCurrentRow
+        OptionsBehavior.FocusCellOnCycle = True
+        OptionsView.ShowEditButtons = gsebAlways
+        OptionsView.GroupByBox = False
+        OptionsView.Indicator = True
+        object columnName: TcxGridDBColumn
+          Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+          DataBinding.FieldName = 'name'
+          PropertiesClassName = 'TcxTextEditProperties'
+          LayoutItem = viewPropsLayoutItem1.Owner
+          Options.SortByDisplayText = isbtOn
+          Width = 408
+        end
+        object viewPropsRootGroup: TcxGridInplaceEditFormGroup
+          AlignHorz = ahLeft
+          AlignVert = avTop
+          CaptionOptions.Text = 'Template Card'
+          ButtonOptions.Buttons = <>
+          Hidden = True
+          ShowBorder = False
+          Index = -1
+        end
+        object viewPropsLayoutItem1: TcxGridInplaceEditFormLayoutItem
+          Parent = viewPropsRootGroup
+          AlignHorz = ahLeft
+          AlignVert = avTop
+          SizeOptions.Width = 432
+          Index = 0
+        end
+      end
+      object levelGrid1Level1: TcxGridLevel
+        GridView = viewProps
+      end
+    end
   end
   object dsProps: TUniDataSource
     DataSet = queryProps
@@ -115,54 +116,43 @@ object frameProps: TframeProps
   end
   object queryProps: TUniQuery
     SQLInsert.Strings = (
-      'INSERT INTO view_prop_test'
-      '  (id, name, p_name, product_id, chk)'
+      'INSERT INTO properties'
+      '  ( name)'
       'VALUES'
-      '  (:id, :name, :p_name, :product_id, :chk)')
+      '  ( :name)')
     SQLDelete.Strings = (
-      'DELETE FROM view_prop_test'
+      'DELETE FROM properties'
       'WHERE'
       '  id = :Old_id')
     SQLUpdate.Strings = (
-      'UPDATE "Props"'
+      'UPDATE properties'
       'SET'
-      '  name = :name,  product_id = :product_id, chk = :chk'
+      '  id = :id, name = :name'
       'WHERE'
       '  id = :Old_id')
     SQLLock.Strings = (
-      'SELECT * FROM view_prop_test'
+      'SELECT * FROM properties'
       'WHERE'
       '  id = :Old_id'
       'FOR UPDATE NOWAIT')
     SQLRefresh.Strings = (
-      'SELECT id, name, p_name, product_id, chk FROM view_prop_test'
+      'SELECT id, name FROM properties'
       'WHERE'
       '  id = :id')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
-      'SELECT * FROM view_prop_test'
+      'SELECT * FROM properties'
       ''
       ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
       'SELECT '
-      ' * from view_prop_test')
+      ' * from properties'
+      'order by name')
+    OnUpdateError = queryPropsUpdateError
+    BeforePost = queryPropsBeforePost
+    OnPostError = queryPropsPostError
     Left = 171
     Top = 537
-  end
-  object queryProd: TUniQuery
-    SQLUpdate.Strings = (
-      'update "Props" set product_id=:id')
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT '
-      'id as product_id, name as p_name from prod_poduct')
-    Left = 130
-    Top = 289
-  end
-  object dsProd: TUniDataSource
-    DataSet = queryProd
-    Left = 209
-    Top = 289
   end
 end

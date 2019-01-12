@@ -8,6 +8,14 @@ procedure selectSQL(query: TUniQuery);
 procedure standartSave(query: TUniQuery; isNew: Boolean);
 procedure standartDelete(query: TUniQuery);
 
+/// <summary>procedure standartValidateOnUnic
+///  Проверка на уникальность
+/// </summary>
+/// <returns> Boolean
+/// </returns>
+/// <param name="fieldName"> (string) </param>
+function standartValidateOnUnic(fieldName: string): Boolean;
+
 implementation
 
 procedure selectSQL(query: TUniQuery);
@@ -28,6 +36,12 @@ begin
   begin
     query.Delete;
   end;
+end;
+
+function standartValidateOnUnic(fieldName: string): Boolean;
+begin
+  // TODO -cMM: standartValidateOnUnic default body inserted
+  Result := true;
 end;
 
 end.
