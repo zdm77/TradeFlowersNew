@@ -1,9 +1,10 @@
 object frmSelect: TfrmSelect
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'frmSelect'
-  ClientHeight = 543
-  ClientWidth = 727
+  ClientHeight = 566
+  ClientWidth = 568
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,4 +14,36 @@ object frmSelect: TfrmSelect
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
+  object cxGroupBox1: TcxGroupBox
+    Left = 0
+    Top = 0
+    Align = alTop
+    PanelStyle.Active = True
+    TabOrder = 0
+    ExplicitLeft = -1
+    ExplicitTop = 1
+    ExplicitWidth = 727
+    Height = 49
+    Width = 568
+    object cxButton1: TcxButton
+      Left = 11
+      Top = 14
+      Width = 75
+      Height = 25
+      Caption = #1042#1099#1073#1088#1072#1090#1100
+      TabOrder = 0
+    end
+  end
+  object cxGroupBox2: TcxGroupBox
+    Left = 0
+    Top = 49
+    Align = alClient
+    PanelStyle.Active = True
+    TabOrder = 1
+    ExplicitTop = 8
+    ExplicitWidth = 727
+    ExplicitHeight = 49
+    Height = 517
+    Width = 568
+  end
 end

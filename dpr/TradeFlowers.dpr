@@ -19,7 +19,8 @@ uses
   UFrameTopPanelMain in '..\pas\UFrameTopPanelMain.pas' {frameTopPanelMain: TFrame},
   UProductModel in '..\pas\Model\UProductModel.pas',
   UCategoruController in '..\pas\Controller\UCategoruController.pas',
-  UfrmSelect in '..\pas\UfrmSelect.pas' {frmSelect};
+  UfrmSelect in '..\pas\UfrmSelect.pas' {frmSelect},
+  UfrmSelectTree in '..\pas\UfrmSelectTree.pas' {frmSelectTree};
 
 {$R *.res}
 
@@ -29,6 +30,7 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
   Application.CreateForm(TfrmSelect, frmSelect);
+  Application.CreateForm(TfrmSelectTree, frmSelectTree);
   // Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
   // Application.CreateForm(TfrmProps, frmProps);
   //  Application.CreateForm(TfrmProductEdit, frmProductEdit);
