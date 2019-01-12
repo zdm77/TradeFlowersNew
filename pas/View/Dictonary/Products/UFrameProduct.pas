@@ -76,7 +76,7 @@ end;
 procedure TframeProduct.Init;
 begin
 
-  category := TCategory.Create;
+  category := TCategory.Create(queryCategoty);
   product := TProduct.Create;
   ShowCategory;
   ShowProduct;
@@ -88,7 +88,7 @@ begin
   begin
     // FSelCategoryID := queryCategoty.FieldByName('id').AsInteger;
 
-    category.SetCategory(queryCategoty);
+    category.SetCategory;
     ShowProduct;
   end;
 end;
@@ -110,7 +110,7 @@ end;
 
 procedure TframeProduct.ShowCategory;
 begin
-  category.GetCategories(queryCategoty);
+  category.GetCategories;
 end;
 
 procedure TframeProduct.ShowProduct;
