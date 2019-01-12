@@ -21,6 +21,9 @@ type
     property dsCategory: TUniDataSource read GetdsCategory;
     property Id: Integer read FId write SetId;
     property listProp: TList read FlistProp write SetlistProp;
+    /// <summary>Наименование
+    /// </summary>
+    /// type:string
     property Name: string read FName write SetName;
     property ParentId: Integer read FParentId write SetParentId;
     procedure GetCategories(query: TUniQuery);

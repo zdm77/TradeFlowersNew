@@ -17,7 +17,8 @@ uses
   UFrameProps in '..\pas\View\Dictonary\Products\UFrameProps.pas' {frameProps: TFrame},
   UfrmPropEdit in '..\pas\View\Dictonary\Products\UfrmPropEdit.pas' {frmPropEditDict},
   UFrameTopPanelMain in '..\pas\UFrameTopPanelMain.pas' {frameTopPanelMain: TFrame},
-  UProductModel in '..\pas\Model\UProductModel.pas';
+  UProductModel in '..\pas\Model\UProductModel.pas',
+  UCategoruController in '..\pas\Controller\UCategoruController.pas';
 
 {$R *.res}
 

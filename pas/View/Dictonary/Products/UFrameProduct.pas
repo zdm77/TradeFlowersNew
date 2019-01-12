@@ -32,16 +32,19 @@ type
     procedure btnCategoryAddClick(Sender: TObject);
     procedure btnCategoryEditClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
-    procedure navCategoryButtonsButtonClick(Sender: TObject;
-      AButtonIndex: Integer; var ADone: Boolean);
+    procedure navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
+      var ADone: Boolean);
   private
     product: TProduct;
     category: TCategory;
+ //   FSelCategoryID: Integer;
     procedure CategoryInsEdt(isNew: Boolean);
+
     procedure ShowCategory;
     procedure ShowProduct;
     { Private declarations }
   public
+ //   property SelCategoryID: Integer read FSelCategoryID write SetSelCategoryID;
     procedure Init;
     { Public declarations }
   end;
@@ -65,12 +68,13 @@ end;
 procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
 begin
   Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
-  frmCategoryEdit.setParam(queryCategoty, isNew);
+  frmCategoryEdit.setParam(category, isNew);
   frmCategoryEdit.Show;
 end;
 
 procedure TframeProduct.Init;
 begin
+
   category := TCategory.Create;
   product := TProduct.Create;
   ShowCategory;
@@ -81,23 +85,27 @@ procedure TframeProduct.lstCategoryClick(Sender: TObject);
 begin
   if category.Id <> queryCategoty.FieldByName('id').AsInteger then
   begin
+    // FSelCategoryID := queryCategoty.FieldByName('id').AsInteger;
+
     category.SetCategory(queryCategoty);
     ShowProduct;
   end;
 end;
 
-
-
-procedure TframeProduct.navCategoryButtonsButtonClick(Sender: TObject;
-  AButtonIndex: Integer; var ADone: Boolean);
+procedure TframeProduct.navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
+  var ADone: Boolean);
 begin
-case AButtonIndex of
-//добавить
-  16:  CategoryInsEdt(true);
-  //редактировать
-  17:  CategoryInsEdt(false);
+  case AButtonIndex of
+    // добавить
+    16:
+      CategoryInsEdt(true);
+    // редактировать
+    17:
+      CategoryInsEdt(false);
+  end;
 end;
-end;
+
+
 
 procedure TframeProduct.ShowCategory;
 begin
@@ -106,6 +114,7 @@ end;
 
 procedure TframeProduct.ShowProduct;
 begin
+
   product.GetProducts(queryProduct, category.Id);
 end;
 

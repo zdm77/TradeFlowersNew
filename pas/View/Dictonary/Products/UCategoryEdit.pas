@@ -10,7 +10,7 @@ uses
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls, cxTextEdit, cxDBEdit, MemDS,
   DBAccess, Uni, cxButtonEdit, cxCheckBox, cxCalc, cxCustomData, cxFilter,
-  cxData;
+  cxData, UCategory;
 
 type
   TfrmCategoryEdit = class(TForm)
@@ -34,6 +34,9 @@ type
     btnPropAdd: TButton;
     btnPropEdit: TButton;
     btnFormat: TButton;
+    edtParentName: TcxDBTextEdit;
+    lbl2: TLabel;
+    edt1: TEdit;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
     procedure btnPropAddClick(Sender: TObject);
@@ -48,7 +51,7 @@ type
     procedure UpDawnProp(up: Boolean);
     { Private declarations }
   public
-    procedure setParam(senderQuery: TUniQuery; isNew: Boolean);
+    procedure setParam(category: TCategory; isNew: Boolean);
     property EnableDawn: Boolean read FEnableDawn write SetEnableDawn;
     property EnableUp: Boolean read FEnableUp write SetEnableUp;
     // property EnableDawn: Boolean read FEnableDawn write SetEnableDawn;
@@ -103,7 +106,7 @@ end;
 procedure TfrmCategoryEdit.btnSaveClick(Sender: TObject);
 begin
   queryCategory.Post;
-  _senderQuery.Refresh;
+ // _senderQuery.Refresh;
   // ShowMessage(queryCategory.FieldByName('id').AsString);
   _senderQuery.Locate('id', queryCategory.FieldByName('id').AsInteger, []);
   // Close;
@@ -194,14 +197,14 @@ begin
   end;
 end;
 
-procedure TfrmCategoryEdit.setParam(senderQuery: TUniQuery; isNew: Boolean);
+procedure TfrmCategoryEdit.setParam(category: TCategory; isNew: Boolean);
 begin
-  _senderQuery := senderQuery;
+  //_senderQuery := senderQuery;
   begin
     with queryCategory do
     begin
       Close;
-      SQL.Text := 'select * from category where id=' + _senderQuery.FieldByName('Id').AsString;
+      SQL.Text := 'select * from dictonary.category where id=' + IntToStr(category.Id);
       Open;
       if isNew = True then
         Insert
@@ -212,7 +215,7 @@ begin
   with queryProps do
   begin
     Close;
-    ParamByName('id').Value := _senderQuery.FieldByName('Id').AsString;
+    ParamByName('id').Value := IntToStr(category.Id);
     Open;
   end;
 end;

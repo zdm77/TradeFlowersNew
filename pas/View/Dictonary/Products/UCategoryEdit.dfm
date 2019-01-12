@@ -21,6 +21,14 @@ object frmCategoryEdit: TfrmCategoryEdit
     Caption = 'name'
     FocusControl = edtname
   end
+  object lbl2: TLabel
+    Left = 6
+    Top = 37
+    Width = 26
+    Height = 13
+    Caption = 'name'
+    FocusControl = edtParentName
+  end
   object edtname: TcxDBTextEdit
     Left = 40
     Top = 75
@@ -119,17 +127,33 @@ object frmCategoryEdit: TfrmCategoryEdit
     Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1085#1072#1079#1074#1072#1085#1080#1103
     TabOrder = 7
   end
+  object edtParentName: TcxDBTextEdit
+    Left = 39
+    Top = 35
+    DataBinding.DataField = 'name'
+    DataBinding.DataSource = dsMain
+    TabOrder = 8
+    Width = 465
+  end
+  object edt1: TEdit
+    Left = 532
+    Top = 357
+    Width = 171
+    Height = 21
+    TabOrder = 9
+    Text = 'edt1'
+  end
   object dsMain: TUniDataSource
     DataSet = queryCategory
-    Left = 496
-    Top = 9
+    Left = 520
+    Top = 68
   end
   object queryCategory: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
       'select * from category where id=1')
-    Left = 536
-    Top = 9
+    Left = 574
+    Top = 66
     object fieldMainid: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'id'
@@ -141,8 +165,8 @@ object frmCategoryEdit: TfrmCategoryEdit
   end
   object dsProps: TUniDataSource
     DataSet = queryProps
-    Left = 504
-    Top = 241
+    Left = 554
+    Top = 155
   end
   object queryProps: TUniQuery
     Connection = DMMain.conMain
@@ -156,12 +180,12 @@ object frmCategoryEdit: TfrmCategoryEdit
       'cp.order_by'
       'FROM'
       '  public.category_props cp'
-      '  INNER JOIN public."Props" p ON (cp.prop_id = p.id)'
+      '  INNER JOIN public.properties p ON (cp.prop_id = p.id)'
       'where category_id=:id'
       'order by cp.order_by')
     AfterScroll = queryPropsAfterScroll
-    Left = 544
-    Top = 241
+    Left = 601
+    Top = 218
     ParamData = <
       item
         DataType = ftUnknown
