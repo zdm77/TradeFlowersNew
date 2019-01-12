@@ -28,6 +28,11 @@ type
     property ParentId: Integer read FParentId write SetParentId;
     procedure GetCategories(query: TUniQuery);
     procedure assignCategoryById(_id: Integer; query: TUniQuery);
+    /// <summary>Вернуть объект Category по параметру родителя
+    /// </summary>
+    /// <returns> TCategory
+    /// </returns>
+    /// <param name="_pid"> (Integer) </param>
     function GetParent(_pid: Integer): TCategory;
     procedure SetCategory(query: TUniQuery);
   end;

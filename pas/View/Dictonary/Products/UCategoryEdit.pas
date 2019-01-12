@@ -11,7 +11,8 @@ uses
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls, cxTextEdit, cxDBEdit, MemDS,
   DBAccess, Uni, cxButtonEdit, cxCheckBox, cxCalc, cxCustomData, cxFilter,
   cxData, UCategory, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
-  Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope;
+  Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
+  cxMaskEdit;
 
 type
   TfrmCategoryEdit = class(TForm)
@@ -38,8 +39,8 @@ type
     lbl2: TLabel;
     bind1: TBindSourceDB;
     bindList1: TBindingsList;
-    edtParentName: TcxTextEdit;
     queryCategorypid: TIntegerField;
+    edtParentName: TcxButtonEdit;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
     procedure btnPropAddClick(Sender: TObject);
@@ -209,9 +210,6 @@ begin
   _category.assignCategoryById(category.id, queryCategory);
   with queryCategory do
   begin
-    // Close;
-    // SQL.Text := 'select * from dictonary.category where id=' + IntToStr(category.id);
-    // Open;
     if isNew = True then
     begin
       Insert;

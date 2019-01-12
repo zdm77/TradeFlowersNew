@@ -18,7 +18,8 @@ uses
   UfrmPropEdit in '..\pas\View\Dictonary\Products\UfrmPropEdit.pas' {frmPropEditDict},
   UFrameTopPanelMain in '..\pas\UFrameTopPanelMain.pas' {frameTopPanelMain: TFrame},
   UProductModel in '..\pas\Model\UProductModel.pas',
-  UCategoruController in '..\pas\Controller\UCategoruController.pas';
+  UCategoruController in '..\pas\Controller\UCategoruController.pas',
+  UfrmSelect in '..\pas\UfrmSelect.pas' {frmSelect};
 
 {$R *.res}
 
@@ -27,6 +28,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
+  Application.CreateForm(TfrmSelect, frmSelect);
   // Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
   // Application.CreateForm(TfrmProps, frmProps);
   //  Application.CreateForm(TfrmProductEdit, frmProductEdit);

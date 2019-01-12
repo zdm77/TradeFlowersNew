@@ -126,12 +126,17 @@ object frmCategoryEdit: TfrmCategoryEdit
     Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1085#1072#1079#1074#1072#1085#1080#1103
     TabOrder = 7
   end
-  object edtParentName: TcxTextEdit
-    Left = 74
-    Top = 31
-    Enabled = False
+  object edtParentName: TcxButtonEdit
+    Left = 66
+    Top = 34
+    Properties.Buttons = <
+      item
+        Default = True
+        Kind = bkEllipsis
+      end>
+    Properties.ReadOnly = True
     TabOrder = 8
-    Width = 284
+    Width = 321
   end
   object dsMain: TUniDataSource
     DataSet = queryCategory
