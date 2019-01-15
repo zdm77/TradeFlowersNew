@@ -139,7 +139,7 @@ begin
       queryUpd.Close;
       SQL.Clear;
       SQL.Add(' INSERT INTO');
-      SQL.Add(' public.category_props');
+      SQL.Add(' dictonary.properties_category');
       SQL.Add(' (');
       SQL.Add(' category_id,');
       SQL.Add(' prop_id,');
