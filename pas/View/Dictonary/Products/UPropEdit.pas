@@ -7,20 +7,23 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxTextEdit,
   cxMaskEdit, cxDropDownEdit, Data.DB, MemDS, DBAccess, Uni, Vcl.StdCtrls,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCheckBox;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCheckBox, UCategoryProperty;
 
 type
   TfrmPropEdit = class(TForm)
     dsProp: TUniDataSource;
     queryProp: TUniQuery;
     btnSave: TButton;
-    cbbPropName: TcxLookupComboBox;
+    edtPropName: TcxLookupComboBox;
     chkInName: TcxCheckBox;
+    procedure btnSaveClick(Sender: TObject);
   private
     _senderQuery: TUniQuery;
+    categoryProp: TCategoryProperty;
     { Private declarations }
   public
-    procedure setParam(senderQuery: TUniQuery; isNew: Boolean);
+    procedure init(senderQuery: TUniQuery; isNew: Boolean; _categoryProp:
+        TCategoryProperty);
     { Public declarations }
   end;
 
@@ -31,23 +34,34 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmPropEdit.setParam(senderQuery: TUniQuery; isNew: Boolean);
+uses UDmMain;
+
+procedure TfrmPropEdit.btnSaveClick(Sender: TObject);
 begin
-  _senderQuery := senderQuery;
-  begin
+  categoryProp.InName:= chkInName.Checked;
+  categoryProp.PropertyId:=edtPropName.EditValue;
+  ModalResult:=mrOk;
+end;
+
+procedure TfrmPropEdit.init(senderQuery: TUniQuery; isNew: Boolean;
+    _categoryProp: TCategoryProperty);
+begin
+ // _senderQuery := senderQuery;
+
+    categoryProp  := _categoryProp;
     with queryProp do
     begin
       Close;
-      sql.Text := 'select * from properties ';
+      sql.Text := 'select * from dictonary.properties ';
       if (senderQuery.RecordCount > 0) then
       begin
-        sql.Add(' where id not in (select prop_id from category_props where category_id=' +
-          _senderQuery.FieldByName('category_id').AsString + ')');
+        sql.Add(' where id not in (select prop_id from dictonary.properties_category where category_id=' +
+       inttostr(  categoryProp.Id )+ ')');
       end;
       Open;
-       cbbPropName.EditValue:=Fields[0].AsInteger;
+      edtPropName.EditValue:=Fields[0].AsInteger;
     end;
-  end;
+
 end;
 
 end.

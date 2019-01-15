@@ -116,10 +116,8 @@ end;
 
 procedure TframeProps.ShowProps;
 begin
+    prop.GetProps;
 
-  // prop.GetSelectSQL();
-  queryProps.Close;
-  queryProps.Open;
 end;
 
 end.

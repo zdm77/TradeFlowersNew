@@ -12,7 +12,7 @@ uses
   DBAccess, Uni, cxButtonEdit, cxCheckBox, cxCalc, cxCustomData, cxFilter,
   cxData, UCategory, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
-  cxMaskEdit;
+  cxMaskEdit, UProps, UCategoryProperty, cxGroupBox;
 
 type
   TfrmCategoryEdit = class(TForm)
@@ -20,37 +20,40 @@ type
     queryCategory: TUniQuery;
     fieldMainid: TIntegerField;
     fieldMainname: TStringField;
-    lbl1: TLabel;
-    edtname: TcxDBTextEdit;
-    btnSave: TButton;
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
-    gridProp: TcxGrid;
-    viewProp: TcxGridDBTableView;
-    columnName: TcxGridDBColumn;
-    levelProp: TcxGridLevel;
-    columnOrder: TcxGridDBColumn;
-    btnUp: TButton;
-    btnDawn: TButton;
-    columnInName: TcxGridDBColumn;
-    btnPropAdd: TButton;
-    btnPropEdit: TButton;
-    btnFormat: TButton;
-    lbl2: TLabel;
     bind1: TBindSourceDB;
     bindList1: TBindingsList;
     queryCategorypid: TIntegerField;
+    cxGroupBox1: TcxGroupBox;
+    lbl2: TLabel;
     edtParentName: TcxButtonEdit;
+    edtname: TcxDBTextEdit;
+    lbl1: TLabel;
+    cxGroupBox2: TcxGroupBox;
+    btnPropAdd: TButton;
+    btnPropEdit: TButton;
+    btnFormat: TButton;
+    gridProp: TcxGrid;
+    viewProp: TcxGridDBTableView;
+    columnName: TcxGridDBColumn;
+    columnOrder: TcxGridDBColumn;
+    columnInName: TcxGridDBColumn;
+    levelProp: TcxGridLevel;
+    btnUp: TButton;
+    btnDawn: TButton;
+    btnSave: TButton;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
     procedure btnPropAddClick(Sender: TObject);
     procedure btnUpClick(Sender: TObject);
-    procedure queryPropsAfterScroll(DataSet: TDataSet);
   private
     FEnableDawn: Boolean;
     FEnableUp: Boolean;
     _senderQuery: TUniQuery;
     _category: TCategory;
+    categoryProperty: TCategoryProperty;
+    prop: TProps;
     procedure SetEnableDawn(const Value: Boolean);
     procedure SetEnableUp(const Value: Boolean);
     procedure UpDawnProp(up: Boolean);
@@ -92,7 +95,7 @@ begin
     queryUpd := TUniQuery.Create(nil);
     queryUpd.Connection := DMMain.conMain;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update category_props set order_by=' + IntToStr(new_order) +
+    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(new_order) +
       ' where id=' + id;
     queryUpd.ExecSQL;
     if (up = True) then
@@ -101,7 +104,7 @@ begin
       queryProps.Next;
     id := queryProps.FieldByName('id').AsString;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update category_props set order_by=' + IntToStr(order) +
+    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(order) +
       ' where id=' + id;
     queryUpd.ExecSQL;
     queryProps.Refresh;
@@ -126,63 +129,24 @@ end;
 procedure TfrmCategoryEdit.btnPropAddClick(Sender: TObject);
 var
   queryUpd: TUniQuery;
+  categoryProp: TCategoryProperty;
 begin
+  categoryProp := TCategoryProperty.Create;
+  categoryProp.SetCategoryId(_category.Id);
   Application.CreateForm(TfrmPropEdit, frmPropEdit);
-  frmPropEdit.setParam(queryProps, True);
+  frmPropEdit.init(queryProps, True, categoryProp);
   frmPropEdit.ShowModal;
-  if frmMain.ModalResult = mrOk then
+  if frmPropEdit.ModalResult = mrOk then
   begin
-    queryUpd := TUniQuery.Create(nil);
-    with queryUpd do
-    begin
-      queryUpd.Connection := DMMain.conMain;
-      queryUpd.Close;
-      SQL.Clear;
-      SQL.Add(' INSERT INTO');
-      SQL.Add(' dictonary.properties_category');
-      SQL.Add(' (');
-      SQL.Add(' category_id,');
-      SQL.Add(' prop_id,');
-      SQL.Add(' order_by,');
-      SQL.Add(' in_name');
-      SQL.Add(' )');
-      SQL.Add(' VALUES (');
-      SQL.Add(' :id,');
-      SQL.Add(' :category_id,');
-      SQL.Add(' :prop_id,');
-      SQL.Add(' :order_by,');
-      SQL.Add(' :in_name');
-      SQL.Add(' );');
-      // ParamByName('category_id').Value:= .Value;
-      // ParamByName('prop_id').Value:= .Value;
-      // ParamByName('order_by').Value:= .Value;
-      // ParamByName('in_name').Value:= .Value ;
-    end;
+     _category.AddProperty(_category.Id,categoryProp.PropertyId, categoryProp.InName);
+     queryProps.Refresh;
+    
   end;
 end;
 
 procedure TfrmCategoryEdit.btnUpClick(Sender: TObject);
 begin
   UpDawnProp(True);
-end;
-
-procedure TfrmCategoryEdit.queryPropsAfterScroll(DataSet: TDataSet);
-begin
-  // if DataSet.RecordCount > 0 then
-  // begin
-  // EnableUp :=true;
-  // EnableDawn:=true;
-  // if DataSet.FieldByName('order_by').AsInteger = 1 then
-  // EnableUp := false
-  // else
-  // EnableUp := true;
-  // if DataSet.FieldByName('order_by').AsInteger = DataSet.RecordCount  then
-  // EnableDawn := false
-  // else
-  // EnableDawn := true;
-  //
-  // end;
-  // ShowMessage(DataSet.FieldByName('name').AsString);
 end;
 
 procedure TfrmCategoryEdit.SetEnableDawn(const Value: Boolean);
@@ -222,12 +186,14 @@ begin
       Update;
     end;
   end;
-  with queryProps do
-  begin
-    Close;
-    ParamByName('id').Value := IntToStr(category.id);
-    Open;
-  end;
+  prop := TProps.Create();
+  prop.GetPropsByCategoryId(_category.id, queryProps);
+  // with queryProps do
+  // begin
+  // Close;
+  // ParamByName('id').Value := IntToStr(category.id);
+  // Open;
+  // end;
 end;
 
 end.

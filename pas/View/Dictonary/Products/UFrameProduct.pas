@@ -10,15 +10,14 @@ uses
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid, MemDS, DBAccess, Uni, cxCustomData,
   cxFilter, cxData, UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu,
-  cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator;
+  cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator,
+  cxContainer, cxSplitter, cxGroupBox;
 
 type
 
   TframeProduct = class(TFrame)
     dsCategory: TUniDataSource;
     queryCategoty: TUniQuery;
-    btnCategoryAdd: TButton;
-    btnCategoryEdit: TButton;
     gridProduct: TcxGrid;
     viewProduct: TcxGridDBTableView;
     column1: TcxGridDBColumn;
@@ -27,11 +26,16 @@ type
     queryProduct: TUniQuery;
     btnProdAdd: TButton;
     btnProdEdit: TButton;
+    cxGroupBox1: TcxGroupBox;
     lstCategory: TcxDBTreeList;
     columnNameC: TcxDBTreeListColumn;
-    navCategory: TcxDBNavigator;
-    procedure btnCategoryAddClick(Sender: TObject);
-    procedure btnCategoryEditClick(Sender: TObject);
+    cxSplitter1: TcxSplitter;
+    cxGroupBox2: TcxGroupBox;
+    btnAdd: TButton;
+    btnEdit: TButton;
+    btnDel: TButton;
+    procedure btnAddClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
     procedure navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
       var ADone: Boolean);
@@ -56,14 +60,14 @@ implementation
 
 uses UCategoryEdit, UDmMain;
 
-procedure TframeProduct.btnCategoryAddClick(Sender: TObject);
+procedure TframeProduct.btnAddClick(Sender: TObject);
 begin
-  CategoryInsEdt(true);
+    CategoryInsEdt(true);
 end;
 
-procedure TframeProduct.btnCategoryEditClick(Sender: TObject);
+procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
-  CategoryInsEdt(false);
+   CategoryInsEdt(false);
 end;
 
 procedure TframeProduct.CategoryInsEdt(isNew: Boolean);

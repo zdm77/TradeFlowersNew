@@ -16,7 +16,11 @@ procedure standartDelete(query: TUniQuery);
 /// <param name="fieldName"> (string) </param>
 function standartValidateOnUnic(fieldName: string): Boolean;
 
+procedure QueryCreate(query: TUniQuery);
+
 implementation
+
+uses UDmMain;
 
 procedure selectSQL(query: TUniQuery);
 begin
@@ -42,6 +46,12 @@ function standartValidateOnUnic(fieldName: string): Boolean;
 begin
   // TODO -cMM: standartValidateOnUnic default body inserted
   Result := true;
+end;
+
+procedure QueryCreate(query: TUniQuery);
+begin
+  query := TUniQuery.Create(nil);
+  query.Connection:=DMMain.conMain;
 end;
 
 end.

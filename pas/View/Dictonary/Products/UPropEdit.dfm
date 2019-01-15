@@ -21,8 +21,9 @@ object frmPropEdit: TfrmPropEdit
     Height = 25
     Caption = 'btnSave'
     TabOrder = 0
+    OnClick = btnSaveClick
   end
-  object cbbPropName: TcxLookupComboBox
+  object edtPropName: TcxLookupComboBox
     Left = 72
     Top = 24
     Properties.KeyFieldNames = 'id'
@@ -47,6 +48,7 @@ object frmPropEdit: TfrmPropEdit
     Top = 65
   end
   object queryProp: TUniQuery
+    Connection = DMMain.conMain
     Left = 224
     Top = 57
   end

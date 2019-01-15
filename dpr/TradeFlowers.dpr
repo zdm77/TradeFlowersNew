@@ -20,7 +20,8 @@ uses
   UProductModel in '..\pas\Model\UProductModel.pas',
   UCategoruController in '..\pas\Controller\UCategoruController.pas',
   UfrmSelect in '..\pas\UfrmSelect.pas' {frmSelect},
-  UfrmSelectTree in '..\pas\UfrmSelectTree.pas' {frmSelectTree};
+  UfrmSelectTree in '..\pas\UfrmSelectTree.pas' {frmSelectTree},
+  UCategoryProperty in '..\pas\Model\UCategoryProperty.pas';
 
 {$R *.res}
 

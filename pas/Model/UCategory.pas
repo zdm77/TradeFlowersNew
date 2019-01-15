@@ -31,6 +31,7 @@ type
     property Name: string read FName write SetName;
     property ParentId: Integer read FParentId write SetParentId;
     property queryCategory: TUniQuery read FqueryCategory write SetqueryCategory;
+    procedure AddProperty(categoryId, propertyId: Integer; inName: Boolean);
     procedure GetCategories;
     procedure assignCategoryById(_id: Integer; query: TUniQuery);
     /// <summary>Вернуть объект Category по параметру родителя
@@ -44,7 +45,7 @@ type
 
 implementation
 
-uses UDmMain;
+uses UDmMain, UFuncAndProc;
 
 constructor TCategory.Create;
 begin
@@ -54,6 +55,46 @@ end;
 constructor TCategory.Create(query: TUniQuery);
 begin
   SetqueryCategory(query);
+end;
+
+procedure TCategory.AddProperty(categoryId, propertyId: Integer; inName: Boolean);
+var
+  query: TUniQuery;
+  SQL: TStringBuilder;
+  maxOrder: Integer;
+begin
+  query := TUniQuery.Create(nil);
+  query.Connection := DMMain.conMain;
+  SQL := TStringBuilder.Create;
+  SQL.Append('select max(order_by) from dictonary.properties_category');
+  SQL.Append(' where category_id=' + IntToStr(categoryId));
+  query.SQL.Text := SQL.ToString;
+  query.Open;
+  if query.Fields[0].AsString <> '' then
+    maxOrder := query.Fields[0].AsInteger + 1;
+  query.Close;
+  SQL.Clear;
+  SQL.Append(' INSERT INTO');
+  SQL.Append(' dictonary.properties_category');
+  SQL.Append(' (');
+  SQL.Append(' category_id,');
+  SQL.Append(' prop_id,');
+  SQL.Append(' order_by,');
+  SQL.Append(' in_name');
+  SQL.Append(' )');
+  SQL.Append(' VALUES (');
+  SQL.Append(' :category_id,');
+  SQL.Append(' :prop_id,');
+  SQL.Append(' :order_by,');
+  SQL.Append(' :in_name');
+  SQL.Append(' );');
+  query.SQL.Text := SQL.ToString;
+  query.ParamByName('category_id').Value := categoryId;
+  query.ParamByName('prop_id').Value := propertyId;
+  query.ParamByName('order_by').Value :=maxOrder ;
+  query.ParamByName('in_name').Value := inName;
+  query.ExecSQL;
+  SetCategory;
 end;
 
 function TCategory.GetdsCategory: TUniDataSource;
@@ -144,7 +185,6 @@ begin
     category_out.SetName(query.FieldByName('name').Value);
     Result := category_out;
   end;
-
 end;
 
 procedure TCategory.SetCategory;
