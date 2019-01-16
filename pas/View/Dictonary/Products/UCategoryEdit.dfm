@@ -4,7 +4,7 @@ object frmCategoryEdit: TfrmCategoryEdit
   BorderStyle = bsDialog
   Caption = 'frmCategoryEdit'
   ClientHeight = 460
-  ClientWidth = 550
+  ClientWidth = 553
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,19 +21,18 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alTop
     PanelStyle.Active = True
     TabOrder = 0
-    ExplicitWidth = 743
     Height = 65
-    Width = 550
+    Width = 553
     object lbl2: TLabel
       Left = 3
-      Top = 3
+      Top = 9
       Width = 132
       Height = 13
       Caption = #1056#1086#1076#1080#1090#1077#1083#1100#1089#1082#1072#1103' '#1082#1072#1090#1077#1075#1086#1088#1080#1103':'
     end
     object lbl1: TLabel
       Left = 7
-      Top = 37
+      Top = 36
       Width = 73
       Height = 13
       Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
@@ -48,6 +47,7 @@ object frmCategoryEdit: TfrmCategoryEdit
           Kind = bkEllipsis
         end>
       Properties.ReadOnly = True
+      Properties.OnButtonClick = edtParentNamePropertiesButtonClick
       TabOrder = 0
       Width = 400
     end
@@ -66,12 +66,8 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    ExplicitLeft = 224
-    ExplicitTop = 416
-    ExplicitWidth = 185
-    ExplicitHeight = 105
     Height = 395
-    Width = 550
+    Width = 553
     object btnPropAdd: TButton
       Left = 3
       Top = 24
@@ -208,8 +204,8 @@ object frmCategoryEdit: TfrmCategoryEdit
     Connection = DMMain.conMain
     SQL.Strings = (
       'select * from dictonary.category')
-    Left = 613
-    Top = 330
+    Left = 109
+    Top = 314
     object fieldMainid: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'id'
@@ -228,6 +224,35 @@ object frmCategoryEdit: TfrmCategoryEdit
     Top = 155
   end
   object queryProps: TUniQuery
+    SQLInsert.Strings = (
+      'INSERT INTO dictonary.properties'
+      '  (id, name)'
+      'VALUES'
+      '  (:id, :name)')
+    SQLDelete.Strings = (
+      'DELETE FROM dictonary.properties'
+      'WHERE'
+      '  id = :Old_id')
+    SQLUpdate.Strings = (
+      'UPDATE dictonary.properties'
+      'SET'
+      '  id = :id, name = :name'
+      'WHERE'
+      '  id = :Old_id')
+    SQLLock.Strings = (
+      'SELECT * FROM dictonary.properties'
+      'WHERE'
+      '  id = :Old_id'
+      'FOR UPDATE NOWAIT')
+    SQLRefresh.Strings = (
+      'SELECT id, name FROM dictonary.properties'
+      'WHERE'
+      '  id = :id')
+    SQLRecCount.Strings = (
+      'SELECT count(*) FROM ('
+      'SELECT * FROM dictonary.properties'
+      ''
+      ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
       'SELECT '
@@ -242,8 +267,8 @@ object frmCategoryEdit: TfrmCategoryEdit
       '  INNER JOIN public.properties p ON (cp.prop_id = p.id)'
       'where category_id=:id'
       'order by cp.order_by')
-    Left = 601
-    Top = 218
+    Left = 145
+    Top = 226
     ParamData = <
       item
         DataType = ftUnknown

@@ -30,14 +30,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
-  Application.CreateForm(TfrmSelect, frmSelect);
-  Application.CreateForm(TfrmSelectTree, frmSelectTree);
-  // Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
-  // Application.CreateForm(TfrmProps, frmProps);
-  //  Application.CreateForm(TfrmProductEdit, frmProductEdit);
-//  Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
-//  Application.CreateForm(TfrmPropEdit, frmPropEdit);
-//
-//  Application.CreateForm(TfrmProduct, frmProduct);
+ // Application.CreateForm(TfrmSelect, frmSelect);
   Application.Run;
 end.

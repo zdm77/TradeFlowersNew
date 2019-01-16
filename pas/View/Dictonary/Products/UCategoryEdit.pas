@@ -47,6 +47,7 @@ type
     procedure btnDawnClick(Sender: TObject);
     procedure btnPropAddClick(Sender: TObject);
     procedure btnUpClick(Sender: TObject);
+    procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
   private
     FEnableDawn: Boolean;
     FEnableUp: Boolean;
@@ -73,13 +74,13 @@ implementation
 {$R *.dfm}
 
 uses
-  UMain, UPropEdit, UDmMain;
+  UMain, UPropEdit, UDmMain, UfrmSelectTree;
 
 procedure TfrmCategoryEdit.UpDawnProp(up: Boolean);
 var
   queryUpd: TUniQuery;
-  order: integer;
-  new_order: integer;
+  order: Integer;
+  new_order: Integer;
   id: string;
 begin
   if queryProps.RecordCount > 0 then
@@ -95,8 +96,8 @@ begin
     queryUpd := TUniQuery.Create(nil);
     queryUpd.Connection := DMMain.conMain;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(new_order) +
-      ' where id=' + id;
+    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(new_order)
+      + ' where id=' + id;
     queryUpd.ExecSQL;
     if (up = True) then
       queryProps.Prior
@@ -132,21 +133,32 @@ var
   categoryProp: TCategoryProperty;
 begin
   categoryProp := TCategoryProperty.Create;
-  categoryProp.SetCategoryId(_category.Id);
+  categoryProp.SetCategoryId(_category.id);
   Application.CreateForm(TfrmPropEdit, frmPropEdit);
   frmPropEdit.init(queryProps, True, categoryProp);
   frmPropEdit.ShowModal;
   if frmPropEdit.ModalResult = mrOk then
   begin
-     _category.AddProperty(_category.Id,categoryProp.PropertyId, categoryProp.InName);
-     queryProps.Refresh;
-    
+    _category.AddProperty(_category.id, categoryProp.PropertyId, categoryProp.InName);
+    queryProps.Refresh;
   end;
 end;
 
 procedure TfrmCategoryEdit.btnUpClick(Sender: TObject);
 begin
   UpDawnProp(True);
+end;
+
+procedure TfrmCategoryEdit.edtParentNamePropertiesButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+  Application.CreateForm(TfrmSelectTree, frmSelectTree);
+  frmSelectTree.init(_category);
+  frmSelectTree.ShowModal;
+  if frmSelectTree.ModalResult = mrOk then
+  begin
+    edtParentName.Text := _category.GetParent(_category.ParentId).Name;
+  end;
 end;
 
 procedure TfrmCategoryEdit.SetEnableDawn(const Value: Boolean);
@@ -176,14 +188,14 @@ begin
   begin
     if isNew = True then
     begin
-      Insert;
       edtParentName.Text := _category.Name;
       _category.ParentId := category.id;
+      queryCategory.Insert;
     end
     else
     begin
       edtParentName.Text := _category.GetParent(category.ParentId).Name;
-      Update;
+      queryCategory.Edit;
     end;
   end;
   prop := TProps.Create();

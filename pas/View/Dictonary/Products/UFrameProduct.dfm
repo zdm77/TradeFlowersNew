@@ -68,10 +68,7 @@ object frameProduct: TframeProduct
       RootValue = -1
       TabOrder = 0
       OnClick = lstCategoryClick
-      ExplicitLeft = 5
-      ExplicitTop = 110
-      ExplicitWidth = 289
-      ExplicitHeight = 349
+      OnDblClick = lstCategoryDblClick
       object columnNameC: TcxDBTreeListColumn
         DataBinding.FieldName = 'name'
         Width = 255
@@ -131,9 +128,7 @@ object frameProduct: TframeProduct
     Width = 8
     Height = 539
     HotZoneClassName = 'TcxMediaPlayer9Style'
-    ExplicitLeft = 392
-    ExplicitTop = 176
-    ExplicitHeight = 100
+    Control = cxGroupBox1
   end
   object dsCategory: TUniDataSource
     DataSet = queryCategoty

@@ -14,7 +14,6 @@ uses
   cxContainer, cxSplitter, cxGroupBox;
 
 type
-
   TframeProduct = class(TFrame)
     dsCategory: TUniDataSource;
     queryCategoty: TUniQuery;
@@ -37,19 +36,19 @@ type
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
+    procedure lstCategoryDblClick(Sender: TObject);
     procedure navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
       var ADone: Boolean);
   private
     product: TProduct;
     category: TCategory;
- //   FSelCategoryID: Integer;
+    // FSelCategoryID: Integer;
     procedure CategoryInsEdt(isNew: Boolean);
-
     procedure ShowCategory;
     procedure ShowProduct;
     { Private declarations }
   public
- //   property SelCategoryID: Integer read FSelCategoryID write SetSelCategoryID;
+    // property SelCategoryID: Integer read FSelCategoryID write SetSelCategoryID;
     procedure Init;
     { Public declarations }
   end;
@@ -62,24 +61,29 @@ uses UCategoryEdit, UDmMain;
 
 procedure TframeProduct.btnAddClick(Sender: TObject);
 begin
-    CategoryInsEdt(true);
+  CategoryInsEdt(true);
 end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
-   CategoryInsEdt(false);
+  CategoryInsEdt(false);
 end;
 
 procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
 begin
-  Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
-  frmCategoryEdit.init(category, isNew, queryCategoty);
-  frmCategoryEdit.Show;
+  if category.ParentId <> 0 then
+  begin
+    Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
+    frmCategoryEdit.Init(category, isNew, queryCategoty);
+    frmCategoryEdit.Show;
+  end
+  else
+    Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка',
+      MB_OK + MB_ICONERROR)
 end;
 
 procedure TframeProduct.Init;
 begin
-
   category := TCategory.Create(queryCategoty);
   product := TProduct.Create;
   ShowCategory;
@@ -91,10 +95,14 @@ begin
   if category.Id <> queryCategoty.FieldByName('id').AsInteger then
   begin
     // FSelCategoryID := queryCategoty.FieldByName('id').AsInteger;
-
     category.SetCategory;
     ShowProduct;
   end;
+end;
+
+procedure TframeProduct.lstCategoryDblClick(Sender: TObject);
+begin
+  CategoryInsEdt(false);
 end;
 
 procedure TframeProduct.navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
@@ -109,8 +117,6 @@ begin
       CategoryInsEdt(false);
   end;
 end;
-
-
 
 procedure TframeProduct.ShowCategory;
 begin
