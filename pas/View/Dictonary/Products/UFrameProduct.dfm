@@ -70,6 +70,7 @@ object frameProduct: TframeProduct
       OnClick = lstCategoryClick
       OnDblClick = lstCategoryDblClick
       object columnNameC: TcxDBTreeListColumn
+        Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
         Width = 255
         Position.ColIndex = 0
@@ -119,6 +120,7 @@ object frameProduct: TframeProduct
         ImageIndex = 5
         Images = frmMain.imgMidle
         TabOrder = 2
+        OnClick = btnDelClick
       end
     end
   end

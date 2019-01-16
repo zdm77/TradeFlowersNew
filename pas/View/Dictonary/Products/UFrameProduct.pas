@@ -34,6 +34,7 @@ type
     btnEdit: TButton;
     btnDel: TButton;
     procedure btnAddClick(Sender: TObject);
+    procedure btnDelClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
     procedure lstCategoryDblClick(Sender: TObject);
@@ -62,6 +63,16 @@ uses UCategoryEdit, UDmMain;
 procedure TframeProduct.btnAddClick(Sender: TObject);
 begin
   CategoryInsEdt(true);
+end;
+
+procedure TframeProduct.btnDelClick(Sender: TObject);
+begin
+  if Application.MessageBox('Вы действительно хотите удалить группу и все пренадлежащие ей товары?',
+    'Вопрос', MB_YESNO + MB_ICONWARNING) = mrYes then
+    begin
+    category.DeleteCategory();
+    category.Refresh;
+    end;
 end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
