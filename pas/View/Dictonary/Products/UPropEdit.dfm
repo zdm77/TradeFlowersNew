@@ -1,9 +1,10 @@
 object frmPropEdit: TfrmPropEdit
   Left = 0
   Top = 0
-  Caption = 'frmPropEdit'
-  ClientHeight = 107
-  ClientWidth = 388
+  BorderStyle = bsDialog
+  Caption = #1057#1074#1086#1081#1089#1090#1074#1086' '#1082#1072#1090#1077#1075#1086#1088#1080#1080
+  ClientHeight = 123
+  ClientWidth = 404
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,11 +16,13 @@ object frmPropEdit: TfrmPropEdit
   PixelsPerInch = 96
   TextHeight = 13
   object btnSave: TButton
-    Left = 294
-    Top = 75
-    Width = 75
-    Height = 25
-    Caption = 'btnSave'
+    Left = 264
+    Top = 64
+    Width = 105
+    Height = 36
+    Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+    ImageIndex = 13
+    Images = frmMain.imgMidle
     TabOrder = 0
     OnClick = btnSaveClick
   end

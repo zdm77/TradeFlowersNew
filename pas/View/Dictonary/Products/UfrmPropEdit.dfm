@@ -1,9 +1,10 @@
 object frmPropEditDict: TfrmPropEditDict
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'frmPropEditDict'
-  ClientHeight = 357
-  ClientWidth = 537
+  ClientHeight = 373
+  ClientWidth = 553
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,14 +14,6 @@ object frmPropEditDict: TfrmPropEditDict
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object btnSave: TButton
-    Left = 294
-    Top = 75
-    Width = 75
-    Height = 25
-    Caption = 'btnSave'
-    TabOrder = 0
-  end
   object edtPropName: TcxLookupComboBox
     Left = 72
     Top = 24
@@ -30,15 +23,26 @@ object frmPropEditDict: TfrmPropEditDict
         FieldName = 'name'
       end>
     Properties.ListSource = dsProp
-    TabOrder = 1
+    TabOrder = 0
     Width = 297
   end
   object chkInName: TcxCheckBox
     Left = 8
     Top = 51
     Caption = #1042' '#1085#1072#1079#1074#1072#1085#1080#1080
-    TabOrder = 2
+    TabOrder = 1
     Width = 121
+  end
+  object btnSave: TButton
+    Left = 264
+    Top = 64
+    Width = 105
+    Height = 36
+    Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+    ImageIndex = 13
+    Images = frmMain.imgMidle
+    TabOrder = 2
+    OnClick = btnSaveClick
   end
   object dsProp: TUniDataSource
     DataSet = queryProp
