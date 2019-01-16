@@ -34,9 +34,9 @@ type
     procedure queryPropsPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
     procedure queryPropsUpdateError(DataSet: TDataSet; E: EDatabaseError; UpdateKind: TUpdateKind;
       var UpdateAction: TUpdateAction);
-    procedure viewPropsCellClick(Sender: TcxCustomGridTableView; ACellViewInfo:
-        TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState;
-        var AHandled: Boolean);
+    procedure viewPropsCellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState;
+      var AHandled: Boolean);
   private
     prop: TProps;
     procedure InsEdit(isNew: Boolean);
@@ -85,11 +85,11 @@ end;
 
 procedure TframeProps.InsEdit(isNew: Boolean);
 begin
-//  Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
-//  frmPropEditDict.init(queryProps, isNew);
-//  frmPropEditDict.Show;
+  // Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
+  // frmPropEditDict.init(queryProps, isNew);
+  // frmPropEditDict.Show;
   Application.CreateForm(TfrmOnlyName, frmOnlyName);
-  frmOnlyName.init(TABLE_PROPERTIES, true, isNew,  prop.Id, prop.Name);
+  frmOnlyName.Init(TABLE_PROPERTIES, true, isNew, queryProps, prop.Id, prop.Name);
   frmOnlyName.Show;
 end;
 
@@ -124,13 +124,12 @@ end;
 
 procedure TframeProps.ShowProps;
 begin
-    prop.GetProps;
-
+  prop.GetProps;
 end;
 
 procedure TframeProps.viewPropsCellClick(Sender: TcxCustomGridTableView;
-    ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift:
-    TShiftState; var AHandled: Boolean);
+  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState;
+  var AHandled: Boolean);
 begin
   prop.SetProp;
 end;
