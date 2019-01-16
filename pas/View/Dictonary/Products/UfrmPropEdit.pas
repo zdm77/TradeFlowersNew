@@ -7,23 +7,22 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.StdCtrls, cxTextEdit,
   cxDBEdit, Data.DB, DBAccess, Uni, MemDS, cxMaskEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCheckBox, UCategoryProperty;
 
 type
   TfrmPropEditDict = class(TForm)
-    queryProps: TUniQuery;
-    dsProps: TUniDataSource;
-    edtname: TcxDBTextEdit;
-    lbl1: TLabel;
+    edtPropName: TcxLookupComboBox;
+    chkInName: TcxCheckBox;
+    dsProp: TUniDataSource;
+    queryProp: TUniQuery;
     btnSave: TButton;
-    queryProd: TUniQuery;
-    dsProd: TUniDataSource;
-    cbbProd: TcxDBLookupComboBox;
     procedure btnSaveClick(Sender: TObject);
   private
-    _senderQuery: TUniQuery;
+ _senderQuery: TUniQuery;
+    categoryProp: TCategoryProperty;
   public
-    procedure setParam(senderQuery: TUniQuery; isNew: Boolean);
+   procedure init(senderQuery: TUniQuery; isNew: Boolean; _categoryProp:
+        TCategoryProperty);
     { Public declarations }
   end;
 
@@ -34,31 +33,34 @@ implementation
 
 {$R *.dfm}
 
+uses UMain;
+
 procedure TfrmPropEditDict.btnSaveClick(Sender: TObject);
 begin
-  queryProps.Post;
-  _senderQuery.Refresh;
-  // ShowMessage(queryCategory.FieldByName('id').AsString);
-  _senderQuery.Locate('id', queryProps.FieldByName('id').AsInteger, []);
+ categoryProp.InName:= chkInName.Checked;
+  categoryProp.PropertyId:=edtPropName.EditValue;
+  ModalResult:=mrOk;
 end;
 
-procedure TfrmPropEditDict.setParam(senderQuery: TUniQuery; isNew: Boolean);
+procedure TfrmPropEditDict.init(senderQuery: TUniQuery; isNew: Boolean;
+    _categoryProp: TCategoryProperty);
 begin
-  _senderQuery := senderQuery;
-  begin
-    with queryProps do
+ // _senderQuery := senderQuery;
+
+    categoryProp  := _categoryProp;
+    with queryProp do
     begin
       Close;
-      // SQL.Text := 'select * from "Props" where id=' + _senderQuery.FieldByName('Id').AsString;
-      sql.Text := 'SELECT * from view_prop_test where id=' +
-        _senderQuery.FieldByName('Id').AsString;
+      sql.Text := 'select * from dictonary.properties ';
+      if (senderQuery.RecordCount > 0) then
+      begin
+        sql.Add(' where id not in (select prop_id from dictonary.properties_category where category_id=' +
+       inttostr(  categoryProp.Id )+ ')');
+      end;
       Open;
-      if isNew = True then
-        Insert
-      else
-        Update;
+      edtPropName.EditValue:=Fields[0].AsInteger;
     end;
-  end;
+
 end;
 
 end.

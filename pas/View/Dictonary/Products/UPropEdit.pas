@@ -34,7 +34,7 @@ implementation
 
 {$R *.dfm}
 
-uses UDmMain;
+uses UDmMain, UMain;
 
 procedure TfrmPropEdit.btnSaveClick(Sender: TObject);
 begin

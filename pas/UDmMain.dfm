@@ -18,4 +18,8 @@ object DMMain: TDMMain
     Left = 120
     Top = 23
   end
+  object mon1: TUniSQLMonitor
+    Left = 272
+    Top = 240
+  end
 end

@@ -34,12 +34,14 @@ type
     procedure AddProperty(categoryId, propertyId: Integer; inName: Boolean);
     procedure GetCategories;
     procedure assignCategoryById(_id: Integer; query: TUniQuery);
+    procedure DeleteCategory;
     /// <summary>Вернуть объект Category по параметру родителя
     /// </summary>
     /// <returns> TCategory
     /// </returns>
     /// <param name="_pid"> (Integer) </param>
     function GetParent(_pid: Integer): TCategory;
+    procedure Refresh;
     procedure SetCategory;
   end;
 
@@ -91,7 +93,7 @@ begin
   query.SQL.Text := SQL.ToString;
   query.ParamByName('category_id').Value := categoryId;
   query.ParamByName('prop_id').Value := propertyId;
-  query.ParamByName('order_by').Value :=maxOrder ;
+  query.ParamByName('order_by').Value := maxOrder;
   query.ParamByName('in_name').Value := inName;
   query.ExecSQL;
   SetCategory;
@@ -110,8 +112,8 @@ begin
     SQL.Add(' id,');
     SQL.Add(' name,');
     SQL.Add(' pid');
-    SQL.Add(' FROM');
-    SQL.Add(' dictonary.category ;');
+    SQL.Add(' FROM ');
+    SQL.Add(TABLE_CATEGORY);
     Open;
   end;
   dsCategory.DataSet := query;
@@ -128,8 +130,8 @@ begin
   SQL.Append(' id,');
   SQL.Append(' name,');
   SQL.Append(' pid');
-  SQL.Append(' FROM');
-  SQL.Append(' dictonary.category ;');
+  SQL.Append(' FROM ');
+  SQL.Append(TABLE_CATEGORY);
   FqueryCategory.SQL.Text := SQL.ToString;
   FqueryCategory.Open;
   SetCategory;
@@ -146,14 +148,31 @@ begin
   SQL.Append(' id,');
   SQL.Append(' name,');
   SQL.Append(' pid');
-  SQL.Append(' FROM');
-  SQL.Append(' dictonary.category');
+  SQL.Append(' FROM ');
+  SQL.Append(TABLE_CATEGORY);
   SQL.Append(' where ');
   SQL.Append(' id= ');
   SQL.Append(IntToStr(_id));
   query.Close;
   query.SQL.Text := SQL.ToString;
   query.Open;
+end;
+
+procedure TCategory.DeleteCategory;
+var
+  query: TUniQuery;
+  SQL: TStringBuilder;
+begin
+  query := TUniQuery.Create(nil);
+  query.Connection := DMMain.conMain;
+  SQL := TStringBuilder.Create;
+  SQL.Append(' DELETE FROM ');
+  SQL.Append(TABLE_CATEGORY);
+  SQL.Append(' WHERE ID=');
+  SQL.Append(queryCategory.FieldByName('id').AsString);
+  query.SQL.Text := SQL.ToString;
+  query.ExecSQL;
+  // TODO -cMM: TCategory.DeleteCategory default body inserted
 end;
 
 function TCategory.GetParent(_pid: Integer): TCategory;
@@ -165,13 +184,12 @@ begin
   query := TUniQuery.Create(nil);
   query.Connection := DMMain.conMain;
   SQL := TStringBuilder.Create;
-  SQL.Clear;
   SQL.Append(' SELECT');
   SQL.Append(' id,');
   SQL.Append(' name,');
   SQL.Append(' pid');
-  SQL.Append(' FROM');
-  SQL.Append(' dictonary.category');
+  SQL.Append(' FROM ');
+  SQL.Append(TABLE_CATEGORY);
   SQL.Append(' where ');
   SQL.Append(' id= ');
   SQL.Append(IntToStr(_pid));
@@ -185,6 +203,11 @@ begin
     category_out.SetName(query.FieldByName('name').Value);
     Result := category_out;
   end;
+end;
+
+procedure TCategory.Refresh;
+begin
+  queryCategory.Refresh;
 end;
 
 procedure TCategory.SetCategory;

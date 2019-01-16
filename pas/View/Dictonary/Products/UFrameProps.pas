@@ -81,7 +81,7 @@ end;
 procedure TframeProps.InsEdit(isNew: Boolean);
 begin
   Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
-  frmPropEditDict.setParam(queryProps, isNew);
+ // frmPropEditDict.init(queryProps, isNew);
   frmPropEditDict.Show;
 end;
 
