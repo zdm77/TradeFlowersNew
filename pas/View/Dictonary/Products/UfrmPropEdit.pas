@@ -7,22 +7,20 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.StdCtrls, cxTextEdit,
   cxDBEdit, Data.DB, DBAccess, Uni, MemDS, cxMaskEdit, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCheckBox, UCategoryProperty;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCheckBox, UProps;
 
 type
   TfrmPropEditDict = class(TForm)
-    edtPropName: TcxLookupComboBox;
-    chkInName: TcxCheckBox;
     dsProp: TUniDataSource;
     queryProp: TUniQuery;
     btnSave: TButton;
-    procedure btnSaveClick(Sender: TObject);
+    edtname: TcxDBTextEdit;
+    lbl1: TLabel;
   private
- _senderQuery: TUniQuery;
-    categoryProp: TCategoryProperty;
+    _senderQuery: TUniQuery;
+    prop: TProps;
   public
-   procedure init(senderQuery: TUniQuery; isNew: Boolean; _categoryProp:
-        TCategoryProperty);
+    procedure init(senderQuery: TUniQuery; isNew: Boolean);
     { Public declarations }
   end;
 
@@ -35,31 +33,17 @@ implementation
 
 uses UMain;
 
-procedure TfrmPropEditDict.btnSaveClick(Sender: TObject);
+procedure TfrmPropEditDict.init(senderQuery: TUniQuery; isNew: Boolean);
 begin
- categoryProp.InName:= chkInName.Checked;
-  categoryProp.PropertyId:=edtPropName.EditValue;
-  ModalResult:=mrOk;
-end;
-
-procedure TfrmPropEditDict.init(senderQuery: TUniQuery; isNew: Boolean;
-    _categoryProp: TCategoryProperty);
-begin
- // _senderQuery := senderQuery;
-
-    categoryProp  := _categoryProp;
-    with queryProp do
-    begin
-      Close;
-      sql.Text := 'select * from dictonary.properties ';
-      if (senderQuery.RecordCount > 0) then
-      begin
-        sql.Add(' where id not in (select prop_id from dictonary.properties_category where category_id=' +
-       inttostr(  categoryProp.Id )+ ')');
-      end;
-      Open;
-      edtPropName.EditValue:=Fields[0].AsInteger;
-    end;
+  _senderQuery := senderQuery;
+  if isNew = True then
+  begin
+    _senderQuery.Insert;
+  end
+  else
+  begin
+    _senderQuery.Edit;
+  end;
 
 end;
 

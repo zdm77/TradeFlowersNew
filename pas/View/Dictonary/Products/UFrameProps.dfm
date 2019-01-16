@@ -12,32 +12,37 @@ object frameProps: TframeProps
     TabOrder = 0
     Height = 38
     Width = 803
-    object nav1: TcxDBNavigator
-      Left = 4
-      Top = 3
-      Width = 240
+    object btnAdd: TButton
+      Left = 3
+      Top = 5
+      Width = 86
       Height = 32
-      Buttons.OnButtonClick = nav1ButtonsButtonClick
-      Buttons.CustomButtons = <>
-      Buttons.Images = frmMain.imgMidle
-      Buttons.First.Visible = False
-      Buttons.PriorPage.Visible = False
-      Buttons.Prior.Visible = False
-      Buttons.Next.Visible = False
-      Buttons.NextPage.Visible = False
-      Buttons.Last.Visible = False
-      Buttons.Insert.ImageIndex = 3
-      Buttons.Append.Visible = False
-      Buttons.Delete.ImageIndex = 5
-      Buttons.Edit.ImageIndex = 4
-      Buttons.Post.Visible = False
-      Buttons.Cancel.Visible = False
-      Buttons.Refresh.ImageIndex = 6
-      Buttons.SaveBookmark.Visible = False
-      Buttons.GotoBookmark.Visible = False
-      Buttons.Filter.Visible = False
-      DataSource = dsProps
+      Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+      ImageIndex = 3
+      Images = frmMain.imgMidle
       TabOrder = 0
+      OnClick = btnAddClick
+    end
+    object btnEdit: TButton
+      Left = 89
+      Top = 5
+      Width = 37
+      Height = 32
+      ImageAlignment = iaCenter
+      ImageIndex = 4
+      Images = frmMain.imgMidle
+      TabOrder = 1
+      OnClick = btnEditClick
+    end
+    object btnDel: TButton
+      Left = 126
+      Top = 5
+      Width = 37
+      Height = 32
+      ImageAlignment = iaCenter
+      ImageIndex = 5
+      Images = frmMain.imgMidle
+      TabOrder = 2
     end
   end
   object cxGroupBox2: TcxGroupBox
@@ -57,6 +62,7 @@ object frameProps: TframeProps
       TabOrder = 0
       object viewProps: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
+        OnCellClick = viewPropsCellClick
         DataController.DataSource = dsProps
         DataController.Options = [dcoAnsiSort, dcoAssignGroupingValues, dcoAssignMasterDetailKeys, dcoSaveExpanding]
         DataController.Summary.DefaultGroupSummaryItems = <>

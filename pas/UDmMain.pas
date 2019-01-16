@@ -14,17 +14,21 @@ type
   private
     { Private declarations }
   public
-
     { Public declarations }
   end;
 
 var
   DMMain: TDMMain;
-  const TABLE_CATEGORY = 'dictonary.category';
+
+const
+  TABLE_CATEGORY = 'dictonary.category';
+
+const
+  TABLE_PROPERTIES = 'dictonary.properties';
+
 implementation
 
-{%CLASSGROUP 'Vcl.Controls.TControl'}
-
+{ %CLASSGROUP 'Vcl.Controls.TControl' }
 {$R *.dfm}
 
 end.

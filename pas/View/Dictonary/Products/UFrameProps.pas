@@ -17,13 +17,15 @@ type
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
     cxGroupBox1: TcxGroupBox;
-    nav1: TcxDBNavigator;
     cxGroupBox2: TcxGroupBox;
     gridProps: TcxGrid;
     viewProps: TcxGridDBTableView;
     columnName: TcxGridDBColumn;
     viewPropsRootGroup: TcxGridInplaceEditFormGroup;
     levelGrid1Level1: TcxGridLevel;
+    btnAdd: TButton;
+    btnEdit: TButton;
+    btnDel: TButton;
     procedure btnAddClick(Sender: TObject);
     procedure btnDelClick(Sender: TObject); pascal;
     procedure btnEditClick(Sender: TObject);
@@ -32,6 +34,9 @@ type
     procedure queryPropsPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
     procedure queryPropsUpdateError(DataSet: TDataSet; E: EDatabaseError; UpdateKind: TUpdateKind;
       var UpdateAction: TUpdateAction);
+    procedure viewPropsCellClick(Sender: TcxCustomGridTableView; ACellViewInfo:
+        TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState;
+        var AHandled: Boolean);
   private
     prop: TProps;
     procedure InsEdit(isNew: Boolean);
@@ -46,7 +51,7 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmPropEdit, UFuncAndProc;
+uses UfrmPropEdit, UFuncAndProc, UfrmOnlyName, UDmMain;
 
 procedure TframeProps.btnAddClick(Sender: TObject);
 begin
@@ -80,9 +85,12 @@ end;
 
 procedure TframeProps.InsEdit(isNew: Boolean);
 begin
-  Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
- // frmPropEditDict.init(queryProps, isNew);
-  frmPropEditDict.Show;
+//  Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
+//  frmPropEditDict.init(queryProps, isNew);
+//  frmPropEditDict.Show;
+  Application.CreateForm(TfrmOnlyName, frmOnlyName);
+  frmOnlyName.init(TABLE_PROPERTIES, true, isNew,  prop.Id, prop.Name);
+  frmOnlyName.Show;
 end;
 
 procedure TframeProps.nav1ButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
@@ -118,6 +126,13 @@ procedure TframeProps.ShowProps;
 begin
     prop.GetProps;
 
+end;
+
+procedure TframeProps.viewPropsCellClick(Sender: TcxCustomGridTableView;
+    ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift:
+    TShiftState; var AHandled: Boolean);
+begin
+  prop.SetProp;
 end;
 
 end.

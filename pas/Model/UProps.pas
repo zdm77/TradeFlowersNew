@@ -21,6 +21,7 @@ type
     constructor Create(query: TUniQuery); overload;
     procedure GetPropsByCategoryId(category_id: Integer; query: TUniQuery);
     procedure SetCategory;
+    procedure SetProp;
   end;
 
 implementation
@@ -71,9 +72,8 @@ begin
   SQL.Append(' INNER JOIN dictonary.properties pr ON (pc.prop_id = pr.id)');
   SQL.Append(' where pc.category_id=' + IntToStr(category_id));
   SQL.Append(' order by pc.order_by');
-  query.SQL.Text:=SQL.ToString();
+  query.SQL.Text := SQL.ToString();
   query.Open;
-
   // TODO -cMM: TProps.GetPropsByCategoryId default body inserted
 end;
 
@@ -94,6 +94,12 @@ end;
 procedure TProps.SetName(const Value: string);
 begin
   FName := Value;
+end;
+
+procedure TProps.SetProp;
+begin
+  SetId(QueryProp.FieldByName('id').Value);
+  SetName(QueryProp.FieldByName('name').Value);
 end;
 
 end.

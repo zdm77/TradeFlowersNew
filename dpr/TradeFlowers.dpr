@@ -21,7 +21,8 @@ uses
   UCategoruController in '..\pas\Controller\UCategoruController.pas',
   UfrmSelect in '..\pas\UfrmSelect.pas' {frmSelect},
   UfrmSelectTree in '..\pas\UfrmSelectTree.pas' {frmSelectTree},
-  UCategoryProperty in '..\pas\Model\UCategoryProperty.pas';
+  UCategoryProperty in '..\pas\Model\UCategoryProperty.pas',
+  UfrmOnlyName in '..\pas\View\UfrmOnlyName.pas' {frmOnlyName};
 
 {$R *.res}
 
@@ -30,6 +31,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
- // Application.CreateForm(TfrmSelect, frmSelect);
+ // Application.CreateForm(TfrmOnlyName, frmOnlyName);
+  // Application.CreateForm(TfrmSelect, frmSelect);
   Application.Run;
 end.
