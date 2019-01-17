@@ -3,7 +3,7 @@ unit UProps;
 interface
 
 uses
-  Classes, Uni, System.SysUtils;
+  Classes, Uni, System.SysUtils, TypInfo;
 
 type
   TProps = class(TObject)
@@ -34,8 +34,11 @@ begin
 end;
 
 procedure TProps.DeleteE();
+var
+  s: string;
 begin
   UFuncAndProc.standartDelete(QueryProp);
+  // посмотреть не использоуется ли
 end;
 
 procedure TProps.GetProps();

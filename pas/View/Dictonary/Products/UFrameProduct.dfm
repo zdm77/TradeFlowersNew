@@ -65,6 +65,7 @@ object frameProduct: TframeProduct
       Navigator.Buttons.CustomButtons = <>
       OptionsData.Editing = False
       OptionsData.Deleting = False
+      OptionsSelection.CellSelect = False
       RootValue = -1
       TabOrder = 0
       OnClick = lstCategoryClick

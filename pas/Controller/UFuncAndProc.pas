@@ -16,6 +16,7 @@ procedure standartDelete(query: TUniQuery);
 function standartValidateOnUnic(fieldName: string): Boolean;
 procedure QueryCreate(query: TUniQuery);
 function getNewId(tableName: string): Integer;
+procedure deleteById(Id: Integer; tableName: string);
 
 implementation
 
@@ -35,10 +36,9 @@ end;
 
 procedure standartDelete(query: TUniQuery);
 begin
-  if Application.MessageBox('', '', MB_YESNO) = mrYes then
-  begin
+  if Application.MessageBox('Вы действительно хотите удалить запись?', 'Вопрос',
+    MB_YESNO + MB_ICONWARNING) = mrYes then
     query.Delete;
-  end;
 end;
 
 function standartValidateOnUnic(fieldName: string): Boolean;
@@ -56,21 +56,26 @@ end;
 function getNewId(tableName: string): Integer;
 var
   query: TUniQuery;
-  seq_name: TStringBuilder;
-  pos_dom: Integer;
 begin
-//  pos_dom := Pos('.', tableName);
-//  if pos_dom > 0 then
-//    tableName := Copy(tableName, pos_dom+1, Length(tableName));
-//  seq_name:= TStringBuilder.Create;
-//  seq_name.Append(tableName);
-//  seq_name.Append('_id_seq');
   query := TUniQuery.Create(nil);
   query.Connection := DMMain.conMain;
-  query.SQL.Text := 'select nextval (' + QuotedStr(tableName+'_id_seq') + ')';
-
+  query.SQL.Text := 'select nextval (' + QuotedStr(tableName + '_id_seq') + ')';
   query.Open;
   Result := query.fields[0].AsInteger;
+end;
+
+procedure deleteById(Id: Integer; tableName: string);
+var
+  query: TUniQuery;
+begin
+  query := TUniQuery.Create(nil);
+  query.Connection := DMMain.conMain;
+  if Application.MessageBox('Вы действительно хотите удалить запись?', 'Вопрос',
+    MB_YESNO + MB_ICONWARNING) = mrYes then
+  begin
+    query.SQL.Text := 'delete from  ' + tableName + ' where id=' + IntToStr(Id);
+    query.ExecSQL;
+  end;
 end;
 
 end.

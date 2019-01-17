@@ -43,11 +43,15 @@ type
     btnUp: TButton;
     btnDawn: TButton;
     btnSave: TButton;
+    btnEdit: TButton;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
     procedure btnPropAddClick(Sender: TObject);
+    procedure btnPropEditClick(Sender: TObject);
     procedure btnUpClick(Sender: TObject);
     procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
+    procedure viewPropDblClick(Sender: TObject);
   private
     FEnableDawn: Boolean;
     FEnableUp: Boolean;
@@ -61,6 +65,7 @@ type
     { Private declarations }
   public
     procedure init(category: TCategory; isNew: Boolean; senderQuery: TUniQuery);
+    procedure InsUpdProp(isNew: Boolean);
     property EnableDawn: Boolean read FEnableDawn write SetEnableDawn;
     property EnableUp: Boolean read FEnableUp write SetEnableUp;
     // property EnableDawn: Boolean read FEnableDawn write SetEnableDawn;
@@ -74,7 +79,7 @@ implementation
 {$R *.dfm}
 
 uses
-  UMain, UPropEdit, UDmMain, UfrmSelectTree;
+  UMain, UPropEdit, UDmMain, UfrmSelectTree, UFuncAndProc;
 
 procedure TfrmCategoryEdit.UpDawnProp(up: Boolean);
 var
@@ -127,21 +132,20 @@ begin
   UpDawnProp(false);
 end;
 
-procedure TfrmCategoryEdit.btnPropAddClick(Sender: TObject);
-var
-  queryUpd: TUniQuery;
-  categoryProp: TCategoryProperty;
+procedure TfrmCategoryEdit.btnEditClick(Sender: TObject);
 begin
-  categoryProp := TCategoryProperty.Create;
-  categoryProp.SetCategoryId(_category.id);
-  Application.CreateForm(TfrmPropEdit, frmPropEdit);
-  frmPropEdit.init(queryProps, True, categoryProp);
-  frmPropEdit.ShowModal;
-  if frmPropEdit.ModalResult = mrOk then
-  begin
-    _category.AddProperty(_category.id, categoryProp.PropertyId, categoryProp.InName);
-    queryProps.Refresh;
-  end;
+  InsUpdProp(false);
+end;
+
+procedure TfrmCategoryEdit.btnPropAddClick(Sender: TObject);
+begin
+  InsUpdProp(True);
+end;
+
+procedure TfrmCategoryEdit.btnPropEditClick(Sender: TObject);
+begin
+  UFuncAndProc.deleteById(queryProps.FieldByName('id').AsInteger, TABLE_CATEGORY_PROPERTY);
+  queryProps.Refresh;
 end;
 
 procedure TfrmCategoryEdit.btnUpClick(Sender: TObject);
@@ -206,6 +210,30 @@ begin
   // ParamByName('id').Value := IntToStr(category.id);
   // Open;
   // end;
+end;
+
+procedure TfrmCategoryEdit.InsUpdProp(isNew: Boolean);
+var
+  categoryProp: TCategoryProperty;
+begin
+  categoryProp := TCategoryProperty.Create;
+  categoryProp.SetCategoryId(_category.id);
+  Application.CreateForm(TfrmPropEdit, frmPropEdit);
+  frmPropEdit.init(queryProps, isNew, categoryProp);
+  frmPropEdit.ShowModal;
+  if frmPropEdit.ModalResult = mrOk then
+  begin
+    if isNew = True then
+      _category.AddProperty(_category.id, categoryProp.PropertyId, categoryProp.InName)
+    else
+      frmPropEdit.UpdateProp(queryProps);
+    queryProps.Refresh;
+  end;
+end;
+
+procedure TfrmCategoryEdit.viewPropDblClick(Sender: TObject);
+begin
+  InsUpdProp(false);
 end;
 
 end.

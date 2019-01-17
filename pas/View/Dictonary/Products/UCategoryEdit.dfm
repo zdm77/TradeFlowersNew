@@ -2,7 +2,7 @@ object frmCategoryEdit: TfrmCategoryEdit
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'frmCategoryEdit'
+  Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1103
   ClientHeight = 460
   ClientWidth = 553
   Color = clBtnFace
@@ -69,7 +69,7 @@ object frmCategoryEdit: TfrmCategoryEdit
     Height = 395
     Width = 553
     object btnPropAdd: TButton
-      Left = 3
+      Left = 7
       Top = 24
       Width = 86
       Height = 32
@@ -80,7 +80,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       OnClick = btnPropAddClick
     end
     object btnPropEdit: TButton
-      Left = 89
+      Left = 130
       Top = 24
       Width = 37
       Height = 32
@@ -88,9 +88,10 @@ object frmCategoryEdit: TfrmCategoryEdit
       ImageIndex = 5
       Images = frmMain.imgMidle
       TabOrder = 1
+      OnClick = btnPropEditClick
     end
     object btnFormat: TButton
-      Left = 126
+      Left = 167
       Top = 24
       Width = 146
       Height = 32
@@ -103,7 +104,10 @@ object frmCategoryEdit: TfrmCategoryEdit
       Width = 497
       Height = 297
       TabOrder = 3
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = True
       object viewProp: TcxGridDBTableView
+        OnDblClick = viewPropDblClick
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps
         DataController.Summary.DefaultGroupSummaryItems = <>
@@ -112,6 +116,8 @@ object frmCategoryEdit: TfrmCategoryEdit
         OptionsData.Deleting = False
         OptionsData.Editing = False
         OptionsData.Inserting = False
+        OptionsSelection.CellSelect = False
+        OptionsSelection.HideFocusRectOnExit = False
         OptionsView.GroupByBox = False
         object columnName: TcxGridDBColumn
           Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
@@ -164,6 +170,17 @@ object frmCategoryEdit: TfrmCategoryEdit
       Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
       TabOrder = 6
       OnClick = btnSaveClick
+    end
+    object btnEdit: TButton
+      Left = 93
+      Top = 24
+      Width = 37
+      Height = 32
+      ImageAlignment = iaCenter
+      ImageIndex = 4
+      Images = frmMain.imgMidle
+      TabOrder = 7
+      OnClick = btnEditClick
     end
   end
   object dsMain: TUniDataSource

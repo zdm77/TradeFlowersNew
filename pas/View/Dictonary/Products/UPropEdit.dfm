@@ -34,6 +34,8 @@ object frmPropEdit: TfrmPropEdit
       item
         FieldName = 'name'
       end>
+    Properties.ListOptions.ColumnSorting = False
+    Properties.ListOptions.ShowHeader = False
     Properties.ListSource = dsProp
     TabOrder = 1
     Width = 297

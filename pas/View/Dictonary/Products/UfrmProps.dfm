@@ -32,17 +32,13 @@ object frmProps: TfrmProps
       Width = 811
     end
     inherited cxGroupBox2: TcxGroupBox
-      ExplicitLeft = 0
-      ExplicitTop = 38
       ExplicitWidth = 811
-      ExplicitHeight = 489
+      ExplicitHeight = 523
       Height = 523
       Width = 811
       inherited gridProps: TcxGrid
         Width = 807
         Height = 519
-        ExplicitLeft = 2
-        ExplicitTop = 2
         ExplicitWidth = 807
         ExplicitHeight = 485
         inherited viewProps: TcxGridDBTableView

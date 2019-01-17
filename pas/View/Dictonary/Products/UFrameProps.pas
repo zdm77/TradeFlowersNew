@@ -10,7 +10,8 @@ uses
   DBAccess, Uni, Vcl.StdCtrls, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, UProps,
   cxDBLookupComboBox, dxLayoutContainer, cxGridInplaceEditForm, cxLabel,
-  cxCheckBox, cxDBNavigator, cxTextEdit, cxContainer, cxGroupBox;
+  cxCheckBox, cxDBNavigator, cxTextEdit, cxContainer, cxGroupBox,
+  cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TframeProps = class(TFrame)
@@ -27,10 +28,12 @@ type
     btnEdit: TButton;
     btnDel: TButton;
     procedure btnAddClick(Sender: TObject);
-    procedure btnDelClick(Sender: TObject); pascal;
+    procedure btnDelClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure nav1ButtonsButtonClick(Sender: TObject; AButtonIndex: Integer; var ADone: Boolean);
     procedure queryPropsBeforePost(DataSet: TDataSet);
+    procedure queryPropsDeleteError(DataSet: TDataSet; E: EDatabaseError; var
+        Action: TDataAction);
     procedure queryPropsPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
     procedure queryPropsUpdateError(DataSet: TDataSet; E: EDatabaseError; UpdateKind: TUpdateKind;
       var UpdateAction: TUpdateAction);
@@ -59,21 +62,13 @@ begin
 end;
 
 procedure TframeProps.btnDelClick(Sender: TObject);
-var
-  i: Integer;
 begin
-  // prop.DeleteE;
-  for i := 0 to ComponentCount - 1 do
-  begin
-    if (Components[i] is TEdit) then
-    begin
-      ShowMessage((Components[i] as TEdit).Name);
-    end;
-  end;
+  prop.DeleteE;
 end;
 
 procedure TframeProps.btnEditClick(Sender: TObject);
 begin
+
   InsEdit(false);
 end;
 
@@ -85,9 +80,6 @@ end;
 
 procedure TframeProps.InsEdit(isNew: Boolean);
 begin
-  // Application.CreateForm(TfrmPropEditDict, frmPropEditDict);
-  // frmPropEditDict.init(queryProps, isNew);
-  // frmPropEditDict.Show;
   Application.CreateForm(TfrmOnlyName, frmOnlyName);
   frmOnlyName.Init(TABLE_PROPERTIES, true, isNew, queryProps, prop.Id, prop.Name);
   frmOnlyName.Show;
@@ -105,12 +97,22 @@ begin
   // Application.MessageBox('','',MB_OK);
 end;
 
+procedure TframeProps.queryPropsDeleteError(DataSet: TDataSet; E:
+    EDatabaseError; var Action: TDataAction);
+begin
+  if (Pos('constraint', E.Message) <> 0) then
+  begin
+    Application.MessageBox('Данное свойство используется. Удаление не возможно.', 'Ошибка', MB_OK+MB_ICONERROR);
+    System.SysUtils.Abort;
+  end;
+end;
+
 procedure TframeProps.queryPropsPostError(DataSet: TDataSet; E: EDatabaseError;
   var Action: TDataAction);
 begin
   if (Pos('duplicate', E.Message) <> 0) then
   begin
-    Application.MessageBox('Данные с таким значением уже существуют', 'Ошибка', MB_OK);
+    Application.MessageBox('Данные с таким значением уже существуют', 'Ошибка', MB_OK+MB_ICONERROR);
     System.SysUtils.Abort;
   end;
   // DataSet.Cancel;

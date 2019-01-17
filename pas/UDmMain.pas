@@ -25,7 +25,8 @@ const
 
 const
   TABLE_PROPERTIES = 'dictonary.properties';
-
+ const
+  TABLE_CATEGORY_PROPERTY = 'dictonary.properties_category';
 implementation
 
 { %CLASSGROUP 'Vcl.Controls.TControl' }

@@ -43,6 +43,7 @@ object frameProps: TframeProps
       ImageIndex = 5
       Images = frmMain.imgMidle
       TabOrder = 2
+      OnClick = btnDelClick
     end
   end
   object cxGroupBox2: TcxGroupBox
@@ -72,7 +73,6 @@ object frameProps: TframeProps
         EditForm.UseDefaultLayout = False
         OptionsBehavior.FocusCellOnTab = True
         OptionsBehavior.FocusFirstCellOnNewRecord = True
-        OptionsBehavior.EditMode = emInplaceEditFormHideCurrentRow
         OptionsBehavior.FocusCellOnCycle = True
         OptionsView.ShowEditButtons = gsebAlways
         OptionsView.GroupByBox = False
@@ -149,6 +149,7 @@ object frameProps: TframeProps
       'order by name')
     OnUpdateError = queryPropsUpdateError
     BeforePost = queryPropsBeforePost
+    OnDeleteError = queryPropsDeleteError
     OnPostError = queryPropsPostError
     Left = 171
     Top = 537
