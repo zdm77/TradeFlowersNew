@@ -11,7 +11,8 @@ uses
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
-  Vcl.Menus, Vcl.ImgList, cxLocalization, MemTableDataEh, MemTableEh;
+  Vcl.Menus, Vcl.ImgList, cxLocalization, MemTableDataEh, MemTableEh,
+  cxImageList;
 
 type
   TProduct = class
@@ -75,6 +76,7 @@ begin
   cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) + '\..\INI\LanguagesUnicode.ini');
   cxLocalizer1.Active := true;
   cxLocalizer1.Locale := 1049;
+
   // with queryMain do
   // begin
   // Close;

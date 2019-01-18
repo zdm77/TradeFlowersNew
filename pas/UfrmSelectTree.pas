@@ -8,7 +8,7 @@ uses
   cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxCustomData,
   cxStyles, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu, Data.DB, MemDS, DBAccess,
   Uni, cxInplaceContainer, cxDBTL, cxTLData, Vcl.StdCtrls, cxGroupBox,
-  UCategory;
+  UCategory, cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TfrmSelectTree = class(TForm)

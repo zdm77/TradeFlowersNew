@@ -12,7 +12,8 @@ uses
   DBAccess, Uni, cxButtonEdit, cxCheckBox, cxCalc, cxCustomData, cxFilter,
   cxData, UCategory, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
-  cxMaskEdit, UProps, UCategoryProperty, cxGroupBox;
+  cxMaskEdit, UProps, UCategoryProperty, cxGroupBox,
+  cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TfrmCategoryEdit = class(TForm)
@@ -50,7 +51,6 @@ type
     procedure btnPropAddClick(Sender: TObject);
     procedure btnPropEditClick(Sender: TObject);
     procedure btnUpClick(Sender: TObject);
-    procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
     procedure viewPropDblClick(Sender: TObject);
   private
     FEnableDawn: Boolean;
@@ -151,18 +151,6 @@ end;
 procedure TfrmCategoryEdit.btnUpClick(Sender: TObject);
 begin
   UpDawnProp(True);
-end;
-
-procedure TfrmCategoryEdit.edtParentNamePropertiesButtonClick(Sender: TObject;
-  AButtonIndex: Integer);
-begin
-  Application.CreateForm(TfrmSelectTree, frmSelectTree);
-  frmSelectTree.init(_category);
-  frmSelectTree.ShowModal;
-  if frmSelectTree.ModalResult = mrOk then
-  begin
-    edtParentName.Text := _category.GetParent(_category.ParentId).Name;
-  end;
 end;
 
 procedure TfrmCategoryEdit.SetEnableDawn(const Value: Boolean);

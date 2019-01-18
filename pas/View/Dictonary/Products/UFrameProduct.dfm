@@ -4,50 +4,12 @@ object frameProduct: TframeProduct
   Width = 945
   Height = 539
   TabOrder = 0
-  object gridProduct: TcxGrid
-    Left = 417
-    Top = 41
-    Width = 427
-    Height = 361
-    TabOrder = 0
-    object viewProduct: TcxGridDBTableView
-      Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = dsProduct
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-      object column1: TcxGridDBColumn
-        Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-        DataBinding.FieldName = 'name'
-        Width = 488
-      end
-    end
-    object level1: TcxGridLevel
-      GridView = viewProduct
-    end
-  end
-  object btnProdAdd: TButton
-    Left = 424
-    Top = 8
-    Width = 75
-    Height = 25
-    Caption = 'btnProdAdd'
-    TabOrder = 1
-  end
-  object btnProdEdit: TButton
-    Left = 505
-    Top = 9
-    Width = 75
-    Height = 25
-    Caption = 'btnProdEdit'
-    TabOrder = 2
-  end
   object cxGroupBox1: TcxGroupBox
     Left = 0
     Top = 0
     Align = alLeft
     PanelStyle.Active = True
-    TabOrder = 3
+    TabOrder = 0
     Height = 539
     Width = 377
     object lstCategory: TcxDBTreeList
@@ -62,7 +24,18 @@ object frameProduct: TframeProduct
       DataController.DataSource = dsCategory
       DataController.ParentField = 'pid'
       DataController.KeyField = 'id'
+      FindPanel.ApplyInputDelay = 200
+      FindPanel.DisplayMode = fpdmAlways
+      FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
+      FindPanel.ShowClearButton = False
+      FindPanel.ShowCloseButton = False
+      FindPanel.ShowFindButton = False
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = True
       Navigator.Buttons.CustomButtons = <>
+      OptionsBehavior.ExpandOnDblClick = False
+      OptionsBehavior.ExpandOnIncSearch = True
+      OptionsBehavior.IncSearch = True
       OptionsData.Editing = False
       OptionsData.Deleting = False
       OptionsSelection.CellSelect = False
@@ -70,6 +43,8 @@ object frameProduct: TframeProduct
       TabOrder = 0
       OnClick = lstCategoryClick
       OnDblClick = lstCategoryDblClick
+      ExplicitLeft = 3
+      ExplicitTop = 45
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
@@ -132,6 +107,98 @@ object frameProduct: TframeProduct
     Height = 539
     HotZoneClassName = 'TcxMediaPlayer9Style'
     Control = cxGroupBox1
+  end
+  object cxGroupBox3: TcxGroupBox
+    Left = 385
+    Top = 0
+    Align = alClient
+    PanelStyle.Active = True
+    TabOrder = 2
+    ExplicitLeft = 383
+    Height = 539
+    Width = 560
+    object gridProduct: TcxGrid
+      Left = 2
+      Top = 49
+      Width = 556
+      Height = 488
+      Align = alClient
+      TabOrder = 0
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = True
+      ExplicitLeft = 101
+      ExplicitTop = 81
+      ExplicitWidth = 427
+      ExplicitHeight = 361
+      object viewProduct: TcxGridDBTableView
+        Navigator.Buttons.CustomButtons = <>
+        FilterBox.Position = fpTop
+        FilterBox.Visible = fvNever
+        FindPanel.ApplyInputDelay = 200
+        FindPanel.DisplayMode = fpdmAlways
+        FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
+        FindPanel.ShowClearButton = False
+        FindPanel.ShowCloseButton = False
+        FindPanel.ShowFindButton = False
+        DataController.DataSource = dsProduct
+        DataController.Summary.DefaultGroupSummaryItems = <>
+        DataController.Summary.FooterSummaryItems = <>
+        DataController.Summary.SummaryGroups = <>
+        OptionsView.GroupByBox = False
+        object column1: TcxGridDBColumn
+          Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+          DataBinding.FieldName = 'name'
+          Width = 488
+        end
+      end
+      object level1: TcxGridLevel
+        GridView = viewProduct
+      end
+    end
+    object cxGroupBox4: TcxGroupBox
+      Left = 2
+      Top = 2
+      Align = alTop
+      PanelStyle.Active = True
+      PanelStyle.OfficeBackgroundKind = pobkStyleColor
+      TabOrder = 1
+      ExplicitLeft = 4
+      ExplicitTop = 10
+      Height = 47
+      Width = 556
+      object btnProductAdd: TButton
+        Left = 3
+        Top = 9
+        Width = 86
+        Height = 32
+        Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+        ImageIndex = 3
+        Images = frmMain.imgMidle
+        TabOrder = 0
+        OnClick = btnProductAddClick
+      end
+      object btnProductEdt: TButton
+        Left = 89
+        Top = 5
+        Width = 37
+        Height = 32
+        ImageAlignment = iaCenter
+        ImageIndex = 4
+        Images = frmMain.imgMidle
+        TabOrder = 1
+        OnClick = btnProductEdtClick
+      end
+      object btnProductDel: TButton
+        Left = 126
+        Top = 5
+        Width = 37
+        Height = 32
+        ImageAlignment = iaCenter
+        ImageIndex = 5
+        Images = frmMain.imgMidle
+        TabOrder = 2
+      end
+    end
   end
   object dsCategory: TUniDataSource
     DataSet = queryCategoty

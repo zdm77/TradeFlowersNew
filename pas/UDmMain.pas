@@ -22,11 +22,14 @@ var
 
 const
   TABLE_CATEGORY = 'dictonary.category';
-
+ const
+  TABLE_PRODUCT = 'dictonary.product';
 const
   TABLE_PROPERTIES = 'dictonary.properties';
  const
   TABLE_CATEGORY_PROPERTY = 'dictonary.properties_category';
+  const
+  TABLE_PRODUCT_PROPERTY = 'dictonary.properties_product';
 implementation
 
 { %CLASSGROUP 'Vcl.Controls.TControl' }

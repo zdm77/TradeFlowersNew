@@ -11,20 +11,15 @@ uses
   cxClasses, cxGridCustomView, cxGrid, MemDS, DBAccess, Uni, cxCustomData,
   cxFilter, cxData, UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu,
   cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator,
-  cxContainer, cxSplitter, cxGroupBox;
+  cxContainer, cxSplitter, cxGroupBox,
+  cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TframeProduct = class(TFrame)
     dsCategory: TUniDataSource;
     queryCategoty: TUniQuery;
-    gridProduct: TcxGrid;
-    viewProduct: TcxGridDBTableView;
-    column1: TcxGridDBColumn;
-    level1: TcxGridLevel;
     dsProduct: TUniDataSource;
     queryProduct: TUniQuery;
-    btnProdAdd: TButton;
-    btnProdEdit: TButton;
     cxGroupBox1: TcxGroupBox;
     lstCategory: TcxDBTreeList;
     columnNameC: TcxDBTreeListColumn;
@@ -33,9 +28,20 @@ type
     btnAdd: TButton;
     btnEdit: TButton;
     btnDel: TButton;
+    cxGroupBox3: TcxGroupBox;
+    gridProduct: TcxGrid;
+    viewProduct: TcxGridDBTableView;
+    column1: TcxGridDBColumn;
+    level1: TcxGridLevel;
+    cxGroupBox4: TcxGroupBox;
+    btnProductAdd: TButton;
+    btnProductEdt: TButton;
+    btnProductDel: TButton;
     procedure btnAddClick(Sender: TObject);
     procedure btnDelClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
+    procedure btnProductAddClick(Sender: TObject);
+    procedure btnProductEdtClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
     procedure lstCategoryDblClick(Sender: TObject);
     procedure navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
@@ -45,6 +51,7 @@ type
     category: TCategory;
     // FSelCategoryID: Integer;
     procedure CategoryInsEdt(isNew: Boolean);
+    procedure InsUpd(isNew: Boolean);
     procedure ShowCategory;
     procedure ShowProduct;
     { Private declarations }
@@ -58,7 +65,7 @@ implementation
 
 {$R *.dfm}
 
-uses UCategoryEdit, UDmMain;
+uses UCategoryEdit, UDmMain, UProductEdit;
 
 procedure TframeProduct.btnAddClick(Sender: TObject);
 begin
@@ -69,15 +76,26 @@ procedure TframeProduct.btnDelClick(Sender: TObject);
 begin
   if Application.MessageBox('Вы действительно хотите удалить группу и все пренадлежащие ей товары?',
     'Вопрос', MB_YESNO + MB_ICONWARNING) = mrYes then
-    begin
+  begin
     category.DeleteCategory();
     category.Refresh;
-    end;
+  end;
 end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
   CategoryInsEdt(false);
+end;
+
+procedure TframeProduct.btnProductAddClick(Sender: TObject);
+begin
+  InsUpd(true);
+end;
+
+procedure TframeProduct.btnProductEdtClick(Sender: TObject);
+begin
+    product.setProduct(queryProduct);
+     InsUpd(false);
 end;
 
 procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
@@ -99,6 +117,19 @@ begin
   product := TProduct.Create;
   ShowCategory;
   ShowProduct;
+end;
+
+procedure TframeProduct.InsUpd(isNew: Boolean);
+begin
+  Application.CreateForm(TfrmProductEdit, frmProductEdit);
+  if isNew = true then
+  begin
+    product.categoryName := category.Name;
+    product.categoryId := category.Id;
+
+  end;
+  frmProductEdit.Init(product, queryProduct, isNew);
+  frmProductEdit.Show;
 end;
 
 procedure TframeProduct.lstCategoryClick(Sender: TObject);
@@ -136,6 +167,7 @@ end;
 
 procedure TframeProduct.ShowProduct;
 begin
+  // viewProduct.FindPanel
   product.GetProducts(queryProduct, category.Id);
 end;
 

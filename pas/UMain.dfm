@@ -40,8 +40,10 @@ object frmMain: TfrmMain
     TabProperties.NavigatorPosition = npLeftTop
     Left = 392
     Top = 456
+    PixelsPerInch = 96
   end
   object imgMidle: TcxImageList
+    SourceDPI = 96
     Height = 24
     Width = 24
     FormatVersion = 1
@@ -2520,6 +2522,7 @@ object frmMain: TfrmMain
       end>
   end
   object imgSmall: TcxImageList
+    SourceDPI = 96
     FormatVersion = 1
     DesignInfo = 17826384
     ImageInfo = <
@@ -2605,6 +2608,7 @@ object frmMain: TfrmMain
       end>
   end
   object imgLarge: TcxImageList
+    SourceDPI = 96
     Height = 32
     Width = 32
     FormatVersion = 1
