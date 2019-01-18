@@ -8,11 +8,13 @@ uses
 type
   TProduct = class(TObject)
   private
+    Fcategory: TCategory;
     FcategoryId: Integer;
     FId: Integer;
     FName: string;
-    category: TCategory;
+
     FcategoryName: string;
+    procedure Setcategory(const Value: TCategory);
     procedure SetcategoryId(const Value: Integer);
     procedure SetcategoryName(const Value: string);
     procedure SetId(const Value: Integer);
@@ -23,6 +25,7 @@ type
     procedure GetProducts(query: TUniQuery; parentId: Integer);
     procedure getProductById(Id: Integer; query: TUniQuery);
     procedure setProduct(query: TUniQuery);
+    property category: TCategory read Fcategory write Setcategory;
     property categoryId: Integer read FcategoryId write SetcategoryId;
     property categoryName: string read FcategoryName write SetcategoryName;
     property Id: Integer read FId write SetId;
@@ -61,7 +64,7 @@ begin
   SQL.Append(' SELECT cat.id');
   SQL.Append(' FROM dictonary.category cat');
   SQL.Append(' JOIN r ON cat.pid = r.id)');
-  SQL.Append(' select id, name, category_id ');
+  SQL.Append(' select * ');
   SQL.Append(' from dictonary.product ');
   SQL.Append(' where category_id in (');
   SQL.Append(' SELECT id');
@@ -113,6 +116,11 @@ begin
   query.SQL.Text := SQL.ToString;
   query.Open;
   // setProduct(query);
+end;
+
+procedure TProduct.Setcategory(const Value: TCategory);
+begin
+  Fcategory := Value;
 end;
 
 procedure TProduct.SetcategoryName(const Value: string);

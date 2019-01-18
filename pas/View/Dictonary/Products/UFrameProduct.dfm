@@ -14,9 +14,9 @@ object frameProduct: TframeProduct
     Width = 377
     object lstCategory: TcxDBTreeList
       Left = 2
-      Top = 49
+      Top = 44
       Width = 373
-      Height = 488
+      Height = 493
       Align = alClient
       Bands = <
         item
@@ -27,7 +27,6 @@ object frameProduct: TframeProduct
       FindPanel.ApplyInputDelay = 200
       FindPanel.DisplayMode = fpdmAlways
       FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
-      FindPanel.ShowClearButton = False
       FindPanel.ShowCloseButton = False
       FindPanel.ShowFindButton = False
       LookAndFeel.Kind = lfOffice11
@@ -45,6 +44,7 @@ object frameProduct: TframeProduct
       OnDblClick = lstCategoryDblClick
       ExplicitLeft = 3
       ExplicitTop = 45
+      ExplicitHeight = 488
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
@@ -63,7 +63,7 @@ object frameProduct: TframeProduct
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
       TabOrder = 1
-      Height = 47
+      Height = 42
       Width = 373
       object btnAdd: TButton
         Left = 3
@@ -98,6 +98,16 @@ object frameProduct: TframeProduct
         TabOrder = 2
         OnClick = btnDelClick
       end
+      object btnRefresh: TButton
+        Left = 163
+        Top = 5
+        Width = 37
+        Height = 32
+        ImageAlignment = iaCenter
+        ImageIndex = 11
+        Images = frmMain.imgMidle
+        TabOrder = 3
+      end
     end
   end
   object cxSplitter1: TcxSplitter
@@ -119,9 +129,9 @@ object frameProduct: TframeProduct
     Width = 560
     object gridProduct: TcxGrid
       Left = 2
-      Top = 49
+      Top = 44
       Width = 556
-      Height = 488
+      Height = 493
       Align = alClient
       TabOrder = 0
       LookAndFeel.Kind = lfOffice11
@@ -137,18 +147,27 @@ object frameProduct: TframeProduct
         FindPanel.ApplyInputDelay = 200
         FindPanel.DisplayMode = fpdmAlways
         FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
-        FindPanel.ShowClearButton = False
         FindPanel.ShowCloseButton = False
         FindPanel.ShowFindButton = False
         DataController.DataSource = dsProduct
         DataController.Summary.DefaultGroupSummaryItems = <>
         DataController.Summary.FooterSummaryItems = <>
         DataController.Summary.SummaryGroups = <>
+        OptionsData.Deleting = False
+        OptionsData.DeletingConfirmation = False
+        OptionsData.Editing = False
+        OptionsData.Inserting = False
+        OptionsSelection.CellSelect = False
         OptionsView.GroupByBox = False
-        object column1: TcxGridDBColumn
+        object columnName: TcxGridDBColumn
           Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
           DataBinding.FieldName = 'name'
-          Width = 488
+          Width = 435
+        end
+        object columnBarCode: TcxGridDBColumn
+          Caption = #1064#1090#1088#1080'-'#1082#1086#1076
+          DataBinding.FieldName = 'barcode'
+          Width = 96
         end
       end
       object level1: TcxGridLevel
@@ -162,13 +181,11 @@ object frameProduct: TframeProduct
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
       TabOrder = 1
-      ExplicitLeft = 4
-      ExplicitTop = 10
-      Height = 47
+      Height = 42
       Width = 556
       object btnProductAdd: TButton
         Left = 3
-        Top = 9
+        Top = 5
         Width = 86
         Height = 32
         Caption = #1044#1086#1073#1072#1074#1080#1090#1100
@@ -197,6 +214,17 @@ object frameProduct: TframeProduct
         ImageIndex = 5
         Images = frmMain.imgMidle
         TabOrder = 2
+      end
+      object btnProductRefresh: TButton
+        Left = 163
+        Top = 5
+        Width = 37
+        Height = 32
+        ImageAlignment = iaCenter
+        ImageIndex = 11
+        Images = frmMain.imgMidle
+        TabOrder = 3
+        OnClick = btnProductRefreshClick
       end
     end
   end

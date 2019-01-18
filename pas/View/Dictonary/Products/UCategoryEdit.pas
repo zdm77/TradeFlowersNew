@@ -52,6 +52,7 @@ type
     procedure btnPropEditClick(Sender: TObject);
     procedure btnUpClick(Sender: TObject);
     procedure viewPropDblClick(Sender: TObject);
+    procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
   private
     FEnableDawn: Boolean;
     FEnableUp: Boolean;
@@ -151,6 +152,19 @@ end;
 procedure TfrmCategoryEdit.btnUpClick(Sender: TObject);
 begin
   UpDawnProp(True);
+end;
+
+procedure TfrmCategoryEdit.edtParentNamePropertiesButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+  Application.CreateForm(TfrmSelectTree, frmSelectTree);
+  frmSelectTree.init(_category);
+  frmSelectTree.ShowModal;
+  if frmSelectTree.ModalResult = mrOk then
+  begin
+    _category.ParentId:= frmSelectTree.idSelect;
+    edtParentName.Text := _category.GetParent(_category.ParentId).Name;
+  end;
 end;
 
 procedure TfrmCategoryEdit.SetEnableDawn(const Value: Boolean);

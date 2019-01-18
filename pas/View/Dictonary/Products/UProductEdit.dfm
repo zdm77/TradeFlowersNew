@@ -48,6 +48,7 @@ object frmProductEdit: TfrmProductEdit
           Kind = bkEllipsis
         end>
       Properties.ReadOnly = True
+      Properties.OnButtonClick = edtParentNamePropertiesButtonClick
       TabOrder = 0
       Width = 400
     end

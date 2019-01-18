@@ -46,13 +46,17 @@ type
     btnSave: TButton;
     procedure btnFromBaseClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
+    procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
   private
+
+    FidSave: Boolean;
     _senderQuery: TUniQuery;
     _product: TProduct;
     _props: TProps;
     { Private declarations }
   public
     procedure init(product: TProduct; senderQuery: TUniQuery; isNew: Boolean);
+    property idSave: Boolean read FidSave write FidSave;
     { Public declarations }
   end;
 
@@ -62,7 +66,7 @@ var
 implementation
 
 uses
-  UDmMain;
+  UDmMain, UfrmSelectTree;
 {$R *.dfm}
 
 procedure TfrmProductEdit.btnFromBaseClick(Sender: TObject);
@@ -89,14 +93,14 @@ begin
     SQL.Add(' inner join');
     SQL.Add(' dictonary.properties');
     SQL.Add(' p on p.id = cp.prop_id');
-    SQL.Add(' where cp.category_id = '+IntToStr(_product.categoryId) +' and');
+    SQL.Add(' where cp.category_id = ' + IntToStr(_product.categoryId) + ' and');
     SQL.Add(' cp.id not in (');
     SQL.Add(' select pp.category_props_id');
     SQL.Add(' from');
     SQL.Add(' dictonary.properties_product');
     SQL.Add(' pp');
-    SQL.Add(' where pp.product_id = '+IntToStr(_product.Id));
-     SQL.Add(' )');
+    SQL.Add(' where pp.product_id = ' + IntToStr(_product.Id));
+    SQL.Add(' )');
     Open;
     while not eof do
     begin
@@ -125,12 +129,25 @@ begin
       _senderQuery.Locate('id', _product.Id, []);
     except
     end;
+  frmProductEdit.idSave := true;
   Close;
 end;
 
+procedure TfrmProductEdit.edtParentNamePropertiesButtonClick(Sender: TObject;
+  AButtonIndex: Integer);
+begin
+  Application.CreateForm(TfrmSelectTree, frmSelectTree);
+  frmSelectTree.init(_product.category);
+  frmSelectTree.ShowModal;
+  if frmSelectTree.ModalResult = mrOk then
+  begin
+    _product.categoryId := frmSelectTree.idSelect;
+    _product.categoryName := frmSelectTree.nameSelect;
+    edtParentName.Text := _product.categoryName;
+  end;
+end;
+
 procedure TfrmProductEdit.init(product: TProduct; senderQuery: TUniQuery; isNew: Boolean);
-
-
 begin
   _props := TProps.Create(queryProps);
   _senderQuery := senderQuery;
@@ -154,14 +171,12 @@ begin
   // Update;
   // end;
   // end;
-
-
-   with queryProps do
-   begin
-     Close;
-     ParamByName('id').Value :=  product.Id;
-     Open;
-   end;
+  with queryProps do
+  begin
+    Close;
+    ParamByName('id').Value := product.Id;
+    Open;
+  end;
 end;
 
 end.

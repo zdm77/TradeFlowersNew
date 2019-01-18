@@ -31,17 +31,21 @@ type
     cxGroupBox3: TcxGroupBox;
     gridProduct: TcxGrid;
     viewProduct: TcxGridDBTableView;
-    column1: TcxGridDBColumn;
+    columnName: TcxGridDBColumn;
     level1: TcxGridLevel;
     cxGroupBox4: TcxGroupBox;
     btnProductAdd: TButton;
     btnProductEdt: TButton;
     btnProductDel: TButton;
+    columnBarCode: TcxGridDBColumn;
+    btnProductRefresh: TButton;
+    btnRefresh: TButton;
     procedure btnAddClick(Sender: TObject);
     procedure btnDelClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnProductAddClick(Sender: TObject);
     procedure btnProductEdtClick(Sender: TObject);
+    procedure btnProductRefreshClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
     procedure lstCategoryDblClick(Sender: TObject);
     procedure navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
@@ -94,8 +98,13 @@ end;
 
 procedure TframeProduct.btnProductEdtClick(Sender: TObject);
 begin
-    product.setProduct(queryProduct);
-     InsUpd(false);
+  product.setProduct(queryProduct);
+  InsUpd(false);
+end;
+
+procedure TframeProduct.btnProductRefreshClick(Sender: TObject);
+begin
+  queryProduct.Refresh;
 end;
 
 procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
@@ -126,10 +135,17 @@ begin
   begin
     product.categoryName := category.Name;
     product.categoryId := category.Id;
-
   end;
   frmProductEdit.Init(product, queryProduct, isNew);
-  frmProductEdit.Show;
+  frmProductEdit.ShowModal;
+  // frmProductEdit.IDSave:=false;
+  if frmProductEdit.IDSave = true then
+  begin
+    queryCategoty.Locate('id', product.categoryId, []);
+    lstCategoryClick(nil);
+    queryProduct.Locate('id', product.Id, []);
+    gridProduct.SetFocus;
+  end;
 end;
 
 procedure TframeProduct.lstCategoryClick(Sender: TObject);

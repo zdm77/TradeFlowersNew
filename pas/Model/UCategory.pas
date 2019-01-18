@@ -132,6 +132,7 @@ begin
   SQL.Append(' pid');
   SQL.Append(' FROM ');
   SQL.Append(TABLE_CATEGORY);
+  sql.Append(' order by pid,  name ');
   FqueryCategory.SQL.Text := SQL.ToString;
   FqueryCategory.Open;
   SetCategory;

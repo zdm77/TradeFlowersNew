@@ -41,8 +41,6 @@ object frmSelectTree: TfrmSelectTree
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 41
     Height = 502
     Width = 642
     object lstCategory: TcxDBTreeList
@@ -62,10 +60,6 @@ object frmSelectTree: TfrmSelectTree
       OptionsData.Deleting = False
       RootValue = -1
       TabOrder = 0
-      ExplicitLeft = 5
-      ExplicitTop = 110
-      ExplicitWidth = 289
-      ExplicitHeight = 349
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'

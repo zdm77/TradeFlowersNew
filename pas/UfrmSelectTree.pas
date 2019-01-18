@@ -25,7 +25,10 @@ type
     SenderCategory: TCategory;
     { Private declarations }
   public
+    idSelect: integer;
+    nameSelect: string;
     procedure init(category: TCategory);
+    procedure ShowCategory;
     { Public declarations }
   end;
 
@@ -41,16 +44,23 @@ uses UMain;
 procedure TfrmSelectTree.btnSelectClick(Sender: TObject);
 begin
   CategorySelect.SetCategory;
-  SenderCategory.ParentId:=CategorySelect.Id;
-  ModalResult:=mrOk;
+  idSelect:=  CategorySelect.Id;
+  nameSelect:= queryCategoty.FieldByName('name').AsString;
+  //SenderCategory.ParentId := CategorySelect.Id;
+  ModalResult := mrOk;
 end;
 
 procedure TfrmSelectTree.init(category: TCategory);
 begin
-   SenderCategory:=category;
-   CategorySelect:=TCategory.Create(queryCategoty);
-   CategorySelect.GetCategories;
+  SenderCategory := category;
+  CategorySelect := TCategory.Create(queryCategoty);
+  CategorySelect.GetCategories;
   // CategorySelect :=category;
+end;
+
+procedure TfrmSelectTree.ShowCategory;
+begin
+  // with qu
 end;
 
 end.
