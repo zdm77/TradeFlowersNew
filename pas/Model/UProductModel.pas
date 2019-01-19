@@ -8,33 +8,40 @@ uses
 type
   TProduct = class(TObject)
   private
+    FBarCode: string;
     Fcategory: TCategory;
     FcategoryId: Integer;
     FId: Integer;
     FName: string;
 
     FcategoryName: string;
+    FSuffix: string;
+    procedure SetBarCode(const Value: string);
     procedure Setcategory(const Value: TCategory);
     procedure SetcategoryId(const Value: Integer);
     procedure SetcategoryName(const Value: string);
     procedure SetId(const Value: Integer);
     procedure SetName(const Value: string);
+    procedure SetSuffix(const Value: string);
   public
     constructor Create; overload; virtual;
     constructor Create(AFcategoryId, AId: Integer; AName: string); overload; virtual;
     procedure GetProducts(query: TUniQuery; parentId: Integer);
     procedure getProductById(Id: Integer; query: TUniQuery);
+    procedure Save(product: TProduct);
     procedure setProduct(query: TUniQuery);
+    property BarCode: string read FBarCode write SetBarCode;
     property category: TCategory read Fcategory write Setcategory;
     property categoryId: Integer read FcategoryId write SetcategoryId;
     property categoryName: string read FcategoryName write SetcategoryName;
     property Id: Integer read FId write SetId;
     property Name: string read FName write SetName;
+    property Suffix: string read FSuffix write SetSuffix;
   end;
 
 implementation
 
-uses UDmMain;
+uses UDmMain, UFuncAndProc;
 
 constructor TProduct.Create(AFcategoryId, AId: Integer; AName: string);
 begin
@@ -118,6 +125,53 @@ begin
   // setProduct(query);
 end;
 
+procedure TProduct.Save(product: TProduct);
+var
+  QueryIns: TUniQuery;
+  SQL: TStringBuilder;
+
+begin
+
+  product.Id := UFuncAndProc.getNewId(TABLE_PRODUCT);
+  SQL := TStringBuilder.Create;
+  QueryIns := TUniQuery.Create(nil);
+  QueryIns.Connection := DMMain.conMain;
+  SQL.Append(' INSERT INTO');
+  SQL.Append(' dictonary.product');
+  SQL.Append(' (');
+  SQL.Append(' id,');
+  SQL.Append(' name,');
+  SQL.Append(' category_id,');
+  SQL.Append(' suffix,');
+  SQL.Append(' barcode');
+  SQL.Append(' )');
+  SQL.Append(' VALUES (');
+  SQL.Append(' :id,');
+  SQL.Append(' :name,');
+  SQL.Append(' :category_id,');
+  SQL.Append(' :suffix,');
+  SQL.Append(' :barcode');
+  SQL.Append(' );');
+  QueryIns.SQL.Text := SQL.ToString;
+  with QueryIns do
+  begin
+    ParamByName('id').Value := Id;
+    ParamByName('name').Value := product.Name;
+    ParamByName('category_id').Value := product.categoryId;
+    ParamByName('suffix').Value := product.Suffix;
+    ParamByName('barcode').Value := product.BarCode;
+    ExecSQL;
+  end;
+  // QueryIns.SQL.te
+
+  // TODO -cMM: TProduct.Save default body inserted
+end;
+
+procedure TProduct.SetBarCode(const Value: string);
+begin
+  FBarCode := Value;
+end;
+
 procedure TProduct.Setcategory(const Value: TCategory);
 begin
   Fcategory := Value;
@@ -129,15 +183,24 @@ begin
 end;
 
 procedure TProduct.setProduct(query: TUniQuery);
-var QueryCat: TUniQuery;
+var
+  QueryCat: TUniQuery;
 begin
-  QueryCat:=TUniQuery.Create(nil);
-  QueryCat.Connection:=DMMain.conMain;
+  QueryCat := TUniQuery.Create(nil);
+  QueryCat.Connection := DMMain.conMain;
   Id := query.FieldByName('id').Value;
   categoryId := query.FieldByName('category_id').Value;
   category.assignCategoryById(categoryId, QueryCat);
-  categoryName :=  QueryCat.FieldByName('name').Value;
+  categoryName := QueryCat.FieldByName('name').Value;
+  Name := query.FieldByName('name').Value;
+  Suffix := query.FieldByName('suffix').Value;
+  BarCode := query.FieldByName('barcode').Value;
 
+end;
+
+procedure TProduct.SetSuffix(const Value: string);
+begin
+  FSuffix := Value;
 end;
 
 end.

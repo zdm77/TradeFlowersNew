@@ -13,6 +13,7 @@ object frmProductEdit: TfrmProductEdit
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object cxGroupBox1: TcxGroupBox
@@ -21,8 +22,7 @@ object frmProductEdit: TfrmProductEdit
     Align = alTop
     Caption = #1058#1086#1074#1072#1088
     TabOrder = 0
-    ExplicitWidth = 736
-    Height = 73
+    Height = 97
     Width = 502
     object lbl2: TLabel
       Left = 8
@@ -38,6 +38,14 @@ object frmProductEdit: TfrmProductEdit
       Height = 13
       Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077':'
       FocusControl = edtname
+    end
+    object lbl3: TLabel
+      Left = 8
+      Top = 75
+      Width = 60
+      Height = 13
+      Caption = #1064#1090#1088#1080#1093' '#1082#1086#1076':'
+      FocusControl = edtBarCode
     end
     object edtParentName: TcxButtonEdit
       Left = 91
@@ -58,6 +66,14 @@ object frmProductEdit: TfrmProductEdit
       DataBinding.DataField = 'name'
       DataBinding.DataSource = dsProduct
       TabOrder = 1
+      Width = 400
+    end
+    object edtBarCode: TcxDBTextEdit
+      Left = 91
+      Top = 71
+      DataBinding.DataField = 'barcode'
+      DataBinding.DataSource = dsProduct
+      TabOrder = 2
       Width = 400
     end
   end
@@ -111,27 +127,22 @@ object frmProductEdit: TfrmProductEdit
   end
   object cxGroupBox3: TcxGroupBox
     Left = 0
-    Top = 73
+    Top = 97
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 2
-    ExplicitLeft = 120
-    ExplicitTop = 144
-    ExplicitWidth = 185
-    ExplicitHeight = 105
-    Height = 377
+    ExplicitTop = 73
+    ExplicitHeight = 377
+    Height = 353
     Width = 502
     object cxGrid1: TcxGrid
       Left = 2
       Top = 57
       Width = 498
-      Height = 318
+      Height = 294
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 16
-      ExplicitTop = 154
-      ExplicitWidth = 475
-      ExplicitHeight = 200
+      ExplicitHeight = 318
       object cxGridDBTableView1: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps

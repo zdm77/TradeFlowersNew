@@ -48,8 +48,7 @@ type
     procedure btnProductRefreshClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
     procedure lstCategoryDblClick(Sender: TObject);
-    procedure navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
-      var ADone: Boolean);
+    procedure navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer; var ADone: Boolean);
   private
     product: TProduct;
     category: TCategory;
@@ -78,8 +77,8 @@ end;
 
 procedure TframeProduct.btnDelClick(Sender: TObject);
 begin
-  if Application.MessageBox('Вы действительно хотите удалить группу и все пренадлежащие ей товары?',
-    'Вопрос', MB_YESNO + MB_ICONWARNING) = mrYes then
+  if Application.MessageBox('Вы действительно хотите удалить группу и все пренадлежащие ей товары?', 'Вопрос',
+    MB_YESNO + MB_ICONWARNING) = mrYes then
   begin
     category.DeleteCategory();
     category.Refresh;
@@ -93,8 +92,7 @@ begin
     CategoryInsEdt(false);
   end
   else
-    Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка',
-      MB_OK + MB_ICONERROR)
+    Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка', MB_OK + MB_ICONERROR)
 end;
 
 procedure TframeProduct.btnProductAddClick(Sender: TObject);
@@ -141,6 +139,7 @@ begin
   // frmProductEdit.IDSave:=false;
   if frmProductEdit.IDSave = true then
   begin
+    queryProduct.Refresh;
     queryCategoty.Locate('id', product.categoryId, []);
     lstCategoryClick(nil);
     queryProduct.Locate('id', product.Id, []);
@@ -163,8 +162,7 @@ begin
   CategoryInsEdt(false);
 end;
 
-procedure TframeProduct.navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer;
-  var ADone: Boolean);
+procedure TframeProduct.navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer; var ADone: Boolean);
 begin
   case AButtonIndex of
     // добавить

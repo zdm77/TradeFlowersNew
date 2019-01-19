@@ -44,15 +44,19 @@ type
     cxGridDBColumn2: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
     btnSave: TButton;
+    lbl3: TLabel;
+    edtBarCode: TcxDBTextEdit;
     procedure btnFromBaseClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
     procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
+    procedure FormShow(Sender: TObject);
   private
 
     FidSave: Boolean;
     _senderQuery: TUniQuery;
     _product: TProduct;
     _props: TProps;
+    procedure showProps;
     { Private declarations }
   public
     procedure init(product: TProduct; senderQuery: TUniQuery; isNew: Boolean);
@@ -74,6 +78,15 @@ var
   queryTempPropCat: TUniQuery;
   queryUpd: TUniQuery;
 begin
+  if idSave = false then
+  begin
+    _product.Name := edtname.Text;
+    _product.Save(_product);
+    _product.getProductById(_product.id, queryProduct);
+    queryProduct.Edit;
+    idSave := True;
+  end;
+
   queryTempPropCat := TUniQuery.Create(nil);
   queryTempPropCat.Connection := DMMain.conMain;
   queryUpd := TUniQuery.Create(nil);
@@ -99,18 +112,18 @@ begin
     SQL.Add(' from');
     SQL.Add(' dictonary.properties_product');
     SQL.Add(' pp');
-    SQL.Add(' where pp.product_id = ' + IntToStr(_product.Id));
+    SQL.Add(' where pp.product_id = ' + IntToStr(_product.id));
     SQL.Add(' )');
     Open;
     while not eof do
     begin
       queryUpd.ParamByName('category_props_id').Value := FieldByName('id').Value;
-      queryUpd.ParamByName('product_id').Value := _product.Id;
+      queryUpd.ParamByName('product_id').Value := _product.id;
       queryUpd.ExecSQL;
       Next;
     end;
   end;
-  queryProps.Refresh;
+  showProps;
 end;
 
 procedure TfrmProductEdit.btnSaveClick(Sender: TObject);
@@ -126,15 +139,14 @@ begin
       fieldProductcategory_id.Value := _product.categoryId;
       queryProduct.Post;
       _senderQuery.Refresh;
-      _senderQuery.Locate('id', _product.Id, []);
+      _senderQuery.Locate('id', _product.id, []);
     except
     end;
-  frmProductEdit.idSave := true;
+  frmProductEdit.idSave := True;
   Close;
 end;
 
-procedure TfrmProductEdit.edtParentNamePropertiesButtonClick(Sender: TObject;
-  AButtonIndex: Integer);
+procedure TfrmProductEdit.edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
 begin
   Application.CreateForm(TfrmSelectTree, frmSelectTree);
   frmSelectTree.init(_product.category);
@@ -147,12 +159,17 @@ begin
   end;
 end;
 
+procedure TfrmProductEdit.FormShow(Sender: TObject);
+begin
+  edtname.SetFocus;
+end;
+
 procedure TfrmProductEdit.init(product: TProduct; senderQuery: TUniQuery; isNew: Boolean);
 begin
   _props := TProps.Create(queryProps);
   _senderQuery := senderQuery;
   _product := product;
-  _product.getProductById(_product.Id, queryProduct);
+  _product.getProductById(_product.id, queryProduct);
   if isNew = True then
     queryProduct.Insert
   else
@@ -171,10 +188,15 @@ begin
   // Update;
   // end;
   // end;
+  showProps;
+end;
+
+procedure TfrmProductEdit.showProps;
+begin
   with queryProps do
   begin
     Close;
-    ParamByName('id').Value := product.Id;
+    ParamByName('id').Value := _product.id;
     Open;
   end;
 end;
