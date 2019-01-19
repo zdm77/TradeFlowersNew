@@ -104,8 +104,7 @@ begin
     queryUpd := TUniQuery.Create(nil);
     queryUpd.Connection := DMMain.conMain;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(new_order)
-      + ' where id=' + id;
+    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(new_order) + ' where id=' + id;
     queryUpd.ExecSQL;
     if (up = True) then
       queryProps.Prior
@@ -113,8 +112,7 @@ begin
       queryProps.Next;
     id := queryProps.FieldByName('id').AsString;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(order) +
-      ' where id=' + id;
+    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(order) + ' where id=' + id;
     queryUpd.ExecSQL;
     queryProps.Refresh;
   end;
@@ -142,7 +140,7 @@ end;
 
 procedure TfrmCategoryEdit.btnFromParentClick(Sender: TObject);
 begin
-_category.GeneratePropertiesFromParent(_category.Id, queryProps, _category.ParentId);
+  _category.GeneratePropertiesFromParent(_category.id, queryProps, _category.ParentId);
 end;
 
 procedure TfrmCategoryEdit.btnPropAddClick(Sender: TObject);
@@ -161,8 +159,7 @@ begin
   UpDawnProp(True);
 end;
 
-procedure TfrmCategoryEdit.edtParentNamePropertiesButtonClick(Sender: TObject;
-  AButtonIndex: Integer);
+procedure TfrmCategoryEdit.edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
 begin
   Application.CreateForm(TfrmSelectTree, frmSelectTree);
   frmSelectTree.init(_category);

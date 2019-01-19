@@ -91,7 +91,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       OnClick = btnPropEditClick
     end
     object btnFormat: TButton
-      Left = 328
+      Left = 279
       Top = 24
       Width = 146
       Height = 32
@@ -145,20 +145,22 @@ object frmCategoryEdit: TfrmCategoryEdit
       end
     end
     object btnUp: TButton
-      Left = 505
-      Top = 168
-      Width = 42
-      Height = 25
-      Caption = #1042#1074#1077#1088#1093
+      Left = 506
+      Top = 161
+      Width = 32
+      Height = 32
+      ImageIndex = 19
+      Images = frmMain.imgMidle
       TabOrder = 4
       OnClick = btnUpClick
     end
     object btnDawn: TButton
-      Left = 505
+      Left = 506
       Top = 199
-      Width = 42
-      Height = 25
-      Caption = #1042#1085#1080#1079
+      Width = 32
+      Height = 32
+      ImageIndex = 20
+      Images = frmMain.imgMidle
       TabOrder = 5
       OnClick = btnDawnClick
     end
