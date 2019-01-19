@@ -3,8 +3,8 @@ object frmCategoryEdit: TfrmCategoryEdit
   Top = 0
   BorderStyle = bsDialog
   Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1103
-  ClientHeight = 460
-  ClientWidth = 553
+  ClientHeight = 466
+  ClientWidth = 552
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,8 +21,9 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alTop
     PanelStyle.Active = True
     TabOrder = 0
+    ExplicitWidth = 553
     Height = 65
-    Width = 553
+    Width = 552
     object lbl2: TLabel
       Left = 3
       Top = 9
@@ -66,8 +67,31 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    Height = 395
-    Width = 553
+    ExplicitWidth = 553
+    ExplicitHeight = 395
+    Height = 401
+    Width = 552
+    object cxGroupBox3: TcxGroupBox
+      Left = 2
+      Top = 358
+      Align = alBottom
+      TabOrder = 0
+      ExplicitTop = 464
+      ExplicitWidth = 745
+      Height = 41
+      Width = 548
+      object btnSave: TButton
+        Left = 3
+        Top = 7
+        Width = 88
+        Height = 32
+        Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+        ImageIndex = 13
+        Images = frmMain.imgMidle
+        TabOrder = 0
+        OnClick = btnSaveClick
+      end
+    end
     object btnPropAdd: TButton
       Left = 7
       Top = 24
@@ -76,8 +100,19 @@ object frmCategoryEdit: TfrmCategoryEdit
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
       ImageIndex = 3
       Images = frmMain.imgMidle
-      TabOrder = 0
+      TabOrder = 1
       OnClick = btnPropAddClick
+    end
+    object btnEdit: TButton
+      Left = 93
+      Top = 24
+      Width = 37
+      Height = 32
+      ImageAlignment = iaCenter
+      ImageIndex = 4
+      Images = frmMain.imgMidle
+      TabOrder = 2
+      OnClick = btnEditClick
     end
     object btnPropEdit: TButton
       Left = 130
@@ -87,8 +122,19 @@ object frmCategoryEdit: TfrmCategoryEdit
       ImageAlignment = iaCenter
       ImageIndex = 5
       Images = frmMain.imgMidle
-      TabOrder = 1
+      TabOrder = 3
       OnClick = btnPropEditClick
+    end
+    object btnFromParent: TButton
+      Left = 167
+      Top = 24
+      Width = 106
+      Height = 32
+      Caption = #1048#1079' '#1088#1086#1076#1080#1090#1077#1083#1103
+      ImageIndex = 20
+      Images = frmMain.imgMidle
+      TabOrder = 4
+      OnClick = btnFromParentClick
     end
     object btnFormat: TButton
       Left = 279
@@ -96,14 +142,14 @@ object frmCategoryEdit: TfrmCategoryEdit
       Width = 146
       Height = 32
       Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1085#1072#1079#1074#1072#1085#1080#1103
-      TabOrder = 2
+      TabOrder = 5
     end
     object gridProp: TcxGrid
       Left = 3
       Top = 62
       Width = 497
       Height = 297
-      TabOrder = 3
+      TabOrder = 6
       LookAndFeel.Kind = lfOffice11
       LookAndFeel.NativeStyle = True
       object viewProp: TcxGridDBTableView
@@ -151,7 +197,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       Height = 32
       ImageIndex = 19
       Images = frmMain.imgMidle
-      TabOrder = 4
+      TabOrder = 7
       OnClick = btnUpClick
     end
     object btnDawn: TButton
@@ -161,39 +207,8 @@ object frmCategoryEdit: TfrmCategoryEdit
       Height = 32
       ImageIndex = 20
       Images = frmMain.imgMidle
-      TabOrder = 5
-      OnClick = btnDawnClick
-    end
-    object btnSave: TButton
-      Left = 3
-      Top = 365
-      Width = 75
-      Height = 25
-      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
-      TabOrder = 6
-      OnClick = btnSaveClick
-    end
-    object btnEdit: TButton
-      Left = 93
-      Top = 24
-      Width = 37
-      Height = 32
-      ImageAlignment = iaCenter
-      ImageIndex = 4
-      Images = frmMain.imgMidle
-      TabOrder = 7
-      OnClick = btnEditClick
-    end
-    object btnFromParent: TButton
-      Left = 167
-      Top = 24
-      Width = 106
-      Height = 32
-      Caption = #1048#1079' '#1088#1086#1076#1080#1090#1077#1083#1103
-      ImageIndex = 20
-      Images = frmMain.imgMidle
       TabOrder = 8
-      OnClick = btnFromParentClick
+      OnClick = btnDawnClick
     end
   end
   object dsMain: TUniDataSource

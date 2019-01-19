@@ -32,8 +32,12 @@ type
     edtname: TcxDBTextEdit;
     lbl1: TLabel;
     cxGroupBox2: TcxGroupBox;
+    cxGroupBox3: TcxGroupBox;
+    btnSave: TButton;
     btnPropAdd: TButton;
+    btnEdit: TButton;
     btnPropEdit: TButton;
+    btnFromParent: TButton;
     btnFormat: TButton;
     gridProp: TcxGrid;
     viewProp: TcxGridDBTableView;
@@ -43,9 +47,6 @@ type
     levelProp: TcxGridLevel;
     btnUp: TButton;
     btnDawn: TButton;
-    btnSave: TButton;
-    btnEdit: TButton;
-    btnFromParent: TButton;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
