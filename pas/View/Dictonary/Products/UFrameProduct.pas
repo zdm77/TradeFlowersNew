@@ -88,7 +88,13 @@ end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
-  CategoryInsEdt(false);
+  if (category.ParentId <> 0) then
+  begin
+    CategoryInsEdt(false);
+  end
+  else
+    Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка',
+      MB_OK + MB_ICONERROR)
 end;
 
 procedure TframeProduct.btnProductAddClick(Sender: TObject);
@@ -109,15 +115,9 @@ end;
 
 procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
 begin
-  if category.ParentId <> 0 then
-  begin
-    Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
-    frmCategoryEdit.Init(category, isNew, queryCategoty);
-    frmCategoryEdit.Show;
-  end
-  else
-    Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка',
-      MB_OK + MB_ICONERROR)
+  Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
+  frmCategoryEdit.Init(category, isNew, queryCategoty);
+  frmCategoryEdit.Show;
 end;
 
 procedure TframeProduct.Init;

@@ -162,7 +162,7 @@ begin
   frmSelectTree.ShowModal;
   if frmSelectTree.ModalResult = mrOk then
   begin
-    _category.ParentId:= frmSelectTree.idSelect;
+    _category.ParentId := frmSelectTree.idSelect;
     edtParentName.Text := _category.GetParent(_category.ParentId).Name;
   end;
 end;
@@ -200,8 +200,11 @@ begin
     end
     else
     begin
-      edtParentName.Text := _category.GetParent(category.ParentId).Name;
-      queryCategory.Edit;
+      try
+        edtParentName.Text := _category.GetParent(category.ParentId).Name;
+        queryCategory.Edit;
+      except
+      end;
     end;
   end;
   prop := TProps.Create();

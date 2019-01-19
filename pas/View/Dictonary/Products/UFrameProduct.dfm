@@ -42,9 +42,6 @@ object frameProduct: TframeProduct
       TabOrder = 0
       OnClick = lstCategoryClick
       OnDblClick = lstCategoryDblClick
-      ExplicitLeft = 3
-      ExplicitTop = 45
-      ExplicitHeight = 488
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
@@ -124,7 +121,6 @@ object frameProduct: TframeProduct
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 2
-    ExplicitLeft = 383
     Height = 539
     Width = 560
     object gridProduct: TcxGrid
@@ -136,10 +132,6 @@ object frameProduct: TframeProduct
       TabOrder = 0
       LookAndFeel.Kind = lfOffice11
       LookAndFeel.NativeStyle = True
-      ExplicitLeft = 101
-      ExplicitTop = 81
-      ExplicitWidth = 427
-      ExplicitHeight = 361
       object viewProduct: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         FilterBox.Position = fpTop
