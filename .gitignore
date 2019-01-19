@@ -5,6 +5,7 @@
 __history
 *.exe
 *.dcu
+*.doc
 .svn
 *.dsk
 *.identcache
