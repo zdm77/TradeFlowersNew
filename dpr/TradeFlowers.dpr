@@ -22,7 +22,10 @@ uses
   UfrmSelect in '..\pas\UfrmSelect.pas' {frmSelect},
   UfrmSelectTree in '..\pas\UfrmSelectTree.pas' {frmSelectTree},
   UCategoryProperty in '..\pas\Model\UCategoryProperty.pas',
-  UfrmOnlyName in '..\pas\View\UfrmOnlyName.pas' {frmOnlyName};
+  UfrmOnlyName in '..\pas\View\UfrmOnlyName.pas' {frmOnlyName},
+  UFrameContragent in '..\pas\View\Dictonary\Contragents\UFrameContragent.pas' {Frame1: TFrame},
+  UContragent in '..\pas\Model\Dictonary\Contragents\UContragent.pas',
+  UfrmContragent in '..\pas\View\Dictonary\Contragents\UfrmContragent.pas' {frmContragent};
 
 {$R *.res}
 
@@ -31,7 +34,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
-  // Application.CreateForm(TfrmOnlyName, frmOnlyName);
-  // Application.CreateForm(TfrmSelect, frmSelect);
   Application.Run;
 end.

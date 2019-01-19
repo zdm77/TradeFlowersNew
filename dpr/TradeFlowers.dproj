@@ -84,6 +84,7 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Keys>CompanyName=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -162,7 +163,18 @@
             <Form>frmOnlyName</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Contragents\UFrameContragent.pas">
+            <Form>Frame1</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\pas\Model\Dictonary\Contragents\UContragent.pas"/>
+        <DCCReference Include="..\pas\View\Dictonary\Contragents\UfrmContragent.pas">
+            <Form>frmContragent</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="ModelSupport_TradeFlowers\default.txvpck"/>
+        <None Include="ModelSupport_TradeFlowers\default.txaPackage"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -196,6 +208,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="ModelSupport_TradeFlowers\default.txvpck" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="ModelSupport_TradeFlowers\default.txaPackage" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -622,6 +640,11 @@
                 <Platform value="Win64">False</Platform>
             </Platforms>
             <ModelSupport>True</ModelSupport>
+            <MMX>
+                <UsesClauseFormatter>
+                    <GroupNames>WinApi;System.Win;System;Data;Vcl</GroupNames>
+                </UsesClauseFormatter>
+            </MMX>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>

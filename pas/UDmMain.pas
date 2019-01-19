@@ -30,6 +30,9 @@ const
   TABLE_CATEGORY_PROPERTY = 'dictonary.properties_category';
   const
   TABLE_PRODUCT_PROPERTY = 'dictonary.properties_product';
+  const
+  TABLE_CONTRAGENT = 'dictonary.contragent';
+
 implementation
 
 { %CLASSGROUP 'Vcl.Controls.TControl' }

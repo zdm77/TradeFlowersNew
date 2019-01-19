@@ -36,10 +36,12 @@ type
     imgSmall: TcxImageList;
     imgLarge: TcxImageList;
     cxLocalizer1: TcxLocalizer;
+    N4: TMenuItem;
     procedure btn1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
+    procedure N4Click(Sender: TObject);
   private
     listProduct: TList<TProduct>;
     { Private declarations }
@@ -54,7 +56,7 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps;
+  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent;
 
 procedure TfrmMain.btn1Click(Sender: TObject);
 var
@@ -103,6 +105,14 @@ begin
   if frmProps = nil then
     Application.CreateForm(TfrmProps, frmProps);
   frmProps.Show;
+end;
+
+procedure TfrmMain.N4Click(Sender: TObject);
+begin
+
+  if frmContragent = nil then
+    Application.CreateForm(TfrmContragent, frmContragent);
+  frmContragent.Show;
 end;
 
 end.
