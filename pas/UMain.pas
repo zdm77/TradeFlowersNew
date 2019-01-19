@@ -12,7 +12,7 @@ uses
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
   Vcl.Menus, Vcl.ImgList, cxLocalization, MemTableDataEh, MemTableEh,
-  cxImageList;
+  cxImageList, System.ImageList;
 
 type
   TProduct = class

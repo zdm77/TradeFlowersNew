@@ -91,7 +91,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       OnClick = btnPropEditClick
     end
     object btnFormat: TButton
-      Left = 167
+      Left = 328
       Top = 24
       Width = 146
       Height = 32
@@ -181,6 +181,17 @@ object frmCategoryEdit: TfrmCategoryEdit
       Images = frmMain.imgMidle
       TabOrder = 7
       OnClick = btnEditClick
+    end
+    object btnFromParent: TButton
+      Left = 167
+      Top = 24
+      Width = 106
+      Height = 32
+      Caption = #1048#1079' '#1088#1086#1076#1080#1090#1077#1083#1103
+      ImageIndex = 20
+      Images = frmMain.imgMidle
+      TabOrder = 8
+      OnClick = btnFromParentClick
     end
   end
   object dsMain: TUniDataSource

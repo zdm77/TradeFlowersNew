@@ -45,9 +45,11 @@ type
     btnDawn: TButton;
     btnSave: TButton;
     btnEdit: TButton;
+    btnFromParent: TButton;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
+    procedure btnFromParentClick(Sender: TObject);
     procedure btnPropAddClick(Sender: TObject);
     procedure btnPropEditClick(Sender: TObject);
     procedure btnUpClick(Sender: TObject);
@@ -136,6 +138,11 @@ end;
 procedure TfrmCategoryEdit.btnEditClick(Sender: TObject);
 begin
   InsUpdProp(false);
+end;
+
+procedure TfrmCategoryEdit.btnFromParentClick(Sender: TObject);
+begin
+_category.GeneratePropertiesFromParent(_category.Id, queryProps, _category.ParentId);
 end;
 
 procedure TfrmCategoryEdit.btnPropAddClick(Sender: TObject);
