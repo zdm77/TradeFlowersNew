@@ -23,9 +23,10 @@ uses
   UfrmSelectTree in '..\pas\UfrmSelectTree.pas' {frmSelectTree},
   UCategoryProperty in '..\pas\Model\UCategoryProperty.pas',
   UfrmOnlyName in '..\pas\View\UfrmOnlyName.pas' {frmOnlyName},
-  UFrameContragent in '..\pas\View\Dictonary\Contragents\UFrameContragent.pas' {Frame1: TFrame},
+  UFrameContragent in '..\pas\View\Dictonary\Contragents\UFrameContragent.pas' {FrameContragent: TFrame},
   UContragent in '..\pas\Model\Dictonary\Contragents\UContragent.pas',
-  UfrmContragent in '..\pas\View\Dictonary\Contragents\UfrmContragent.pas' {frmContragent};
+  UfrmContragent in '..\pas\View\Dictonary\Contragents\UfrmContragent.pas' {frmContragent},
+  UfrmContragentEdt in '..\pas\View\Dictonary\Contragents\UfrmContragentEdt.pas' {frmContragentEdt};
 
 {$R *.res}
 

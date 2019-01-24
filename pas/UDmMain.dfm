@@ -19,6 +19,7 @@ object DMMain: TDMMain
     Top = 23
   end
   object mon1: TUniSQLMonitor
+    Active = False
     Left = 272
     Top = 240
   end

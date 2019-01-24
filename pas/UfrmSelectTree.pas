@@ -46,7 +46,7 @@ begin
   CategorySelect.SetCategory;
   idSelect:=  CategorySelect.Id;
   nameSelect:= queryCategoty.FieldByName('name').AsString;
-  //SenderCategory.ParentId := CategorySelect.Id;
+
   ModalResult := mrOk;
 end;
 

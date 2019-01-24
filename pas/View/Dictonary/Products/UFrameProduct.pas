@@ -12,7 +12,7 @@ uses
   cxFilter, cxData, UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu,
   cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator,
   cxContainer, cxSplitter, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog;
+  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges;
 
 type
   TframeProduct = class(TFrame)

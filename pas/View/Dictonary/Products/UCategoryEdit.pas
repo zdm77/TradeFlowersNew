@@ -13,7 +13,8 @@ uses
   cxData, UCategory, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
   cxMaskEdit, UProps, UCategoryProperty, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog;
+  cxDataControllerConditionalFormattingRulesManagerDialog, cxDropDownEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, dxDateRanges;
 
 type
   TfrmCategoryEdit = class(TForm)
@@ -47,6 +48,7 @@ type
     levelProp: TcxGridLevel;
     btnUp: TButton;
     btnDawn: TButton;
+    edt1: TcxLookupComboBox;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -57,6 +59,7 @@ type
     procedure viewPropDblClick(Sender: TObject);
     procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
   private
+    idParent: Integer;
     FEnableDawn: Boolean;
     FEnableUp: Boolean;
     _senderQuery: TUniQuery;
@@ -94,6 +97,7 @@ var
 begin
   if queryProps.RecordCount > 0 then
   begin
+
     order := queryProps.FieldByName('order_by').AsInteger;
     id := queryProps.FieldByName('id').AsString;
     if (up = True) and (order = 1) then

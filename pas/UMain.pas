@@ -3,10 +3,12 @@ unit UMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
-  cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, MemDS, DBAccess,
+  cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, MemDS,
+  DBAccess,
   Uni, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
@@ -37,13 +39,12 @@ type
     imgLarge: TcxImageList;
     cxLocalizer1: TcxLocalizer;
     N4: TMenuItem;
-    procedure btn1Click(Sender: TObject);
+
     procedure FormShow(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N4Click(Sender: TObject);
-  private
-    listProduct: TList<TProduct>;
+
     { Private declarations }
   public
   end;
@@ -58,24 +59,10 @@ implementation
 uses
   UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent;
 
-procedure TfrmMain.btn1Click(Sender: TObject);
-var
-  product: TProduct;
-  i: Integer;
-  // s:TStringBuilder;
-begin
-  product := TProduct.Create;
-  product.Name := 'Иван';
-  listProduct := TList<TProduct>.Create;
-  listProduct.Add(product);
-  listProduct.Add(product);
-  // for  I := 0 to listProduct.Count-1 do
-  // OutputDebugString(PChar(product.Name));
-end;
-
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
-  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) + '\..\INI\LanguagesUnicode.ini');
+  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) +
+    '\..\INI\LanguagesUnicode.ini');
   cxLocalizer1.Active := true;
   cxLocalizer1.Locale := 1049;
 

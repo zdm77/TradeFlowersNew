@@ -193,8 +193,8 @@ begin
   category.assignCategoryById(categoryId, QueryCat);
   categoryName := QueryCat.FieldByName('name').Value;
   Name := query.FieldByName('name').Value;
-  Suffix := query.FieldByName('suffix').Value;
-  BarCode := query.FieldByName('barcode').Value;
+  Suffix := query.FieldByName('suffix').AsString;
+  BarCode := query.FieldByName('barcode').AsString;
 
 end;
 

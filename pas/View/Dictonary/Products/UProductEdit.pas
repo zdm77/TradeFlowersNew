@@ -12,7 +12,7 @@ uses
   cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Vcl.ExtCtrls,
   Vcl.DBCtrls, cxCustomData, cxFilter, cxData,
   cxDataControllerConditionalFormattingRulesManagerDialog, UProductModel,
-  cxMaskEdit, cxButtonEdit, UProps, cxGroupBox;
+  cxMaskEdit, cxButtonEdit, UProps, cxGroupBox, dxDateRanges;
 
 type
   TfrmProductEdit = class(TForm)
