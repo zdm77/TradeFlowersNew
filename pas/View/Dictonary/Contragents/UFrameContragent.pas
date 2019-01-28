@@ -54,8 +54,9 @@ type
       AShift: TShiftState; var AHandled: Boolean);
   private
     IdFilter: Boolean;
-   // FindPanel: TcxFindPanelMRUEdit;
+    // FindPanel: TcxFindPanelMRUEdit;
     procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure InsUpd(AId: Integer);
 
   public
     procedure init;
@@ -72,53 +73,59 @@ uses UfrmContragentEdt;
 procedure TFrameContragent.btnAddClick(Sender: TObject);
 var
   f: TfrmContragentEdt;
+
 begin
   f := TfrmContragentEdt.Create(Self);
+
 end;
 
 procedure TFrameContragent.btnEditClick(Sender: TObject);
+
+begin
+  InsUpd(fieldContragentId.Value);
+end;
+
+procedure TFrameContragent.Expand(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+
+begin
+
+  CodeSite.send(TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
+    .FindPanel).Edit.ClassName)
+end;
+
+procedure TFrameContragent.init;
+begin
+  // FindPanel:= TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
+  // .FindPanel);
+  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel)
+    .Edit.OnKeyUp := Self.Expand;
+end;
+
+procedure TFrameContragent.InsUpd(AId: Integer);
 var
   f: TfrmContragentEdt;
-  id: Integer;
 begin
-  f := TfrmContragentEdt.Create(Self, queryContragentView.FieldByName('id')
-    .AsInteger);
+
+  f := TfrmContragentEdt.Create(Self, AId);
   f.ShowModal;
   if f.ModalResult = mrYes then
   begin
     queryType.Locate('id', f.fieldContragentTypeId.Value, []);
     ShowContragents(fieldContragentId.Value);
   end;
-
-end;
-
-procedure TFrameContragent.Expand(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-CodeSite.send( TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
-    .FindPanel).Edit.ClassName)
-end;
-
-procedure TFrameContragent.init;
-begin
-//  FindPanel:= TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
-//    .FindPanel);
-  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
-    .FindPanel).Edit.OnKeyUp := Self.Expand;
 end;
 
 procedure TFrameContragent.ShowContragents(idLocate: Integer = 0);
 var
   I: Integer;
 begin
-
   UContragent.GetTypes(queryType);
   UContragent.getContragents(queryContragentView);
-
   queryContragentView.Locate('id', idLocate, []);
   // установить фокус в поиск
-  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
-    .FindPanel).Edit.SetFocus;
+  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel)
+    .Edit.SetFocus;
   // viewContragent .DataController.Groups.FullExpand;
 end;
 
@@ -142,8 +149,8 @@ procedure TFrameContragent.viewTypeCellClick(Sender: TcxCustomGridTableView;
   ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
   AShift: TShiftState; var AHandled: Boolean);
 begin
-  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
-    .FindPanel).Edit.SetFocus;
+  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel)
+    .Edit.SetFocus;
 end;
 
 end.

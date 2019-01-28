@@ -15,6 +15,11 @@ uses
   cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges;
 
 type
+   TcxGridTableControllerAccess = class(TcxTreeListController);
+
+  TcxGridFindPanelAccess = class(TcxGridFindPanel);
+
+
   TframeProduct = class(TFrame)
     dsCategory: TUniDataSource;
     queryCategoty: TUniQuery;
@@ -57,6 +62,7 @@ type
     procedure InsUpd(isNew: Boolean);
     procedure ShowCategory;
     procedure ShowProduct;
+      procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
     { Private declarations }
   public
     // property SelCategoryID: Integer read FSelCategoryID write SetSelCategoryID;
@@ -118,8 +124,17 @@ begin
   frmCategoryEdit.Show;
 end;
 
+procedure TframeProduct.Expand(Sender: TObject; var Key: Word; Shift:
+    TShiftState);
+begin
+
+end;
+
 procedure TframeProduct.Init;
 begin
+//TcxGridFindPanelAccess(TFindControl(lst2.Controller)
+//    .FindPanel).Edit.OnKeyUp := Self.Expand;
+// TcxGridFindPanelAccess(TcxGridTableControllerAccess(lst1. Controller).FindPanel).Edit.SetFocus;
   category := TCategory.Create(queryCategoty);
   product := TProduct.Create;
   ShowCategory;
