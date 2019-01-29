@@ -21,6 +21,7 @@ var
   DMMain: TDMMain;
 
 const
+///таблица категорий
   TABLE_CATEGORY = 'dictonary.category';
  const
   TABLE_PRODUCT = 'dictonary.product';

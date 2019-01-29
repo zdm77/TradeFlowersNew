@@ -74,6 +74,9 @@ object frameProps: TframeProps
         OptionsBehavior.FocusCellOnTab = True
         OptionsBehavior.FocusFirstCellOnNewRecord = True
         OptionsBehavior.FocusCellOnCycle = True
+        OptionsData.Deleting = False
+        OptionsData.Editing = False
+        OptionsData.Inserting = False
         OptionsView.ShowEditButtons = gsebAlways
         OptionsView.GroupByBox = False
         OptionsView.Indicator = True

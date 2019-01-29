@@ -205,13 +205,6 @@ object frmCategoryEdit: TfrmCategoryEdit
       TabOrder = 8
       OnClick = btnDawnClick
     end
-    object edt1: TcxLookupComboBox
-      Left = 136
-      Top = 120
-      Properties.ListColumns = <>
-      TabOrder = 9
-      Width = 145
-    end
   end
   object dsMain: TUniDataSource
     DataSet = queryCategory

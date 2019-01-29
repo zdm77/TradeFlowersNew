@@ -75,7 +75,7 @@ var
   f: TfrmContragentEdt;
 
 begin
-  f := TfrmContragentEdt.Create(Self);
+//  f := TfrmContragentEdt.Create(Self);
 
 end;
 
