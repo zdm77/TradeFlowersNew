@@ -4,85 +4,62 @@ object FrameContragent: TFrameContragent
   Width = 981
   Height = 609
   TabOrder = 0
-  object cxGroupBox3: TcxGroupBox
+  object tab1: TcxTabControl
     Left = 0
     Top = 0
+    Width = 981
+    Height = 28
+    Align = alTop
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -14
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    Properties.CustomButtons.Buttons = <>
+    Properties.TabIndex = 0
+    Properties.Tabs.Strings = (
+      '12'
+      '4')
+    LookAndFeel.Kind = lfUltraFlat
+    LookAndFeel.NativeStyle = True
+    OnChange = tab1Change
+    ClientRectBottom = 30
+    ClientRectLeft = 4
+    ClientRectRight = 977
+    ClientRectTop = 30
+  end
+  object cxGroupBox3: TcxGroupBox
+    Left = 0
+    Top = 28
     Align = alClient
     PanelStyle.Active = True
-    TabOrder = 0
-    Height = 609
+    TabOrder = 1
+    ExplicitTop = 22
+    ExplicitHeight = 587
+    Height = 581
     Width = 981
-    object cxGroupBox1: TcxGroupBox
-      Left = 2
-      Top = 2
-      Align = alLeft
-      Caption = #1058#1080#1087#1099
-      TabOrder = 0
-      Height = 605
-      Width = 215
-      object gridType: TcxGrid
-        Left = 2
-        Top = 18
-        Width = 211
-        Height = 585
-        Align = alClient
-        TabOrder = 0
-        LookAndFeel.Kind = lfOffice11
-        LookAndFeel.NativeStyle = True
-        object viewType: TcxGridDBTableView
-          Navigator.Buttons.CustomButtons = <>
-          FilterBox.Position = fpTop
-          FilterBox.Visible = fvNever
-          FindPanel.ApplyInputDelay = 200
-          FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
-          FindPanel.ShowCloseButton = False
-          FindPanel.ShowFindButton = False
-          OnCellClick = viewTypeCellClick
-          DataController.DataSource = dsType
-          DataController.Summary.DefaultGroupSummaryItems = <>
-          DataController.Summary.FooterSummaryItems = <>
-          DataController.Summary.SummaryGroups = <>
-          DataController.OnFilterRecord = viewContragentDataControllerFilterRecord
-          OptionsData.Deleting = False
-          OptionsData.DeletingConfirmation = False
-          OptionsData.Editing = False
-          OptionsData.Inserting = False
-          OptionsSelection.CellSelect = False
-          OptionsView.GroupByBox = False
-          object cxGridDBColumn1: TcxGridDBColumn
-            Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-            DataBinding.FieldName = 'name'
-            Width = 435
-          end
-        end
-        object cxGridLevel1: TcxGridLevel
-          GridView = viewType
-        end
-      end
-    end
-    object cxSplitter1: TcxSplitter
-      Left = 217
-      Top = 2
-      Width = 8
-      Height = 605
-      HotZoneClassName = 'TcxMediaPlayer9Style'
-    end
     object cxGroupBox2: TcxGroupBox
-      Left = 225
+      Left = 2
       Top = 2
       Align = alClient
       Caption = #1050#1086#1085#1090#1088#1072#1075#1077#1085#1090#1099
-      TabOrder = 2
-      Height = 605
-      Width = 754
+      TabOrder = 0
+      ExplicitLeft = 225
+      ExplicitWidth = 754
+      ExplicitHeight = 583
+      Height = 577
+      Width = 977
       object cxGroupBox4: TcxGroupBox
         Left = 2
         Top = 18
         Align = alTop
         PanelStyle.Active = True
         TabOrder = 0
+        ExplicitWidth = 750
         Height = 39
-        Width = 750
+        Width = 973
         object btnAdd: TButton
           Left = 3
           Top = 3
@@ -132,17 +109,21 @@ object FrameContragent: TFrameContragent
         Align = alClient
         PanelStyle.Active = True
         TabOrder = 1
-        Height = 546
-        Width = 750
+        ExplicitWidth = 750
+        ExplicitHeight = 524
+        Height = 518
+        Width = 973
         object gridContragent: TcxGrid
           Left = 2
           Top = 2
-          Width = 746
-          Height = 542
+          Width = 969
+          Height = 514
           Align = alClient
           TabOrder = 0
           LookAndFeel.Kind = lfOffice11
           LookAndFeel.NativeStyle = True
+          ExplicitWidth = 746
+          ExplicitHeight = 520
           object viewContragent: TcxGridDBTableView
             Navigator.Buttons.CustomButtons = <>
             FilterBox.Position = fpTop
@@ -199,16 +180,14 @@ object FrameContragent: TFrameContragent
     SQL.Strings = (
       'SELECT *'
       'FROM dictonary.contragent'
+      'where contragent_type_id = :contragent_type_id'
       'ORDER BY name')
-    MasterSource = dsType
-    MasterFields = 'id'
-    DetailFields = 'contragent_type_id'
     Left = 336
     Top = 448
     ParamData = <
       item
         DataType = ftUnknown
-        Name = 'id'
+        Name = 'contragent_type_id'
         Value = nil
       end>
     object fieldContragentId: TIntegerField
@@ -223,5 +202,13 @@ object FrameContragent: TFrameContragent
       FieldName = 'contragent_type_id'
       Required = True
     end
+  end
+  object query1: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'SELECT *'
+      'FROM dictonary.contragent_type order by name')
+    Left = 504
+    Top = 296
   end
 end

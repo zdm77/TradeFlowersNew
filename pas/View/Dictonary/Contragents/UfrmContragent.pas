@@ -33,7 +33,7 @@ implementation
 procedure TfrmContragent.FormShow(Sender: TObject);
 begin
   FrameContragent1.init;
-  FrameContragent1.ShowContragents();
+  //FrameContragent1.ShowContragents();
 end;
 
 end.

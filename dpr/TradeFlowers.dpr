@@ -26,7 +26,9 @@ uses
   UFrameContragent in '..\pas\View\Dictonary\Contragents\UFrameContragent.pas' {FrameContragent: TFrame},
   UContragent in '..\pas\Model\Dictonary\Contragents\UContragent.pas',
   UfrmContragent in '..\pas\View\Dictonary\Contragents\UfrmContragent.pas' {frmContragent},
-  UfrmContragentEdt in '..\pas\View\Dictonary\Contragents\UfrmContragentEdt.pas' {frmContragentEdt};
+  UfrmContragentEdt in '..\pas\View\Dictonary\Contragents\UfrmContragentEdt.pas' {frmContragentEdt},
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.res}
 

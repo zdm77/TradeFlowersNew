@@ -12,32 +12,13 @@ uses
   DBAccess, Uni, MemDS, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxContainer,
   Vcl.StdCtrls, cxGroupBox, UContragent, cxSplitter, CodeSiteLogging,
-  dxDateRanges;
+  dxDateRanges, dxBarBuiltInMenu, cxPC;
 
 type
   TFindControl = class(TcxGridTableController);
   TcxGridFindPanelAccess = class(TcxGridFindPanel);
 
   TFrameContragent = class(TFrame)
-
-    cxGroupBox3: TcxGroupBox;
-    cxGroupBox1: TcxGroupBox;
-    cxSplitter1: TcxSplitter;
-    cxGroupBox2: TcxGroupBox;
-    cxGroupBox4: TcxGroupBox;
-    cxGroupBox5: TcxGroupBox;
-    btnAdd: TButton;
-    btnEdit: TButton;
-    btnDel: TButton;
-    btnRefresh: TButton;
-    gridContragent: TcxGrid;
-    viewContragent: TcxGridDBTableView;
-    columnName: TcxGridDBColumn;
-    level1: TcxGridLevel;
-    gridType: TcxGrid;
-    viewType: TcxGridDBTableView;
-    cxGridDBColumn1: TcxGridDBColumn;
-    cxGridLevel1: TcxGridLevel;
     queryType: TUniQuery;
     dsType: TUniDataSource;
     dsContragentView: TUniDataSource;
@@ -45,19 +26,33 @@ type
     fieldContragentId: TIntegerField;
     fieldContragentName: TStringField;
     fieldContragentTypeId: TIntegerField;
+    tab1: TcxTabControl;
+    cxGroupBox3: TcxGroupBox;
+    cxGroupBox2: TcxGroupBox;
+    cxGroupBox4: TcxGroupBox;
+    btnAdd: TButton;
+    btnEdit: TButton;
+    btnDel: TButton;
+    btnRefresh: TButton;
+    cxGroupBox5: TcxGroupBox;
+    gridContragent: TcxGrid;
+    viewContragent: TcxGridDBTableView;
+    columnName: TcxGridDBColumn;
+    level1: TcxGridLevel;
+    query1: TUniQuery;
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
-    procedure viewContragentDataControllerFilterRecord(ADataController
-      : TcxCustomDataController; ARecordIndex: Integer; var Accept: Boolean);
-    procedure viewTypeCellClick(Sender: TcxCustomGridTableView;
-      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
-      AShift: TShiftState; var AHandled: Boolean);
+    procedure tab1Change(Sender: TObject);
+    procedure viewContragentDataControllerFilterRecord(ADataController: TcxCustomDataController; ARecordIndex: Integer;
+      var Accept: Boolean);
+    procedure viewTypeCellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+      AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
   private
     IdFilter: Boolean;
     // FindPanel: TcxFindPanelMRUEdit;
     procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure InsUpd(AId: Integer);
-
+    procedure ShowTypeTab;
   public
     procedure init;
     procedure ShowContragents(idLocate: Integer = 0);
@@ -68,45 +63,37 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmContragentEdt;
+uses UfrmContragentEdt, UFuncAndProc;
 
 procedure TFrameContragent.btnAddClick(Sender: TObject);
 var
   f: TfrmContragentEdt;
-
 begin
-//  f := TfrmContragentEdt.Create(Self);
-
+  // f := TfrmContragentEdt.Create(Self);
 end;
 
 procedure TFrameContragent.btnEditClick(Sender: TObject);
-
 begin
   InsUpd(fieldContragentId.Value);
 end;
 
-procedure TFrameContragent.Expand(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-
+procedure TFrameContragent.Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-
-  CodeSite.send(TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
-    .FindPanel).Edit.ClassName)
+  CodeSite.send(TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.ClassName);
 end;
 
 procedure TFrameContragent.init;
 begin
   // FindPanel:= TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
   // .FindPanel);
-  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel)
-    .Edit.OnKeyUp := Self.Expand;
+  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.OnKeyUp := Self.Expand;
+  ShowTypeTab;
 end;
 
 procedure TFrameContragent.InsUpd(AId: Integer);
 var
   f: TfrmContragentEdt;
 begin
-
   f := TfrmContragentEdt.Create(Self, AId);
   f.ShowModal;
   if f.ModalResult = mrYes then
@@ -117,21 +104,49 @@ begin
 end;
 
 procedure TFrameContragent.ShowContragents(idLocate: Integer = 0);
-var
-  I: Integer;
+
 begin
-  UContragent.GetTypes(queryType);
-  UContragent.getContragents(queryContragentView);
-  queryContragentView.Locate('id', idLocate, []);
+  // UContragent.GetTypes(queryType);
+  // UContragent.getContragents(queryContragentView);
+  with queryContragentView do
+  begin
+    Close;
+
+    ParamByName('contragent_type_id').AsInteger := UFuncAndProc.getIdByName('dictonary.contragent_type',
+      tab1.Tabs[tab1.TabIndex].Caption);
+    Open;
+    // queryContragentView.Locate('id', idLocate, []);
+  end;
   // установить фокус в поиск
-  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel)
-    .Edit.SetFocus;
+  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
   // viewContragent .DataController.Groups.FullExpand;
 end;
 
-procedure TFrameContragent.viewContragentDataControllerFilterRecord
-  (ADataController: TcxCustomDataController; ARecordIndex: Integer;
-  var Accept: Boolean);
+procedure TFrameContragent.ShowTypeTab;
+begin
+  tab1.Tabs.Clear;
+  with queryType do
+  begin
+    Close;
+    Open;
+    while not eof do
+    begin
+      tab1.Tabs.Add(FieldByName('name').Value);
+      next;
+    end;
+    if IsEmpty = false then
+      ShowContragents();
+  end;
+end;
+
+procedure TFrameContragent.tab1Change(Sender: TObject);
+begin
+ if queryContragentView.Active=true then
+  ShowContragents();
+end;
+
+procedure TFrameContragent.viewContragentDataControllerFilterRecord(ADataController: TcxCustomDataController;
+  ARecordIndex: Integer; var Accept: Boolean);
 begin
   // OutputDebugString(pchar('Отладка: ' + TcxGridFindPanelAccess(TcxGridTableControllerAccess(viewContragent.Controller)
   // .FindPanel).Edit.Text));
@@ -146,11 +161,9 @@ begin
 end;
 
 procedure TFrameContragent.viewTypeCellClick(Sender: TcxCustomGridTableView;
-  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
-  AShift: TShiftState; var AHandled: Boolean);
+  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
 begin
-  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel)
-    .Edit.SetFocus;
+  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
 end;
 
 end.

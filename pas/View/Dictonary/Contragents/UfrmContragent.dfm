@@ -25,42 +25,36 @@ object frmContragent: TfrmContragent
     TabOrder = 0
     ExplicitWidth = 755
     ExplicitHeight = 483
+    inherited tab1: TcxTabControl
+      Width = 755
+      ExplicitWidth = 755
+      ClientRectRight = 751
+    end
     inherited cxGroupBox3: TcxGroupBox
       ExplicitWidth = 755
-      ExplicitHeight = 483
-      Height = 483
+      ExplicitHeight = 461
+      Height = 461
       Width = 755
-      inherited cxGroupBox1: TcxGroupBox
-        ExplicitHeight = 479
-        Height = 479
-        inherited gridType: TcxGrid
-          Height = 459
-          ExplicitHeight = 459
-        end
-      end
-      inherited cxSplitter1: TcxSplitter
-        Height = 479
-        ExplicitHeight = 479
-      end
       inherited cxGroupBox2: TcxGroupBox
-        ExplicitWidth = 528
-        ExplicitHeight = 479
-        Height = 479
-        Width = 528
+        ExplicitLeft = 2
+        ExplicitWidth = 751
+        ExplicitHeight = 457
+        Height = 457
+        Width = 751
         inherited cxGroupBox4: TcxGroupBox
-          ExplicitWidth = 524
-          Width = 524
+          ExplicitWidth = 747
+          Width = 747
         end
         inherited cxGroupBox5: TcxGroupBox
-          ExplicitWidth = 524
-          ExplicitHeight = 420
-          Height = 420
-          Width = 524
+          ExplicitWidth = 747
+          ExplicitHeight = 398
+          Height = 398
+          Width = 747
           inherited gridContragent: TcxGrid
-            Width = 520
-            Height = 416
-            ExplicitWidth = 520
-            ExplicitHeight = 416
+            Width = 743
+            Height = 394
+            ExplicitWidth = 743
+            ExplicitHeight = 394
           end
         end
       end

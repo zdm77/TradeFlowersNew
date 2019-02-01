@@ -17,6 +17,7 @@ function standartValidateOnUnic(fieldName: string): Boolean;
 procedure QueryCreate(query: TUniQuery);
 function getNewId(tableName: string): Integer;
 procedure deleteById(Id: Integer; tableName: string);
+function getIdByName(ATableName, AName: string): Integer;
 
 implementation
 
@@ -36,8 +37,7 @@ end;
 
 procedure standartDelete(query: TUniQuery);
 begin
-  if Application.MessageBox('Вы действительно хотите удалить запись?', 'Вопрос',
-    MB_YESNO + MB_ICONWARNING) = mrYes then
+  if Application.MessageBox('Вы действительно хотите удалить запись?', 'Вопрос', MB_YESNO + MB_ICONWARNING) = mrYes then
     query.Delete;
 end;
 
@@ -70,12 +70,25 @@ var
 begin
   query := TUniQuery.Create(nil);
   query.Connection := DMMain.conMain;
-  if Application.MessageBox('Вы действительно хотите удалить запись?', 'Вопрос',
-    MB_YESNO + MB_ICONWARNING) = mrYes then
+  if Application.MessageBox('Вы действительно хотите удалить запись?', 'Вопрос', MB_YESNO + MB_ICONWARNING) = mrYes then
   begin
     query.SQL.Text := 'delete from  ' + tableName + ' where id=' + IntToStr(Id);
     query.ExecSQL;
   end;
+end;
+
+function getIdByName(ATableName, AName: string): Integer;
+var
+  query: TUniQuery;
+begin
+  query := TUniQuery.Create(nil);
+  query.Connection := DMMain.conMain;
+  query.SQL.Text := 'select id from ' + ATableName + ' where name=' + QuotedStr(AName);
+  query.Open;
+  if query.IsEmpty = true then
+    Result := 0
+  else
+    Result := query.fields[0].AsInteger;
 end;
 
 end.
