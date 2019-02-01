@@ -164,8 +164,7 @@ begin
     Result := true
   else
     Result := false;
-  // TODO -cMM: TfrmOnlyName.notUniq default body inserted
-end;
+  end;
 
 procedure TfrmOnlyName.SetId(const Value: Integer);
 begin

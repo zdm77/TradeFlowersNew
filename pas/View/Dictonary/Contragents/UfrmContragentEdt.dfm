@@ -3,8 +3,8 @@ object frmContragentEdt: TfrmContragentEdt
   Top = 0
   BorderStyle = bsDialog
   Caption = 'frmContragentEdt'
-  ClientHeight = 97
-  ClientWidth = 344
+  ClientHeight = 412
+  ClientWidth = 723
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -34,18 +34,18 @@ object frmContragentEdt: TfrmContragentEdt
   end
   object Panel1: TPanel
     Left = 0
-    Top = 60
-    Width = 344
+    Top = 375
+    Width = 723
     Height = 37
     Align = alBottom
     BevelOuter = bvNone
-    TabOrder = 0
+    TabOrder = 2
     DesignSize = (
-      344
+      723
       37)
     object Button1: TButton
-      Left = 182
-      Top = 2
+      Left = 561
+      Top = 6
       Width = 75
       Height = 25
       Anchors = [akTop, akRight]
@@ -56,7 +56,7 @@ object frmContragentEdt: TfrmContragentEdt
       OnClick = Button1Click
     end
     object Button2: TButton
-      Left = 263
+      Left = 642
       Top = 6
       Width = 75
       Height = 25
@@ -73,8 +73,8 @@ object frmContragentEdt: TfrmContragentEdt
     Width = 255
     Height = 21
     DataField = 'name'
-    DataSource = DataSource1
-    TabOrder = 1
+    DataSource = dsContragent
+    TabOrder = 0
   end
   object DBLookupComboBox1: TDBLookupComboBox
     Left = 85
@@ -82,8 +82,8 @@ object frmContragentEdt: TfrmContragentEdt
     Width = 255
     Height = 21
     DataField = 'type_name'
-    DataSource = DataSource1
-    TabOrder = 2
+    DataSource = dsContragent
+    TabOrder = 1
   end
   object queryContragent: TUniQuery
     SQLInsert.Strings = (
@@ -127,8 +127,8 @@ object frmContragentEdt: TfrmContragentEdt
       '  dictonary.contragent '
       'WHERE'
       '  id = :Id')
-    Left = 584
-    Top = 80
+    Left = 144
+    Top = 112
     ParamData = <
       item
         DataType = ftUnknown
@@ -196,12 +196,12 @@ object frmContragentEdt: TfrmContragentEdt
       '  name'
       'FROM '
       '  dictonary.contragent_type ;')
-    Left = 560
-    Top = 184
+    Left = 248
+    Top = 112
   end
-  object DataSource1: TDataSource
+  object dsContragent: TDataSource
     DataSet = queryContragent
-    Left = 328
-    Top = 224
+    Left = 40
+    Top = 112
   end
 end

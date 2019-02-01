@@ -19,7 +19,7 @@ type
     fieldContragentTypeId: TIntegerField;
     queryType: TUniQuery;
     fieldContragentTypeName: TStringField;
-    DataSource1: TDataSource;
+    dsContragent: TDataSource;
     Label1: TLabel;
     DBEdit1: TDBEdit;
     Label2: TLabel;
@@ -28,11 +28,13 @@ type
     procedure FormShow(Sender: TObject);
   private
     FId: Integer;
+    FTypeId: Integer;
     { Private declarations }
   public
-    constructor Create(AOwner: TComponent; AId: Integer = 0);
+    constructor Create(AOwner: TComponent; AId, ATypeId: Integer);
     destructor Destroy; override;
     property Id: Integer read FId write FId;
+    property TypeId: Integer read FTypeId write FTypeId;
     { Public declarations }
   end;
 
@@ -43,13 +45,13 @@ implementation
 
 {$R *.dfm}
 
-uses UDmMain;
+uses UDmMain, UFuncAndProc;
 
-constructor TfrmContragentEdt.Create(AOwner: TComponent; AId: Integer = 0);
+constructor TfrmContragentEdt.Create(AOwner: TComponent; AId, ATypeId: Integer);
 begin
   Inherited Create(AOwner);
   Id := AId;
-
+  TypeId := ATypeId;
 end;
 
 destructor TfrmContragentEdt.Destroy;
@@ -59,6 +61,8 @@ end;
 
 procedure TfrmContragentEdt.Button1Click(Sender: TObject);
 begin
+  if Id = 0 then
+    fieldContragentid.Value := UFuncAndProc.getNewId('dictonary.contragent');
   queryContragent.Post;
   ModalResult := mrYes;
   CloseModal;
@@ -73,6 +77,7 @@ begin
     queryContragent.Insert
   else
     queryContragent.Edit;
+  fieldContragentTypeId.Value := TypeId;
 end;
 
 end.

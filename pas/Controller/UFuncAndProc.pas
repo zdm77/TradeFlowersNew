@@ -25,8 +25,7 @@ uses UDmMain;
 
 procedure selectSQL(query: TUniQuery);
 begin
-  // TODO -cMM: selectSQL default body inserted
-end;
+  end;
 
 procedure standartSave(query: TUniQuery; isNew: Boolean);
 begin
@@ -43,8 +42,7 @@ end;
 
 function standartValidateOnUnic(fieldName: string): Boolean;
 begin
-  // TODO -cMM: standartValidateOnUnic default body inserted
-  Result := true;
+    Result := true;
 end;
 
 procedure QueryCreate(query: TUniQuery);

@@ -12,50 +12,50 @@ uses
   DBAccess, Uni, MemDS, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxContainer,
   Vcl.StdCtrls, cxGroupBox, UContragent, cxSplitter, CodeSiteLogging,
-  dxDateRanges, dxBarBuiltInMenu, cxPC;
+  dxDateRanges, dxBarBuiltInMenu, cxPC, UFrameTopPanel;
 
 type
   TFindControl = class(TcxGridTableController);
   TcxGridFindPanelAccess = class(TcxGridFindPanel);
 
   TFrameContragent = class(TFrame)
-    queryType: TUniQuery;
-    dsType: TUniDataSource;
     dsContragentView: TUniDataSource;
     queryContragentView: TUniQuery;
     fieldContragentId: TIntegerField;
     fieldContragentName: TStringField;
     fieldContragentTypeId: TIntegerField;
     tab1: TcxTabControl;
-    cxGroupBox3: TcxGroupBox;
-    cxGroupBox2: TcxGroupBox;
-    cxGroupBox4: TcxGroupBox;
-    btnAdd: TButton;
-    btnEdit: TButton;
-    btnDel: TButton;
-    btnRefresh: TButton;
-    cxGroupBox5: TcxGroupBox;
+    query1: TUniQuery;
+    frameTopPanel1: TframeTopPanel;
     gridContragent: TcxGrid;
     viewContragent: TcxGridDBTableView;
     columnName: TcxGridDBColumn;
     level1: TcxGridLevel;
-    query1: TUniQuery;
+    queryType: TUniQuery;
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
+    procedure frameTopPanel1btnAddClick(Sender: TObject);
+    procedure frameTopPanel1btnDelClick(Sender: TObject);
+    procedure frameTopPanel1btnEditClick(Sender: TObject);
+    procedure frameTopPanel1chkShowDelClick(Sender: TObject);
     procedure tab1Change(Sender: TObject);
     procedure viewContragentDataControllerFilterRecord(ADataController: TcxCustomDataController; ARecordIndex: Integer;
       var Accept: Boolean);
     procedure viewTypeCellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
       AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
   private
+    FId: Integer;
+    FTypeId: Integer;
     IdFilter: Boolean;
     // FindPanel: TcxFindPanelMRUEdit;
     procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure InsUpd(AId: Integer);
     procedure ShowTypeTab;
+    property Id: Integer read FId write FId;
+    property TypeId: Integer read FTypeId write FTypeId;
+    procedure ShowContragents;
   public
     procedure init;
-    procedure ShowContragents(idLocate: Integer = 0);
     { Public declarations }
   end;
 
@@ -66,10 +66,8 @@ implementation
 uses UfrmContragentEdt, UFuncAndProc;
 
 procedure TFrameContragent.btnAddClick(Sender: TObject);
-var
-  f: TfrmContragentEdt;
 begin
-  // f := TfrmContragentEdt.Create(Self);
+  InsUpd(0);
 end;
 
 procedure TFrameContragent.btnEditClick(Sender: TObject);
@@ -79,7 +77,27 @@ end;
 
 procedure TFrameContragent.Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  CodeSite.send(TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.ClassName);
+  // CodeSite.send(TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.ClassName);
+end;
+
+procedure TFrameContragent.frameTopPanel1btnAddClick(Sender: TObject);
+begin
+  InsUpd(0);
+end;
+
+procedure TFrameContragent.frameTopPanel1btnDelClick(Sender: TObject);
+begin
+  frameTopPanel1.DeleteRecord(queryContragentView, 'dictonary.contragent');
+end;
+
+procedure TFrameContragent.frameTopPanel1btnEditClick(Sender: TObject);
+begin
+  InsUpd(fieldContragentId.Value);
+end;
+
+procedure TFrameContragent.frameTopPanel1chkShowDelClick(Sender: TObject);
+begin
+  frameTopPanel1.chkShowDelClick(Sender);
 end;
 
 procedure TFrameContragent.init;
@@ -94,28 +112,29 @@ procedure TFrameContragent.InsUpd(AId: Integer);
 var
   f: TfrmContragentEdt;
 begin
-  f := TfrmContragentEdt.Create(Self, AId);
+  f := TfrmContragentEdt.Create(Self, AId, TypeId);
   f.ShowModal;
   if f.ModalResult = mrYes then
   begin
-    queryType.Locate('id', f.fieldContragentTypeId.Value, []);
-    ShowContragents(fieldContragentId.Value);
+    Id:=  f.Id;
+//    queryType.Locate('id', f.fieldContragentTypeId.Value, []);
+    ShowContragents();
   end;
 end;
 
-procedure TFrameContragent.ShowContragents(idLocate: Integer = 0);
-
+procedure TFrameContragent.ShowContragents;
 begin
   // UContragent.GetTypes(queryType);
   // UContragent.getContragents(queryContragentView);
+  TypeId := UFuncAndProc.getIdByName('dictonary.contragent_type', tab1.Tabs[tab1.TabIndex].Caption);
   with queryContragentView do
   begin
     Close;
 
-    ParamByName('contragent_type_id').AsInteger := UFuncAndProc.getIdByName('dictonary.contragent_type',
-      tab1.Tabs[tab1.TabIndex].Caption);
+    ParamByName('contragent_type_id').AsInteger := TypeId;
+    ParamByName('is_delete').AsBoolean := frameTopPanel1.isShowDel;
     Open;
-    // queryContragentView.Locate('id', idLocate, []);
+     queryContragentView.Locate('id', Id, []);
   end;
   // установить фокус в поиск
   TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
@@ -141,8 +160,8 @@ end;
 
 procedure TFrameContragent.tab1Change(Sender: TObject);
 begin
- if queryContragentView.Active=true then
-  ShowContragents();
+  if queryContragentView.Active = true then
+    ShowContragents();
 end;
 
 procedure TFrameContragent.viewContragentDataControllerFilterRecord(ADataController: TcxCustomDataController;

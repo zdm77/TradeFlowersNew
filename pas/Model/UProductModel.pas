@@ -164,8 +164,7 @@ begin
   end;
   // QueryIns.SQL.te
 
-  // TODO -cMM: TProduct.Save default body inserted
-end;
+  end;
 
 procedure TProduct.SetBarCode(const Value: string);
 begin

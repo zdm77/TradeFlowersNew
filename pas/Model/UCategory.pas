@@ -175,8 +175,7 @@ begin
   SQL.Append(queryCategory.FieldByName('id').AsString);
   query.SQL.Text := SQL.ToString;
   query.ExecSQL;
-  // TODO -cMM: TCategory.DeleteCategory default body inserted
-end;
+  end;
 
 procedure TCategory.GeneratePropertiesFromParent(categoryId: Integer; query: TUniQuery; ParentId: Integer);
 var
@@ -266,8 +265,7 @@ begin
     Result := query.Fields[0].Value
   else
     Result := 0;
-  // TODO -cMM: TCategory.getMaxOrder default body inserted
-end;
+  end;
 
 function TCategory.GetParent(_pid: Integer): TCategory;
 var

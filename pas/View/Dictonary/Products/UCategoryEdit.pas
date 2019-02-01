@@ -96,7 +96,6 @@ var
 begin
   if queryProps.RecordCount > 0 then
   begin
-
     order := queryProps.FieldByName('order_by').AsInteger;
     id := queryProps.FieldByName('id').AsString;
     if (up = True) and (order = 1) then

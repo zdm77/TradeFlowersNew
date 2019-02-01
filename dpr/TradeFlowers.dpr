@@ -28,7 +28,8 @@ uses
   UfrmContragent in '..\pas\View\Dictonary\Contragents\UfrmContragent.pas' {frmContragent},
   UfrmContragentEdt in '..\pas\View\Dictonary\Contragents\UfrmContragentEdt.pas' {frmContragentEdt},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  UFrameTopPanel in '..\pas\UFrameTopPanel.pas' {frameTopPanel: TFrame};
 
 {$R *.res}
 

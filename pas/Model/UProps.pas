@@ -77,8 +77,7 @@ begin
   SQL.Append(' order by pc.order_by');
   query.SQL.Text := SQL.ToString();
   query.Open;
-  // TODO -cMM: TProps.GetPropsByCategoryId default body inserted
-end;
+  end;
 
 procedure TProps.SetCategory;
 begin

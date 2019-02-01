@@ -30,34 +30,23 @@ object frmContragent: TfrmContragent
       ExplicitWidth = 755
       ClientRectRight = 751
     end
-    inherited cxGroupBox3: TcxGroupBox
-      ExplicitWidth = 755
-      ExplicitHeight = 461
-      Height = 461
+    inherited frameTopPanel1: TframeTopPanel
       Width = 755
-      inherited cxGroupBox2: TcxGroupBox
-        ExplicitLeft = 2
-        ExplicitWidth = 751
-        ExplicitHeight = 457
-        Height = 457
-        Width = 751
-        inherited cxGroupBox4: TcxGroupBox
-          ExplicitWidth = 747
-          Width = 747
-        end
-        inherited cxGroupBox5: TcxGroupBox
-          ExplicitWidth = 747
-          ExplicitHeight = 398
-          Height = 398
-          Width = 747
-          inherited gridContragent: TcxGrid
-            Width = 743
-            Height = 394
-            ExplicitWidth = 743
-            ExplicitHeight = 394
-          end
-        end
+      ExplicitLeft = 0
+      ExplicitTop = 28
+      ExplicitWidth = 755
+      inherited cxGroupBox4: TcxGroupBox
+        ExplicitWidth = 755
+        Width = 755
       end
+    end
+    inherited gridContragent: TcxGrid
+      Width = 755
+      Height = 417
+      ExplicitLeft = 0
+      ExplicitTop = 66
+      ExplicitWidth = 755
+      ExplicitHeight = 417
     end
   end
 end

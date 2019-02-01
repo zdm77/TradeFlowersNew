@@ -30,145 +30,70 @@ object FrameContragent: TFrameContragent
     ClientRectRight = 977
     ClientRectTop = 30
   end
-  object cxGroupBox3: TcxGroupBox
+  inline frameTopPanel1: TframeTopPanel
     Left = 0
     Top = 28
-    Align = alClient
-    PanelStyle.Active = True
-    TabOrder = 1
-    ExplicitTop = 22
-    ExplicitHeight = 587
-    Height = 581
     Width = 981
-    object cxGroupBox2: TcxGroupBox
-      Left = 2
-      Top = 2
-      Align = alClient
-      Caption = #1050#1086#1085#1090#1088#1072#1075#1077#1085#1090#1099
-      TabOrder = 0
-      ExplicitLeft = 225
-      ExplicitWidth = 754
-      ExplicitHeight = 583
-      Height = 577
-      Width = 977
-      object cxGroupBox4: TcxGroupBox
-        Left = 2
-        Top = 18
-        Align = alTop
-        PanelStyle.Active = True
-        TabOrder = 0
-        ExplicitWidth = 750
-        Height = 39
-        Width = 973
-        object btnAdd: TButton
-          Left = 3
-          Top = 3
-          Width = 86
-          Height = 32
-          Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-          ImageIndex = 3
-          Images = frmMain.imgMidle
-          TabOrder = 0
-          OnClick = btnAddClick
-        end
-        object btnEdit: TButton
-          Left = 89
-          Top = 3
-          Width = 37
-          Height = 32
-          ImageAlignment = iaCenter
-          ImageIndex = 4
-          Images = frmMain.imgMidle
-          TabOrder = 1
-          OnClick = btnEditClick
-        end
-        object btnDel: TButton
-          Left = 126
-          Top = 3
-          Width = 37
-          Height = 32
-          ImageAlignment = iaCenter
-          ImageIndex = 5
-          Images = frmMain.imgMidle
-          TabOrder = 2
-        end
-        object btnRefresh: TButton
-          Left = 163
-          Top = 3
-          Width = 37
-          Height = 32
-          ImageAlignment = iaCenter
-          ImageIndex = 11
-          Images = frmMain.imgMidle
-          TabOrder = 3
-        end
+    Height = 38
+    Align = alTop
+    TabOrder = 1
+    ExplicitTop = 28
+    ExplicitWidth = 981
+    inherited cxGroupBox4: TcxGroupBox
+      ExplicitWidth = 981
+      Width = 981
+      inherited btnAdd: TButton
+        OnClick = frameTopPanel1btnAddClick
       end
-      object cxGroupBox5: TcxGroupBox
-        Left = 2
-        Top = 57
-        Align = alClient
-        PanelStyle.Active = True
-        TabOrder = 1
-        ExplicitWidth = 750
-        ExplicitHeight = 524
-        Height = 518
-        Width = 973
-        object gridContragent: TcxGrid
-          Left = 2
-          Top = 2
-          Width = 969
-          Height = 514
-          Align = alClient
-          TabOrder = 0
-          LookAndFeel.Kind = lfOffice11
-          LookAndFeel.NativeStyle = True
-          ExplicitWidth = 746
-          ExplicitHeight = 520
-          object viewContragent: TcxGridDBTableView
-            Navigator.Buttons.CustomButtons = <>
-            FilterBox.Position = fpTop
-            FilterBox.Visible = fvNever
-            FindPanel.ApplyInputDelay = 200
-            FindPanel.DisplayMode = fpdmAlways
-            FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
-            FindPanel.ShowCloseButton = False
-            FindPanel.ShowFindButton = False
-            DataController.DataSource = dsContragentView
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <>
-            DataController.Summary.SummaryGroups = <>
-            DataController.OnFilterRecord = viewContragentDataControllerFilterRecord
-            OptionsData.Deleting = False
-            OptionsData.DeletingConfirmation = False
-            OptionsData.Editing = False
-            OptionsData.Inserting = False
-            OptionsSelection.CellSelect = False
-            OptionsView.GroupByBox = False
-            object columnName: TcxGridDBColumn
-              Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-              DataBinding.FieldName = 'name'
-              Width = 435
-            end
-          end
-          object level1: TcxGridLevel
-            GridView = viewContragent
-          end
-        end
+      inherited btnEdit: TButton
+        OnClick = frameTopPanel1btnEditClick
+      end
+      inherited btnDel: TButton
+        OnClick = frameTopPanel1btnDelClick
+      end
+      inherited chkShowDel: TCheckBox
+        OnClick = frameTopPanel1chkShowDelClick
       end
     end
   end
-  object queryType: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT *'
-      'FROM dictonary.contragent_type')
-    Left = 392
-    Top = 224
-  end
-  object dsType: TUniDataSource
-    DataSet = queryType
-    Left = 384
-    Top = 360
+  object gridContragent: TcxGrid
+    Left = 0
+    Top = 66
+    Width = 981
+    Height = 543
+    Align = alClient
+    TabOrder = 2
+    LookAndFeel.Kind = lfOffice11
+    LookAndFeel.NativeStyle = True
+    object viewContragent: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      FilterBox.Position = fpTop
+      FilterBox.Visible = fvNever
+      FindPanel.ApplyInputDelay = 200
+      FindPanel.DisplayMode = fpdmAlways
+      FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
+      FindPanel.ShowCloseButton = False
+      FindPanel.ShowFindButton = False
+      DataController.DataSource = dsContragentView
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      DataController.OnFilterRecord = viewContragentDataControllerFilterRecord
+      OptionsData.Deleting = False
+      OptionsData.DeletingConfirmation = False
+      OptionsData.Editing = False
+      OptionsData.Inserting = False
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      object columnName: TcxGridDBColumn
+        Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+        DataBinding.FieldName = 'name'
+        Width = 435
+      end
+    end
+    object level1: TcxGridLevel
+      GridView = viewContragent
+    end
   end
   object dsContragentView: TUniDataSource
     DataSet = queryContragentView
@@ -180,7 +105,9 @@ object FrameContragent: TFrameContragent
     SQL.Strings = (
       'SELECT *'
       'FROM dictonary.contragent'
-      'where contragent_type_id = :contragent_type_id'
+      'where'
+      ' contragent_type_id = :contragent_type_id'
+      'and is_delete=:is_delete'
       'ORDER BY name')
     Left = 336
     Top = 448
@@ -188,6 +115,11 @@ object FrameContragent: TFrameContragent
       item
         DataType = ftUnknown
         Name = 'contragent_type_id'
+        Value = nil
+      end
+      item
+        DataType = ftUnknown
+        Name = 'is_delete'
         Value = nil
       end>
     object fieldContragentId: TIntegerField
@@ -210,5 +142,16 @@ object FrameContragent: TFrameContragent
       'FROM dictonary.contragent_type order by name')
     Left = 504
     Top = 296
+  end
+  object queryType: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'SELECT *'
+      'FROM dictonary.contragent_type'
+      ''
+      ''
+      'ORDER BY name')
+    Left = 376
+    Top = 328
   end
 end
