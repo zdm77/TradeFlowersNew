@@ -189,6 +189,19 @@
         <DCCReference Include="..\pas\View\Dictonary\Orgstract\UfrmPost.pas">
             <Form>frmPost</Form>
         </DCCReference>
+        <DCCReference Include="..\pas\UFrameSave.pas">
+            <Form>frameSave</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Orgstract\UfrmPostEdt.pas">
+            <Form>frmPostEdt</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Orgstract\UfrmUserEdt.pas">
+            <Form>frmUserEdt</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="ModelSupport_TradeFlowers\default.txvpck"/>
         <None Include="ModelSupport_TradeFlowers\default.txaPackage"/>
         <BuildConfiguration Include="Release">

@@ -3,7 +3,7 @@ unit UFuncAndProc;
 interface
 
 uses
-  Uni, Vcl.Forms, Winapi.Windows, Vcl.Controls, System.SysUtils;
+  Uni, Vcl.Forms, Winapi.Windows, Vcl.Controls, System.SysUtils, Data.DB;
 procedure selectSQL(query: TUniQuery);
 procedure standartSave(query: TUniQuery; isNew: Boolean);
 procedure standartDelete(query: TUniQuery);
@@ -18,6 +18,7 @@ procedure QueryCreate(query: TUniQuery);
 function getNewId(tableName: string): Integer;
 procedure deleteById(Id: Integer; tableName: string);
 function getIdByName(ATableName, AName: string): Integer;
+function Validate(AQuery: TUniQuery; AId: TIntegerField; ATableName: string): Boolean;
 
 implementation
 
@@ -25,7 +26,7 @@ uses UDmMain;
 
 procedure selectSQL(query: TUniQuery);
 begin
-  end;
+end;
 
 procedure standartSave(query: TUniQuery; isNew: Boolean);
 begin
@@ -42,7 +43,7 @@ end;
 
 function standartValidateOnUnic(fieldName: string): Boolean;
 begin
-    Result := true;
+  Result := true;
 end;
 
 procedure QueryCreate(query: TUniQuery);
@@ -87,6 +88,39 @@ begin
     Result := 0
   else
     Result := query.fields[0].AsInteger;
+end;
+
+function Validate(AQuery: TUniQuery; AId: TIntegerField; ATableName: string): Boolean;
+var
+  i: Integer;
+begin
+  Result := false;
+  with AQuery do
+  begin
+    for i := 0 to FieldDefs.Count - 1 do
+      if fields[i].Required = true then
+        if fields[i].AsString = '' then
+        begin
+          Application.MessageBox(PChar('Заполните обязательное поле: ' + fields[i].DisplayLabel), 'Ошибка',
+            MB_OK + MB_ICONERROR);
+          Exit;
+        end;
+    try
+      if AId.Value = 0 then
+        AId.Value := getNewId(ATableName);
+      Post;
+    except
+      on E: Exception do
+      begin
+        if Pos('null value', E.Message) <> 0 then
+          Application.MessageBox('Заполните обязательные поля.', 'Ошибка', MB_OK + MB_ICONERROR);
+        if Pos('duplicate', E.Message) <> 0 then
+          Application.MessageBox('Не уникальное значение.', 'Ошибка', MB_OK + MB_ICONERROR);
+        Exit;
+      end;
+    end;
+  end;
+  Result := true;
 end;
 
 end.

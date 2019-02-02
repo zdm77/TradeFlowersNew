@@ -31,7 +31,10 @@ uses
   Vcl.Styles,
   UFrameTopPanel in '..\pas\UFrameTopPanel.pas' {frameTopPanel: TFrame},
   UfrmUser in '..\pas\View\Dictonary\Orgstract\UfrmUser.pas' {frmUser},
-  UfrmPost in '..\pas\View\Dictonary\Orgstract\UfrmPost.pas' {frmPost};
+  UfrmPost in '..\pas\View\Dictonary\Orgstract\UfrmPost.pas' {frmPost},
+  UFrameSave in '..\pas\UFrameSave.pas' {frameSave: TFrame},
+  UfrmPostEdt in '..\pas\View\Dictonary\Orgstract\UfrmPostEdt.pas' {frmPostEdt},
+  UfrmUserEdt in '..\pas\View\Dictonary\Orgstract\UfrmUserEdt.pas' {frmUserEdt};
 
 {$R *.res}
 
@@ -40,6 +43,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
-  Application.CreateForm(TfrmPost, frmPost);
   Application.Run;
 end.

@@ -20,13 +20,14 @@ type
     columnName: TcxGridDBColumn;
     level1: TcxGridLevel;
     queryPost: TUniQuery;
-    fieldUserId: TIntegerField;
+    fieldPostId: TIntegerField;
     dsPost: TUniDataSource;
+    fieldPostName: TStringField;
+    fieldPostis_delete: TBooleanField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
     procedure frameTopPanel1btnDelClick(Sender: TObject);
-
     procedure frameTopPanel1btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnRefreshClick(Sender: TObject);
     procedure frameTopPanel1btnRestoreClick(Sender: TObject);
@@ -39,7 +40,7 @@ type
     procedure InsUpd(AId: Integer);
   public
     // constructor Create(AOwner: TComponent; AId: Integer);
-    procedure ShowUser;
+    procedure ShowPost;
   end;
 
 var
@@ -48,13 +49,15 @@ var
 implementation
 
 {$R *.dfm}
+
+uses UfrmPostEdt, UDmMain;
 // constructor TfrmTemplateChild.Create(AOwner: TComponent; AId: Integer);
 // begin
 // Inherited Create(AOwner);
 // Id := AId;
 // end;
 
-procedure TfrmPost.ShowUser;
+procedure TfrmPost.ShowPost;
 begin
   with queryPost do
   begin
@@ -75,7 +78,7 @@ end;
 
 procedure TfrmPost.FormShow(Sender: TObject);
 begin
-  ShowUser;
+  ShowPost;
 end;
 
 procedure TfrmPost.frameTopPanel1btnAddClick(Sender: TObject);
@@ -85,55 +88,47 @@ end;
 
 procedure TfrmPost.frameTopPanel1btnDelClick(Sender: TObject);
 begin
-frameTopPanel1.DeleteRecord(queryPost, 'dictonary.post');
+  frameTopPanel1.DeleteRecord(queryPost, 'dictonary.post');
 end;
-
-
 
 procedure TfrmPost.frameTopPanel1btnEditClick(Sender: TObject);
 begin
-  InsUpd(fieldUserId.Value);
+  InsUpd(fieldPostId.Value);
 end;
 
 procedure TfrmPost.frameTopPanel1btnRefreshClick(Sender: TObject);
 begin
-  ShowUser;
-
+  ShowPost;
 end;
 
 procedure TfrmPost.frameTopPanel1btnRestoreClick(Sender: TObject);
 begin
-
   frameTopPanel1.RestoreRecord(queryPost, 'dictonary.post');
 end;
 
 procedure TfrmPost.frameTopPanel1chkShowDelClick(Sender: TObject);
 begin
   frameTopPanel1.chkShowDelClick(Sender);
+  ShowPost;
 end;
-
-// ==============================================================================
-// раскоментировать
-// ==============================================================================
 
 procedure TfrmPost.InsUpd(AId: Integer);
-// var
-// f: TfrmContragentEdt;
+var
+  f: TfrmPostEdt;
 begin
-  // f := TfrmContragentEdt.Create(Self, AId, TypeId);
-  // f.ShowModal;
-  // if f.ModalResult = mrYes then
-  // begin
-  // Id:=  f.Id;
-  //
-  // ShowUser();
-  // end;
+  f := TfrmPostEdt.Create(Self, AId);
+  f.ShowModal;
+  if f.ModalResult = mrYes then
+  begin
+    Id := f.Id;
+    ShowPost();
+  end;
 end;
 
-procedure TfrmPost.view1CellDblClick(Sender: TcxCustomGridTableView;
-  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+procedure TfrmPost.view1CellDblClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
 begin
-  InsUpd(fieldUserId.Value);
+  InsUpd(fieldPostId.Value);
 end;
 
 end.

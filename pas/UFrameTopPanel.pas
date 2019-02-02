@@ -77,7 +77,7 @@ begin
   if Application.MessageBox('Вы действительно хотите восстановить запись?', 'Вопрос', MB_YESNO + MB_ICONQUESTION) = mrYes
   then
   begin
-    query.SQL.Text := 'update ' + ATableName + '  set is_delete=0 where id=:id';
+    query.SQL.Text := 'update ' + ATableName + '  set is_delete=false where id=:id';
     query.ParamByName('id').Value := AQuery.FieldByName('id').Value;
     query.ExecSQL;
     AQuery.Refresh;

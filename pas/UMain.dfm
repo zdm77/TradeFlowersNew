@@ -41,6 +41,10 @@ object frmMain: TfrmMain
         Caption = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
         OnClick = N6Click
       end
+      object N7: TMenuItem
+        Caption = #1044#1086#1083#1078#1085#1086#1089#1090#1080
+        OnClick = N7Click
+      end
     end
   end
   object tabMain: TdxTabbedMDIManager

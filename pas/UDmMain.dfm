@@ -3,6 +3,13 @@ object DMMain: TDMMain
   Height = 487
   Width = 723
   object conMain: TUniConnection
+    DataTypeMap = <
+      item
+        FieldName = 'name'
+        DBType = 508
+        FieldType = ftString
+        FieldLength = 100
+      end>
     ProviderName = 'PostgreSQL'
     Port = 5432
     Database = 'wwwunifloragroup_trade'

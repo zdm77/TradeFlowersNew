@@ -1,4 +1,4 @@
-unit UfrmTemplateModal;
+unit UfrmUserEdt;
 
 interface
 
@@ -10,19 +10,22 @@ uses
   cxDBEdit;
 
 type
-  TfrmTemplateModal = class(TForm)
+  TfrmUserEdt = class(TForm)
     lblName: TLabel;
-    query1: TUniQuery;
-    fieldContragentid: TIntegerField;
-    fieldContragentName: TStringField;
-    fieldContragentTypeId: TIntegerField;
-    fieldContragentTypeName: TStringField;
-    queryL: TUniQuery;
-    ds1: TDataSource;
+    queryUser: TUniQuery;
+    queryPost: TUniQuery;
+    dsUser: TDataSource;
     lblL: TLabel;
     frameSave1: TframeSave;
+    fieldUserid: TIntegerField;
+    queryUsername: TStringField;
+    queryUserlogin: TStringField;
+    queryUserpost_id: TIntegerField;
+    fieldUserpost_name: TStringField;
     edtPost: TcxDBLookupComboBox;
+    Label1: TLabel;
     edtName: TcxDBTextEdit;
+    edtLogin: TcxDBTextEdit;
     procedure FormShow(Sender: TObject);
     procedure frameSave1Button1Click(Sender: TObject);
   private
@@ -33,7 +36,7 @@ type
   end;
 
 var
-  frmTemplateModal: TfrmTemplateModal;
+  frmUserEdt: TfrmUserEdt;
 
 implementation
 
@@ -41,28 +44,28 @@ implementation
 
 uses UDmMain, UFuncAndProc;
 
-constructor TfrmTemplateModal.Create(AOwner: TComponent; AId: Integer);
+constructor TfrmUserEdt.Create(AOwner: TComponent; AId: Integer);
 begin
   Inherited Create(AOwner);
   Id := AId;
 end;
 
-procedure TfrmTemplateModal.FormShow(Sender: TObject);
+procedure TfrmUserEdt.FormShow(Sender: TObject);
 begin
-  query1.ParamByName('id').Value := Id;
-  query1.Open;
-  queryL.Open;
+  queryUser.ParamByName('id').Value := Id;
+  queryUser.Open;
+  queryPost.Open;
   if Id = 0 then
-    query1.Insert
+    queryUser.Insert
   else
-    query1.Edit;
+    queryUser.Edit;
 end;
 
-procedure TfrmTemplateModal.frameSave1Button1Click(Sender: TObject);
+procedure TfrmUserEdt.frameSave1Button1Click(Sender: TObject);
 begin
-  if UFuncAndProc.Validate(query1, fieldContragentid, 'dictonary.') = true then
+  if UFuncAndProc.Validate(queryUser, fieldUserid, 'dictonary.users') = true then
   begin
-    Id := fieldContragentid.Value;
+    Id := fieldUserid.Value;
     ModalResult := mrYes;
     CloseModal;
   end;

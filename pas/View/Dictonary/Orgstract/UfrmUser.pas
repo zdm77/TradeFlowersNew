@@ -40,7 +40,7 @@ type
     property Id: Integer read FId write FId;
     procedure InsUpd(AId: Integer);
   public
-    procedure ShowTemplate;
+    procedure ShowUser;
   end;
 
 var
@@ -50,7 +50,9 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmUser.ShowTemplate;
+uses UfrmUserEdt;
+
+procedure TfrmUser.ShowUser;
 begin
   with queryUser do
   begin
@@ -71,8 +73,7 @@ end;
 
 procedure TfrmUser.FormShow(Sender: TObject);
 begin
-  CodeSite.Send('Comment', 1);
-  ShowTemplate;
+  ShowUser;
 end;
 
 procedure TfrmUser.frameTopPanel1btnAddClick(Sender: TObject);
@@ -82,8 +83,7 @@ end;
 
 procedure TfrmUser.frameTopPanel1btnDelClick(Sender: TObject);
 begin
-  /// Дописать имя справочника
-  frameTopPanel1.DeleteRecord(queryUser, 'dictonary.');
+  frameTopPanel1.DeleteRecord(queryUser, 'dictonary.users');
 end;
 
 procedure TfrmUser.frameTopPanel1btnEditClick(Sender: TObject);
@@ -93,35 +93,31 @@ end;
 
 procedure TfrmUser.frameTopPanel1btnRefreshClick(Sender: TObject);
 begin
-  ShowTemplate;
+  ShowUser;
 end;
 
 procedure TfrmUser.frameTopPanel1btnRestoreClick(Sender: TObject);
 begin
-  /// Дописать имя справочника
-  frameTopPanel1.RestoreRecord(queryUser, 'dictonary.');
+  frameTopPanel1.RestoreRecord(queryUser, 'dictonary.users');
 end;
 
 procedure TfrmUser.frameTopPanel1chkShowDelClick(Sender: TObject);
 begin
   frameTopPanel1.chkShowDelClick(Sender);
+  ShowUser;
 end;
 
-///
-/// ракоментировать
-///
 procedure TfrmUser.InsUpd(AId: Integer);
-// var
-// f: TfrmContragentEdt;
+var
+  f: TfrmUserEdt;
 begin
-  // f := TfrmContragentEdt.Create(Self, AId, TypeId);
-  // f.ShowModal;
-  // if f.ModalResult = mrYes then
-  // begin
-  // Id:=  f.Id;
-  //
-  // ShowTemplate();
-  // end;
+  f := TfrmUserEdt.Create(Self, AId);
+  f.ShowModal;
+  if f.ModalResult = mrYes then
+  begin
+    Id := f.Id;
+    ShowUser();
+  end;
 end;
 
 procedure TfrmUser.view1CellDblClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;

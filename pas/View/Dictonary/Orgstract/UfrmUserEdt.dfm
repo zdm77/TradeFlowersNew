@@ -1,10 +1,10 @@
-object frmTemplateModal: TfrmTemplateModal
+object frmUserEdt: TfrmUserEdt
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'frmTemplateModal'
-  ClientHeight = 457
-  ClientWidth = 729
+  Caption = #1055#1086#1083#1100#1079#1086#1074#1090#1072#1077#1083#1100
+  ClientHeight = 122
+  ClientWidth = 340
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,33 +19,40 @@ object frmTemplateModal: TfrmTemplateModal
   object lblName: TLabel
     Left = 8
     Top = 12
-    Width = 77
+    Width = 39
     Height = 13
-    Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077':'
+    Caption = #1060'.'#1048'.'#1054'.:'
   end
   object lblL: TLabel
     Left = 8
-    Top = 38
-    Width = 77
+    Top = 66
+    Width = 61
     Height = 13
-    Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077':'
+    Caption = #1044#1086#1083#1078#1085#1086#1089#1090#1100':'
+  end
+  object Label1: TLabel
+    Left = 8
+    Top = 39
+    Width = 34
+    Height = 13
+    Caption = #1051#1086#1075#1080#1085':'
   end
   inline frameSave1: TframeSave
     Left = 0
-    Top = 427
-    Width = 729
+    Top = 92
+    Width = 340
     Height = 30
     Align = alBottom
-    TabOrder = 2
+    TabOrder = 3
     ExplicitTop = 427
     ExplicitWidth = 729
     inherited Panel1: TPanel
-      Width = 729
+      Width = 340
       ExplicitTop = 0
       ExplicitWidth = 729
       ExplicitHeight = 30
       inherited Button1: TButton
-        Left = 627
+        Left = 238
         OnClick = frameSave1Button1Click
         ExplicitLeft = 627
         ExplicitTop = 0
@@ -60,9 +67,9 @@ object frmTemplateModal: TfrmTemplateModal
   end
   object edtPost: TcxDBLookupComboBox
     Left = 91
-    Top = 35
+    Top = 62
     DataBinding.DataField = 'post_name'
-    DataBinding.DataSource = ds1
+    DataBinding.DataSource = dsUser
     Properties.DropDownListStyle = lsFixedList
     Properties.ListColumns = <>
     Properties.ListOptions.ShowHeader = False
@@ -70,64 +77,74 @@ object frmTemplateModal: TfrmTemplateModal
     StyleDisabled.LookAndFeel.NativeStyle = False
     StyleFocused.LookAndFeel.NativeStyle = False
     StyleHot.LookAndFeel.NativeStyle = False
-    TabOrder = 1
+    TabOrder = 2
     Width = 244
   end
   object edtName: TcxDBTextEdit
     Left = 91
     Top = 8
     DataBinding.DataField = 'name'
-    DataBinding.DataSource = ds1
+    DataBinding.DataSource = dsUser
     TabOrder = 0
     Width = 244
   end
-  object query1: TUniQuery
+  object edtLogin: TcxDBTextEdit
+    Left = 91
+    Top = 35
+    DataBinding.DataField = 'login'
+    DataBinding.DataSource = dsUser
+    TabOrder = 1
+    Width = 244
+  end
+  object queryUser: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
       'SELECT '
-      '  id,'
-      '  name,'
-      '  contragent_type_id'
+      '*'
       'FROM '
-      '  dictonary.contragent '
+      '  dictonary.users'
       'WHERE'
       '  id = :Id')
-    Options.DefaultValues = True
-    Left = 448
-    Top = 24
+    Left = 432
+    Top = 40
     ParamData = <
       item
         DataType = ftUnknown
         Name = 'Id'
         Value = nil
       end>
-    object fieldContragentid: TIntegerField
-      AutoGenerateValue = arAutoInc
+    object fieldUserid: TIntegerField
       FieldName = 'id'
     end
-    object fieldContragentName: TStringField
+    object queryUsername: TStringField
       DisplayLabel = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
       FieldName = 'name'
       Required = True
-      Size = 255
+      Size = 100
     end
-    object fieldContragentTypeId: TIntegerField
-      DisplayLabel = #1058#1080#1087
-      FieldName = 'contragent_type_id'
+    object queryUserlogin: TStringField
+      DisplayLabel = #1051#1086#1075#1080#1085
+      FieldName = 'login'
       Required = True
+      Size = 15
     end
-    object fieldContragentTypeName: TStringField
-      DisplayLabel = #1058#1080#1087
+    object queryUserpost_id: TIntegerField
+      FieldName = 'post_id'
+    end
+    object fieldUserpost_name: TStringField
+      DisplayLabel = #1044#1086#1083#1078#1085#1086#1089#1090#1100
       FieldKind = fkLookup
-      FieldName = 'type_name'
-      LookupDataSet = queryL
+      FieldName = 'post_name'
+      LookupDataSet = queryPost
       LookupKeyFields = 'id'
       LookupResultField = 'name'
-      KeyFields = 'contragent_type_id'
+      KeyFields = 'post_id'
+      LookupCache = True
+      Required = True
       Lookup = True
     end
   end
-  object queryL: TUniQuery
+  object queryPost: TUniQuery
     SQLInsert.Strings = (
       'INSERT INTO dictonary.contragent'
       '  (id, name, contragent_type_id)'
@@ -165,12 +182,12 @@ object frmTemplateModal: TfrmTemplateModal
       '  id,'
       '  name'
       'FROM '
-      '  dictonary.contragent_type ;')
+      '  dictonary.post ;')
     Left = 584
     Top = 16
   end
-  object ds1: TDataSource
-    DataSet = query1
+  object dsUser: TDataSource
+    DataSet = queryUser
     Left = 496
     Top = 24
   end

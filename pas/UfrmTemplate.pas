@@ -112,6 +112,7 @@ end;
 procedure TfrmTemplateChild.frameTopPanel1chkShowDelClick(Sender: TObject);
 begin
   frameTopPanel1.chkShowDelClick(Sender);
+  ShowTemplate;
 end;
 
 // ==============================================================================

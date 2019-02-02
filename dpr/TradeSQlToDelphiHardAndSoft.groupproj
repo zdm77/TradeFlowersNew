@@ -9,9 +9,6 @@
         <Projects Include="..\..\SqlToDelphi\dpr\SqlToDelphi.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\hardandsoft\dpr\HardAndSoft.dproj">
-            <Dependencies/>
-        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -38,23 +35,14 @@
     <Target Name="SqlToDelphi:Make">
         <MSBuild Projects="..\..\SqlToDelphi\dpr\SqlToDelphi.dproj" Targets="Make"/>
     </Target>
-    <Target Name="HardAndSoft">
-        <MSBuild Projects="..\..\hardandsoft\dpr\HardAndSoft.dproj"/>
-    </Target>
-    <Target Name="HardAndSoft:Clean">
-        <MSBuild Projects="..\..\hardandsoft\dpr\HardAndSoft.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="HardAndSoft:Make">
-        <MSBuild Projects="..\..\hardandsoft\dpr\HardAndSoft.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Build">
-        <CallTarget Targets="TradeFlowers;SqlToDelphi;HardAndSoft"/>
+        <CallTarget Targets="TradeFlowers;SqlToDelphi"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="TradeFlowers:Clean;SqlToDelphi:Clean;HardAndSoft:Clean"/>
+        <CallTarget Targets="TradeFlowers:Clean;SqlToDelphi:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="TradeFlowers:Make;SqlToDelphi:Make;HardAndSoft:Make"/>
+        <CallTarget Targets="TradeFlowers:Make;SqlToDelphi:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

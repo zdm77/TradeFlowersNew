@@ -67,6 +67,7 @@ object frmPost: TfrmPost
       FindPanel.ShowCloseButton = False
       FindPanel.ShowFindButton = False
       OnCellDblClick = view1CellDblClick
+      DataController.DataSource = dsPost
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -105,9 +106,16 @@ object frmPost: TfrmPost
         Name = 'is_delete'
         Value = nil
       end>
-    object fieldUserId: TIntegerField
+    object fieldPostId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'id'
+    end
+    object fieldPostName: TStringField
+      FieldName = 'name'
+      Size = 30
+    end
+    object fieldPostis_delete: TBooleanField
+      FieldName = 'is_delete'
     end
   end
   object dsPost: TUniDataSource
