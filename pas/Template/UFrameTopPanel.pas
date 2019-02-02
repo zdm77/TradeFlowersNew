@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
-  cxContainer, cxEdit, Vcl.StdCtrls, cxGroupBox, UNI;
+  cxContainer, cxEdit, Vcl.StdCtrls, cxGroupBox, UNI, dxSkinsCore;
 
 type
   TframeTopPanel = class(TFrame)
@@ -22,8 +22,7 @@ type
     procedure SetisShowDel(const Value: Boolean);
     { Private declarations }
   public
-    procedure DeleteRecord(AQuery: TuniQuery; ATableName: string);
-    procedure RestoreRecord(AQuery: TuniQuery; ATableName: string);
+   procedure DeleteRecord(AQuery: TuniQuery; ATableName: string);
     property isShowDel: Boolean read FisShowDel write SetisShowDel;
     { Public declarations }
   end;
@@ -40,11 +39,11 @@ var
 begin
   query := TuniQuery.Create(nil);
   query.Connection := dmMain.conMain;
-  if isShowDel = false then
+  if IsShowDel = false then
     if Application.MessageBox('Вы действительно хотите пометить запись на удаление?', 'Предупреждение',
       MB_YESNO + MB_ICONWARNING) = mrYes then
       query.SQL.Text := 'update ' + ATableName + '  set is_delete=true where id=:id';
-  if isShowDel = true then
+  if IsShowDel = true then
     if Application.MessageBox('Вы действительно хотите безвозвратно удалить запись?', 'Предупреждение',
       MB_YESNO + MB_ICONWARNING) = mrYes then
       query.SQL.Text := 'delete from ' + ATableName + ' where id=:id';
@@ -65,23 +64,7 @@ procedure TframeTopPanel.SetisShowDel(const Value: Boolean);
 begin
   FisShowDel := Value;
   chkShowDel.Checked := isShowDel;
-  btnRestore.Visible := isShowDel;
-end;
-
-procedure TframeTopPanel.RestoreRecord(AQuery: TuniQuery; ATableName: string);
-var
-  query: TuniQuery;
-begin
-  query := TuniQuery.Create(nil);
-  query.Connection := dmMain.conMain;
-  if Application.MessageBox('Вы действительно хотите восстановить запись?', 'Вопрос', MB_YESNO + MB_ICONQUESTION) = mrYes
-  then
-  begin
-    query.SQL.Text := 'update ' + ATableName + '  set is_delete=0 where id=:id';
-    query.ParamByName('id').Value := AQuery.FieldByName('id').Value;
-    query.ExecSQL;
-    AQuery.Refresh;
-  end;
+  btnRestore.Visible:=isShowDel;
 end;
 
 end.

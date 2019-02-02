@@ -39,12 +39,13 @@ type
     imgLarge: TcxImageList;
     cxLocalizer1: TcxLocalizer;
     N4: TMenuItem;
-
+    N5: TMenuItem;
+    N6: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N4Click(Sender: TObject);
-
+    procedure N6Click(Sender: TObject);
     { Private declarations }
   public
   end;
@@ -57,15 +58,13 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent;
+  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent, UfrmUser;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
-  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) +
-    '\..\INI\LanguagesUnicode.ini');
+  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) + '\..\INI\LanguagesUnicode.ini');
   cxLocalizer1.Active := true;
   cxLocalizer1.Locale := 1049;
-
   // with queryMain do
   // begin
   // Close;
@@ -96,10 +95,16 @@ end;
 
 procedure TfrmMain.N4Click(Sender: TObject);
 begin
-
   if frmContragent = nil then
     Application.CreateForm(TfrmContragent, frmContragent);
   frmContragent.Show;
+end;
+
+procedure TfrmMain.N6Click(Sender: TObject);
+begin
+  if frmUser = nil then
+    Application.CreateForm(TfrmUser, frmUser);
+  frmUser.Show;
 end;
 
 end.

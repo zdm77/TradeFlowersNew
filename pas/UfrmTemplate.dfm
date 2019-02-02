@@ -1,47 +1,33 @@
-object FrameContragent: TFrameContragent
+object frmTemplateChild: TfrmTemplateChild
   Left = 0
   Top = 0
-  Width = 981
-  Height = 609
-  TabOrder = 0
-  object tab1: TcxTabControl
-    Left = 0
-    Top = 0
-    Width = 981
-    Height = 28
-    Align = alTop
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -14
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 0
-    Properties.CustomButtons.Buttons = <>
-    Properties.TabIndex = 0
-    Properties.Tabs.Strings = (
-      '12'
-      '4')
-    LookAndFeel.Kind = lfUltraFlat
-    LookAndFeel.NativeStyle = True
-    OnChange = tab1Change
-    ClientRectBottom = 30
-    ClientRectLeft = 4
-    ClientRectRight = 977
-    ClientRectTop = 30
-  end
+  Caption = 'frmTemplateChild'
+  ClientHeight = 557
+  ClientWidth = 914
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Visible = True
+  OnClose = FormClose
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
   inline frameTopPanel1: TframeTopPanel
     Left = 0
-    Top = 28
-    Width = 981
+    Top = 0
+    Width = 914
     Height = 38
     Align = alTop
-    TabOrder = 1
-    ExplicitTop = 28
-    ExplicitWidth = 981
+    TabOrder = 0
+    ExplicitWidth = 914
     inherited cxGroupBox4: TcxGroupBox
-      ExplicitWidth = 981
-      Width = 981
+      ExplicitWidth = 914
+      Width = 914
       inherited btnAdd: TButton
         OnClick = frameTopPanel1btnAddClick
       end
@@ -51,6 +37,9 @@ object FrameContragent: TFrameContragent
       inherited btnDel: TButton
         OnClick = frameTopPanel1btnDelClick
       end
+      inherited btnRefresh: TButton
+        OnClick = frameTopPanel1btnRefreshClick
+      end
       inherited chkShowDel: TCheckBox
         OnClick = frameTopPanel1chkShowDelClick
       end
@@ -59,16 +48,16 @@ object FrameContragent: TFrameContragent
       end
     end
   end
-  object gridContragent: TcxGrid
+  object grid1: TcxGrid
     Left = 0
-    Top = 66
-    Width = 981
-    Height = 543
+    Top = 38
+    Width = 914
+    Height = 519
     Align = alClient
-    TabOrder = 2
+    TabOrder = 1
     LookAndFeel.Kind = lfOffice11
     LookAndFeel.NativeStyle = True
-    object viewContragent: TcxGridDBTableView
+    object view1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       FilterBox.Position = fpTop
       FilterBox.Visible = fvNever
@@ -77,11 +66,10 @@ object FrameContragent: TFrameContragent
       FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
       FindPanel.ShowCloseButton = False
       FindPanel.ShowFindButton = False
-      DataController.DataSource = dsContragentView
+      OnCellDblClick = view1CellDblClick
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
-      DataController.OnFilterRecord = viewContragentDataControllerFilterRecord
       OptionsData.Deleting = False
       OptionsData.DeletingConfirmation = False
       OptionsData.Editing = False
@@ -95,15 +83,10 @@ object FrameContragent: TFrameContragent
       end
     end
     object level1: TcxGridLevel
-      GridView = viewContragent
+      GridView = view1
     end
   end
-  object dsContragentView: TUniDataSource
-    DataSet = queryContragentView
-    Left = 544
-    Top = 464
-  end
-  object queryContragentView: TUniQuery
+  object Template_: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
       'SELECT *'
@@ -112,8 +95,8 @@ object FrameContragent: TFrameContragent
       ' contragent_type_id = :contragent_type_id'
       'and is_delete=:is_delete'
       'ORDER BY name')
-    Left = 336
-    Top = 448
+    Left = 344
+    Top = 416
     ParamData = <
       item
         DataType = ftUnknown
@@ -125,36 +108,14 @@ object FrameContragent: TFrameContragent
         Name = 'is_delete'
         Value = nil
       end>
-    object fieldContragentId: TIntegerField
+    object fieldTemplateId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'id'
     end
-    object fieldContragentName: TStringField
-      FieldName = 'name'
-      Size = 255
-    end
-    object fieldContragentTypeId: TIntegerField
-      FieldName = 'contragent_type_id'
-      Required = True
-    end
   end
-  object query1: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT *'
-      'FROM dictonary.contragent_type order by name')
-    Left = 504
-    Top = 296
-  end
-  object queryType: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT *'
-      'FROM dictonary.contragent_type'
-      ''
-      ''
-      'ORDER BY name')
-    Left = 376
-    Top = 328
+  object ds1: TUniDataSource
+    DataSet = Template_
+    Left = 432
+    Top = 416
   end
 end

@@ -37,6 +37,7 @@ type
     procedure frameTopPanel1btnAddClick(Sender: TObject);
     procedure frameTopPanel1btnDelClick(Sender: TObject);
     procedure frameTopPanel1btnEditClick(Sender: TObject);
+    procedure frameTopPanel1btnRestoreClick(Sender: TObject);
     procedure frameTopPanel1chkShowDelClick(Sender: TObject);
     procedure tab1Change(Sender: TObject);
     procedure viewContragentDataControllerFilterRecord(ADataController: TcxCustomDataController; ARecordIndex: Integer;
@@ -67,6 +68,7 @@ uses UfrmContragentEdt, UFuncAndProc;
 
 procedure TFrameContragent.btnAddClick(Sender: TObject);
 begin
+
   InsUpd(0);
 end;
 
@@ -95,6 +97,11 @@ begin
   InsUpd(fieldContragentId.Value);
 end;
 
+procedure TFrameContragent.frameTopPanel1btnRestoreClick(Sender: TObject);
+begin
+  frameTopPanel1.RestoreRecord(queryContragentView, 'dictonary.contragent');
+end;
+
 procedure TFrameContragent.frameTopPanel1chkShowDelClick(Sender: TObject);
 begin
   frameTopPanel1.chkShowDelClick(Sender);
@@ -120,21 +127,22 @@ begin
 //    queryType.Locate('id', f.fieldContragentTypeId.Value, []);
     ShowContragents();
   end;
+
 end;
 
 procedure TFrameContragent.ShowContragents;
 begin
+
   // UContragent.GetTypes(queryType);
   // UContragent.getContragents(queryContragentView);
   TypeId := UFuncAndProc.getIdByName('dictonary.contragent_type', tab1.Tabs[tab1.TabIndex].Caption);
   with queryContragentView do
   begin
     Close;
-
     ParamByName('contragent_type_id').AsInteger := TypeId;
     ParamByName('is_delete').AsBoolean := frameTopPanel1.isShowDel;
     Open;
-     queryContragentView.Locate('id', Id, []);
+    Locate('id', Id, []);
   end;
   // установить фокус в поиск
   TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
@@ -145,6 +153,7 @@ procedure TFrameContragent.ShowTypeTab;
 begin
   tab1.Tabs.Clear;
   with queryType do
+
   begin
     Close;
     Open;

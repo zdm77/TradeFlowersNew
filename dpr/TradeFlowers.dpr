@@ -29,7 +29,8 @@ uses
   UfrmContragentEdt in '..\pas\View\Dictonary\Contragents\UfrmContragentEdt.pas' {frmContragentEdt},
   Vcl.Themes,
   Vcl.Styles,
-  UFrameTopPanel in '..\pas\UFrameTopPanel.pas' {frameTopPanel: TFrame};
+  UFrameTopPanel in '..\pas\UFrameTopPanel.pas' {frameTopPanel: TFrame},
+  UfrmUser in '..\pas\View\Dictonary\Users\UfrmUser.pas' {frmUser};
 
 {$R *.res}
 
