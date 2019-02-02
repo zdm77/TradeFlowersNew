@@ -2,9 +2,9 @@ object frmContragentEdt: TfrmContragentEdt
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'frmContragentEdt'
-  ClientHeight = 412
-  ClientWidth = 723
+  Caption = #1050#1086#1085#1090#1088#1072#1075#1077#1085#1090
+  ClientHeight = 303
+  ClientWidth = 356
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -32,41 +32,6 @@ object frmContragentEdt: TfrmContragentEdt
     Caption = #1058#1080#1087':'
     FocusControl = DBLookupComboBox1
   end
-  object Panel1: TPanel
-    Left = 0
-    Top = 375
-    Width = 723
-    Height = 37
-    Align = alBottom
-    BevelOuter = bvNone
-    TabOrder = 2
-    DesignSize = (
-      723
-      37)
-    object Button1: TButton
-      Left = 561
-      Top = 6
-      Width = 75
-      Height = 25
-      Anchors = [akTop, akRight]
-      Caption = 'OK'
-      Default = True
-      ModalResult = 1
-      TabOrder = 0
-      OnClick = Button1Click
-    end
-    object Button2: TButton
-      Left = 642
-      Top = 6
-      Width = 75
-      Height = 25
-      Anchors = [akTop, akRight]
-      Cancel = True
-      Caption = 'Cancel'
-      ModalResult = 2
-      TabOrder = 1
-    end
-  end
   object DBEdit1: TDBEdit
     Left = 85
     Top = 8
@@ -84,6 +49,67 @@ object frmContragentEdt: TfrmContragentEdt
     DataField = 'type_name'
     DataSource = dsContragent
     TabOrder = 1
+  end
+  inline frameSave1: TframeSave
+    Left = 0
+    Top = 273
+    Width = 356
+    Height = 30
+    Align = alBottom
+    TabOrder = 3
+    ExplicitLeft = 94
+    ExplicitTop = 184
+    inherited Panel1: TPanel
+      Width = 356
+      ExplicitTop = 0
+      ExplicitHeight = 30
+      inherited Button1: TButton
+        Left = 254
+        OnClick = frameSave1Button1Click
+        ExplicitLeft = 549
+        ExplicitTop = 0
+        ExplicitHeight = 30
+      end
+      inherited Button2: TButton
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitHeight = 30
+      end
+    end
+  end
+  object gridCat: TcxDBVerticalGrid
+    Left = 0
+    Top = 73
+    Width = 356
+    Height = 200
+    Align = alBottom
+    Navigator.Buttons.CustomButtons = <>
+    TabOrder = 2
+    DataController.DataSource = dsCat
+    ExplicitLeft = 8
+    ExplicitTop = 88
+    ExplicitWidth = 150
+    Version = 1
+    object gridCatname: TcxDBEditorRow
+      Properties.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+      Properties.EditPropertiesClassName = 'TcxSpinEditProperties'
+      Properties.EditProperties.Alignment.Horz = taLeftJustify
+      Properties.DataBinding.FieldName = 'name'
+      ID = 6
+      ParentID = -1
+      Index = 0
+      Version = 1
+    end
+    object gridCatbarcode: TcxDBEditorRow
+      Properties.Caption = #1064#1090#1088#1080#1093'-'#1082#1086#1076
+      Properties.EditPropertiesClassName = 'TcxSpinEditProperties'
+      Properties.EditProperties.Alignment.Horz = taLeftJustify
+      Properties.DataBinding.FieldName = 'barcode'
+      ID = 7
+      ParentID = -1
+      Index = 1
+      Version = 1
+    end
   end
   object queryContragent: TUniQuery
     SQLInsert.Strings = (
@@ -127,8 +153,8 @@ object frmContragentEdt: TfrmContragentEdt
       '  dictonary.contragent '
       'WHERE'
       '  id = :Id')
-    Left = 144
-    Top = 112
+    Left = 152
+    Top = 8
     ParamData = <
       item
         DataType = ftUnknown
@@ -196,12 +222,48 @@ object frmContragentEdt: TfrmContragentEdt
       '  name'
       'FROM '
       '  dictonary.contragent_type ;')
-    Left = 248
-    Top = 112
+    Left = 240
+    Top = 16
   end
   object dsContragent: TDataSource
     DataSet = queryContragent
-    Left = 40
-    Top = 112
+    Left = 96
+    Top = 16
+  end
+  object queryCat: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'SELECT '
+      ' *'
+      'FROM '
+      'dictonary.product_contragent_field'
+      'WHERE'
+      '  contragent_id = :id')
+    Left = 232
+    Top = 176
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        Value = nil
+      end>
+    object fieldCatid: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'id'
+    end
+    object fieldCatcontragent_id: TIntegerField
+      FieldName = 'contragent_id'
+    end
+    object fieldCatname: TIntegerField
+      FieldName = 'name'
+    end
+    object fieldCatbarcode: TIntegerField
+      FieldName = 'barcode'
+    end
+  end
+  object dsCat: TDataSource
+    DataSet = queryCat
+    Left = 184
+    Top = 160
   end
 end

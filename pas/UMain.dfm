@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  Caption = 'frmMain'
+  Caption = 'Trade'
   ClientHeight = 629
   ClientWidth = 1008
   Color = clBtnFace

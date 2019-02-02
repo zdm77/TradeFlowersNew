@@ -6,13 +6,12 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.DBCtrls,
-  Vcl.Mask, Data.DB, MemDS, DBAccess, Uni;
+  Vcl.Mask, Data.DB, MemDS, DBAccess, Uni, UFrameSave, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  cxStyles, cxEdit, cxDataControllerConditionalFormattingRulesManagerDialog, cxVGrid, cxDBVGrid, cxInplaceContainer,
+  cxSpinEdit;
 
 type
   TfrmContragentEdt = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
-    Panel1: TPanel;
     queryContragent: TUniQuery;
     fieldContragentid: TIntegerField;
     fieldContragentName: TStringField;
@@ -24,8 +23,19 @@ type
     DBEdit1: TDBEdit;
     Label2: TLabel;
     DBLookupComboBox1: TDBLookupComboBox;
+    frameSave1: TframeSave;
+    queryCat: TUniQuery;
+    dsCat: TDataSource;
+    gridCat: TcxDBVerticalGrid;
+    gridCatname: TcxDBEditorRow;
+    gridCatbarcode: TcxDBEditorRow;
+    fieldCatid: TIntegerField;
+    fieldCatcontragent_id: TIntegerField;
+    fieldCatname: TIntegerField;
+    fieldCatbarcode: TIntegerField;
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure frameSave1Button1Click(Sender: TObject);
   private
     FId: Integer;
     FTypeId: Integer;
@@ -61,11 +71,11 @@ end;
 
 procedure TfrmContragentEdt.Button1Click(Sender: TObject);
 begin
-  if Id = 0 then
-    fieldContragentid.Value := UFuncAndProc.getNewId('dictonary.contragent');
-  queryContragent.Post;
-  ModalResult := mrYes;
-  CloseModal;
+  // if Id = 0 then
+  // fieldContragentid.Value := UFuncAndProc.getNewId('dictonary.contragent');
+  // queryContragent.Post;
+  // ModalResult := mrYes;
+  // CloseModal;
 end;
 
 procedure TfrmContragentEdt.FormShow(Sender: TObject);
@@ -73,11 +83,33 @@ begin
   queryContragent.ParamByName('id').Value := Id;
   queryContragent.Open;
   queryType.Open;
+
+  queryCat.ParamByName('id').Value := Id;
+  queryCat.Open;
   if Id = 0 then
-    queryContragent.Insert
+  begin
+    queryContragent.Insert;
+    queryCat.Insert;
+  end
   else
+  begin
     queryContragent.Edit;
+    queryCat.Edit;
+  end;
   fieldContragentTypeId.Value := TypeId;
+end;
+
+procedure TfrmContragentEdt.frameSave1Button1Click(Sender: TObject);
+begin
+  if UFuncAndProc.Validate(queryContragent, fieldContragentid, 'dictonary.contragent') = true then
+  begin
+    Id := fieldContragentid.Value;
+    if fieldCatcontragent_id.Value = 0 then
+      fieldCatcontragent_id.Value := Id;
+    queryCat.Post;
+    ModalResult := mrYes;
+    CloseModal;
+  end;
 end;
 
 end.
