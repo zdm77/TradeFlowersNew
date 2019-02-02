@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{838F204E-BD84-486F-9BE8-EFD08F62EC50}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="TradeFlowers.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\SqlToDelphi\dpr\SqlToDelphi.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TradeFlowers">
+        <MSBuild Projects="TradeFlowers.dproj"/>
+    </Target>
+    <Target Name="TradeFlowers:Clean">
+        <MSBuild Projects="TradeFlowers.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TradeFlowers:Make">
+        <MSBuild Projects="TradeFlowers.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SqlToDelphi">
+        <MSBuild Projects="..\..\SqlToDelphi\dpr\SqlToDelphi.dproj"/>
+    </Target>
+    <Target Name="SqlToDelphi:Clean">
+        <MSBuild Projects="..\..\SqlToDelphi\dpr\SqlToDelphi.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SqlToDelphi:Make">
+        <MSBuild Projects="..\..\SqlToDelphi\dpr\SqlToDelphi.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TradeFlowers;SqlToDelphi"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TradeFlowers:Clean;SqlToDelphi:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TradeFlowers:Make;SqlToDelphi:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -66,7 +66,7 @@ end;
 procedure TfrmUser.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caFree;
-  Self := nil;
+  frmUser := nil;
 end;
 
 procedure TfrmUser.FormShow(Sender: TObject);

@@ -1,7 +1,7 @@
-object frmUser: TfrmUser
+object frmPost: TfrmPost
   Left = 0
   Top = 0
-  Caption = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
+  Caption = 'frmPost'
   ClientHeight = 557
   ClientWidth = 914
   Color = clBtnFace
@@ -86,13 +86,16 @@ object frmUser: TfrmUser
       GridView = view1
     end
   end
-  object queryUser: TUniQuery
+  object queryPost: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
-      'SELECT *'
-      'FROM dictonary.users'
+      'SELECT '
+      ' id,'
+      '  name,'
+      '  is_delete'
+      'FROM dictonary.post'
       'where'
-      ' is_delete=:is_delete'
+      'is_delete=:is_delete'
       'ORDER BY name')
     Left = 344
     Top = 416
@@ -102,23 +105,13 @@ object frmUser: TfrmUser
         Name = 'is_delete'
         Value = nil
       end>
-    object field_Userid: TIntegerField
+    object fieldUserId: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'id'
     end
-    object field_Username: TStringField
-      FieldName = 'name'
-      Size = 100
-    end
-    object field_Userlogin: TStringField
-      FieldName = 'login'
-      Size = 15
-    end
-    object field_Useris_delete: TBooleanField
-      FieldName = 'is_delete'
-    end
   end
-  object ds1: TUniDataSource
-    DataSet = queryUser
+  object dsPost: TUniDataSource
+    DataSet = queryPost
     Left = 432
     Top = 416
   end

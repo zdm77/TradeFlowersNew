@@ -30,7 +30,8 @@ uses
   Vcl.Themes,
   Vcl.Styles,
   UFrameTopPanel in '..\pas\UFrameTopPanel.pas' {frameTopPanel: TFrame},
-  UfrmUser in '..\pas\View\Dictonary\Users\UfrmUser.pas' {frmUser};
+  UfrmUser in '..\pas\View\Dictonary\Orgstract\UfrmUser.pas' {frmUser},
+  UfrmPost in '..\pas\View\Dictonary\Orgstract\UfrmPost.pas' {frmPost};
 
 {$R *.res}
 
@@ -39,5 +40,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
+  Application.CreateForm(TfrmPost, frmPost);
   Application.Run;
 end.

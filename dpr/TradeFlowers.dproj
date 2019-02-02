@@ -183,9 +183,11 @@
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\pas\View\Dictonary\Users\UfrmUser.pas">
+        <DCCReference Include="..\pas\View\Dictonary\Orgstract\UfrmUser.pas">
             <Form>frmUser</Form>
-            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Orgstract\UfrmPost.pas">
+            <Form>frmPost</Form>
         </DCCReference>
         <None Include="ModelSupport_TradeFlowers\default.txvpck"/>
         <None Include="ModelSupport_TradeFlowers\default.txaPackage"/>
