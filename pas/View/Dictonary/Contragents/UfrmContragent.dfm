@@ -13,6 +13,7 @@ object frmContragent: TfrmContragent
   FormStyle = fsMDIChild
   OldCreateOrder = False
   Visible = True
+  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -32,8 +33,6 @@ object frmContragent: TfrmContragent
     end
     inherited frameTopPanel1: TframeTopPanel
       Width = 755
-      ExplicitLeft = 0
-      ExplicitTop = 28
       ExplicitWidth = 755
       inherited cxGroupBox4: TcxGroupBox
         ExplicitWidth = 755
@@ -43,8 +42,6 @@ object frmContragent: TfrmContragent
     inherited gridContragent: TcxGrid
       Width = 755
       Height = 417
-      ExplicitLeft = 0
-      ExplicitTop = 66
       ExplicitWidth = 755
       ExplicitHeight = 417
     end

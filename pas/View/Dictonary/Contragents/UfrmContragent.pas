@@ -16,6 +16,7 @@ uses
 type
   TfrmContragent = class(TForm)
     FrameContragent1: TFrameContragent;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
@@ -29,6 +30,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmContragent.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action:=caFree;
+  frmContragent:=nil;
+end;
 
 procedure TfrmContragent.FormShow(Sender: TObject);
 begin

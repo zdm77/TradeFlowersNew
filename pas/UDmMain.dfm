@@ -1,7 +1,7 @@
 object DMMain: TDMMain
   OldCreateOrder = False
-  Height = 487
-  Width = 723
+  Height = 588
+  Width = 991
   object conMain: TUniConnection
     DataTypeMap = <
       item
@@ -26,7 +26,27 @@ object DMMain: TDMMain
     Top = 23
   end
   object mon1: TUniSQLMonitor
-    Left = 272
+    Left = 288
     Top = 240
+  end
+  object queryPostMem: TUniQuery
+    Connection = conMain
+    SQL.Strings = (
+      'select * from dictonary.post'
+      'where is_delete=false'
+      'order by name')
+    Left = 400
+    Top = 24
+  end
+  object memPost: TdxMemData
+    Indexes = <>
+    SortOptions = []
+    Left = 480
+    Top = 24
+  end
+  object dsPostMem: TDataSource
+    DataSet = memPost
+    Left = 552
+    Top = 24
   end
 end

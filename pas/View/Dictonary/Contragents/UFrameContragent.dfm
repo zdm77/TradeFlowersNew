@@ -138,14 +138,6 @@ object FrameContragent: TFrameContragent
       Required = True
     end
   end
-  object query1: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT *'
-      'FROM dictonary.contragent_type order by name')
-    Left = 504
-    Top = 296
-  end
   object queryType: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (

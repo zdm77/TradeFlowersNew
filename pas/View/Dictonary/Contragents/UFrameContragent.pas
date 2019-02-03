@@ -12,7 +12,7 @@ uses
   DBAccess, Uni, MemDS, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxContainer,
   Vcl.StdCtrls, cxGroupBox, UContragent, cxSplitter, CodeSiteLogging,
-  dxDateRanges, dxBarBuiltInMenu, cxPC, UFrameTopPanel;
+  dxDateRanges, dxBarBuiltInMenu, cxPC, UFrameTopPanel, Vcl.Grids, Vcl.DBGrids, dxmdaset;
 
 type
   TFindControl = class(TcxGridTableController);
@@ -25,13 +25,13 @@ type
     fieldContragentName: TStringField;
     fieldContragentTypeId: TIntegerField;
     tab1: TcxTabControl;
-    query1: TUniQuery;
     frameTopPanel1: TframeTopPanel;
     gridContragent: TcxGrid;
     viewContragent: TcxGridDBTableView;
     columnName: TcxGridDBColumn;
     level1: TcxGridLevel;
     queryType: TUniQuery;
+    procedure btn1Click(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
@@ -64,7 +64,12 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmContragentEdt, UFuncAndProc;
+uses UfrmContragentEdt, UFuncAndProc, UDmMain;
+
+procedure TFrameContragent.btn1Click(Sender: TObject);
+begin
+  DMMain.LoadPost;
+end;
 
 procedure TFrameContragent.btnAddClick(Sender: TObject);
 begin
