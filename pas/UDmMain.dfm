@@ -33,7 +33,7 @@ object DMMain: TDMMain
     Connection = conMain
     SQL.Strings = (
       'select * from dictonary.post'
-      'where is_delete=false'
+      ''
       'order by name')
     Left = 400
     Top = 24
@@ -46,7 +46,7 @@ object DMMain: TDMMain
     Connection = conMain
     SQL.Strings = (
       'select * from dictonary.contragent'
-      'where is_delete=false'
+      ''
       'order by name')
     Left = 400
     Top = 88
@@ -59,7 +59,7 @@ object DMMain: TDMMain
     Connection = conMain
     SQL.Strings = (
       'select * from dictonary.contragent_type'
-      'where is_delete=false'
+      ''
       'order by name')
     Left = 400
     Top = 168

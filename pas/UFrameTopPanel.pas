@@ -23,7 +23,9 @@ type
     { Private declarations }
   public
     procedure DeleteRecord(AQuery: TuniQuery; ATableName: string);
+    procedure DeleteRecordMemo(AId: Integer; ATableName: string);
     procedure RestoreRecord(AQuery: TuniQuery; ATableName: string);
+    procedure RestoreRecordMemo(AId: Integer; ATableName: string);
     property isShowDel: Boolean read FisShowDel write SetisShowDel;
     { Public declarations }
   end;
@@ -61,6 +63,27 @@ begin
   isShowDel := chkShowDel.Checked;
 end;
 
+procedure TframeTopPanel.DeleteRecordMemo(AId: Integer; ATableName: string);
+var
+  query: TuniQuery;
+begin
+  query := TuniQuery.Create(nil);
+  query.Connection := dmMain.conMain;
+  if isShowDel = false then
+    if Application.MessageBox('Вы действительно хотите пометить запись на удаление?', 'Предупреждение',
+      MB_YESNO + MB_ICONWARNING) = mrYes then
+      query.SQL.Text := 'update ' + ATableName + '  set is_delete=true where id=:id';
+  if isShowDel = true then
+    if Application.MessageBox('Вы действительно хотите безвозвратно удалить запись?', 'Предупреждение',
+      MB_YESNO + MB_ICONWARNING) = mrYes then
+      query.SQL.Text := 'delete from ' + ATableName + ' where id=:id';
+  if query.SQL.Text <> '' then
+  begin
+    query.ParamByName('id').Value := AId;
+    query.ExecSQL;
+  end;
+end;
+
 procedure TframeTopPanel.SetisShowDel(const Value: Boolean);
 begin
   FisShowDel := Value;
@@ -81,6 +104,21 @@ begin
     query.ParamByName('id').Value := AQuery.FieldByName('id').Value;
     query.ExecSQL;
     AQuery.Refresh;
+  end;
+end;
+
+procedure TframeTopPanel.RestoreRecordMemo(AId: Integer; ATableName: string);
+var
+  query: TuniQuery;
+begin
+  query := TuniQuery.Create(nil);
+  query.Connection := dmMain.conMain;
+  if Application.MessageBox('Вы действительно хотите восстановить запись?', 'Вопрос', MB_YESNO + MB_ICONQUESTION) = mrYes
+  then
+  begin
+    query.SQL.Text := 'update ' + ATableName + '  set is_delete=false where id=:id';
+    query.ParamByName('id').Value := AId;
+    query.ExecSQL;
   end;
 end;
 

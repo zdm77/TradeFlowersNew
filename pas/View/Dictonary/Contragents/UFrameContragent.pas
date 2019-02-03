@@ -20,11 +20,6 @@ type
   TcxGridFindPanelAccess = class(TcxGridFindPanel);
 
   TFrameContragent = class(TFrame)
-    dsContragentView: TUniDataSource;
-    queryContragentView: TUniQuery;
-    fieldContragentId: TIntegerField;
-    fieldContragentName: TStringField;
-    fieldContragentTypeId: TIntegerField;
     tab1: TcxTabControl;
     frameTopPanel1: TframeTopPanel;
     gridContragent: TcxGrid;
@@ -35,6 +30,10 @@ type
     memContrType: TMemTableEh;
     memContr: TMemTableEh;
     dsContr: TUniDataSource;
+    fieldContrid: TIntegerField;
+    fieldContrname: TStringField;
+    fieldContrcontragent_type_id: TIntegerField;
+    fieldContris_delete: TBooleanField;
     procedure btn1Click(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -61,6 +60,7 @@ type
     procedure ShowContragents;
   public
     procedure init;
+    procedure RefreshMemo;
     { Public declarations }
   end;
 
@@ -82,7 +82,7 @@ end;
 
 procedure TFrameContragent.btnEditClick(Sender: TObject);
 begin
-  InsUpd(fieldContragentId.Value);
+  InsUpd(fieldContrid.Value);
 end;
 
 procedure TFrameContragent.Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -97,22 +97,25 @@ end;
 
 procedure TFrameContragent.frameTopPanel1btnDelClick(Sender: TObject);
 begin
-  frameTopPanel1.DeleteRecord(queryContragentView, 'dictonary.contragent');
+  frameTopPanel1.DeleteRecordMemo(fieldContrid.Value, 'dictonary.contragent');
+  RefreshMemo;
 end;
 
 procedure TFrameContragent.frameTopPanel1btnEditClick(Sender: TObject);
 begin
-  InsUpd(fieldContragentId.Value);
+  InsUpd(fieldContrid.Value);
 end;
 
 procedure TFrameContragent.frameTopPanel1btnRestoreClick(Sender: TObject);
 begin
-  frameTopPanel1.RestoreRecord(queryContragentView, 'dictonary.contragent');
+  frameTopPanel1.RestoreRecordMemo(fieldContrid.Value, 'dictonary.contragent');
+   RefreshMemo;
 end;
 
 procedure TFrameContragent.frameTopPanel1chkShowDelClick(Sender: TObject);
 begin
   frameTopPanel1.chkShowDelClick(Sender);
+  RefreshMemo;
 end;
 
 procedure TFrameContragent.init;
@@ -137,6 +140,12 @@ begin
   end;
 end;
 
+procedure TFrameContragent.RefreshMemo;
+begin
+  DMMain.LoadContragent;
+  ShowContragents;
+end;
+
 procedure TFrameContragent.ShowContragents;
 begin
   // memContrType.Filtered := false;
@@ -154,7 +163,6 @@ begin
   // Locate('id', Id, []);
   // end;
   // end;
-  memContrType.Locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
   memContr.Active := False;
   memContr.LoadFromDataSet(DMMain.memContragent, -1, lmCopy, true);
   memContr.Active := true;
@@ -182,14 +190,20 @@ begin
       next;
     end;
     if IsEmpty = False then
+    begin
+      memContrType.Locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
       ShowContragents();
+    end;
   end;
 end;
 
 procedure TFrameContragent.tab1Change(Sender: TObject);
 begin
   if memContr.Active = true then
+  begin
+    memContrType.Locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
     ShowContragents();
+  end;
 end;
 
 procedure TFrameContragent.viewContragentDataControllerFilterRecord(ADataController: TcxCustomDataController;

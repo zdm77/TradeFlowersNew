@@ -98,46 +98,6 @@ object FrameContragent: TFrameContragent
       GridView = viewContragent
     end
   end
-  object dsContragentView: TUniDataSource
-    DataSet = queryContragentView
-    Left = 544
-    Top = 464
-  end
-  object queryContragentView: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT *'
-      'FROM dictonary.contragent'
-      'where'
-      ' contragent_type_id = :contragent_type_id'
-      'and is_delete=:is_delete'
-      'ORDER BY name')
-    Left = 336
-    Top = 448
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'contragent_type_id'
-        Value = nil
-      end
-      item
-        DataType = ftUnknown
-        Name = 'is_delete'
-        Value = nil
-      end>
-    object fieldContragentId: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'id'
-    end
-    object fieldContragentName: TStringField
-      FieldName = 'name'
-      Size = 255
-    end
-    object fieldContragentTypeId: TIntegerField
-      FieldName = 'contragent_type_id'
-      Required = True
-    end
-  end
   object queryType: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
@@ -158,6 +118,84 @@ object FrameContragent: TFrameContragent
     Params = <>
     Left = 504
     Top = 264
+    object fieldContrid: TIntegerField
+      FieldName = 'id'
+    end
+    object fieldContrname: TStringField
+      FieldName = 'name'
+      Size = 100
+    end
+    object fieldContrcontragent_type_id: TIntegerField
+      FieldName = 'contragent_type_id'
+      Required = True
+    end
+    object fieldContris_delete: TBooleanField
+      FieldName = 'is_delete'
+    end
+    object MemTableData: TMemTableDataEh
+      object DataStruct: TMTDataStructEh
+        object id: TMTNumericDataFieldEh
+          FieldName = 'id'
+          NumericDataType = fdtIntegerEh
+          AutoIncrement = True
+          DisplayLabel = 'id'
+          DisplayWidth = 10
+          currency = False
+          Precision = 15
+        end
+        object name: TMTStringDataFieldEh
+          FieldName = 'name'
+          StringDataType = fdtStringEh
+          DisplayLabel = 'name'
+          DisplayWidth = 100
+          Size = 100
+          Transliterate = True
+        end
+        object contragent_type_id: TMTNumericDataFieldEh
+          FieldName = 'contragent_type_id'
+          NumericDataType = fdtIntegerEh
+          AutoIncrement = False
+          DisplayLabel = 'contragent_type_id'
+          DisplayWidth = 10
+          Required = True
+          currency = False
+          Precision = 15
+        end
+        object is_delete: TMTBooleanDataFieldEh
+          FieldName = 'is_delete'
+          DisplayLabel = 'is_delete'
+          DisplayWidth = 5
+        end
+      end
+      object RecordsList: TRecordsListEh
+        Data = (
+          (
+            6
+            '12'
+            1
+            False)
+          (
+            7
+            '222'
+            1
+            False)
+          (
+            8
+            '3333'
+            1
+            False)
+          (
+            2
+            #1050#1083#1080#1077#1085#1090'1'
+            1
+            False)
+          (
+            3
+            #1055#1086#1089#1090#1072#1074#1097#1080#1082'1'
+            2
+            False))
+      end
+    end
   end
   object dsContr: TUniDataSource
     DataSet = memContr
