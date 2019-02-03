@@ -49,4 +49,44 @@ object DMMain: TDMMain
     Left = 552
     Top = 24
   end
+  object queryContragentMem: TUniQuery
+    Connection = conMain
+    SQL.Strings = (
+      'select * from dictonary.contragent'
+      'where is_delete=false'
+      'order by name')
+    Left = 400
+    Top = 88
+  end
+  object memContragentMem: TdxMemData
+    Indexes = <>
+    SortOptions = []
+    Left = 480
+    Top = 88
+  end
+  object dsContragentMem: TDataSource
+    DataSet = memContragentMem
+    Left = 552
+    Top = 88
+  end
+  object queryContrType: TUniQuery
+    Connection = conMain
+    SQL.Strings = (
+      'select * from dictonary.contragent_type'
+      'where is_delete=false'
+      'order by name')
+    Left = 400
+    Top = 168
+  end
+  object memContrType: TdxMemData
+    Indexes = <>
+    SortOptions = []
+    Left = 480
+    Top = 168
+  end
+  object dsContrType: TDataSource
+    DataSet = memContrType
+    Left = 552
+    Top = 168
+  end
 end

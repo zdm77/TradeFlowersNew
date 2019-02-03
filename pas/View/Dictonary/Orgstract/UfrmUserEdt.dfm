@@ -3,8 +3,8 @@ object frmUserEdt: TfrmUserEdt
   Top = 0
   BorderStyle = bsDialog
   Caption = #1055#1086#1083#1100#1079#1086#1074#1090#1072#1077#1083#1100
-  ClientHeight = 122
-  ClientWidth = 340
+  ClientHeight = 117
+  ClientWidth = 338
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -39,22 +39,22 @@ object frmUserEdt: TfrmUserEdt
   end
   inline frameSave1: TframeSave
     Left = 0
-    Top = 92
-    Width = 340
+    Top = 87
+    Width = 338
     Height = 30
     Align = alBottom
     TabOrder = 3
-    ExplicitTop = 427
-    ExplicitWidth = 729
+    ExplicitTop = 92
+    ExplicitWidth = 340
     inherited Panel1: TPanel
-      Width = 340
+      Width = 338
       ExplicitTop = 0
-      ExplicitWidth = 729
+      ExplicitWidth = 340
       ExplicitHeight = 30
       inherited Button1: TButton
-        Left = 238
+        Left = 236
         OnClick = frameSave1Button1Click
-        ExplicitLeft = 627
+        ExplicitLeft = 238
         ExplicitTop = 0
         ExplicitHeight = 30
       end
@@ -135,7 +135,7 @@ object frmUserEdt: TfrmUserEdt
       DisplayLabel = #1044#1086#1083#1078#1085#1086#1089#1090#1100
       FieldKind = fkLookup
       FieldName = 'post_name'
-      LookupDataSet = queryPost
+      LookupDataSet = memPost
       LookupKeyFields = 'id'
       LookupResultField = 'name'
       KeyFields = 'post_id'
@@ -144,51 +144,15 @@ object frmUserEdt: TfrmUserEdt
       Lookup = True
     end
   end
-  object queryPost: TUniQuery
-    SQLInsert.Strings = (
-      'INSERT INTO dictonary.contragent'
-      '  (id, name, contragent_type_id)'
-      'VALUES'
-      '  (:id, :name, :contragent_type_id)')
-    SQLDelete.Strings = (
-      'DELETE FROM dictonary.contragent'
-      'WHERE'
-      '  id = :Old_id')
-    SQLUpdate.Strings = (
-      'UPDATE dictonary.contragent'
-      'SET'
-      
-        '  id = :id, name = :name, contragent_type_id = :contragent_type_' +
-        'id'
-      'WHERE'
-      '  id = :Old_id')
-    SQLLock.Strings = (
-      'SELECT * FROM dictonary.contragent'
-      'WHERE'
-      '  id = :Old_id'
-      'FOR UPDATE NOWAIT')
-    SQLRefresh.Strings = (
-      'SELECT id, name, contragent_type_id FROM dictonary.contragent'
-      'WHERE'
-      '  id = :id')
-    SQLRecCount.Strings = (
-      'SELECT count(*) FROM ('
-      'SELECT * FROM dictonary.contragent'
-      ''
-      ') t')
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT '
-      '  id,'
-      '  name'
-      'FROM '
-      '  dictonary.post ;')
-    Left = 584
-    Top = 16
-  end
   object dsUser: TDataSource
     DataSet = queryUser
     Left = 496
-    Top = 24
+    Top = 40
+  end
+  object memPost: TdxMemData
+    Indexes = <>
+    SortOptions = []
+    Left = 392
+    Top = 152
   end
 end

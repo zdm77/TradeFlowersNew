@@ -7,13 +7,12 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
   cxEdit, dxSkinsCore, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,
   Data.DB, MemDS, DBAccess, Uni, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.ExtCtrls, UFrameSave, CodeSiteLogging,
-  cxDBEdit;
+  cxDBEdit, dxmdaset;
 
 type
   TfrmUserEdt = class(TForm)
     lblName: TLabel;
     queryUser: TUniQuery;
-    queryPost: TUniQuery;
     dsUser: TDataSource;
     lblL: TLabel;
     frameSave1: TframeSave;
@@ -26,6 +25,7 @@ type
     Label1: TLabel;
     edtName: TcxDBTextEdit;
     edtLogin: TcxDBTextEdit;
+    memPost: TdxMemData;
     procedure FormShow(Sender: TObject);
     procedure frameSave1Button1Click(Sender: TObject);
   private
@@ -52,9 +52,11 @@ end;
 
 procedure TfrmUserEdt.FormShow(Sender: TObject);
 begin
+  memPost.LoadFromDataSet(DMMain.memPost);
+  memPost.Active := True;
   queryUser.ParamByName('id').Value := Id;
   queryUser.Open;
-  queryPost.Open;
+  // queryPost.Open;
   if Id = 0 then
     queryUser.Insert
   else
@@ -63,7 +65,7 @@ end;
 
 procedure TfrmUserEdt.frameSave1Button1Click(Sender: TObject);
 begin
-  if UFuncAndProc.Validate(queryUser, fieldUserid, 'dictonary.users') = true then
+  if UFuncAndProc.Validate(queryUser, fieldUserid, 'dictonary.users') = True then
   begin
     Id := fieldUserid.Value;
     ModalResult := mrYes;

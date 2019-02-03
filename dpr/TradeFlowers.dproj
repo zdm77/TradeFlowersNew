@@ -202,6 +202,10 @@
             <Form>frmUserEdt</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\pas\UfrmSplash.pas">
+            <Form>frmSplash</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="ModelSupport_TradeFlowers\default.txvpck"/>
         <None Include="ModelSupport_TradeFlowers\default.txaPackage"/>
         <BuildConfiguration Include="Release">

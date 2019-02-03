@@ -14,10 +14,19 @@ type
     queryPostMem: TUniQuery;
     memPost: TdxMemData;
     dsPostMem: TDataSource;
+    queryContragentMem: TUniQuery;
+    memContragentMem: TdxMemData;
+    dsContragentMem: TDataSource;
+    queryContrType: TUniQuery;
+    memContrType: TdxMemData;
+    dsContrType: TDataSource;
   private
     { Private declarations }
   public
     procedure LoadAnyMem(AQuery: TUniQuery; AMem: TdxMemData);
+    procedure LoadContragent;
+    procedure LoadContrType;
+    procedure LoadDictonary;
     procedure LoadPost;
   end;
 
@@ -46,6 +55,8 @@ const
 implementation
 
 { %CLASSGROUP 'Vcl.Controls.TControl' }
+
+uses UfrmSplash;
 {$R *.dfm}
 
 procedure TDMMain.LoadAnyMem(AQuery: TUniQuery; AMem: TdxMemData);
@@ -56,6 +67,33 @@ begin
   AMem.LoadFromDataSet(AQuery);
   AMem.Active := True;
   AMem.First;
+end;
+
+procedure TDMMain.LoadContragent;
+begin
+  LoadAnyMem(queryContragentMem, memContragentMem);
+end;
+
+procedure TDMMain.LoadContrType;
+begin
+  LoadAnyMem(queryContrType, memContrType);
+end;
+
+procedure TDMMain.LoadDictonary;
+var
+  f: tfrmSplash;
+begin
+  f := tfrmSplash.Create(Self);
+  f.Show;
+  f.Update;
+  LoadPost;
+  f.Update;
+  LoadContragent;
+  f.Update;
+  LoadContrType;
+  f.Update;
+  f.Close;
+  f.Free;
 end;
 
 procedure TDMMain.LoadPost;

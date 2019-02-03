@@ -146,7 +146,13 @@ object FrameContragent: TFrameContragent
       ''
       ''
       'ORDER BY name')
-    Left = 376
+    Left = 328
+    Top = 328
+  end
+  object memContrType: TdxMemData
+    Indexes = <>
+    SortOptions = []
+    Left = 432
     Top = 328
   end
 end

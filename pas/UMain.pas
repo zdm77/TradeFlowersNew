@@ -60,14 +60,16 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent, UfrmUser, UfrmPost, UDmMain;
+  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent, UfrmUser, UfrmPost, UDmMain, UfrmSplash;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) + '\..\INI\LanguagesUnicode.ini');
   cxLocalizer1.Active := true;
   cxLocalizer1.Locale := 1049;
-  DMMain.LoadPost;
+  frmMain.Enabled := False;
+  DMMain.LoadDictonary;
+  frmMain.Enabled := true;
   // with queryMain do
   // begin
   // Close;

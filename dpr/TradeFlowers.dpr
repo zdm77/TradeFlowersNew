@@ -34,7 +34,8 @@ uses
   UfrmPost in '..\pas\View\Dictonary\Orgstract\UfrmPost.pas' {frmPost},
   UFrameSave in '..\pas\UFrameSave.pas' {frameSave: TFrame},
   UfrmPostEdt in '..\pas\View\Dictonary\Orgstract\UfrmPostEdt.pas' {frmPostEdt},
-  UfrmUserEdt in '..\pas\View\Dictonary\Orgstract\UfrmUserEdt.pas' {frmUserEdt};
+  UfrmUserEdt in '..\pas\View\Dictonary\Orgstract\UfrmUserEdt.pas' {frmUserEdt},
+  UfrmSplash in '..\pas\UfrmSplash.pas' {frmSplash};
 
 {$R *.res}
 

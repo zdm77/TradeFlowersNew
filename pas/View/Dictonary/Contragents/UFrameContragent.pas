@@ -31,6 +31,7 @@ type
     columnName: TcxGridDBColumn;
     level1: TcxGridLevel;
     queryType: TUniQuery;
+    memContrType: TdxMemData;
     procedure btn1Click(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
