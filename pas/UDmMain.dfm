@@ -83,4 +83,29 @@ object DMMain: TDMMain
     Left = 472
     Top = 168
   end
+  object queryContrFields: TUniQuery
+    Connection = conMain
+    SQL.Strings = (
+      'select * from dictonary.product_contragent_field'
+      'where contragent_id=:id'
+      ''
+      'order by name')
+    Left = 400
+    Top = 240
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        Value = nil
+      end>
+  end
+  object memContrFields: TMemTableEh
+    Params = <>
+    Left = 472
+    Top = 240
+  end
+  object dsContrFields: TDataSource
+    Left = 552
+    Top = 240
+  end
 end

@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.DBCtrls,
   Vcl.Mask, Data.DB, MemDS, DBAccess, Uni, UFrameSave, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   cxStyles, cxEdit, cxDataControllerConditionalFormattingRulesManagerDialog, cxVGrid, cxDBVGrid, cxInplaceContainer,
-  cxSpinEdit;
+  cxSpinEdit, MemTableDataEh, MemTableEh;
 
 type
   TfrmContragentEdt = class(TForm)
@@ -16,7 +16,6 @@ type
     fieldContragentid: TIntegerField;
     fieldContragentName: TStringField;
     fieldContragentTypeId: TIntegerField;
-    queryType: TUniQuery;
     fieldContragentTypeName: TStringField;
     dsContragent: TDataSource;
     Label1: TLabel;
@@ -33,6 +32,7 @@ type
     fieldCatcontragent_id: TIntegerField;
     fieldCatname: TIntegerField;
     fieldCatbarcode: TIntegerField;
+    memContrType: TMemTableEh;
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure frameSave1Button1Click(Sender: TObject);
@@ -80,10 +80,10 @@ end;
 
 procedure TfrmContragentEdt.FormShow(Sender: TObject);
 begin
+  memContrType.LoadFromDataSet(DMMain.memContrType, -1, lmCopy, true);
+  memContrType.Active := true;
   queryContragent.ParamByName('id').Value := Id;
   queryContragent.Open;
-  queryType.Open;
-
   queryCat.ParamByName('id').Value := Id;
   queryCat.Open;
   if Id = 0 then

@@ -109,7 +109,7 @@ end;
 procedure TFrameContragent.frameTopPanel1btnRestoreClick(Sender: TObject);
 begin
   frameTopPanel1.RestoreRecordMemo(fieldContrid.Value, 'dictonary.contragent');
-   RefreshMemo;
+  RefreshMemo;
 end;
 
 procedure TFrameContragent.frameTopPanel1chkShowDelClick(Sender: TObject);
@@ -163,15 +163,20 @@ begin
   // Locate('id', Id, []);
   // end;
   // end;
-  memContr.Active := False;
-  memContr.LoadFromDataSet(DMMain.memContragent, -1, lmCopy, true);
-  memContr.Active := true;
-  memContr.Filtered := False;
-  memContr.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
-  memContr.Filter := memContr.Filter + ' AND contragent_type_id=' + memContrType.FieldByName('id').AsString;
-  memContr.Filtered := true;
-  // установить фокус в поиск
-  TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
+  if memContrType.IsEmpty = False then
+  begin
+    TypeId := memContrType.FieldByName('id').AsInteger;
+    memContr.Active := False;
+    memContr.LoadFromDataSet(DMMain.memContragent, -1, lmCopy, true);
+    memContr.Active := true;
+    memContr.Filtered := False;
+    memContr.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
+    memContr.Filter := memContr.Filter + ' AND contragent_type_id=' + memContrType.FieldByName('id').AsString;
+    memContr.Filtered := true;
+    memContr.locate('id', Id, []);
+    // установить фокус в поиск
+    TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
+  end;
   // viewContragent .DataController.Groups.FullExpand;
 end;
 

@@ -20,6 +20,9 @@ type
     memPost: TMemTableEh;
     memContragent: TMemTableEh;
     memContrType: TMemTableEh;
+    queryContrFields: TUniQuery;
+    memContrFields: TMemTableEh;
+    dsContrFields: TDataSource;
   private
     { Private declarations }
   public

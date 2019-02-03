@@ -3,8 +3,8 @@ object frmContragentEdt: TfrmContragentEdt
   Top = 0
   BorderStyle = bsDialog
   Caption = #1050#1086#1085#1090#1088#1072#1075#1077#1085#1090
-  ClientHeight = 303
-  ClientWidth = 356
+  ClientHeight = 295
+  ClientWidth = 349
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -52,21 +52,22 @@ object frmContragentEdt: TfrmContragentEdt
   end
   inline frameSave1: TframeSave
     Left = 0
-    Top = 273
-    Width = 356
+    Top = 265
+    Width = 349
     Height = 30
     Align = alBottom
     TabOrder = 3
-    ExplicitLeft = 94
-    ExplicitTop = 184
+    ExplicitTop = 273
+    ExplicitWidth = 356
     inherited Panel1: TPanel
-      Width = 356
+      Width = 349
       ExplicitTop = 0
+      ExplicitWidth = 356
       ExplicitHeight = 30
       inherited Button1: TButton
-        Left = 254
+        Left = 247
         OnClick = frameSave1Button1Click
-        ExplicitLeft = 549
+        ExplicitLeft = 254
         ExplicitTop = 0
         ExplicitHeight = 30
       end
@@ -79,23 +80,22 @@ object frmContragentEdt: TfrmContragentEdt
   end
   object gridCat: TcxDBVerticalGrid
     Left = 0
-    Top = 73
-    Width = 356
+    Top = 65
+    Width = 349
     Height = 200
     Align = alBottom
     Navigator.Buttons.CustomButtons = <>
     TabOrder = 2
     DataController.DataSource = dsCat
-    ExplicitLeft = 8
-    ExplicitTop = 88
-    ExplicitWidth = 150
+    ExplicitTop = 73
+    ExplicitWidth = 356
     Version = 1
     object gridCatname: TcxDBEditorRow
       Properties.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
       Properties.EditPropertiesClassName = 'TcxSpinEditProperties'
       Properties.EditProperties.Alignment.Horz = taLeftJustify
       Properties.DataBinding.FieldName = 'name'
-      ID = 6
+      ID = 0
       ParentID = -1
       Index = 0
       Version = 1
@@ -105,7 +105,7 @@ object frmContragentEdt: TfrmContragentEdt
       Properties.EditPropertiesClassName = 'TcxSpinEditProperties'
       Properties.EditProperties.Alignment.Horz = taLeftJustify
       Properties.DataBinding.FieldName = 'barcode'
-      ID = 7
+      ID = 1
       ParentID = -1
       Index = 1
       Version = 1
@@ -153,8 +153,8 @@ object frmContragentEdt: TfrmContragentEdt
       '  dictonary.contragent '
       'WHERE'
       '  id = :Id')
-    Left = 152
-    Top = 8
+    Left = 368
+    Top = 104
     ParamData = <
       item
         DataType = ftUnknown
@@ -176,54 +176,12 @@ object frmContragentEdt: TfrmContragentEdt
     object fieldContragentTypeName: TStringField
       FieldKind = fkLookup
       FieldName = 'type_name'
-      LookupDataSet = queryType
+      LookupDataSet = memContrType
       LookupKeyFields = 'id'
       LookupResultField = 'name'
       KeyFields = 'contragent_type_id'
       Lookup = True
     end
-  end
-  object queryType: TUniQuery
-    SQLInsert.Strings = (
-      'INSERT INTO dictonary.contragent'
-      '  (id, name, contragent_type_id)'
-      'VALUES'
-      '  (:id, :name, :contragent_type_id)')
-    SQLDelete.Strings = (
-      'DELETE FROM dictonary.contragent'
-      'WHERE'
-      '  id = :Old_id')
-    SQLUpdate.Strings = (
-      'UPDATE dictonary.contragent'
-      'SET'
-      
-        '  id = :id, name = :name, contragent_type_id = :contragent_type_' +
-        'id'
-      'WHERE'
-      '  id = :Old_id')
-    SQLLock.Strings = (
-      'SELECT * FROM dictonary.contragent'
-      'WHERE'
-      '  id = :Old_id'
-      'FOR UPDATE NOWAIT')
-    SQLRefresh.Strings = (
-      'SELECT id, name, contragent_type_id FROM dictonary.contragent'
-      'WHERE'
-      '  id = :id')
-    SQLRecCount.Strings = (
-      'SELECT count(*) FROM ('
-      'SELECT * FROM dictonary.contragent'
-      ''
-      ') t')
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT '
-      '  id,'
-      '  name'
-      'FROM '
-      '  dictonary.contragent_type ;')
-    Left = 240
-    Top = 16
   end
   object dsContragent: TDataSource
     DataSet = queryContragent
@@ -265,5 +223,10 @@ object frmContragentEdt: TfrmContragentEdt
     DataSet = queryCat
     Left = 184
     Top = 160
+  end
+  object memContrType: TMemTableEh
+    Params = <>
+    Left = 464
+    Top = 112
   end
 end
