@@ -81,7 +81,6 @@ object FrameContragent: TFrameContragent
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
-      DataController.OnFilterRecord = viewContragentDataControllerFilterRecord
       OptionsData.Deleting = False
       OptionsData.DeletingConfirmation = False
       OptionsData.Editing = False
@@ -98,25 +97,19 @@ object FrameContragent: TFrameContragent
       GridView = viewContragent
     end
   end
-  object queryType: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'SELECT *'
-      'FROM dictonary.contragent_type'
-      ''
-      ''
-      'ORDER BY name')
-    Left = 328
-    Top = 328
-  end
   object memContrType: TMemTableEh
     Params = <>
     Left = 376
     Top = 264
   end
+  object dsContr: TUniDataSource
+    DataSet = memContr
+    Left = 552
+    Top = 264
+  end
   object memContr: TMemTableEh
     Params = <>
-    Left = 504
+    Left = 464
     Top = 264
     object fieldContrid: TIntegerField
       FieldName = 'id'
@@ -180,11 +173,6 @@ object FrameContragent: TFrameContragent
             1
             False)
           (
-            8
-            '3333'
-            1
-            False)
-          (
             2
             #1050#1083#1080#1077#1085#1090'1'
             1
@@ -196,10 +184,5 @@ object FrameContragent: TFrameContragent
             False))
       end
     end
-  end
-  object dsContr: TUniDataSource
-    DataSet = memContr
-    Left = 560
-    Top = 264
   end
 end

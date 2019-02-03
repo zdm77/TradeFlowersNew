@@ -26,10 +26,9 @@ type
     viewContragent: TcxGridDBTableView;
     columnName: TcxGridDBColumn;
     level1: TcxGridLevel;
-    queryType: TUniQuery;
     memContrType: TMemTableEh;
-    memContr: TMemTableEh;
     dsContr: TUniDataSource;
+    memContr: TMemTableEh;
     fieldContrid: TIntegerField;
     fieldContrname: TStringField;
     fieldContrcontragent_type_id: TIntegerField;
@@ -43,14 +42,12 @@ type
     procedure frameTopPanel1btnRestoreClick(Sender: TObject);
     procedure frameTopPanel1chkShowDelClick(Sender: TObject);
     procedure tab1Change(Sender: TObject);
-    procedure viewContragentDataControllerFilterRecord(ADataController: TcxCustomDataController; ARecordIndex: Integer;
-      var Accept: Boolean);
     procedure viewTypeCellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
       AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
   private
     FId: Integer;
     FTypeId: Integer;
-    IdFilter: Boolean;
+
     // FindPanel: TcxFindPanelMRUEdit;
     procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure InsUpd(AId: Integer);
@@ -82,7 +79,7 @@ end;
 
 procedure TFrameContragent.btnEditClick(Sender: TObject);
 begin
-  InsUpd(fieldContrid.Value);
+  //InsUpd(fieldContrid.Value);
 end;
 
 procedure TFrameContragent.Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -135,8 +132,9 @@ begin
   if f.ModalResult = mrYes then
   begin
     Id := f.Id;
-    // queryType.Locate('id', f.fieldContragentTypeId.Value, []);
+
     ShowContragents();
+
   end;
 end;
 
@@ -148,21 +146,7 @@ end;
 
 procedure TFrameContragent.ShowContragents;
 begin
-  // memContrType.Filtered := false;
-  // memContrType.Filter := 'name=' + QuotedStr(tab1.Tabs[tab1.TabIndex].Caption);
-  // memContrType.Filtered := true;
-  // if memContrType.IsEmpty = False then
-  // begin
-  // TypeId := memContrType.FieldByName('id').AsInteger;
-  // with queryContragentView do
-  // begin
-  // Close;
-  // ParamByName('contragent_type_id').AsInteger := TypeId;
-  // ParamByName('is_delete').AsBoolean := frameTopPanel1.isShowDel;
-  // Open;
-  // Locate('id', Id, []);
-  // end;
-  // end;
+
   if memContrType.IsEmpty = False then
   begin
     TypeId := memContrType.FieldByName('id').AsInteger;
@@ -177,7 +161,7 @@ begin
     // установить фокус в поиск
     TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
   end;
-  // viewContragent .DataController.Groups.FullExpand;
+
 end;
 
 procedure TFrameContragent.ShowTypeTab;
@@ -196,7 +180,7 @@ begin
     end;
     if IsEmpty = False then
     begin
-      memContrType.Locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
+      memContrType.locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
       ShowContragents();
     end;
   end;
@@ -206,24 +190,9 @@ procedure TFrameContragent.tab1Change(Sender: TObject);
 begin
   if memContr.Active = true then
   begin
-    memContrType.Locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
+    memContrType.locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
     ShowContragents();
   end;
-end;
-
-procedure TFrameContragent.viewContragentDataControllerFilterRecord(ADataController: TcxCustomDataController;
-  ARecordIndex: Integer; var Accept: Boolean);
-begin
-  // OutputDebugString(pchar('Отладка: ' + TcxGridFindPanelAccess(TcxGridTableControllerAccess(viewContragent.Controller)
-  // .FindPanel).Edit.Text));
-  // if (TcxGridFindPanelAccess(TcxGridTableControllerAccess(viewContragent.Controller).FindPanel).Edit.Text <> '') and
-  // (IdFilter = false) then
-  // begin
-  // IdFilter := true;
-  // viewContragent.DataController.Groups.FullExpand;
-  //
-  //
-  // end;
 end;
 
 procedure TFrameContragent.viewTypeCellClick(Sender: TcxCustomGridTableView;
