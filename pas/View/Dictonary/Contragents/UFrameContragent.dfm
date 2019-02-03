@@ -77,7 +77,7 @@ object FrameContragent: TFrameContragent
       FindPanel.InfoText = #1042#1074#1077#1076#1080#1090#1077' '#1090#1077#1082#1089#1090' '#1076#1083#1103' '#1087#1086#1080#1089#1082#1072'...'
       FindPanel.ShowCloseButton = False
       FindPanel.ShowFindButton = False
-      DataController.DataSource = dsContragentView
+      DataController.DataSource = dsContr
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -149,10 +149,19 @@ object FrameContragent: TFrameContragent
     Left = 328
     Top = 328
   end
-  object memContrType: TdxMemData
-    Indexes = <>
-    SortOptions = []
-    Left = 432
-    Top = 328
+  object memContrType: TMemTableEh
+    Params = <>
+    Left = 376
+    Top = 264
+  end
+  object memContr: TMemTableEh
+    Params = <>
+    Left = 504
+    Top = 264
+  end
+  object dsContr: TUniDataSource
+    DataSet = memContr
+    Left = 560
+    Top = 264
   end
 end

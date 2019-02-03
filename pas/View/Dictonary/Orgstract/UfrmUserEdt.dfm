@@ -3,8 +3,8 @@ object frmUserEdt: TfrmUserEdt
   Top = 0
   BorderStyle = bsDialog
   Caption = #1055#1086#1083#1100#1079#1086#1074#1090#1072#1077#1083#1100
-  ClientHeight = 117
-  ClientWidth = 338
+  ClientHeight = 120
+  ClientWidth = 339
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -39,20 +39,20 @@ object frmUserEdt: TfrmUserEdt
   end
   inline frameSave1: TframeSave
     Left = 0
-    Top = 87
-    Width = 338
+    Top = 90
+    Width = 339
     Height = 30
     Align = alBottom
     TabOrder = 3
     ExplicitTop = 92
     ExplicitWidth = 340
     inherited Panel1: TPanel
-      Width = 338
+      Width = 339
       ExplicitTop = 0
       ExplicitWidth = 340
       ExplicitHeight = 30
       inherited Button1: TButton
-        Left = 236
+        Left = 237
         OnClick = frameSave1Button1Click
         ExplicitLeft = 238
         ExplicitTop = 0
@@ -149,10 +149,9 @@ object frmUserEdt: TfrmUserEdt
     Left = 496
     Top = 40
   end
-  object memPost: TdxMemData
-    Indexes = <>
-    SortOptions = []
-    Left = 392
-    Top = 152
+  object memPost: TMemTableEh
+    Params = <>
+    Left = 424
+    Top = 176
   end
 end

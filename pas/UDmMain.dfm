@@ -38,15 +38,8 @@ object DMMain: TDMMain
     Left = 400
     Top = 24
   end
-  object memPost: TdxMemData
-    Indexes = <>
-    SortOptions = []
-    Left = 480
-    Top = 24
-  end
   object dsPostMem: TDataSource
-    DataSet = memPost
-    Left = 552
+    Left = 536
     Top = 24
   end
   object queryContragentMem: TUniQuery
@@ -58,14 +51,7 @@ object DMMain: TDMMain
     Left = 400
     Top = 88
   end
-  object memContragentMem: TdxMemData
-    Indexes = <>
-    SortOptions = []
-    Left = 480
-    Top = 88
-  end
   object dsContragentMem: TDataSource
-    DataSet = memContragentMem
     Left = 552
     Top = 88
   end
@@ -78,15 +64,23 @@ object DMMain: TDMMain
     Left = 400
     Top = 168
   end
-  object memContrType: TdxMemData
-    Indexes = <>
-    SortOptions = []
-    Left = 480
+  object dsContrType: TDataSource
+    Left = 552
     Top = 168
   end
-  object dsContrType: TDataSource
-    DataSet = memContrType
-    Left = 552
+  object memPost: TMemTableEh
+    Params = <>
+    Left = 472
+    Top = 24
+  end
+  object memContragent: TMemTableEh
+    Params = <>
+    Left = 472
+    Top = 88
+  end
+  object memContrType: TMemTableEh
+    Params = <>
+    Left = 472
     Top = 168
   end
 end

@@ -70,6 +70,8 @@ begin
   frmMain.Enabled := False;
   DMMain.LoadDictonary;
   frmMain.Enabled := true;
+  frmMain.BringToFront;
+
   // with queryMain do
   // begin
   // Close;

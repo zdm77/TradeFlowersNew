@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.DB, DBAccess, Uni, UniProvider,
-  PostgreSQLUniProvider, DASQLMonitor, UniSQLMonitor, MemDS, dxmdaset;
+  PostgreSQLUniProvider, DASQLMonitor, UniSQLMonitor, MemDS, dxmdaset, MemTableDataEh, DataDriverEh, MemTableEh;
 
 type
   TDMMain = class(TDataModule)
@@ -12,18 +12,18 @@ type
     prov1: TPostgreSQLUniProvider;
     mon1: TUniSQLMonitor;
     queryPostMem: TUniQuery;
-    memPost: TdxMemData;
     dsPostMem: TDataSource;
     queryContragentMem: TUniQuery;
-    memContragentMem: TdxMemData;
     dsContragentMem: TDataSource;
     queryContrType: TUniQuery;
-    memContrType: TdxMemData;
     dsContrType: TDataSource;
+    memPost: TMemTableEh;
+    memContragent: TMemTableEh;
+    memContrType: TMemTableEh;
   private
     { Private declarations }
   public
-    procedure LoadAnyMem(AQuery: TUniQuery; AMem: TdxMemData);
+    procedure LoadAnyMem(AQuery: TUniQuery; AMem: TMemTableEh);
     procedure LoadContragent;
     procedure LoadContrType;
     procedure LoadDictonary;
@@ -59,19 +59,19 @@ implementation
 uses UfrmSplash;
 {$R *.dfm}
 
-procedure TDMMain.LoadAnyMem(AQuery: TUniQuery; AMem: TdxMemData);
+procedure TDMMain.LoadAnyMem(AQuery: TUniQuery; AMem: TMemTableEh);
 begin
   AQuery.Close;
   AQuery.Open;
   AMem.Active := false;
-  AMem.LoadFromDataSet(AQuery);
+  AMem.LoadFromDataSet(AQuery, -1, lmCopy, true);
   AMem.Active := True;
   AMem.First;
 end;
 
 procedure TDMMain.LoadContragent;
 begin
-  LoadAnyMem(queryContragentMem, memContragentMem);
+  LoadAnyMem(queryContragentMem, memContragent);
 end;
 
 procedure TDMMain.LoadContrType;
