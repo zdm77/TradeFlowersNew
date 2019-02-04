@@ -33,6 +33,8 @@ type
     fieldContrname: TStringField;
     fieldContrcontragent_type_id: TIntegerField;
     fieldContris_delete: TBooleanField;
+    DataDriverContr: TDataSetDriverEh;
+    DataDriverContrType: TDataSetDriverEh;
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);

@@ -3,8 +3,8 @@ object frmProductEdit: TfrmProductEdit
   Top = 0
   BorderStyle = bsDialog
   Caption = #1053#1086#1084#1077#1085#1082#1083#1072#1090#1091#1088#1072
-  ClientHeight = 489
-  ClientWidth = 502
+  ClientHeight = 508
+  ClientWidth = 497
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,8 +22,9 @@ object frmProductEdit: TfrmProductEdit
     Align = alTop
     Caption = #1058#1086#1074#1072#1088
     TabOrder = 0
+    ExplicitWidth = 502
     Height = 97
-    Width = 502
+    Width = 497
     object lbl2: TLabel
       Left = 8
       Top = 21
@@ -77,71 +78,25 @@ object frmProductEdit: TfrmProductEdit
       Width = 400
     end
   end
-  object cxGroupBox2: TcxGroupBox
-    Left = 0
-    Top = 450
-    Align = alBottom
-    PanelStyle.Active = True
-    TabOrder = 1
-    Height = 39
-    Width = 502
-    object gridProp: TcxGrid
-      Left = 8
-      Top = 146
-      Width = 497
-      Height = 200
-      TabOrder = 0
-      object viewProp: TcxGridDBTableView
-        Navigator.Buttons.CustomButtons = <>
-        DataController.DataSource = dsProps
-        DataController.Summary.DefaultGroupSummaryItems = <>
-        DataController.Summary.FooterSummaryItems = <>
-        DataController.Summary.SummaryGroups = <>
-        OptionsView.GroupByBox = False
-        object columnName: TcxGridDBColumn
-          Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-          DataBinding.FieldName = 'name'
-          Width = 249
-        end
-        object columnVal: TcxGridDBColumn
-          Caption = #1047#1085#1072#1095#1077#1085#1080#1077
-          DataBinding.FieldName = 'prop_value'
-          Width = 239
-        end
-      end
-      object levelProp: TcxGridLevel
-        GridView = viewProp
-      end
-    end
-    object btnSave: TButton
-      Left = 400
-      Top = 4
-      Width = 99
-      Height = 32
-      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
-      ImageIndex = 13
-      Images = frmMain.imgMidle
-      TabOrder = 1
-      OnClick = btnSaveClick
-    end
-  end
   object cxGroupBox3: TcxGroupBox
     Left = 0
     Top = 97
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
-    TabOrder = 2
-    ExplicitTop = 73
-    Height = 353
-    Width = 502
+    TabOrder = 1
+    ExplicitWidth = 502
+    ExplicitHeight = 353
+    Height = 381
+    Width = 497
     object cxGrid1: TcxGrid
       Left = 2
       Top = 57
-      Width = 498
-      Height = 294
+      Width = 493
+      Height = 322
       Align = alClient
-      TabOrder = 0
-      ExplicitHeight = 318
+      TabOrder = 1
+      ExplicitWidth = 498
+      ExplicitHeight = 294
       object cxGridDBTableView1: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps
@@ -169,9 +124,10 @@ object frmProductEdit: TfrmProductEdit
       Top = 18
       Align = alTop
       PanelStyle.Active = True
-      TabOrder = 1
+      TabOrder = 0
+      ExplicitWidth = 498
       Height = 39
-      Width = 498
+      Width = 493
       object btnFromBase: TButton
         Left = 3
         Top = 3
@@ -185,17 +141,51 @@ object frmProductEdit: TfrmProductEdit
       end
     end
   end
+  inline frameSave1: TframeSave
+    Left = 0
+    Top = 478
+    Width = 497
+    Height = 30
+    Align = alBottom
+    TabOrder = 2
+    ExplicitLeft = 63
+    ExplicitTop = 360
+    inherited Panel1: TPanel
+      Width = 497
+      ExplicitTop = 0
+      ExplicitHeight = 30
+      inherited Button1: TButton
+        Left = 395
+        OnClick = frameSave1Button1Click
+        ExplicitLeft = 549
+        ExplicitTop = 0
+        ExplicitHeight = 30
+      end
+      inherited Button2: TButton
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitHeight = 30
+      end
+    end
+  end
   object dsProduct: TUniDataSource
     DataSet = queryProduct
-    Left = 496
-    Top = 9
+    Left = 528
+    Top = 17
   end
   object queryProduct: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from dictonary.product')
-    Left = 536
-    Top = 9
+      'select * from dictonary.product'
+      'where id=:id')
+    Left = 584
+    Top = 17
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        Value = nil
+      end>
     object fieldProductid: TIntegerField
       FieldName = 'id'
     end

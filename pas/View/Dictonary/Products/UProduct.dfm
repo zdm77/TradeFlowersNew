@@ -30,12 +30,10 @@ object frmProduct: TfrmProduct
       ExplicitHeight = 504
       Height = 504
       inherited lstCategory: TcxDBTreeList
-        Height = 458
+        Height = 462
         OptionsBehavior.ExpandOnDblClick = True
         OptionsBehavior.ExpandOnIncSearch = False
-        ExplicitLeft = -2
-        ExplicitTop = 45
-        ExplicitHeight = 458
+        ExplicitHeight = 462
       end
     end
     inherited cxSplitter1: TcxSplitter
@@ -49,13 +47,17 @@ object frmProduct: TfrmProduct
       Width = 518
       inherited gridProduct: TcxGrid
         Width = 514
-        Height = 458
+        Height = 462
         ExplicitWidth = 514
-        ExplicitHeight = 458
+        ExplicitHeight = 462
       end
-      inherited cxGroupBox4: TcxGroupBox
-        ExplicitWidth = 514
+      inherited frameTopPanel2: TframeTopPanel
         Width = 514
+        ExplicitWidth = 514
+        inherited cxGroupBox4: TcxGroupBox
+          ExplicitWidth = 514
+          Width = 514
+        end
       end
     end
   end

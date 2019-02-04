@@ -38,10 +38,6 @@ object DMMain: TDMMain
     Left = 400
     Top = 24
   end
-  object dsPostMem: TDataSource
-    Left = 536
-    Top = 24
-  end
   object queryContragentMem: TUniQuery
     Connection = conMain
     SQL.Strings = (
@@ -51,10 +47,6 @@ object DMMain: TDMMain
     Left = 400
     Top = 88
   end
-  object dsContragentMem: TDataSource
-    Left = 552
-    Top = 88
-  end
   object queryContrType: TUniQuery
     Connection = conMain
     SQL.Strings = (
@@ -62,10 +54,6 @@ object DMMain: TDMMain
       ''
       'order by name')
     Left = 400
-    Top = 168
-  end
-  object dsContrType: TDataSource
-    Left = 552
     Top = 168
   end
   object memPost: TMemTableEh
@@ -102,10 +90,6 @@ object DMMain: TDMMain
   object memContrFields: TMemTableEh
     Params = <>
     Left = 472
-    Top = 240
-  end
-  object dsContrFields: TDataSource
-    Left = 552
     Top = 240
   end
   object queryCategory: TUniQuery
@@ -149,10 +133,6 @@ object DMMain: TDMMain
     Left = 768
     Top = 40
   end
-  object dsCategory: TDataSource
-    Left = 832
-    Top = 40
-  end
   object mem1: TMemTableEh
     Params = <>
     Left = 48
@@ -163,27 +143,17 @@ object DMMain: TDMMain
     Left = 112
     Top = 104
   end
-  object DataDriverContr: TDataSetDriverEh
-    KeyFields = 'id'
-    ProviderDataSet = queryContragentMem
-    Left = 304
-    Top = 96
-  end
-  object DataDriverCategory: TDataSetDriverEh
-    ProviderDataSet = queryCategory
-    Left = 920
-    Top = 40
-  end
   object queryProduct: TUniQuery
     Connection = conMain
     SQL.Strings = (
-      'select c.level, p.* from'
+      'select c.level,c.name category_name, p.* from'
       'dictonary.category c'
       'inner join dictonary.product p'
       'on p.category_id=c.id'
       '      '
       '  '
       'order by p.name')
+    Active = True
     Left = 704
     Top = 120
     object fieldProductlevel: TStringField
@@ -192,6 +162,7 @@ object DMMain: TDMMain
       Size = 100
     end
     object fieldProductid: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'id'
       ReadOnly = True
     end
@@ -214,24 +185,15 @@ object DMMain: TDMMain
       ReadOnly = True
       Size = 100
     end
+    object fieldProductcategory_name: TStringField
+      FieldName = 'category_name'
+      Required = True
+      Size = 100
+    end
   end
   object memProduct: TMemTableEh
     Params = <>
     Left = 776
     Top = 120
-  end
-  object dsProduct: TDataSource
-    Left = 840
-    Top = 120
-  end
-  object DataDriverProduct: TDataSetDriverEh
-    ProviderDataSet = queryProduct
-    Left = 928
-    Top = 120
-  end
-  object DataDriverContrType: TDataSetDriverEh
-    ProviderDataSet = queryContrType
-    Left = 328
-    Top = 168
   end
 end

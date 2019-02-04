@@ -12,35 +12,26 @@ type
     prov1: TPostgreSQLUniProvider;
     mon1: TUniSQLMonitor;
     queryPostMem: TUniQuery;
-    dsPostMem: TDataSource;
     queryContragentMem: TUniQuery;
-    dsContragentMem: TDataSource;
     queryContrType: TUniQuery;
-    dsContrType: TDataSource;
     memPost: TMemTableEh;
     memContragent: TMemTableEh;
     memContrType: TMemTableEh;
     queryContrFields: TUniQuery;
     memContrFields: TMemTableEh;
-    dsContrFields: TDataSource;
     queryCategory: TUniQuery;
     memCategory: TMemTableEh;
-    dsCategory: TDataSource;
     mem1: TMemTableEh;
     mem2: TMemTableEh;
-    DataDriverContr: TDataSetDriverEh;
-    DataDriverCategory: TDataSetDriverEh;
     queryProduct: TUniQuery;
     memProduct: TMemTableEh;
-    dsProduct: TDataSource;
-    DataDriverProduct: TDataSetDriverEh;
-    DataDriverContrType: TDataSetDriverEh;
     fieldProductlevel: TStringField;
     fieldProductid: TIntegerField;
     fieldProductname: TStringField;
     fieldProductcategory_id: TIntegerField;
     fieldProductsuffix: TStringField;
     fieldProductbarcode: TStringField;
+    fieldProductcategory_name: TStringField;
   private
     { Private declarations }
   public

@@ -4,7 +4,7 @@ object frmCategoryEdit: TfrmCategoryEdit
   BorderStyle = bsDialog
   Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1103
   ClientHeight = 470
-  ClientWidth = 556
+  ClientWidth = 796
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,9 +22,9 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alTop
     PanelStyle.Active = True
     TabOrder = 0
-    ExplicitWidth = 552
+    ExplicitWidth = 556
     Height = 65
-    Width = 556
+    Width = 796
     object lbl2: TLabel
       Left = 3
       Top = 9
@@ -68,19 +68,17 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    ExplicitWidth = 552
-    ExplicitHeight = 473
+    ExplicitWidth = 556
     Height = 405
-    Width = 556
+    Width = 796
     object cxGroupBox3: TcxGroupBox
       Left = 2
       Top = 362
       Align = alBottom
       TabOrder = 8
-      ExplicitTop = 430
-      ExplicitWidth = 548
+      ExplicitWidth = 552
       Height = 41
-      Width = 552
+      Width = 792
       object btnSave: TButton
         Left = 3
         Top = 7

@@ -1,7 +1,7 @@
 object frmPost: TfrmPost
   Left = 0
   Top = 0
-  Caption = 'frmPost'
+  Caption = #1044#1086#1083#1078#1085#1086#1089#1090#1080
   ClientHeight = 557
   ClientWidth = 914
   Color = clBtnFace

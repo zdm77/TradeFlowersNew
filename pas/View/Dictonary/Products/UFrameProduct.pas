@@ -13,7 +13,7 @@ uses
   cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator,
   cxContainer, cxSplitter, cxGroupBox,
   cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges, MemTableDataEh, MemTableEh, cxMemo,
-  CodeSiteLogging;
+  CodeSiteLogging, UFrameTopPanel, DataDriverEh;
 
 type
   TcxGridTableControllerAccess = class(TcxTreeListController);
@@ -27,22 +27,12 @@ type
     lstCategory: TcxDBTreeList;
     columnNameC: TcxDBTreeListColumn;
     cxSplitter1: TcxSplitter;
-    cxGroupBox2: TcxGroupBox;
-    btnAdd: TButton;
-    btnEdit: TButton;
-    btnDel: TButton;
     cxGroupBox3: TcxGroupBox;
     gridProduct: TcxGrid;
     viewProduct: TcxGridDBTableView;
     columnName: TcxGridDBColumn;
     level1: TcxGridLevel;
-    cxGroupBox4: TcxGroupBox;
-    btnProductAdd: TButton;
-    btnProductEdt: TButton;
-    btnProductDel: TButton;
     columnBarCode: TcxGridDBColumn;
-    btnProductRefresh: TButton;
-    btnRefresh: TButton;
     memCategory: TMemTableEh;
     query1: TUniQuery;
     fieldCategoryid: TIntegerField;
@@ -61,32 +51,36 @@ type
     MemoField1: TMemoField;
     LargeintField1: TLargeintField;
     StringField3: TStringField;
+    frameTopPanel1: TframeTopPanel;
+    frameTopPanel2: TframeTopPanel;
+    DataDriverCategory: TDataSetDriverEh;
+    DataDriverProduct: TDataSetDriverEh;
     fieldProductlevel: TStringField;
     fieldProductid: TIntegerField;
     fieldProductname: TStringField;
     fieldProductcategory_id: TIntegerField;
     fieldProductsuffix: TStringField;
     fieldProductbarcode: TStringField;
-    procedure btnAddClick(Sender: TObject);
-    procedure btnDelClick(Sender: TObject);
+    fieldProductcategory_name: TStringField;
     procedure btnEditClick(Sender: TObject);
-    procedure btnProductAddClick(Sender: TObject);
-    procedure btnProductEdtClick(Sender: TObject);
-    procedure btnProductRefreshClick(Sender: TObject);
+    procedure frameTopPanel1btnAddClick(Sender: TObject);
+    procedure frameTopPanel2btnAddClick(Sender: TObject);
+    procedure frameTopPanel2btnEditClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
     procedure lstCategoryDblClick(Sender: TObject);
-    procedure navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer; var ADone: Boolean);
   private
     product: TProduct;
     category: TCategory;
     FCategoryId: Integer;
+    FProductId: Integer;
     // FSelCategoryID: Integer;
     procedure CategoryInsEdt(id: Integer);
-    procedure InsUpd(isNew: Boolean);
+    procedure InsUpd(AId: Integer);
     procedure ShowCategory;
     procedure ShowProduct;
     procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
     property CategoryId: Integer read FCategoryId write FCategoryId;
+    property ProductId: Integer read FProductId write FProductId;
     { Private declarations }
   public
     // property SelCategoryID: Integer read FSelCategoryID write SetSelCategoryID;
@@ -100,21 +94,6 @@ implementation
 
 uses UCategoryEdit, UDmMain, UProductEdit;
 
-procedure TframeProduct.btnAddClick(Sender: TObject);
-begin
-  CategoryInsEdt(0);
-end;
-
-procedure TframeProduct.btnDelClick(Sender: TObject);
-begin
-  if Application.MessageBox('Вы действительно хотите удалить группу и все пренадлежащие ей товары?', 'Вопрос',
-    MB_YESNO + MB_ICONWARNING) = mrYes then
-  begin
-    category.DeleteCategory();
-    category.Refresh;
-  end;
-end;
-
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
   if (fieldCategorypid.Value <> 0) then
@@ -123,22 +102,6 @@ begin
   end
   else
     Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка', MB_OK + MB_ICONERROR)
-end;
-
-procedure TframeProduct.btnProductAddClick(Sender: TObject);
-begin
-  InsUpd(true);
-end;
-
-procedure TframeProduct.btnProductEdtClick(Sender: TObject);
-begin
-  product.setProduct(queryProduct);
-  InsUpd(false);
-end;
-
-procedure TframeProduct.btnProductRefreshClick(Sender: TObject);
-begin
-  queryProduct.Refresh;
 end;
 
 procedure TframeProduct.CategoryInsEdt(id: Integer);
@@ -159,46 +122,64 @@ procedure TframeProduct.Expand(Sender: TObject; var Key: Word; Shift: TShiftStat
 begin
 end;
 
+procedure TframeProduct.frameTopPanel1btnAddClick(Sender: TObject);
+begin
+  CategoryInsEdt(0);
+end;
+
+procedure TframeProduct.frameTopPanel2btnAddClick(Sender: TObject);
+begin
+  InsUpd(0);
+end;
+
+procedure TframeProduct.frameTopPanel2btnEditClick(Sender: TObject);
+begin
+  /// product.setProduct(queryProduct);
+  InsUpd(fieldProductid.Value);
+end;
+
 procedure TframeProduct.Init;
 begin
-  // TcxGridFindPanelAccess(TFindControl(lst2.Controller)
-  // .FindPanel).Edit.OnKeyUp := Self.Expand;
-  // TcxGridFindPanelAccess(TcxGridTableControllerAccess(lst1. Controller).FindPanel).Edit.SetFocus;
-  // category := TCategory.Create(queryCategoty);
   product := TProduct.Create;
   ShowCategory;
   ShowProduct;
 end;
 
-procedure TframeProduct.InsUpd(isNew: Boolean);
+procedure TframeProduct.InsUpd(AId: Integer);
+var
+  f: TfrmProductEdit;
 begin
-  Application.CreateForm(TfrmProductEdit, frmProductEdit);
-  if isNew = true then
-  begin
-    product.categoryName := category.Name;
-    product.CategoryId := category.id;
-  end;
-  frmProductEdit.Init(product, queryProduct, isNew);
-  frmProductEdit.ShowModal;
-  // frmProductEdit.IDSave:=false;
-  if frmProductEdit.IDSave = true then
-  begin
-    queryProduct.Refresh;
-    // queryCategoty.Locate('id', product.categoryId, []);
-    lstCategoryClick(nil);
-    queryProduct.Locate('id', product.id, []);
-    gridProduct.SetFocus;
-  end;
+  if AId = 0 then
+    f := TfrmProductEdit.Create(Self, ProductId, fieldCategoryid.Value, fieldCategoryname.Value)
+  else
+    f := TfrmProductEdit.Create(Self, ProductId, fieldProductcategory_id.Value, fieldProductcategory_name.Value);
+  // Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
+  // frmCategoryEdit.Init(category, id, queryCategoty);
+  f.ShowModal;
+  if f.isSave = true then
+    ProductId := f.id;
+  ShowProduct;
+  // Application.CreateForm(TfrmProductEdit, frmProductEdit);
+  // if AId = 0 then
+  // begin
+  // //   product.categoryName := category.Name;
+  // // product.CategoryId := category.id;
+  // end;
+  // frmProductEdit.Init(product, queryProduct, AId);
+  // frmProductEdit.ShowModal;
+  //
+  // if frmProductEdit.IDSave = true then
+  // begin
+  // queryProduct.Refresh;
+  // // queryCategoty.Locate('id', product.categoryId, []);
+  // lstCategoryClick(nil);
+  // queryProduct.Locate('id', product.id, []);
+  // gridProduct.SetFocus;
+  // end;
 end;
 
 procedure TframeProduct.lstCategoryClick(Sender: TObject);
 begin
-  // if category.Id <> queryCategoty.FieldByName('id').AsInteger then
-  // begin
-  // // FSelCategoryID := queryCategoty.FieldByName('id').AsInteger;
-  // category.SetCategory;
-  // ShowProduct;
-  // end;
   ShowProduct;
 end;
 
@@ -207,72 +188,21 @@ begin
   btnEditClick(Sender);
 end;
 
-procedure TframeProduct.navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer; var ADone: Boolean);
-begin
-  // case AButtonIndex of
-  // // добавить
-  // 16:
-  // CategoryInsEdt(true);
-  // // редактировать
-  // 17:
-  // CategoryInsEdt(false);
-  // end;
-end;
-
 procedure TframeProduct.ShowCategory;
 begin
-  // category.GetCategories;
   memCategory.Active := false;
-  // memCategory.LoadFromDataSet(DMMain.memCategory, -1, lmCopy, true);
   memCategory.Active := true;
   memCategory.Locate('id', CategoryId, []);
 end;
 
 procedure TframeProduct.ShowProduct;
-var
-  str: TStringBuilder;
-  i: Integer;
 begin
-  // viewProduct.FindPanel
-  // product.GetProducts(queryProduct, fieldCategoryid.Value);
-  // with queryProduct do
-  // begin
-  // Close;
-  // SQL.Text := 'select * from dictonary.product where category_id in (';
-  // SQL.Add(' select id from dictonary.category where level like :level)');
-  // ParamByName('level').AsString := fieldCategorylevel.Value + '%';
-  // open;
-  // end;
-  // memProduct.Active:=False;
-//  str := TStringBuilder.Create;
-//  str.Append('(');
-//  memTmp.Active := false;
-//  memTmp.LoadFromDataSet(memCategory, -1, lmCopy, true);
-//  memTmp.Filtered := false;
-//  memTmp.Filter := ' level like:' + QuotedStr(fieldCategorylevel.Value) + '%';
-//  memTmp.Active := true;
-//  if memTmp.IsEmpty = false then
-//  begin
-//    for i := 0 to memTmp.RecordCount - 1 do
-//    begin
-//      str.Append(memTmp.FieldByName('id').AsString);
-//      if i <> memTmp.RecordCount - 1 then
-//        str.Append(',');
-//      memTmp.Next;
-//    end;
-//    str.Append(')');
-//  end;
-//  CodeSite.Send('Comment', str.ToString);
   memProduct.Filtered := false;
   // memProduct.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
-  memProduct.Filter := ' level  like ' +QuotedStr(fieldCategorylevel.Value + '%');
-
-  // memProduct.Params.ParamByName('id').AsString:=str.ToString;
-   CodeSite.Send('Comment', memProduct.Filter);
+  memProduct.Filter := ' level  like ' + QuotedStr(fieldCategorylevel.Value + '%');
   memProduct.Filtered := true;
   memProduct.Active := true;
-  // memProduct.locate('id', Id, []);
-  str.Free;
+  memProduct.Locate('id', ProductId, []);
 end;
 
 end.

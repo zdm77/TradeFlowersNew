@@ -14,9 +14,9 @@ object frameProduct: TframeProduct
     Width = 377
     object lstCategory: TcxDBTreeList
       Left = 2
-      Top = 44
+      Top = 40
       Width = 373
-      Height = 493
+      Height = 497
       Align = alClient
       Bands = <
         item
@@ -38,6 +38,7 @@ object frameProduct: TframeProduct
       OptionsData.Editing = False
       OptionsData.Deleting = False
       OptionsSelection.CellSelect = False
+      OptionsView.ColumnAutoWidth = True
       RootValue = -1
       TabOrder = 1
       OnClick = lstCategoryClick
@@ -45,7 +46,7 @@ object frameProduct: TframeProduct
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
-        Width = 120
+        Width = 342
         Position.ColIndex = 0
         Position.RowIndex = 0
         Position.BandIndex = 0
@@ -53,57 +54,22 @@ object frameProduct: TframeProduct
         Summary.GroupFooterSummaryItems = <>
       end
     end
-    object cxGroupBox2: TcxGroupBox
+    inline frameTopPanel1: TframeTopPanel
       Left = 2
       Top = 2
-      Align = alTop
-      PanelStyle.Active = True
-      PanelStyle.OfficeBackgroundKind = pobkStyleColor
-      TabOrder = 0
-      Height = 42
       Width = 373
-      object btnAdd: TButton
-        Left = 3
-        Top = 4
-        Width = 86
-        Height = 32
-        Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-        ImageIndex = 3
-        Images = frmMain.imgMidle
-        TabOrder = 0
-        OnClick = btnAddClick
-      end
-      object btnEdit: TButton
-        Left = 89
-        Top = 4
-        Width = 37
-        Height = 32
-        ImageAlignment = iaCenter
-        ImageIndex = 4
-        Images = frmMain.imgMidle
-        TabOrder = 1
-        OnClick = btnEditClick
-      end
-      object btnDel: TButton
-        Left = 126
-        Top = 4
-        Width = 37
-        Height = 32
-        ImageAlignment = iaCenter
-        ImageIndex = 5
-        Images = frmMain.imgMidle
-        TabOrder = 2
-        OnClick = btnDelClick
-      end
-      object btnRefresh: TButton
-        Left = 163
-        Top = 4
-        Width = 37
-        Height = 32
-        ImageAlignment = iaCenter
-        ImageIndex = 11
-        Images = frmMain.imgMidle
-        TabOrder = 3
+      Height = 38
+      Align = alTop
+      TabOrder = 0
+      ExplicitLeft = 2
+      ExplicitTop = 2
+      ExplicitWidth = 373
+      inherited cxGroupBox4: TcxGroupBox
+        ExplicitWidth = 373
+        Width = 373
+        inherited btnAdd: TButton
+          OnClick = frameTopPanel1btnAddClick
+        end
       end
     end
   end
@@ -125,9 +91,9 @@ object frameProduct: TframeProduct
     Width = 560
     object gridProduct: TcxGrid
       Left = 2
-      Top = 44
+      Top = 40
       Width = 556
-      Height = 493
+      Height = 497
       Align = alClient
       TabOrder = 1
       LookAndFeel.Kind = lfOffice11
@@ -166,57 +132,25 @@ object frameProduct: TframeProduct
         GridView = viewProduct
       end
     end
-    object cxGroupBox4: TcxGroupBox
+    inline frameTopPanel2: TframeTopPanel
       Left = 2
       Top = 2
-      Align = alTop
-      PanelStyle.Active = True
-      PanelStyle.OfficeBackgroundKind = pobkStyleColor
-      TabOrder = 0
-      Height = 42
       Width = 556
-      object btnProductAdd: TButton
-        Left = 3
-        Top = 5
-        Width = 86
-        Height = 32
-        Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-        ImageIndex = 3
-        Images = frmMain.imgMidle
-        TabOrder = 0
-        OnClick = btnProductAddClick
-      end
-      object btnProductEdt: TButton
-        Left = 89
-        Top = 5
-        Width = 37
-        Height = 32
-        ImageAlignment = iaCenter
-        ImageIndex = 4
-        Images = frmMain.imgMidle
-        TabOrder = 1
-        OnClick = btnProductEdtClick
-      end
-      object btnProductDel: TButton
-        Left = 126
-        Top = 5
-        Width = 37
-        Height = 32
-        ImageAlignment = iaCenter
-        ImageIndex = 5
-        Images = frmMain.imgMidle
-        TabOrder = 2
-      end
-      object btnProductRefresh: TButton
-        Left = 163
-        Top = 5
-        Width = 37
-        Height = 32
-        ImageAlignment = iaCenter
-        ImageIndex = 11
-        Images = frmMain.imgMidle
-        TabOrder = 3
-        OnClick = btnProductRefreshClick
+      Height = 38
+      Align = alTop
+      TabOrder = 0
+      ExplicitLeft = 2
+      ExplicitTop = 2
+      ExplicitWidth = 556
+      inherited cxGroupBox4: TcxGroupBox
+        ExplicitWidth = 556
+        Width = 556
+        inherited btnAdd: TButton
+          OnClick = frameTopPanel2btnAddClick
+        end
+        inherited btnEdit: TButton
+          OnClick = frameTopPanel2btnEditClick
+        end
       end
     end
   end
@@ -240,7 +174,7 @@ object frameProduct: TframeProduct
   end
   object memCategory: TMemTableEh
     Params = <>
-    DataDriver = DMMain.DataDriverCategory
+    DataDriver = DataDriverCategory
     Left = 136
     Top = 360
     object fieldCategoryid: TIntegerField
@@ -279,7 +213,7 @@ object frameProduct: TframeProduct
   end
   object memProduct: TMemTableEh
     Params = <>
-    DataDriver = DMMain.DataDriverProduct
+    DataDriver = DataDriverProduct
     Left = 632
     Top = 312
     object fieldProductlevel: TStringField
@@ -303,6 +237,11 @@ object frameProduct: TframeProduct
     end
     object fieldProductbarcode: TStringField
       FieldName = 'barcode'
+      Size = 100
+    end
+    object fieldProductcategory_name: TStringField
+      FieldName = 'category_name'
+      Required = True
       Size = 100
     end
   end
@@ -512,5 +451,15 @@ object frameProduct: TframeProduct
             nil))
       end
     end
+  end
+  object DataDriverCategory: TDataSetDriverEh
+    ProviderDataSet = DMMain.queryCategory
+    Left = 64
+    Top = 360
+  end
+  object DataDriverProduct: TDataSetDriverEh
+    ProviderDataSet = DMMain.queryProduct
+    Left = 456
+    Top = 256
   end
 end

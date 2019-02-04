@@ -101,19 +101,19 @@ object FrameContragent: TFrameContragent
   end
   object memContrType: TMemTableEh
     Params = <>
-    DataDriver = DMMain.DataDriverContrType
+    DataDriver = DataDriverContrType
     Left = 376
     Top = 264
   end
   object dsContr: TUniDataSource
     DataSet = memContr
-    Left = 552
+    Left = 608
     Top = 264
   end
   object memContr: TMemTableEh
     FetchAllOnOpen = True
     Params = <>
-    DataDriver = DMMain.DataDriverContr
+    DataDriver = DataDriverContr
     Left = 464
     Top = 264
     object fieldContrid: TIntegerField
@@ -130,5 +130,15 @@ object FrameContragent: TFrameContragent
     object fieldContris_delete: TBooleanField
       FieldName = 'is_delete'
     end
+  end
+  object DataDriverContr: TDataSetDriverEh
+    ProviderDataSet = DMMain.queryContragentMem
+    Left = 544
+    Top = 272
+  end
+  object DataDriverContrType: TDataSetDriverEh
+    ProviderDataSet = DMMain.queryContrType
+    Left = 248
+    Top = 264
   end
 end
