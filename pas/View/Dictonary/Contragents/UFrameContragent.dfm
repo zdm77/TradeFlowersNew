@@ -99,17 +99,9 @@ object FrameContragent: TFrameContragent
       GridView = viewContragent
     end
   end
-  object btn1: TButton
-    Left = 328
-    Top = 432
-    Width = 75
-    Height = 25
-    Caption = 'btn1'
-    TabOrder = 3
-    OnClick = btn1Click
-  end
   object memContrType: TMemTableEh
     Params = <>
+    DataDriver = DMMain.DataDriverContrType
     Left = 376
     Top = 264
   end

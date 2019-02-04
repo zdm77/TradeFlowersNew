@@ -29,6 +29,18 @@ type
     mem1: TMemTableEh;
     mem2: TMemTableEh;
     DataDriverContr: TDataSetDriverEh;
+    DataDriverCategory: TDataSetDriverEh;
+    queryProduct: TUniQuery;
+    memProduct: TMemTableEh;
+    dsProduct: TDataSource;
+    DataDriverProduct: TDataSetDriverEh;
+    DataDriverContrType: TDataSetDriverEh;
+    fieldProductlevel: TStringField;
+    fieldProductid: TIntegerField;
+    fieldProductname: TStringField;
+    fieldProductcategory_id: TIntegerField;
+    fieldProductsuffix: TStringField;
+    fieldProductbarcode: TStringField;
   private
     { Private declarations }
   public
@@ -38,6 +50,7 @@ type
     procedure LoadDictonary;
     procedure LoadPost;
     procedure LoadCategory;
+    procedure LoadProduct;
   end;
 
 var
@@ -75,7 +88,7 @@ begin
   AQuery.Open;
   AMem.Active := false;
   AMem.LoadFromDataSet(AQuery, -1, lmCopy, true);
-//  AMem.Active := True;
+ AMem.Active := True;
  // AMem.First;
 end;
 
@@ -107,6 +120,8 @@ begin
   f.Update;
   LoadCategory;
   f.Update;
+   LoadProduct;
+  f.Update;
   f.Close;
   f.Free;
 end;
@@ -119,6 +134,11 @@ end;
 procedure TDMMain.LoadCategory;
 begin
   LoadAnyMem(queryCategory, memCategory);
+end;
+
+procedure TDMMain.LoadProduct;
+begin
+   LoadAnyMem(queryProduct, memProduct);
 end;
 
 end.

@@ -226,9 +226,9 @@ object frameProduct: TframeProduct
     Top = 456
   end
   object dsProduct: TUniDataSource
-    DataSet = queryProduct
-    Left = 600
-    Top = 456
+    DataSet = memProduct
+    Left = 720
+    Top = 312
   end
   object queryProduct: TUniQuery
     Connection = DMMain.conMain
@@ -240,6 +240,7 @@ object frameProduct: TframeProduct
   end
   object memCategory: TMemTableEh
     Params = <>
+    DataDriver = DMMain.DataDriverCategory
     Left = 136
     Top = 360
     object fieldCategoryid: TIntegerField
@@ -264,6 +265,73 @@ object frameProduct: TframeProduct
       FieldName = 'count'
     end
     object fieldCategoryParent_name: TStringField
+      FieldName = 'p_name'
+      Size = 100
+    end
+  end
+  object query1: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'select * from product')
+    DetailFields = 'product_category_id'
+    Left = 520
+    Top = 312
+  end
+  object memProduct: TMemTableEh
+    Params = <>
+    DataDriver = DMMain.DataDriverProduct
+    Left = 632
+    Top = 312
+    object fieldProductlevel: TStringField
+      FieldName = 'level'
+      Required = True
+      Size = 100
+    end
+    object fieldProductid: TIntegerField
+      FieldName = 'id'
+    end
+    object fieldProductname: TStringField
+      FieldName = 'name'
+      Size = 100
+    end
+    object fieldProductcategory_id: TIntegerField
+      FieldName = 'category_id'
+    end
+    object fieldProductsuffix: TStringField
+      FieldName = 'suffix'
+      Size = 100
+    end
+    object fieldProductbarcode: TStringField
+      FieldName = 'barcode'
+      Size = 100
+    end
+  end
+  object memTmp: TMemTableEh
+    Params = <>
+    Left = 272
+    Top = 376
+    object IntegerField1: TIntegerField
+      FieldName = 'id'
+    end
+    object StringField1: TStringField
+      FieldName = 'name'
+      Size = 100
+    end
+    object IntegerField2: TIntegerField
+      FieldName = 'pid'
+    end
+    object StringField2: TStringField
+      FieldName = 'level'
+      Size = 100
+    end
+    object MemoField1: TMemoField
+      FieldName = 'next_level'
+      BlobType = ftMemo
+    end
+    object LargeintField1: TLargeintField
+      FieldName = 'count'
+    end
+    object StringField3: TStringField
       FieldName = 'p_name'
       Size = 100
     end
@@ -444,13 +512,5 @@ object frameProduct: TframeProduct
             nil))
       end
     end
-  end
-  object query1: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'select * from product')
-    DetailFields = 'product_category_id'
-    Left = 520
-    Top = 312
   end
 end

@@ -12,7 +12,8 @@ uses
   cxFilter, cxData, UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu,
   cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator,
   cxContainer, cxSplitter, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges, MemTableDataEh, MemTableEh, cxMemo;
+  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges, MemTableDataEh, MemTableEh, cxMemo,
+  CodeSiteLogging;
 
 type
   TcxGridTableControllerAccess = class(TcxTreeListController);
@@ -51,6 +52,21 @@ type
     fieldCategoryNext_level: TMemoField;
     fieldCategoryCount: TLargeintField;
     fieldCategoryParent_name: TStringField;
+    memProduct: TMemTableEh;
+    memTmp: TMemTableEh;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    IntegerField2: TIntegerField;
+    StringField2: TStringField;
+    MemoField1: TMemoField;
+    LargeintField1: TLargeintField;
+    StringField3: TStringField;
+    fieldProductlevel: TStringField;
+    fieldProductid: TIntegerField;
+    fieldProductname: TStringField;
+    fieldProductcategory_id: TIntegerField;
+    fieldProductsuffix: TStringField;
+    fieldProductbarcode: TStringField;
     procedure btnAddClick(Sender: TObject);
     procedure btnDelClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -207,23 +223,56 @@ procedure TframeProduct.ShowCategory;
 begin
   // category.GetCategories;
   memCategory.Active := false;
-  memCategory.LoadFromDataSet(DMMain.memCategory, -1, lmCopy, true);
+  // memCategory.LoadFromDataSet(DMMain.memCategory, -1, lmCopy, true);
   memCategory.Active := true;
-  memCategory.Locate('id',CategoryId,[]);
+  memCategory.Locate('id', CategoryId, []);
 end;
 
 procedure TframeProduct.ShowProduct;
+var
+  str: TStringBuilder;
+  i: Integer;
 begin
   // viewProduct.FindPanel
   // product.GetProducts(queryProduct, fieldCategoryid.Value);
-  with queryProduct do
-  begin
-    Close;
-    SQL.Text := 'select * from dictonary.product where category_id in (';
-    SQL.Add(' select id from dictonary.category where level like :level)');
-    ParamByName('level').AsString := fieldCategorylevel.Value + '%';
-    open;
-  end;
+  // with queryProduct do
+  // begin
+  // Close;
+  // SQL.Text := 'select * from dictonary.product where category_id in (';
+  // SQL.Add(' select id from dictonary.category where level like :level)');
+  // ParamByName('level').AsString := fieldCategorylevel.Value + '%';
+  // open;
+  // end;
+  // memProduct.Active:=False;
+//  str := TStringBuilder.Create;
+//  str.Append('(');
+//  memTmp.Active := false;
+//  memTmp.LoadFromDataSet(memCategory, -1, lmCopy, true);
+//  memTmp.Filtered := false;
+//  memTmp.Filter := ' level like:' + QuotedStr(fieldCategorylevel.Value) + '%';
+//  memTmp.Active := true;
+//  if memTmp.IsEmpty = false then
+//  begin
+//    for i := 0 to memTmp.RecordCount - 1 do
+//    begin
+//      str.Append(memTmp.FieldByName('id').AsString);
+//      if i <> memTmp.RecordCount - 1 then
+//        str.Append(',');
+//      memTmp.Next;
+//    end;
+//    str.Append(')');
+//  end;
+//  CodeSite.Send('Comment', str.ToString);
+  memProduct.Filtered := false;
+  // memProduct.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
+  memProduct.Filter := ' level  like ' +QuotedStr(fieldCategorylevel.Value + '%');
+
+  // memProduct.Params.ParamByName('id').AsString:=str.ToString;
+   CodeSite.Send('Comment', memProduct.Filter);
+  memProduct.Filtered := true;
+  memProduct.Active := true;
+  // memProduct.locate('id', Id, []);
+  str.Free;
 end;
 
 end.

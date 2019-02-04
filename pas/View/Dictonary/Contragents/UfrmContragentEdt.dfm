@@ -57,17 +57,17 @@ object frmContragentEdt: TfrmContragentEdt
     Height = 30
     Align = alBottom
     TabOrder = 3
-    ExplicitTop = 273
-    ExplicitWidth = 356
+    ExplicitTop = 265
+    ExplicitWidth = 349
     inherited Panel1: TPanel
       Width = 349
       ExplicitTop = 0
-      ExplicitWidth = 356
+      ExplicitWidth = 349
       ExplicitHeight = 30
       inherited Button1: TButton
         Left = 247
         OnClick = frameSave1Button1Click
-        ExplicitLeft = 254
+        ExplicitLeft = 247
         ExplicitTop = 0
         ExplicitHeight = 30
       end
@@ -87,8 +87,6 @@ object frmContragentEdt: TfrmContragentEdt
     Navigator.Buttons.CustomButtons = <>
     TabOrder = 2
     DataController.DataSource = dsCat
-    ExplicitTop = 73
-    ExplicitWidth = 356
     Version = 1
     object gridCatname: TcxDBEditorRow
       Properties.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077

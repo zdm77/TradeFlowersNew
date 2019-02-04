@@ -33,8 +33,6 @@ type
     fieldContrname: TStringField;
     fieldContrcontragent_type_id: TIntegerField;
     fieldContris_delete: TBooleanField;
-    btn1: TButton;
-    procedure btn1Click(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
@@ -54,7 +52,7 @@ type
     procedure ShowTypeTab;
     property Id: Integer read FId write FId;
     property TypeId: Integer read FTypeId write FTypeId;
-    procedure ShowContragents;
+    procedure ShowContragents(doRefresh: Boolean);
   public
     procedure init;
     procedure RefreshMemo;
@@ -66,16 +64,6 @@ implementation
 {$R *.dfm}
 
 uses UfrmContragentEdt, UFuncAndProc, UDmMain;
-
-procedure TFrameContragent.btn1Click(Sender: TObject);
-begin
-  memContr.Insert;
-  fieldContrname.Value := 'тест qqqqqq';
-       fieldContrcontragent_type_id.Value:=1;
-  memContr.Post;
- // memContr.ApplyUpdates(0)  ;
-   memContr.Refresh;
-end;
 
 procedure TFrameContragent.btnAddClick(Sender: TObject);
 begin
@@ -138,7 +126,7 @@ begin
   begin
     Id := f.Id;
     // DMMain.LoadContragent;
-    ShowContragents();
+    ShowContragents(true);
   end;
 end;
 
@@ -148,37 +136,40 @@ begin
   // ShowContragents;
 end;
 
-procedure TFrameContragent.ShowContragents;
+procedure TFrameContragent.ShowContragents(doRefresh: Boolean);
 begin
   if memContrType.IsEmpty = false then
   begin
     TypeId := memContrType.FieldByName('id').AsInteger;
-    if memContr.Active = true then
-    begin
-      // DMMain.DataDriverContr.RefreshReader;
-      // DMMain.queryContragentMem.RefreshRecord;
-      // memContr.RefreshRecord;
-      // if isNew = 1 then
-      // memContr.RefreshRecord
-      // else
-      // memContr.Refresh;
-      // memContr.ApplyUpdates(0);
-      // memContr.RefreshRecord;
-      // memContr.Active := false;
-      // memContr.Active:=True;
-    end
-    else
+    // if memContr.Active = true then
+    // begin
+    // // DMMain.DataDriverContr.RefreshReader;
+    // // DMMain.queryContragentMem.RefreshRecord;
+    // // memContr.RefreshRecord;
+    // // if isNew = 1 then
+    // // memContr.RefreshRecord
+    // // else
+    // // memContr.Refresh;
+    // // memContr.ApplyUpdates(0);
+    // // memContr.RefreshRecord;
+    // // memContr.Active := false;
+    // // memContr.Active:=True;
+    // end
+    // else
+    // begin
+    if doRefresh = true then
     begin
       memContr.Active := false;
       // memContr.LoadFromDataSet(DMMain.memContragent, -1, lmCopy, true);
       memContr.Active := true;
-      memContr.Filtered := false;
-      memContr.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
-      memContr.Filter := memContr.Filter + ' AND contragent_type_id=' + memContrType.FieldByName('id').AsString;
-      memContr.Filtered := true;
-      memContr.locate('id', Id, []);
     end;
+    memContr.Filtered := false;
+    memContr.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
+    memContr.Filter := memContr.Filter + ' AND contragent_type_id=' + memContrType.FieldByName('id').AsString;
+    memContr.Filtered := true;
     memContr.locate('id', Id, []);
+    // end;
+  //  memContr.locate('id', Id, []);
     // установить фокус в поиск
     TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
   end;
@@ -190,7 +181,7 @@ begin
   with memContrType do
   begin
     Active := false;
-    LoadFromDataSet(DMMain.memContrType, -1, lmCopy, true);
+    // LoadFromDataSet(DMMain.memContrType, -1, lmCopy, true);
     Active := true;
     First;
     while not eof do
@@ -201,7 +192,7 @@ begin
     if IsEmpty = false then
     begin
       memContrType.locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
-      ShowContragents();
+      ShowContragents(true);
     end;
   end;
 end;
@@ -211,7 +202,7 @@ begin
   if memContr.Active = true then
   begin
     memContrType.locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
-    ShowContragents();
+    ShowContragents(false);
   end;
 end;
 

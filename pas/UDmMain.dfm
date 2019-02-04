@@ -26,8 +26,8 @@ object DMMain: TDMMain
     Top = 23
   end
   object mon1: TUniSQLMonitor
-    Left = 288
-    Top = 240
+    Left = 160
+    Top = 24
   end
   object queryPostMem: TUniQuery
     Connection = conMain
@@ -168,5 +168,70 @@ object DMMain: TDMMain
     ProviderDataSet = queryContragentMem
     Left = 304
     Top = 96
+  end
+  object DataDriverCategory: TDataSetDriverEh
+    ProviderDataSet = queryCategory
+    Left = 920
+    Top = 40
+  end
+  object queryProduct: TUniQuery
+    Connection = conMain
+    SQL.Strings = (
+      'select c.level, p.* from'
+      'dictonary.category c'
+      'inner join dictonary.product p'
+      'on p.category_id=c.id'
+      '      '
+      '  '
+      'order by p.name')
+    Left = 704
+    Top = 120
+    object fieldProductlevel: TStringField
+      FieldName = 'level'
+      Required = True
+      Size = 100
+    end
+    object fieldProductid: TIntegerField
+      FieldName = 'id'
+      ReadOnly = True
+    end
+    object fieldProductname: TStringField
+      FieldName = 'name'
+      ReadOnly = True
+      Size = 100
+    end
+    object fieldProductcategory_id: TIntegerField
+      FieldName = 'category_id'
+      ReadOnly = True
+    end
+    object fieldProductsuffix: TStringField
+      FieldName = 'suffix'
+      ReadOnly = True
+      Size = 100
+    end
+    object fieldProductbarcode: TStringField
+      FieldName = 'barcode'
+      ReadOnly = True
+      Size = 100
+    end
+  end
+  object memProduct: TMemTableEh
+    Params = <>
+    Left = 776
+    Top = 120
+  end
+  object dsProduct: TDataSource
+    Left = 840
+    Top = 120
+  end
+  object DataDriverProduct: TDataSetDriverEh
+    ProviderDataSet = queryProduct
+    Left = 928
+    Top = 120
+  end
+  object DataDriverContrType: TDataSetDriverEh
+    ProviderDataSet = queryContrType
+    Left = 328
+    Top = 168
   end
 end
