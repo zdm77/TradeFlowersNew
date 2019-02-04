@@ -1,18 +1,12 @@
 ﻿[dsMain]
 Coordinates=80,77,56,102
 
-[fieldMainid]
-Coordinates=339,243,77,36
-
 [dsProps]
 Coordinates=22,217,62,58
 
 [queryCategory]
 Coordinates=10,10,73,105
 Visible=False
-
-[fieldMainname]
-Coordinates=339,298,98,36
 
 [queryProps]
 Coordinates=174,122,71,51
@@ -31,4 +25,10 @@ Coordinates=10,10,73,105
 
 [bindList1]
 Coordinates=292,199,91,36
+
+[fieldId]
+Coordinates=339,243,77,36
+
+[fieldName]
+Coordinates=339,298,98,36
 

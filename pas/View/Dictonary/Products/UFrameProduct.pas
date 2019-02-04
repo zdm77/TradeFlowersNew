@@ -43,17 +43,14 @@ type
     btnProductRefresh: TButton;
     btnRefresh: TButton;
     memCategory: TMemTableEh;
+    query1: TUniQuery;
     fieldCategoryid: TIntegerField;
     fieldCategoryname: TStringField;
     fieldCategorypid: TIntegerField;
-    query1: TUniQuery;
-    query2: TUniQuery;
     fieldCategorylevel: TStringField;
+    fieldCategoryNext_level: TMemoField;
     fieldCategoryCount: TLargeintField;
-    lstCategorycxDBTreeListColumn2: TcxDBTreeListColumn;
-    lstCategorycxDBTreeListColumn3: TcxDBTreeListColumn;
-    lstCategorycxDBTreeListColumn4: TcxDBTreeListColumn;
-    fieldCategorynext_level: TMemoField;
+    fieldCategoryParent_name: TStringField;
     procedure btnAddClick(Sender: TObject);
     procedure btnDelClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -66,12 +63,14 @@ type
   private
     product: TProduct;
     category: TCategory;
+    FCategoryId: Integer;
     // FSelCategoryID: Integer;
-    procedure CategoryInsEdt(isNew: Boolean);
+    procedure CategoryInsEdt(id: Integer);
     procedure InsUpd(isNew: Boolean);
     procedure ShowCategory;
     procedure ShowProduct;
     procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
+    property CategoryId: Integer read FCategoryId write FCategoryId;
     { Private declarations }
   public
     // property SelCategoryID: Integer read FSelCategoryID write SetSelCategoryID;
@@ -87,7 +86,7 @@ uses UCategoryEdit, UDmMain, UProductEdit;
 
 procedure TframeProduct.btnAddClick(Sender: TObject);
 begin
-  CategoryInsEdt(true);
+  CategoryInsEdt(0);
 end;
 
 procedure TframeProduct.btnDelClick(Sender: TObject);
@@ -102,10 +101,9 @@ end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
-  ShowMessage(fieldCategorynext_level.Value);
-  if (category.ParentId <> 0) then
+  if (fieldCategorypid.Value <> 0) then
   begin
-    CategoryInsEdt(false);
+    CategoryInsEdt(fieldCategoryid.Value);
   end
   else
     Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка', MB_OK + MB_ICONERROR)
@@ -127,12 +125,18 @@ begin
   queryProduct.Refresh;
 end;
 
-procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
+procedure TframeProduct.CategoryInsEdt(id: Integer);
+var
+  f: TfrmCategoryEdit;
 begin
-  Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
-  // frmCategoryEdit.Init(category, isNew, queryCategoty);
-     
-  frmCategoryEdit.Show;
+  f := TfrmCategoryEdit.Create(Self, memCategory, id);
+  // Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
+  // frmCategoryEdit.Init(category, id, queryCategoty);
+  f.ShowModal;
+  if f.isSave = true then
+    CategoryId := f.id;
+  ShowCategory;
+  // frmCategoryEdit.Show;
 end;
 
 procedure TframeProduct.Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -156,7 +160,7 @@ begin
   if isNew = true then
   begin
     product.categoryName := category.Name;
-    product.categoryId := category.id;
+    product.CategoryId := category.id;
   end;
   frmProductEdit.Init(product, queryProduct, isNew);
   frmProductEdit.ShowModal;
@@ -184,19 +188,19 @@ end;
 
 procedure TframeProduct.lstCategoryDblClick(Sender: TObject);
 begin
-  CategoryInsEdt(false);
+  btnEditClick(Sender);
 end;
 
 procedure TframeProduct.navCategoryButtonsButtonClick(Sender: TObject; AButtonIndex: Integer; var ADone: Boolean);
 begin
-  case AButtonIndex of
-    // добавить
-    16:
-      CategoryInsEdt(true);
-    // редактировать
-    17:
-      CategoryInsEdt(false);
-  end;
+  // case AButtonIndex of
+  // // добавить
+  // 16:
+  // CategoryInsEdt(true);
+  // // редактировать
+  // 17:
+  // CategoryInsEdt(false);
+  // end;
 end;
 
 procedure TframeProduct.ShowCategory;
@@ -205,6 +209,7 @@ begin
   memCategory.Active := false;
   memCategory.LoadFromDataSet(DMMain.memCategory, -1, lmCopy, true);
   memCategory.Active := true;
+  memCategory.Locate('id',CategoryId,[]);
 end;
 
 procedure TframeProduct.ShowProduct;
@@ -216,7 +221,7 @@ begin
     Close;
     SQL.Text := 'select * from dictonary.product where category_id in (';
     SQL.Add(' select id from dictonary.category where level like :level)');
-    ParamByName('level').AsString :=fieldCategorylevel.Value + '%';
+    ParamByName('level').AsString := fieldCategorylevel.Value + '%';
     open;
   end;
 end;

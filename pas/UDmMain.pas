@@ -26,6 +26,9 @@ type
     queryCategory: TUniQuery;
     memCategory: TMemTableEh;
     dsCategory: TDataSource;
+    mem1: TMemTableEh;
+    mem2: TMemTableEh;
+    DataDriverContr: TDataSetDriverEh;
   private
     { Private declarations }
   public
@@ -72,13 +75,16 @@ begin
   AQuery.Open;
   AMem.Active := false;
   AMem.LoadFromDataSet(AQuery, -1, lmCopy, true);
-  AMem.Active := True;
-  AMem.First;
+//  AMem.Active := True;
+ // AMem.First;
 end;
 
 procedure TDMMain.LoadContragent;
 begin
   LoadAnyMem(queryContragentMem, memContragent);
+ // LoadAnyMem(queryContragentMem, mem1);
+  //LoadAnyMem(queryContragentMem, mem2);
+  //queryContragentMem.Open;
 end;
 
 procedure TDMMain.LoadContrType;

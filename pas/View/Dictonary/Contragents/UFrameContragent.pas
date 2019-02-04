@@ -33,6 +33,7 @@ type
     fieldContrname: TStringField;
     fieldContrcontragent_type_id: TIntegerField;
     fieldContris_delete: TBooleanField;
+    btn1: TButton;
     procedure btn1Click(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -68,7 +69,12 @@ uses UfrmContragentEdt, UFuncAndProc, UDmMain;
 
 procedure TFrameContragent.btn1Click(Sender: TObject);
 begin
-  DMMain.LoadPost;
+  memContr.Insert;
+  fieldContrname.Value := 'тест qqqqqq';
+       fieldContrcontragent_type_id.Value:=1;
+  memContr.Post;
+ // memContr.ApplyUpdates(0)  ;
+   memContr.Refresh;
 end;
 
 procedure TFrameContragent.btnAddClick(Sender: TObject);
@@ -131,28 +137,47 @@ begin
   if f.ModalResult = mrYes then
   begin
     Id := f.Id;
+    // DMMain.LoadContragent;
     ShowContragents();
   end;
 end;
 
 procedure TFrameContragent.RefreshMemo;
 begin
-  DMMain.LoadContragent;
-  ShowContragents;
+  // DMMain.LoadContragent;
+  // ShowContragents;
 end;
 
 procedure TFrameContragent.ShowContragents;
 begin
-  if memContrType.IsEmpty = False then
+  if memContrType.IsEmpty = false then
   begin
     TypeId := memContrType.FieldByName('id').AsInteger;
-    memContr.Active := False;
-    memContr.LoadFromDataSet(DMMain.memContragent, -1, lmCopy, true);
-    memContr.Active := true;
-    memContr.Filtered := False;
-    memContr.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
-    memContr.Filter := memContr.Filter + ' AND contragent_type_id=' + memContrType.FieldByName('id').AsString;
-    memContr.Filtered := true;
+    if memContr.Active = true then
+    begin
+      // DMMain.DataDriverContr.RefreshReader;
+      // DMMain.queryContragentMem.RefreshRecord;
+      // memContr.RefreshRecord;
+      // if isNew = 1 then
+      // memContr.RefreshRecord
+      // else
+      // memContr.Refresh;
+      // memContr.ApplyUpdates(0);
+      // memContr.RefreshRecord;
+      // memContr.Active := false;
+      // memContr.Active:=True;
+    end
+    else
+    begin
+      memContr.Active := false;
+      // memContr.LoadFromDataSet(DMMain.memContragent, -1, lmCopy, true);
+      memContr.Active := true;
+      memContr.Filtered := false;
+      memContr.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
+      memContr.Filter := memContr.Filter + ' AND contragent_type_id=' + memContrType.FieldByName('id').AsString;
+      memContr.Filtered := true;
+      memContr.locate('id', Id, []);
+    end;
     memContr.locate('id', Id, []);
     // установить фокус в поиск
     TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
@@ -164,7 +189,7 @@ begin
   tab1.Tabs.Clear;
   with memContrType do
   begin
-    Active := False;
+    Active := false;
     LoadFromDataSet(DMMain.memContrType, -1, lmCopy, true);
     Active := true;
     First;
@@ -173,7 +198,7 @@ begin
       tab1.Tabs.Add(FieldByName('name').Value);
       next;
     end;
-    if IsEmpty = False then
+    if IsEmpty = false then
     begin
       memContrType.locate('name', tab1.Tabs[tab1.TabIndex].Caption, []);
       ShowContragents();

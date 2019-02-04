@@ -68,6 +68,8 @@ object FrameContragent: TFrameContragent
     TabOrder = 2
     LookAndFeel.Kind = lfOffice11
     LookAndFeel.NativeStyle = True
+    ExplicitLeft = 3
+    ExplicitTop = 62
     object viewContragent: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       FilterBox.Position = fpTop
@@ -97,6 +99,15 @@ object FrameContragent: TFrameContragent
       GridView = viewContragent
     end
   end
+  object btn1: TButton
+    Left = 328
+    Top = 432
+    Width = 75
+    Height = 25
+    Caption = 'btn1'
+    TabOrder = 3
+    OnClick = btn1Click
+  end
   object memContrType: TMemTableEh
     Params = <>
     Left = 376
@@ -108,7 +119,9 @@ object FrameContragent: TFrameContragent
     Top = 264
   end
   object memContr: TMemTableEh
+    FetchAllOnOpen = True
     Params = <>
+    DataDriver = DMMain.DataDriverContr
     Left = 464
     Top = 264
     object fieldContrid: TIntegerField
@@ -124,65 +137,6 @@ object FrameContragent: TFrameContragent
     end
     object fieldContris_delete: TBooleanField
       FieldName = 'is_delete'
-    end
-    object MemTableData: TMemTableDataEh
-      object DataStruct: TMTDataStructEh
-        object id: TMTNumericDataFieldEh
-          FieldName = 'id'
-          NumericDataType = fdtIntegerEh
-          AutoIncrement = True
-          DisplayLabel = 'id'
-          DisplayWidth = 10
-          currency = False
-          Precision = 15
-        end
-        object name: TMTStringDataFieldEh
-          FieldName = 'name'
-          StringDataType = fdtStringEh
-          DisplayLabel = 'name'
-          DisplayWidth = 100
-          Size = 100
-          Transliterate = True
-        end
-        object contragent_type_id: TMTNumericDataFieldEh
-          FieldName = 'contragent_type_id'
-          NumericDataType = fdtIntegerEh
-          AutoIncrement = False
-          DisplayLabel = 'contragent_type_id'
-          DisplayWidth = 10
-          Required = True
-          currency = False
-          Precision = 15
-        end
-        object is_delete: TMTBooleanDataFieldEh
-          FieldName = 'is_delete'
-          DisplayLabel = 'is_delete'
-          DisplayWidth = 5
-        end
-      end
-      object RecordsList: TRecordsListEh
-        Data = (
-          (
-            6
-            '12'
-            1
-            False)
-          (
-            7
-            '222'
-            1
-            False)
-          (
-            2
-            #1050#1083#1080#1077#1085#1090'1'
-            1
-            False)
-          (
-            3
-            #1055#1086#1089#1090#1072#1074#1097#1080#1082'1'
-            2
-            False))
-      end
     end
   end
 end

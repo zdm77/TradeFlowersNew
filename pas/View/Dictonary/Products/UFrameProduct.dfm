@@ -52,33 +52,6 @@ object frameProduct: TframeProduct
         Summary.FooterSummaryItems = <>
         Summary.GroupFooterSummaryItems = <>
       end
-      object lstCategorycxDBTreeListColumn2: TcxDBTreeListColumn
-        DataBinding.FieldName = 'level'
-        Width = 51
-        Position.ColIndex = 1
-        Position.RowIndex = 0
-        Position.BandIndex = 0
-        Summary.FooterSummaryItems = <>
-        Summary.GroupFooterSummaryItems = <>
-      end
-      object lstCategorycxDBTreeListColumn3: TcxDBTreeListColumn
-        DataBinding.FieldName = 'count'
-        Width = 35
-        Position.ColIndex = 2
-        Position.RowIndex = 0
-        Position.BandIndex = 0
-        Summary.FooterSummaryItems = <>
-        Summary.GroupFooterSummaryItems = <>
-      end
-      object lstCategorycxDBTreeListColumn4: TcxDBTreeListColumn
-        DataBinding.FieldName = 'next_level'
-        Width = 100
-        Position.ColIndex = 3
-        Position.RowIndex = 0
-        Position.BandIndex = 0
-        Summary.FooterSummaryItems = <>
-        Summary.GroupFooterSummaryItems = <>
-      end
     end
     object cxGroupBox2: TcxGroupBox
       Left = 2
@@ -90,7 +63,7 @@ object frameProduct: TframeProduct
       Height = 42
       Width = 373
       object btnAdd: TButton
-        Left = -3
+        Left = 3
         Top = 4
         Width = 86
         Height = 32
@@ -101,8 +74,8 @@ object frameProduct: TframeProduct
         OnClick = btnAddClick
       end
       object btnEdit: TButton
-        Left = 83
-        Top = 5
+        Left = 89
+        Top = 4
         Width = 37
         Height = 32
         ImageAlignment = iaCenter
@@ -112,8 +85,8 @@ object frameProduct: TframeProduct
         OnClick = btnEditClick
       end
       object btnDel: TButton
-        Left = 120
-        Top = 5
+        Left = 126
+        Top = 4
         Width = 37
         Height = 32
         ImageAlignment = iaCenter
@@ -123,8 +96,8 @@ object frameProduct: TframeProduct
         OnClick = btnDelClick
       end
       object btnRefresh: TButton
-        Left = 157
-        Top = 5
+        Left = 163
+        Top = 4
         Width = 37
         Height = 32
         ImageAlignment = iaCenter
@@ -283,12 +256,16 @@ object frameProduct: TframeProduct
       FieldName = 'level'
       Size = 100
     end
+    object fieldCategoryNext_level: TMemoField
+      FieldName = 'next_level'
+      BlobType = ftMemo
+    end
     object fieldCategoryCount: TLargeintField
       FieldName = 'count'
     end
-    object fieldCategorynext_level: TMemoField
-      FieldName = 'next_level'
-      BlobType = ftMemo
+    object fieldCategoryParent_name: TStringField
+      FieldName = 'p_name'
+      Size = 100
     end
     object MemTableData: TMemTableDataEh
       object DataStruct: TMTDataStructEh
@@ -326,6 +303,14 @@ object frameProduct: TframeProduct
           Size = 100
           Transliterate = True
         end
+        object p_name: TMTStringDataFieldEh
+          FieldName = 'p_name'
+          StringDataType = fdtStringEh
+          DisplayLabel = 'p_name'
+          DisplayWidth = 100
+          Size = 100
+          Transliterate = True
+        end
         object next_level: TMTBlobDataFieldEh
           FieldName = 'next_level'
           DisplayLabel = 'next_level'
@@ -351,98 +336,112 @@ object frameProduct: TframeProduct
             0
             '1.'
             nil
-            1)
+            '1.5.'
+            5)
           (
             19
             #1043#1072#1079#1086#1085#1085#1099#1077' '#1090#1088#1072#1074#1099' '#1080' '#1089#1080#1076#1077#1088#1072#1090#1099
             1
             '1.4.'
             nil
-            5)
+            '1.4.1.'
+            1)
           (
             18
             #1043#1088#1091#1085#1090#1099
             1
             '1.3.'
             nil
-            5)
+            '1.3.1.'
+            nil)
           (
             2
             #1057#1072#1076#1086#1074#1099#1081' '#1080#1085#1074#1077#1085#1090#1072#1088#1100
             1
             '1.1.'
             nil
-            5)
+            '1.1.3.'
+            3)
           (
             13
             #1059#1076#1086#1073#1088#1077#1085#1080#1103
             1
             '1.2.'
             nil
-            5)
+            '1.2.2.'
+            2)
           (
             21
             #1062#1074#1077#1090#1099
             1
             '1.5.'
             nil
-            5)
+            '1.5.1.'
+            1)
           (
             16
             '123345'
             2
             '1.1.3.'
             nil
-            3)
+            '1.1.3.1.'
+            nil)
           (
             11
             #1043#1088#1072#1073#1083#1080'1'
             2
             '1.1.1.'
             nil
-            3)
+            '1.1.1.1.'
+            nil)
           (
             12
             #1051#1086#1087#1072#1090#1099
             2
             '1.1.2.'
             nil
-            3)
+            '1.1.2.1.'
+            nil)
           (
             15
             '8888'
             13
             '1.2.1.'
             nil
-            2)
+            '1.2.1.1.'
+            nil)
           (
             17
             '888888888'
             13
             '1.2.2.'
             nil
-            2)
+            '1.2.2.1.'
+            nil)
           (
             20
             #1057#1080#1076#1077#1088#1072#1090#1099
             19
             '1.4.1.'
             nil
-            1)
+            '1.4.1.1.'
+            nil)
           (
             22
             #1057#1088#1077#1079#1082#1072
             21
             '1.5.1.'
             nil
-            1)
+            '1.5.1.1.'
+            nil)
           (
             24
             #1063#1072#1081#1085#1086'-'#1075#1080#1073#1088#1080#1076#1085#1072#1103
             23
             nil
             nil
-            1))
+            nil
+            nil))
       end
     end
   end
@@ -453,13 +452,5 @@ object frameProduct: TframeProduct
     DetailFields = 'product_category_id'
     Left = 520
     Top = 312
-  end
-  object query2: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'select * from product')
-    DetailFields = 'product_category_id'
-    Left = 440
-    Top = 320
   end
 end

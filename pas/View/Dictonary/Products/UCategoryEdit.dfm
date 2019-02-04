@@ -3,8 +3,8 @@ object frmCategoryEdit: TfrmCategoryEdit
   Top = 0
   BorderStyle = bsDialog
   Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1103
-  ClientHeight = 538
-  ClientWidth = 552
+  ClientHeight = 554
+  ClientWidth = 794
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,6 +13,7 @@ object frmCategoryEdit: TfrmCategoryEdit
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object cxGroupBox1: TcxGroupBox
@@ -21,8 +22,9 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alTop
     PanelStyle.Active = True
     TabOrder = 0
+    ExplicitWidth = 552
     Height = 65
-    Width = 552
+    Width = 794
     object lbl2: TLabel
       Left = 3
       Top = 9
@@ -66,17 +68,19 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    ExplicitTop = 89
-    Height = 473
-    Width = 552
+    ExplicitWidth = 552
+    ExplicitHeight = 473
+    Height = 489
+    Width = 794
     object cxGroupBox3: TcxGroupBox
       Left = 2
-      Top = 430
+      Top = 446
       Align = alBottom
-      TabOrder = 10
-      ExplicitTop = 358
+      TabOrder = 8
+      ExplicitTop = 430
+      ExplicitWidth = 548
       Height = 41
-      Width = 548
+      Width = 790
       object btnSave: TButton
         Left = 3
         Top = 7
@@ -207,22 +211,6 @@ object frmCategoryEdit: TfrmCategoryEdit
       TabOrder = 7
       OnClick = btnDawnClick
     end
-    object edt1: TEdit
-      Left = 48
-      Top = 376
-      Width = 121
-      Height = 21
-      TabOrder = 8
-      Text = 'edt1'
-    end
-    object edt2: TEdit
-      Left = 192
-      Top = 376
-      Width = 121
-      Height = 21
-      TabOrder = 9
-      Text = 'edt1'
-    end
   end
   object dsMain: TUniDataSource
     DataSet = queryCategory
@@ -230,30 +218,6 @@ object frmCategoryEdit: TfrmCategoryEdit
     Top = 68
   end
   object queryCategory: TUniQuery
-    SQLInsert.Strings = (
-      'INSERT INTO dictonary.category'
-      '  ( name, pid)'
-      'VALUES'
-      '  ( :name, :pid)')
-    SQLDelete.Strings = (
-      'DELETE FROM dictonary.category'
-      'WHERE'
-      '  id = :Old_id')
-    SQLUpdate.Strings = (
-      'UPDATE dictonary.category'
-      'SET'
-      '  id = :id, name = :name, pid = :pid'
-      'WHERE'
-      '  id = :Old_id')
-    SQLLock.Strings = (
-      'SELECT * FROM dictonary.category'
-      'WHERE'
-      '  id = :Old_id'
-      'FOR UPDATE NOWAIT')
-    SQLRefresh.Strings = (
-      'SELECT id, name, pid FROM dictonary.category'
-      'WHERE'
-      '  id = :id')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
       'SELECT * FROM dictonary.category'
@@ -261,19 +225,30 @@ object frmCategoryEdit: TfrmCategoryEdit
       ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from dictonary.category')
+      'select * from dictonary.category'
+      'where id=:id')
     Left = 109
     Top = 314
-    object fieldMainid: TIntegerField
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'id'
+        Value = nil
+      end>
+    object fieldId: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'id'
     end
-    object fieldMainname: TStringField
+    object fieldName: TStringField
       FieldName = 'name'
       Size = 255
     end
-    object queryCategorypid: TIntegerField
+    object fieldParentId: TIntegerField
       FieldName = 'pid'
+    end
+    object fieldLevel: TStringField
+      FieldName = 'level'
+      Size = 100
     end
   end
   object dsProps: TUniDataSource
@@ -345,5 +320,13 @@ object frmCategoryEdit: TfrmCategoryEdit
     OutputConverters = <>
     Left = 572
     Top = 17
+  end
+  object query1: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'select * from product')
+    DetailFields = 'product_category_id'
+    Left = 520
+    Top = 312
   end
 end

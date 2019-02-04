@@ -15,6 +15,7 @@ object DMMain: TDMMain
     Database = 'wwwunifloragroup_trade'
     Username = 'uniflora_trade'
     Server = 'pgsql.uniflora.mass.hc.ru'
+    Connected = True
     LoginPrompt = False
     Left = 40
     Top = 24
@@ -110,20 +111,36 @@ object DMMain: TDMMain
   object queryCategory: TUniQuery
     Connection = conMain
     SQL.Strings = (
+      ''
       'select c.*,'
+      '      tt.p_name,'
       
-        #9'"substring"(c.level,1,length(c.level)-2)||cc.count+1||'#39'.'#39' as ne' +
-        'xt_level,'
-      '      cc.count'
+        '       --"substring"(c.level,1,length(c.level)-2)||cc.count+1||'#39 +
+        '.'#39' as next_level,'
+      '       case'
+      '         when count is not null then c.level || count +1|| '#39'.'#39
+      '         else c.level||'#39'1.'#39' '
+      '         end as next_level,'
+      '       cc.count'
       'from dictonary.category c'
-      'inner join'
+      '     left join '
       '     ('
-      '       select pid, count(id) as count'
+      '       select pid,'
+      '              count(id) as count'
       '       from dictonary.category'
       '       group by pid'
-      '     ) as cc'
-      'on   cc.pid=c.pid   '
-      'order by pid, name')
+      '     ) as cc on cc.pid = c.id'
+      '     left join '
+      '     ('
+      '       select id,'
+      '              name as p_name'
+      '       from dictonary.category'
+      '     ) tt on tt.id = c.pid  '
+      '      '
+      ''
+      '      '
+      '  '
+      'order by c.pid, c.name')
     Left = 696
     Top = 40
   end
@@ -135,5 +152,21 @@ object DMMain: TDMMain
   object dsCategory: TDataSource
     Left = 832
     Top = 40
+  end
+  object mem1: TMemTableEh
+    Params = <>
+    Left = 48
+    Top = 104
+  end
+  object mem2: TMemTableEh
+    Params = <>
+    Left = 112
+    Top = 104
+  end
+  object DataDriverContr: TDataSetDriverEh
+    KeyFields = 'id'
+    ProviderDataSet = queryContragentMem
+    Left = 304
+    Top = 96
   end
 end
