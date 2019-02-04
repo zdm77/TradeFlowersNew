@@ -48,6 +48,8 @@ type
     levelProp: TcxGridLevel;
     btnUp: TButton;
     btnDawn: TButton;
+    edt1: TEdit;
+    edt2: TEdit;
     procedure btnSaveClick(Sender: TObject);
     procedure btnDawnClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);

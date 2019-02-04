@@ -3,7 +3,7 @@ object frmCategoryEdit: TfrmCategoryEdit
   Top = 0
   BorderStyle = bsDialog
   Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1103
-  ClientHeight = 466
+  ClientHeight = 538
   ClientWidth = 552
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -66,13 +66,15 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    Height = 401
+    ExplicitTop = 89
+    Height = 473
     Width = 552
     object cxGroupBox3: TcxGroupBox
       Left = 2
-      Top = 358
+      Top = 430
       Align = alBottom
-      TabOrder = 0
+      TabOrder = 10
+      ExplicitTop = 358
       Height = 41
       Width = 548
       object btnSave: TButton
@@ -95,7 +97,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
       ImageIndex = 3
       Images = frmMain.imgMidle
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnPropAddClick
     end
     object btnEdit: TButton
@@ -106,7 +108,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       ImageAlignment = iaCenter
       ImageIndex = 4
       Images = frmMain.imgMidle
-      TabOrder = 2
+      TabOrder = 1
       OnClick = btnEditClick
     end
     object btnPropEdit: TButton
@@ -117,7 +119,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       ImageAlignment = iaCenter
       ImageIndex = 5
       Images = frmMain.imgMidle
-      TabOrder = 3
+      TabOrder = 2
       OnClick = btnPropEditClick
     end
     object btnFromParent: TButton
@@ -128,7 +130,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       Caption = #1048#1079' '#1088#1086#1076#1080#1090#1077#1083#1103
       ImageIndex = 20
       Images = frmMain.imgMidle
-      TabOrder = 4
+      TabOrder = 3
       OnClick = btnFromParentClick
     end
     object btnFormat: TButton
@@ -137,14 +139,14 @@ object frmCategoryEdit: TfrmCategoryEdit
       Width = 146
       Height = 32
       Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1085#1072#1079#1074#1072#1085#1080#1103
-      TabOrder = 5
+      TabOrder = 4
     end
     object gridProp: TcxGrid
       Left = 3
       Top = 62
       Width = 497
       Height = 297
-      TabOrder = 6
+      TabOrder = 5
       LookAndFeel.Kind = lfOffice11
       LookAndFeel.NativeStyle = True
       object viewProp: TcxGridDBTableView
@@ -192,7 +194,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       Height = 32
       ImageIndex = 19
       Images = frmMain.imgMidle
-      TabOrder = 7
+      TabOrder = 6
       OnClick = btnUpClick
     end
     object btnDawn: TButton
@@ -202,8 +204,24 @@ object frmCategoryEdit: TfrmCategoryEdit
       Height = 32
       ImageIndex = 20
       Images = frmMain.imgMidle
-      TabOrder = 8
+      TabOrder = 7
       OnClick = btnDawnClick
+    end
+    object edt1: TEdit
+      Left = 48
+      Top = 376
+      Width = 121
+      Height = 21
+      TabOrder = 8
+      Text = 'edt1'
+    end
+    object edt2: TEdit
+      Left = 192
+      Top = 376
+      Width = 121
+      Height = 21
+      TabOrder = 9
+      Text = 'edt1'
     end
   end
   object dsMain: TUniDataSource

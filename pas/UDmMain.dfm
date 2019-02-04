@@ -15,7 +15,6 @@ object DMMain: TDMMain
     Database = 'wwwunifloragroup_trade'
     Username = 'uniflora_trade'
     Server = 'pgsql.uniflora.mass.hc.ru'
-    Connected = True
     LoginPrompt = False
     Left = 40
     Top = 24
@@ -107,5 +106,34 @@ object DMMain: TDMMain
   object dsContrFields: TDataSource
     Left = 552
     Top = 240
+  end
+  object queryCategory: TUniQuery
+    Connection = conMain
+    SQL.Strings = (
+      'select c.*,'
+      
+        #9'"substring"(c.level,1,length(c.level)-2)||cc.count+1||'#39'.'#39' as ne' +
+        'xt_level,'
+      '      cc.count'
+      'from dictonary.category c'
+      'inner join'
+      '     ('
+      '       select pid, count(id) as count'
+      '       from dictonary.category'
+      '       group by pid'
+      '     ) as cc'
+      'on   cc.pid=c.pid   '
+      'order by pid, name')
+    Left = 696
+    Top = 40
+  end
+  object memCategory: TMemTableEh
+    Params = <>
+    Left = 768
+    Top = 40
+  end
+  object dsCategory: TDataSource
+    Left = 832
+    Top = 40
   end
 end

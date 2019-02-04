@@ -39,14 +39,41 @@ object frameProduct: TframeProduct
       OptionsData.Deleting = False
       OptionsSelection.CellSelect = False
       RootValue = -1
-      TabOrder = 0
+      TabOrder = 1
       OnClick = lstCategoryClick
       OnDblClick = lstCategoryDblClick
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
-        Width = 255
+        Width = 120
         Position.ColIndex = 0
+        Position.RowIndex = 0
+        Position.BandIndex = 0
+        Summary.FooterSummaryItems = <>
+        Summary.GroupFooterSummaryItems = <>
+      end
+      object lstCategorycxDBTreeListColumn2: TcxDBTreeListColumn
+        DataBinding.FieldName = 'level'
+        Width = 51
+        Position.ColIndex = 1
+        Position.RowIndex = 0
+        Position.BandIndex = 0
+        Summary.FooterSummaryItems = <>
+        Summary.GroupFooterSummaryItems = <>
+      end
+      object lstCategorycxDBTreeListColumn3: TcxDBTreeListColumn
+        DataBinding.FieldName = 'count'
+        Width = 35
+        Position.ColIndex = 2
+        Position.RowIndex = 0
+        Position.BandIndex = 0
+        Summary.FooterSummaryItems = <>
+        Summary.GroupFooterSummaryItems = <>
+      end
+      object lstCategorycxDBTreeListColumn4: TcxDBTreeListColumn
+        DataBinding.FieldName = 'next_level'
+        Width = 100
+        Position.ColIndex = 3
         Position.RowIndex = 0
         Position.BandIndex = 0
         Summary.FooterSummaryItems = <>
@@ -59,12 +86,12 @@ object frameProduct: TframeProduct
       Align = alTop
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
-      TabOrder = 1
+      TabOrder = 0
       Height = 42
       Width = 373
       object btnAdd: TButton
-        Left = 3
-        Top = 5
+        Left = -3
+        Top = 4
         Width = 86
         Height = 32
         Caption = #1044#1086#1073#1072#1074#1080#1090#1100
@@ -74,7 +101,7 @@ object frameProduct: TframeProduct
         OnClick = btnAddClick
       end
       object btnEdit: TButton
-        Left = 89
+        Left = 83
         Top = 5
         Width = 37
         Height = 32
@@ -85,7 +112,7 @@ object frameProduct: TframeProduct
         OnClick = btnEditClick
       end
       object btnDel: TButton
-        Left = 126
+        Left = 120
         Top = 5
         Width = 37
         Height = 32
@@ -96,7 +123,7 @@ object frameProduct: TframeProduct
         OnClick = btnDelClick
       end
       object btnRefresh: TButton
-        Left = 163
+        Left = 157
         Top = 5
         Width = 37
         Height = 32
@@ -129,7 +156,7 @@ object frameProduct: TframeProduct
       Width = 556
       Height = 493
       Align = alClient
-      TabOrder = 0
+      TabOrder = 1
       LookAndFeel.Kind = lfOffice11
       LookAndFeel.NativeStyle = True
       object viewProduct: TcxGridDBTableView
@@ -172,7 +199,7 @@ object frameProduct: TframeProduct
       Align = alTop
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
-      TabOrder = 1
+      TabOrder = 0
       Height = 42
       Width = 556
       object btnProductAdd: TButton
@@ -221,15 +248,8 @@ object frameProduct: TframeProduct
     end
   end
   object dsCategory: TUniDataSource
-    DataSet = queryCategoty
+    DataSet = memCategory
     Left = 184
-    Top = 456
-  end
-  object queryCategoty: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'select * from category')
-    Left = 264
     Top = 456
   end
   object dsProduct: TUniDataSource
@@ -244,5 +264,202 @@ object frameProduct: TframeProduct
     DetailFields = 'product_category_id'
     Left = 672
     Top = 456
+  end
+  object memCategory: TMemTableEh
+    Params = <>
+    Left = 136
+    Top = 360
+    object fieldCategoryid: TIntegerField
+      FieldName = 'id'
+    end
+    object fieldCategoryname: TStringField
+      FieldName = 'name'
+      Size = 100
+    end
+    object fieldCategorypid: TIntegerField
+      FieldName = 'pid'
+    end
+    object fieldCategorylevel: TStringField
+      FieldName = 'level'
+      Size = 100
+    end
+    object fieldCategoryCount: TLargeintField
+      FieldName = 'count'
+    end
+    object fieldCategorynext_level: TMemoField
+      FieldName = 'next_level'
+      BlobType = ftMemo
+    end
+    object MemTableData: TMemTableDataEh
+      object DataStruct: TMTDataStructEh
+        object id: TMTNumericDataFieldEh
+          FieldName = 'id'
+          NumericDataType = fdtIntegerEh
+          AutoIncrement = True
+          DisplayLabel = 'id'
+          DisplayWidth = 10
+          currency = False
+          Precision = 15
+        end
+        object name: TMTStringDataFieldEh
+          FieldName = 'name'
+          StringDataType = fdtStringEh
+          DisplayLabel = 'name'
+          DisplayWidth = 100
+          Size = 100
+          Transliterate = True
+        end
+        object pid: TMTNumericDataFieldEh
+          FieldName = 'pid'
+          NumericDataType = fdtIntegerEh
+          AutoIncrement = False
+          DisplayLabel = 'pid'
+          DisplayWidth = 10
+          currency = False
+          Precision = 15
+        end
+        object level: TMTStringDataFieldEh
+          FieldName = 'level'
+          StringDataType = fdtStringEh
+          DisplayLabel = 'level'
+          DisplayWidth = 100
+          Size = 100
+          Transliterate = True
+        end
+        object next_level: TMTBlobDataFieldEh
+          FieldName = 'next_level'
+          DisplayLabel = 'next_level'
+          DisplayWidth = 10
+          BlobType = ftMemo
+          Transliterate = True
+        end
+        object count: TMTNumericDataFieldEh
+          FieldName = 'count'
+          NumericDataType = fdtLargeintEh
+          AutoIncrement = False
+          DisplayLabel = 'count'
+          DisplayWidth = 15
+          currency = False
+          Precision = 15
+        end
+      end
+      object RecordsList: TRecordsListEh
+        Data = (
+          (
+            1
+            #1042#1089#1077
+            0
+            '1.'
+            nil
+            1)
+          (
+            19
+            #1043#1072#1079#1086#1085#1085#1099#1077' '#1090#1088#1072#1074#1099' '#1080' '#1089#1080#1076#1077#1088#1072#1090#1099
+            1
+            '1.4.'
+            nil
+            5)
+          (
+            18
+            #1043#1088#1091#1085#1090#1099
+            1
+            '1.3.'
+            nil
+            5)
+          (
+            2
+            #1057#1072#1076#1086#1074#1099#1081' '#1080#1085#1074#1077#1085#1090#1072#1088#1100
+            1
+            '1.1.'
+            nil
+            5)
+          (
+            13
+            #1059#1076#1086#1073#1088#1077#1085#1080#1103
+            1
+            '1.2.'
+            nil
+            5)
+          (
+            21
+            #1062#1074#1077#1090#1099
+            1
+            '1.5.'
+            nil
+            5)
+          (
+            16
+            '123345'
+            2
+            '1.1.3.'
+            nil
+            3)
+          (
+            11
+            #1043#1088#1072#1073#1083#1080'1'
+            2
+            '1.1.1.'
+            nil
+            3)
+          (
+            12
+            #1051#1086#1087#1072#1090#1099
+            2
+            '1.1.2.'
+            nil
+            3)
+          (
+            15
+            '8888'
+            13
+            '1.2.1.'
+            nil
+            2)
+          (
+            17
+            '888888888'
+            13
+            '1.2.2.'
+            nil
+            2)
+          (
+            20
+            #1057#1080#1076#1077#1088#1072#1090#1099
+            19
+            '1.4.1.'
+            nil
+            1)
+          (
+            22
+            #1057#1088#1077#1079#1082#1072
+            21
+            '1.5.1.'
+            nil
+            1)
+          (
+            24
+            #1063#1072#1081#1085#1086'-'#1075#1080#1073#1088#1080#1076#1085#1072#1103
+            23
+            nil
+            nil
+            1))
+      end
+    end
+  end
+  object query1: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'select * from product')
+    DetailFields = 'product_category_id'
+    Left = 520
+    Top = 312
+  end
+  object query2: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'select * from product')
+    DetailFields = 'product_category_id'
+    Left = 440
+    Top = 320
   end
 end

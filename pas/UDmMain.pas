@@ -23,6 +23,9 @@ type
     queryContrFields: TUniQuery;
     memContrFields: TMemTableEh;
     dsContrFields: TDataSource;
+    queryCategory: TUniQuery;
+    memCategory: TMemTableEh;
+    dsCategory: TDataSource;
   private
     { Private declarations }
   public
@@ -31,6 +34,7 @@ type
     procedure LoadContrType;
     procedure LoadDictonary;
     procedure LoadPost;
+    procedure LoadCategory;
   end;
 
 var
@@ -95,6 +99,8 @@ begin
   f.Update;
   LoadContrType;
   f.Update;
+  LoadCategory;
+  f.Update;
   f.Close;
   f.Free;
 end;
@@ -102,6 +108,11 @@ end;
 procedure TDMMain.LoadPost;
 begin
   LoadAnyMem(queryPostMem, memPost);
+end;
+
+procedure TDMMain.LoadCategory;
+begin
+  LoadAnyMem(queryCategory, memCategory);
 end;
 
 end.

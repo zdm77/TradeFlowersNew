@@ -47,7 +47,6 @@ type
   private
     FId: Integer;
     FTypeId: Integer;
-
     // FindPanel: TcxFindPanelMRUEdit;
     procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure InsUpd(AId: Integer);
@@ -79,7 +78,7 @@ end;
 
 procedure TFrameContragent.btnEditClick(Sender: TObject);
 begin
-  //InsUpd(fieldContrid.Value);
+  // InsUpd(fieldContrid.Value);
 end;
 
 procedure TFrameContragent.Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -132,9 +131,7 @@ begin
   if f.ModalResult = mrYes then
   begin
     Id := f.Id;
-
     ShowContragents();
-
   end;
 end;
 
@@ -146,7 +143,6 @@ end;
 
 procedure TFrameContragent.ShowContragents;
 begin
-
   if memContrType.IsEmpty = False then
   begin
     TypeId := memContrType.FieldByName('id').AsInteger;
@@ -161,7 +157,6 @@ begin
     // установить фокус в поиск
     TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
   end;
-
 end;
 
 procedure TFrameContragent.ShowTypeTab;

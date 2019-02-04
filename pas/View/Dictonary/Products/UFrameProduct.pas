@@ -12,17 +12,14 @@ uses
   cxFilter, cxData, UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu,
   cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator,
   cxContainer, cxSplitter, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges;
+  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges, MemTableDataEh, MemTableEh, cxMemo;
 
 type
-   TcxGridTableControllerAccess = class(TcxTreeListController);
-
+  TcxGridTableControllerAccess = class(TcxTreeListController);
   TcxGridFindPanelAccess = class(TcxGridFindPanel);
-
 
   TframeProduct = class(TFrame)
     dsCategory: TUniDataSource;
-    queryCategoty: TUniQuery;
     dsProduct: TUniDataSource;
     queryProduct: TUniQuery;
     cxGroupBox1: TcxGroupBox;
@@ -45,6 +42,18 @@ type
     columnBarCode: TcxGridDBColumn;
     btnProductRefresh: TButton;
     btnRefresh: TButton;
+    memCategory: TMemTableEh;
+    fieldCategoryid: TIntegerField;
+    fieldCategoryname: TStringField;
+    fieldCategorypid: TIntegerField;
+    query1: TUniQuery;
+    query2: TUniQuery;
+    fieldCategorylevel: TStringField;
+    fieldCategoryCount: TLargeintField;
+    lstCategorycxDBTreeListColumn2: TcxDBTreeListColumn;
+    lstCategorycxDBTreeListColumn3: TcxDBTreeListColumn;
+    lstCategorycxDBTreeListColumn4: TcxDBTreeListColumn;
+    fieldCategorynext_level: TMemoField;
     procedure btnAddClick(Sender: TObject);
     procedure btnDelClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -62,7 +71,7 @@ type
     procedure InsUpd(isNew: Boolean);
     procedure ShowCategory;
     procedure ShowProduct;
-      procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
     { Private declarations }
   public
     // property SelCategoryID: Integer read FSelCategoryID write SetSelCategoryID;
@@ -93,6 +102,7 @@ end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
+  ShowMessage(fieldCategorynext_level.Value);
   if (category.ParentId <> 0) then
   begin
     CategoryInsEdt(false);
@@ -120,22 +130,21 @@ end;
 procedure TframeProduct.CategoryInsEdt(isNew: Boolean);
 begin
   Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
-  frmCategoryEdit.Init(category, isNew, queryCategoty);
+  // frmCategoryEdit.Init(category, isNew, queryCategoty);
+     
   frmCategoryEdit.Show;
 end;
 
-procedure TframeProduct.Expand(Sender: TObject; var Key: Word; Shift:
-    TShiftState);
+procedure TframeProduct.Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-
 end;
 
 procedure TframeProduct.Init;
 begin
-//TcxGridFindPanelAccess(TFindControl(lst2.Controller)
-//    .FindPanel).Edit.OnKeyUp := Self.Expand;
-// TcxGridFindPanelAccess(TcxGridTableControllerAccess(lst1. Controller).FindPanel).Edit.SetFocus;
-  category := TCategory.Create(queryCategoty);
+  // TcxGridFindPanelAccess(TFindControl(lst2.Controller)
+  // .FindPanel).Edit.OnKeyUp := Self.Expand;
+  // TcxGridFindPanelAccess(TcxGridTableControllerAccess(lst1. Controller).FindPanel).Edit.SetFocus;
+  // category := TCategory.Create(queryCategoty);
   product := TProduct.Create;
   ShowCategory;
   ShowProduct;
@@ -147,7 +156,7 @@ begin
   if isNew = true then
   begin
     product.categoryName := category.Name;
-    product.categoryId := category.Id;
+    product.categoryId := category.id;
   end;
   frmProductEdit.Init(product, queryProduct, isNew);
   frmProductEdit.ShowModal;
@@ -155,21 +164,22 @@ begin
   if frmProductEdit.IDSave = true then
   begin
     queryProduct.Refresh;
-    queryCategoty.Locate('id', product.categoryId, []);
+    // queryCategoty.Locate('id', product.categoryId, []);
     lstCategoryClick(nil);
-    queryProduct.Locate('id', product.Id, []);
+    queryProduct.Locate('id', product.id, []);
     gridProduct.SetFocus;
   end;
 end;
 
 procedure TframeProduct.lstCategoryClick(Sender: TObject);
 begin
-  if category.Id <> queryCategoty.FieldByName('id').AsInteger then
-  begin
-    // FSelCategoryID := queryCategoty.FieldByName('id').AsInteger;
-    category.SetCategory;
-    ShowProduct;
-  end;
+  // if category.Id <> queryCategoty.FieldByName('id').AsInteger then
+  // begin
+  // // FSelCategoryID := queryCategoty.FieldByName('id').AsInteger;
+  // category.SetCategory;
+  // ShowProduct;
+  // end;
+  ShowProduct;
 end;
 
 procedure TframeProduct.lstCategoryDblClick(Sender: TObject);
@@ -191,13 +201,24 @@ end;
 
 procedure TframeProduct.ShowCategory;
 begin
-  category.GetCategories;
+  // category.GetCategories;
+  memCategory.Active := false;
+  memCategory.LoadFromDataSet(DMMain.memCategory, -1, lmCopy, true);
+  memCategory.Active := true;
 end;
 
 procedure TframeProduct.ShowProduct;
 begin
   // viewProduct.FindPanel
-  product.GetProducts(queryProduct, category.Id);
+  // product.GetProducts(queryProduct, fieldCategoryid.Value);
+  with queryProduct do
+  begin
+    Close;
+    SQL.Text := 'select * from dictonary.product where category_id in (';
+    SQL.Add(' select id from dictonary.category where level like :level)');
+    ParamByName('level').AsString :=fieldCategorylevel.Value + '%';
+    open;
+  end;
 end;
 
 end.
