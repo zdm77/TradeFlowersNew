@@ -28,6 +28,7 @@ object frameTopPanel: TframeTopPanel
       Top = 2
       Width = 37
       Height = 34
+      Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
       Align = alLeft
       ImageAlignment = iaCenter
       ImageIndex = 4
@@ -39,47 +40,56 @@ object frameTopPanel: TframeTopPanel
       Top = 2
       Width = 37
       Height = 34
+      Hint = #1059#1076#1072#1083#1080#1090#1100
       Align = alLeft
       ImageAlignment = iaCenter
       ImageIndex = 5
       Images = frmMain.imgMidle
-      TabOrder = 2
+      TabOrder = 3
+      ExplicitLeft = 131
+      ExplicitTop = 3
     end
     object btnRefresh: TButton
       Left = 162
       Top = 2
       Width = 37
       Height = 34
+      Hint = #1054#1073#1085#1086#1074#1080#1090#1100
       Align = alLeft
       ImageAlignment = iaCenter
       ImageIndex = 11
       Images = frmMain.imgMidle
-      TabOrder = 3
+      TabOrder = 4
     end
     object chkShowDel: TCheckBox
-      Left = 199
+      Left = 310
       Top = 2
       Width = 83
       Height = 34
       Align = alLeft
       Caption = #1059#1076#1072#1083#1077#1085#1085#1099#1077
-      TabOrder = 4
+      TabOrder = 5
       OnClick = chkShowDelClick
+      ExplicitLeft = 452
+      ExplicitTop = 3
     end
     object btnRestore: TButton
-      Left = 282
+      Left = 273
       Top = 2
-      Width = 102
+      Width = 37
       Height = 34
+      Hint = #1042#1086#1089#1089#1090#1072#1085#1086#1074#1080#1090#1100
       Align = alLeft
-      Caption = #1042#1086#1089#1089#1090#1072#1085#1086#1074#1080#1090#1100
+      Enabled = False
+      ImageAlignment = iaCenter
       ImageIndex = 6
       Images = frmMain.imgMidle
-      TabOrder = 5
-      Visible = False
+      TabOrder = 2
+      ExplicitLeft = 285
+      ExplicitTop = 1
     end
     object btnSelect: TButton
-      Left = 384
+      Left = 393
       Top = 2
       Width = 0
       Height = 34
@@ -90,6 +100,19 @@ object frameTopPanel: TframeTopPanel
       ModalResult = 6
       TabOrder = 6
       OnClick = btnSelectClick
+      ExplicitLeft = 384
+    end
+    object btnImport: TButton
+      Left = 199
+      Top = 2
+      Width = 74
+      Height = 34
+      Align = alLeft
+      Caption = #1048#1084#1087#1086#1088#1090
+      ImageIndex = 23
+      Images = frmMain.imgMidle
+      TabOrder = 7
+      Visible = False
     end
   end
 end

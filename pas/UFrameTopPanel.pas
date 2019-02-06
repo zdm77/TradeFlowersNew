@@ -17,6 +17,7 @@ type
     chkShowDel: TCheckBox;
     btnRestore: TButton;
     btnSelect: TButton;
+    btnImport: TButton;
     procedure btnSelectClick(Sender: TObject);
     procedure chkShowDelClick(Sender: TObject);
   private
@@ -97,7 +98,7 @@ procedure TframeTopPanel.SetisShowDel(const Value: Boolean);
 begin
   FisShowDel := Value;
   chkShowDel.Checked := isShowDel;
-  btnRestore.Visible := isShowDel;
+  btnRestore.Enabled := isShowDel;
 end;
 
 procedure TframeTopPanel.RestoreRecord(AQuery: TuniQuery; ATableName: string);

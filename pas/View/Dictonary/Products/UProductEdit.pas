@@ -12,7 +12,7 @@ uses
   cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Vcl.ExtCtrls,
   Vcl.DBCtrls, cxCustomData, cxFilter, cxData,
   cxDataControllerConditionalFormattingRulesManagerDialog, UProductModel,
-  cxMaskEdit, cxButtonEdit, UProps, cxGroupBox, dxDateRanges, UFrameSave;
+  cxMaskEdit, cxButtonEdit, UProps, cxGroupBox, dxDateRanges, UFrameSave, CodeSiteLogging;
 
 type
   TfrmProductEdit = class(TForm)
@@ -77,6 +77,7 @@ constructor TfrmProductEdit.Create(AOwner: TComponent; AId, AParentId: Integer; 
   ABarcode: string = '');
 begin
   inherited Create(AOwner);
+  CodeSite.Send( csmLevel1, 'data', AId );
   Id := AId;
   queryProduct.ParamByName('id').AsInteger := Id;
   queryProduct.Open;

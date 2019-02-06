@@ -33,16 +33,9 @@ type
     cxGrid1: TcxGrid;
     cxGrid1DBTableView1name: TcxGridDBColumn;
     cxGrid1DBTableView1barcode: TcxGridDBColumn;
-    query1: TUniQuery;
+    queryProduct: TUniQuery;
     memProduct: TMemTableEh;
     DataDriverProduct: TDataSetDriverEh;
-    fieldProductlevel: TStringField;
-    fieldProductid: TIntegerField;
-    fieldProductname: TStringField;
-    fieldProductcategory_id: TIntegerField;
-    fieldProductsuffix: TStringField;
-    fieldProductbarcode: TStringField;
-    fieldProductcategory_name: TStringField;
     lbl2: TLabel;
     edtCategory: TcxButtonEdit;
     Label1: TLabel;
@@ -52,6 +45,11 @@ type
     actSelect: TAction;
     cxGroupBox2: TcxGroupBox;
     btnImport: TButton;
+    fieldProductid: TIntegerField;
+    fieldProductname: TStringField;
+    fieldProductcategory_id: TIntegerField;
+    fieldProductsuffix: TStringField;
+    fieldProductbarcode: TStringField;
     procedure actClearExecute(Sender: TObject);
     procedure actSelectExecute(Sender: TObject);
     procedure btnImportClick(Sender: TObject);
@@ -82,7 +80,7 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmContragent, UDmMain, UProductEdit, UfrmSelectTree;
+uses UfrmContragent, UDmMain, UProductEdit, UfrmSelectTree, UfrmSplash;
 
 procedure TfrmImport.actClearExecute(Sender: TObject);
 begin
@@ -105,11 +103,16 @@ var
   s: string;
 var
   f: TfrmProductEdit;
+  fSplah: tfrmSplash;
 begin
+  fSplah := tfrmSplash.Create(Self);
+  fSplah.lblMessage.Caption := 'Выполняется импорт.';
+  fSplah.Show;
+  fSplah.Update;
   // IdCategory := 0;
-  CodeSite.Send(csmLevel1, 'data', fieldProductlevel.Value);
-  query1.Close;
-  query1.SQL.Text := 'select id from dictonary.product where barcode=:barcode';
+  queryProduct.Close;
+  queryProduct.Open;
+  // query1.SQL.Text := 'select id from dictonary.product where barcode=:barcode';
   memProduct.Active := False;
   memProduct.Active := True;
   AName := queryFieldValues.FieldByName('name').AsInteger - 1;
@@ -117,6 +120,7 @@ begin
   ATable := (grid1.Sheets[0] as TdxSpreadSheetTableView);
   for i := 0 to ATable.Rows.Count - 1 do
   begin
+    fSplah.Update;
     try
       s := 'Наименование : ' + ATable.Cells[i, AName].DisplayText + ' Штрих-код: ' + ATable.Cells[i, ABarcode]
         .DisplayText;
@@ -152,12 +156,12 @@ begin
               else
               // полный автомат
               begin
-                memProduct.Insert;
+                queryProduct.Insert;
                 fieldProductcategory_id.Value := IdCategory;
                 fieldProductbarcode.Value := ATable.Cells[i, ABarcode].DisplayText;
                 fieldProductname.Value := ATable.Cells[i, AName].DisplayText;
-               //fieldProductlevel.Value:=
-                memProduct.Post;
+                // fieldProductlevel.Value:=
+                queryProduct.Post;
               end;
             end;
             // CodeSite.Send('Найден', s);
@@ -170,6 +174,9 @@ begin
       Continue;
     end;
   end;
+  fSplah.Close;
+  fSplah.Free;
+  Application.MessageBox('Импорт завершен.','Сообщение',MB_OK);
   // qqq := TdxSpreadSheetFormulaErrorCode.ecValue;
   // ASheet := grid1.ActiveSheetAsTable;
   // ASheet.GetCellValue(1, 1, s, TdxSpreadSheetFormulaErrorCode.ecNone);

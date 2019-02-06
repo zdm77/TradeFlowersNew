@@ -62,12 +62,12 @@ type
     fieldProductsuffix: TStringField;
     fieldProductbarcode: TStringField;
     fieldProductcategory_name: TStringField;
-    btnRestore: TButton;
     procedure btnEditClick(Sender: TObject);
-    procedure btnRestoreClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
     procedure frameTopPanel2btnAddClick(Sender: TObject);
     procedure frameTopPanel2btnEditClick(Sender: TObject);
+    procedure frameTopPanel2btnImportClick(Sender: TObject);
+    procedure frameTopPanel2btnRefreshClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
     procedure lstCategoryDblClick(Sender: TObject);
   private
@@ -107,12 +107,6 @@ begin
     Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка', MB_OK + MB_ICONERROR)
 end;
 
-procedure TframeProduct.btnRestoreClick(Sender: TObject);
-begin
-  Application.CreateForm(TfrmImport, frmImport);
-  frmImport.Show;
-end;
-
 procedure TframeProduct.CategoryInsEdt(id: Integer);
 var
   f: TfrmCategoryEdit;
@@ -133,7 +127,6 @@ end;
 
 procedure TframeProduct.frameTopPanel1btnAddClick(Sender: TObject);
 begin
-
   CategoryInsEdt(0);
 end;
 
@@ -144,8 +137,19 @@ end;
 
 procedure TframeProduct.frameTopPanel2btnEditClick(Sender: TObject);
 begin
-  /// product.setProduct(queryProduct);
   InsUpd(fieldProductid.Value);
+end;
+
+procedure TframeProduct.frameTopPanel2btnImportClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmImport, frmImport);
+  frmImport.Show;
+end;
+
+procedure TframeProduct.frameTopPanel2btnRefreshClick(Sender: TObject);
+begin
+  memProduct.Active := false;
+  ShowProduct;
 end;
 
 procedure TframeProduct.Init;
@@ -159,12 +163,10 @@ procedure TframeProduct.InsUpd(AId: Integer);
 var
   f: TfrmProductEdit;
 begin
-
-
   if AId = 0 then
     f := TfrmProductEdit.Create(Self, ProductId, fieldCategoryid.Value, fieldCategoryname.Value)
   else
-    f := TfrmProductEdit.Create(Self, ProductId, fieldProductcategory_id.Value, fieldProductcategory_name.Value);
+    f := TfrmProductEdit.Create(Self, AId, fieldProductcategory_id.Value, fieldProductcategory_name.Value);
   // Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
   // frmCategoryEdit.Init(category, id, queryCategoty);
   f.ShowModal;
@@ -209,6 +211,7 @@ end;
 
 procedure TframeProduct.ShowProduct;
 begin
+  frameTopPanel2.btnImport.Visible := true;
   memProduct.Filtered := false;
   // memProduct.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
   memProduct.Filter := ' level  like ' + QuotedStr(fieldCategorylevel.Value + '%');

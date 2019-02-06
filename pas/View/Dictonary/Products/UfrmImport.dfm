@@ -215,33 +215,24 @@ object frmImport: TfrmImport
     Left = 624
     Top = 320
   end
-  object query1: TUniQuery
+  object queryProduct: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from  dictonary.product_contragent_field')
+      'select * from  dictonary.product'
+      ' where id=0;')
     Left = 336
-    Top = 352
-  end
-  object memProduct: TMemTableEh
-    FetchAllOnOpen = True
-    Params = <>
-    DataDriver = DataDriverProduct
-    Left = 176
-    Top = 296
-    object fieldProductlevel: TStringField
-      FieldName = 'level'
-      Required = True
-      Size = 100
-    end
+    Top = 360
     object fieldProductid: TIntegerField
       FieldName = 'id'
     end
     object fieldProductname: TStringField
       FieldName = 'name'
+      Required = True
       Size = 100
     end
     object fieldProductcategory_id: TIntegerField
       FieldName = 'category_id'
+      Required = True
     end
     object fieldProductsuffix: TStringField
       FieldName = 'suffix'
@@ -251,11 +242,13 @@ object frmImport: TfrmImport
       FieldName = 'barcode'
       Size = 100
     end
-    object fieldProductcategory_name: TStringField
-      FieldName = 'category_name'
-      Required = True
-      Size = 100
-    end
+  end
+  object memProduct: TMemTableEh
+    FetchAllOnOpen = True
+    Params = <>
+    DataDriver = DataDriverProduct
+    Left = 176
+    Top = 296
   end
   object DataDriverProduct: TDataSetDriverEh
     ProviderDataSet = DMMain.queryProduct
