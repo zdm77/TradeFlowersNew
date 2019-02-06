@@ -41,6 +41,7 @@ type
     procedure frameTopPanel1btnDelClick(Sender: TObject);
     procedure frameTopPanel1btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnRestoreClick(Sender: TObject);
+    procedure frameTopPanel1btnSelectClick(Sender: TObject);
     procedure frameTopPanel1chkShowDelClick(Sender: TObject);
     procedure tab1Change(Sender: TObject);
     procedure viewTypeCellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
@@ -102,6 +103,12 @@ procedure TFrameContragent.frameTopPanel1btnRestoreClick(Sender: TObject);
 begin
   frameTopPanel1.RestoreRecordMemo(fieldContrid.Value, 'dictonary.contragent');
   RefreshMemo;
+end;
+
+procedure TFrameContragent.frameTopPanel1btnSelectClick(Sender: TObject);
+begin
+  frameTopPanel1.btnSelectClick(Sender);
+
 end;
 
 procedure TFrameContragent.frameTopPanel1chkShowDelClick(Sender: TObject);

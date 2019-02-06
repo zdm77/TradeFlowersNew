@@ -18,6 +18,7 @@ type
     FrameContragent1: TFrameContragent;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure frameTopPanel1btnEditClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,14 +34,26 @@ implementation
 
 procedure TfrmContragent.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Action:=caFree;
-  frmContragent:=nil;
+  if FormStyle = fsMDIChild then
+  begin
+    Action := caFree;
+    frmContragent := nil;
+  end;
 end;
 
 procedure TfrmContragent.FormShow(Sender: TObject);
 begin
   FrameContragent1.init;
-  //FrameContragent1.ShowContragents();
+  if FormStyle = fsNormal then
+    FrameContragent1.frameTopPanel1.btnSelect.Width := 80;
+  FrameContragent1.frameTopPanel1.btnSelect.left := 0;
+  // FrameContragent1.ShowContragents();
+end;
+
+procedure TfrmContragent.frameTopPanel1btnEditClick(Sender: TObject);
+begin
+  FrameContragent1.frameTopPanel1btnEditClick(Sender);
+  
 end;
 
 end.

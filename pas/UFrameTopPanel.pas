@@ -16,8 +16,11 @@ type
     btnRefresh: TButton;
     chkShowDel: TCheckBox;
     btnRestore: TButton;
+    btnSelect: TButton;
+    procedure btnSelectClick(Sender: TObject);
     procedure chkShowDelClick(Sender: TObject);
   private
+    FisSelect: Boolean;
     FisShowDel: Boolean;
     procedure SetisShowDel(const Value: Boolean);
     { Private declarations }
@@ -26,6 +29,7 @@ type
     procedure DeleteRecordMemo(AId: Integer; ATableName: string);
     procedure RestoreRecord(AQuery: TuniQuery; ATableName: string);
     procedure RestoreRecordMemo(AId: Integer; ATableName: string);
+    property isSelect: Boolean read FisSelect write FisSelect;
     property isShowDel: Boolean read FisShowDel write SetisShowDel;
     { Public declarations }
   end;
@@ -35,6 +39,11 @@ implementation
 {$R *.dfm}
 
 uses UDmMain;
+
+procedure TframeTopPanel.btnSelectClick(Sender: TObject);
+begin
+  isSelect := True;
+end;
 
 procedure TframeTopPanel.DeleteRecord(AQuery: TuniQuery; ATableName: string);
 var
@@ -46,7 +55,7 @@ begin
     if Application.MessageBox('Вы действительно хотите пометить запись на удаление?', 'Предупреждение',
       MB_YESNO + MB_ICONWARNING) = mrYes then
       query.SQL.Text := 'update ' + ATableName + '  set is_delete=true where id=:id';
-  if isShowDel = true then
+  if isShowDel = True then
     if Application.MessageBox('Вы действительно хотите безвозвратно удалить запись?', 'Предупреждение',
       MB_YESNO + MB_ICONWARNING) = mrYes then
       query.SQL.Text := 'delete from ' + ATableName + ' where id=:id';
@@ -73,7 +82,7 @@ begin
     if Application.MessageBox('Вы действительно хотите пометить запись на удаление?', 'Предупреждение',
       MB_YESNO + MB_ICONWARNING) = mrYes then
       query.SQL.Text := 'update ' + ATableName + '  set is_delete=true where id=:id';
-  if isShowDel = true then
+  if isShowDel = True then
     if Application.MessageBox('Вы действительно хотите безвозвратно удалить запись?', 'Предупреждение',
       MB_YESNO + MB_ICONWARNING) = mrYes then
       query.SQL.Text := 'delete from ' + ATableName + ' where id=:id';

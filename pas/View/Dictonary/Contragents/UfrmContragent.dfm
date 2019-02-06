@@ -10,9 +10,8 @@ object frmContragent: TfrmContragent
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsMDIChild
   OldCreateOrder = False
-  Visible = True
+  Position = poDesktopCenter
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
@@ -37,6 +36,9 @@ object frmContragent: TfrmContragent
       inherited cxGroupBox4: TcxGroupBox
         ExplicitWidth = 755
         Width = 755
+        inherited btnEdit: TButton
+          OnClick = frameTopPanel1btnEditClick
+        end
       end
     end
     inherited gridContragent: TcxGrid

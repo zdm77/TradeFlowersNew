@@ -22,7 +22,6 @@ object frmProductEdit: TfrmProductEdit
     Align = alTop
     Caption = #1058#1086#1074#1072#1088
     TabOrder = 0
-    ExplicitWidth = 502
     Height = 97
     Width = 497
     object lbl2: TLabel
@@ -59,6 +58,7 @@ object frmProductEdit: TfrmProductEdit
       Properties.ReadOnly = True
       Properties.OnButtonClick = edtParentNamePropertiesButtonClick
       TabOrder = 0
+      OnClick = edtParentNameClick
       Width = 400
     end
     object edtname: TcxDBTextEdit
@@ -84,8 +84,6 @@ object frmProductEdit: TfrmProductEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    ExplicitWidth = 502
-    ExplicitHeight = 353
     Height = 381
     Width = 497
     object cxGrid1: TcxGrid
@@ -95,8 +93,6 @@ object frmProductEdit: TfrmProductEdit
       Height = 322
       Align = alClient
       TabOrder = 1
-      ExplicitWidth = 498
-      ExplicitHeight = 294
       object cxGridDBTableView1: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps
@@ -125,7 +121,6 @@ object frmProductEdit: TfrmProductEdit
       Align = alTop
       PanelStyle.Active = True
       TabOrder = 0
-      ExplicitWidth = 498
       Height = 39
       Width = 493
       object btnFromBase: TButton
@@ -148,16 +143,17 @@ object frmProductEdit: TfrmProductEdit
     Height = 30
     Align = alBottom
     TabOrder = 2
-    ExplicitLeft = 63
-    ExplicitTop = 360
+    ExplicitTop = 478
+    ExplicitWidth = 497
     inherited Panel1: TPanel
       Width = 497
       ExplicitTop = 0
+      ExplicitWidth = 497
       ExplicitHeight = 30
       inherited Button1: TButton
         Left = 395
         OnClick = frameSave1Button1Click
-        ExplicitLeft = 549
+        ExplicitLeft = 395
         ExplicitTop = 0
         ExplicitHeight = 30
       end

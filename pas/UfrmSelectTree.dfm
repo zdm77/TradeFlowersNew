@@ -13,6 +13,7 @@ object frmSelectTree: TfrmSelectTree
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object cxGroupBox1: TcxGroupBox
@@ -21,33 +22,47 @@ object frmSelectTree: TfrmSelectTree
     Align = alTop
     PanelStyle.Active = True
     TabOrder = 0
-    Height = 49
+    Height = 65
     Width = 642
+    object lblProduct: TLabel
+      Left = 3
+      Top = 39
+      Width = 3
+      Height = 13
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object btnSelect: TButton
       Left = 3
       Top = 5
       Width = 86
-      Height = 38
+      Height = 28
       Caption = #1042#1099#1073#1088#1072#1090#1100
       ImageIndex = 12
       Images = frmMain.imgMidle
+      ModalResult = 6
       TabOrder = 0
       OnClick = btnSelectClick
     end
   end
   object cxGroupBox2: TcxGroupBox
     Left = 0
-    Top = 49
+    Top = 65
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 1
-    Height = 502
+    ExplicitTop = 49
+    Height = 486
     Width = 642
     object lstCategory: TcxDBTreeList
       Left = 2
       Top = 2
       Width = 638
-      Height = 498
+      Height = 482
       Align = alClient
       Bands = <
         item
@@ -58,8 +73,11 @@ object frmSelectTree: TfrmSelectTree
       Navigator.Buttons.CustomButtons = <>
       OptionsData.Editing = False
       OptionsData.Deleting = False
+      OptionsSelection.CellSelect = False
       RootValue = -1
       TabOrder = 0
+      ExplicitTop = 40
+      ExplicitHeight = 460
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
@@ -73,15 +91,51 @@ object frmSelectTree: TfrmSelectTree
     end
   end
   object dsCategory: TUniDataSource
-    DataSet = queryCategoty
+    DataSet = memCategory
     Left = 184
     Top = 456
   end
   object queryCategoty: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from category')
+      'select * from dictonary.category')
     Left = 264
     Top = 456
+  end
+  object DataDriverCategory: TDataSetDriverEh
+    ProviderDataSet = DMMain.queryCategory
+    Left = 88
+    Top = 368
+  end
+  object memCategory: TMemTableEh
+    Params = <>
+    DataDriver = DataDriverCategory
+    Left = 208
+    Top = 352
+    object fieldCategoryid: TIntegerField
+      FieldName = 'id'
+    end
+    object fieldCategoryname: TStringField
+      FieldName = 'name'
+      Size = 100
+    end
+    object fieldCategorypid: TIntegerField
+      FieldName = 'pid'
+    end
+    object fieldCategorylevel: TStringField
+      FieldName = 'level'
+      Size = 100
+    end
+    object fieldCategoryNext_level: TMemoField
+      FieldName = 'next_level'
+      BlobType = ftMemo
+    end
+    object fieldCategoryCount: TLargeintField
+      FieldName = 'count'
+    end
+    object fieldCategoryParent_name: TStringField
+      FieldName = 'p_name'
+      Size = 100
+    end
   end
 end

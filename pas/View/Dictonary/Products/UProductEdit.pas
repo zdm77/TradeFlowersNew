@@ -41,20 +41,24 @@ type
     edtBarCode: TcxDBTextEdit;
     frameSave1: TframeSave;
     procedure btnFromBaseClick(Sender: TObject);
+    procedure edtParentNameClick(Sender: TObject);
     procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
     procedure FormShow(Sender: TObject);
     procedure frameSave1Button1Click(Sender: TObject);
   private
     FId: Integer;
     FisSave: Boolean;
+    FName: string;
     _senderQuery: TUniQuery;
     _product: TProduct;
     _props: TProps;
     procedure showProps;
     { Private declarations }
   public
-    constructor Create(AOwner: TComponent; AId, AParentId: Integer; AParentName: string);
+    constructor Create(AOwner: TComponent; AId, AParentId: Integer; AParentName: string; AName: string = '';
+      ABarcode: string = '');
     procedure init(product: TProduct; senderQuery: TUniQuery; isNew: Boolean);
+    procedure SelectCategory;
     property Id: Integer read FId write FId;
     property isSave: Boolean read FisSave write FisSave;
     { Public declarations }
@@ -69,7 +73,8 @@ uses
   UDmMain, UfrmSelectTree, UFuncAndProc;
 {$R *.dfm}
 
-constructor TfrmProductEdit.Create(AOwner: TComponent; AId, AParentId: Integer; AParentName: string);
+constructor TfrmProductEdit.Create(AOwner: TComponent; AId, AParentId: Integer; AParentName: string; AName: string = '';
+  ABarcode: string = '');
 begin
   inherited Create(AOwner);
   Id := AId;
@@ -79,6 +84,10 @@ begin
   begin
     queryProduct.Insert;
     fieldProductcategory_id.Value := AParentId;
+    fieldProductname.Value := AName;
+    fieldProductbarcode.Value := ABarcode;
+    // edtname.Text:=AName;
+    // edtBarCode.Text:=ABarcode;
   end
   else
     queryProduct.Edit;
@@ -137,22 +146,30 @@ begin
   showProps;
 end;
 
+procedure TfrmProductEdit.edtParentNameClick(Sender: TObject);
+begin
+  SelectCategory;
+end;
+
 procedure TfrmProductEdit.edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
 begin
-  Application.CreateForm(TfrmSelectTree, frmSelectTree);
-  frmSelectTree.init(_product.category);
-  frmSelectTree.ShowModal;
-  if frmSelectTree.ModalResult = mrOk then
-  begin
-    _product.categoryId := frmSelectTree.idSelect;
-    _product.categoryName := frmSelectTree.nameSelect;
-    edtParentName.Text := _product.categoryName;
-  end;
+  // Application.CreateForm(TfrmSelectTree, frmSelectTree);
+  // frmSelectTree.init(_product.category);
+  // frmSelectTree.ShowModal;
+  // if frmSelectTree.ModalResult = mrOk then
+  // begin
+  // _product.categoryId := frmSelectTree.idSelect;
+  // _product.categoryName := frmSelectTree.nameSelect;
+  // edtParentName.Text := _product.categoryName;
+  // end;
+  SelectCategory;
 end;
 
 procedure TfrmProductEdit.FormShow(Sender: TObject);
 begin
   edtname.SetFocus;
+  if edtParentName.Text='' then SelectCategory;
+
 end;
 
 procedure TfrmProductEdit.frameSave1Button1Click(Sender: TObject);
@@ -160,7 +177,8 @@ begin
   if UFuncAndProc.Validate(queryProduct, fieldProductid, 'dictonary.product') = True then
   begin
     Id := fieldProductid.Value;
-    isSave:=True;
+    isSave := True;
+    Close;
   end;
 end;
 
@@ -189,6 +207,19 @@ begin
   // end;
   // end;
   showProps;
+end;
+
+procedure TfrmProductEdit.SelectCategory;
+begin
+  Application.CreateForm(TfrmSelectTree, frmSelectTree);
+  frmSelectTree.idLocate := fieldProductcategory_id.Value;
+    frmSelectTree.lblProduct.Caption:='Номенклатура: '+fieldProductname.Value;
+  frmSelectTree.ShowModal;
+  if frmSelectTree.ModalResult = mrYes then
+  begin
+    fieldProductcategory_id.Value := frmSelectTree.idSelect;
+    edtParentName.Text := frmSelectTree.nameSelect;
+  end;
 end;
 
 procedure TfrmProductEdit.showProps;

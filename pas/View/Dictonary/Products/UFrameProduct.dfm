@@ -95,7 +95,7 @@ object frameProduct: TframeProduct
       Width = 556
       Height = 497
       Align = alClient
-      TabOrder = 1
+      TabOrder = 2
       LookAndFeel.Kind = lfOffice11
       LookAndFeel.NativeStyle = True
       object viewProduct: TcxGridDBTableView
@@ -152,6 +152,17 @@ object frameProduct: TframeProduct
           OnClick = frameTopPanel2btnEditClick
         end
       end
+    end
+    object btnRestore: TButton
+      Left = 386
+      Top = 4
+      Width = 70
+      Height = 34
+      Caption = #1048#1084#1087#1086#1088#1090
+      ImageIndex = 23
+      Images = frmMain.imgMidle
+      TabOrder = 1
+      OnClick = btnRestoreClick
     end
   end
   object dsCategory: TUniDataSource

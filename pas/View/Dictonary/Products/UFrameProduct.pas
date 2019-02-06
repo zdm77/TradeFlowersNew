@@ -5,15 +5,15 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
-  cxLookAndFeels, cxLookAndFeelPainters, cxStyles,
-  cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, Vcl.StdCtrls,
-  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxClasses, cxGridCustomView, cxGrid, MemDS, DBAccess, Uni, cxCustomData,
-  cxFilter, cxData, UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu,
-  cxInplaceContainer, cxDBTL, cxTLData, UProductModel, cxDBNavigator,
-  cxContainer, cxSplitter, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges, MemTableDataEh, MemTableEh, cxMemo,
-  CodeSiteLogging, UFrameTopPanel, DataDriverEh;
+  cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxDataStorage, cxEdit,
+  cxNavigator, Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
+  cxGridCustomView, cxGrid, MemDS, DBAccess, Uni, cxCustomData, cxFilter, cxData,
+  UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu, cxInplaceContainer, cxDBTL,
+  cxTLData, UProductModel, cxDBNavigator, cxContainer, cxSplitter, cxGroupBox,
+  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges,
+  MemTableDataEh, MemTableEh, cxMemo, CodeSiteLogging, UFrameTopPanel,
+  DataDriverEh;
 
 type
   TcxGridTableControllerAccess = class(TcxTreeListController);
@@ -62,7 +62,9 @@ type
     fieldProductsuffix: TStringField;
     fieldProductbarcode: TStringField;
     fieldProductcategory_name: TStringField;
+    btnRestore: TButton;
     procedure btnEditClick(Sender: TObject);
+    procedure btnRestoreClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
     procedure frameTopPanel2btnAddClick(Sender: TObject);
     procedure frameTopPanel2btnEditClick(Sender: TObject);
@@ -92,7 +94,8 @@ implementation
 
 {$R *.dfm}
 
-uses UCategoryEdit, UDmMain, UProductEdit;
+uses
+  UCategoryEdit, UDmMain, UProductEdit, UfrmImport;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
@@ -102,6 +105,12 @@ begin
   end
   else
     Application.MessageBox('Данную категорию редактировать запрещено.', 'Ошибка', MB_OK + MB_ICONERROR)
+end;
+
+procedure TframeProduct.btnRestoreClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmImport, frmImport);
+  frmImport.Show;
 end;
 
 procedure TframeProduct.CategoryInsEdt(id: Integer);
@@ -124,6 +133,7 @@ end;
 
 procedure TframeProduct.frameTopPanel1btnAddClick(Sender: TObject);
 begin
+
   CategoryInsEdt(0);
 end;
 
@@ -149,6 +159,8 @@ procedure TframeProduct.InsUpd(AId: Integer);
 var
   f: TfrmProductEdit;
 begin
+
+
   if AId = 0 then
     f := TfrmProductEdit.Create(Self, ProductId, fieldCategoryid.Value, fieldCategoryname.Value)
   else

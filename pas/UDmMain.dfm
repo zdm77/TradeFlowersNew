@@ -153,7 +153,6 @@ object DMMain: TDMMain
       '      '
       '  '
       'order by p.name')
-    Active = True
     Left = 704
     Top = 120
     object fieldProductlevel: TStringField

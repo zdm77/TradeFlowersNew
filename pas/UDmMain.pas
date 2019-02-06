@@ -70,7 +70,7 @@ implementation
 
 { %CLASSGROUP 'Vcl.Controls.TControl' }
 
-uses UfrmSplash;
+uses UfrmSplash, UMain;
 {$R *.dfm}
 
 procedure TDMMain.LoadAnyMem(AQuery: TUniQuery; AMem: TMemTableEh);
@@ -79,16 +79,16 @@ begin
   AQuery.Open;
   AMem.Active := false;
   AMem.LoadFromDataSet(AQuery, -1, lmCopy, true);
- AMem.Active := True;
- // AMem.First;
+  AMem.Active := true;
+  // AMem.First;
 end;
 
 procedure TDMMain.LoadContragent;
 begin
   LoadAnyMem(queryContragentMem, memContragent);
- // LoadAnyMem(queryContragentMem, mem1);
-  //LoadAnyMem(queryContragentMem, mem2);
-  //queryContragentMem.Open;
+  // LoadAnyMem(queryContragentMem, mem1);
+  // LoadAnyMem(queryContragentMem, mem2);
+  // queryContragentMem.Open;
 end;
 
 procedure TDMMain.LoadContrType;
@@ -111,10 +111,11 @@ begin
   f.Update;
   LoadCategory;
   f.Update;
-   LoadProduct;
+  LoadProduct;
   f.Update;
   f.Close;
   f.Free;
+
 end;
 
 procedure TDMMain.LoadPost;
@@ -129,7 +130,7 @@ end;
 
 procedure TDMMain.LoadProduct;
 begin
-   LoadAnyMem(queryProduct, memProduct);
+  LoadAnyMem(queryProduct, memProduct);
 end;
 
 end.

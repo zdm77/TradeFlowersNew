@@ -57,6 +57,9 @@ object FrameContragent: TFrameContragent
       inherited btnRestore: TButton
         OnClick = frameTopPanel1btnRestoreClick
       end
+      inherited btnSelect: TButton
+        OnClick = frameTopPanel1btnSelectClick
+      end
     end
   end
   object gridContragent: TcxGrid
@@ -68,8 +71,7 @@ object FrameContragent: TFrameContragent
     TabOrder = 2
     LookAndFeel.Kind = lfOffice11
     LookAndFeel.NativeStyle = True
-    ExplicitLeft = 3
-    ExplicitTop = 62
+    ExplicitTop = 70
     object viewContragent: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       FilterBox.Position = fpTop

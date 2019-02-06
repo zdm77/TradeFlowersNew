@@ -122,6 +122,7 @@ var
   new_order: Integer;
   Id: string;
 begin
+
   if queryProps.RecordCount > 0 then
   begin
     order := queryProps.FieldByName('order_by').AsInteger;
@@ -155,8 +156,8 @@ begin
   if UFuncAndProc.Validate(queryCategory, fieldId, 'dictonary.category') = True then
   begin
     Id := fieldId.Value;
-   // queryCategory.Post;
-    isSave:=True;
+    // queryCategory.Post;
+    isSave := True;
   end;
   // _senderQuery.Refresh;
   // ShowMessage(queryCategory.FieldByName('id').AsString);

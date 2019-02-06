@@ -71,7 +71,6 @@ begin
   DMMain.LoadDictonary;
   frmMain.Enabled := true;
   frmMain.BringToFront;
-
   // with queryMain do
   // begin
   // Close;
@@ -104,6 +103,7 @@ procedure TfrmMain.N4Click(Sender: TObject);
 begin
   if frmContragent = nil then
     Application.CreateForm(TfrmContragent, frmContragent);
+  frmContragent.FormStyle := fsMDIChild;
   frmContragent.Show;
 end;
 

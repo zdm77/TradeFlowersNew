@@ -8,7 +8,7 @@ uses
   cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxCustomData,
   cxStyles, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu, Data.DB, MemDS, DBAccess,
   Uni, cxInplaceContainer, cxDBTL, cxTLData, Vcl.StdCtrls, cxGroupBox,
-  UCategory, cxDataControllerConditionalFormattingRulesManagerDialog;
+  UCategory, cxDataControllerConditionalFormattingRulesManagerDialog, MemTableDataEh, MemTableEh, DataDriverEh;
 
 type
   TfrmSelectTree = class(TForm)
@@ -19,9 +19,22 @@ type
     columnNameC: TcxDBTreeListColumn;
     dsCategory: TUniDataSource;
     queryCategoty: TUniQuery;
+    DataDriverCategory: TDataSetDriverEh;
+    memCategory: TMemTableEh;
+    fieldCategoryid: TIntegerField;
+    fieldCategoryname: TStringField;
+    fieldCategorypid: TIntegerField;
+    fieldCategorylevel: TStringField;
+    fieldCategoryNext_level: TMemoField;
+    fieldCategoryCount: TLargeintField;
+    fieldCategoryParent_name: TStringField;
+    lblProduct: TLabel;
     procedure btnSelectClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     CategorySelect: TCategory;
+    FidLocate: Integer;
+    FselectNextLevel: string;
     SenderCategory: TCategory;
     { Private declarations }
   public
@@ -29,6 +42,8 @@ type
     nameSelect: string;
     procedure init(category: TCategory);
     procedure ShowCategory;
+    property idLocate: Integer read FidLocate write FidLocate;
+    property selectNextLevel: string read FselectNextLevel write FselectNextLevel;
     { Public declarations }
   end;
 
@@ -43,11 +58,19 @@ uses UMain;
 
 procedure TfrmSelectTree.btnSelectClick(Sender: TObject);
 begin
-  CategorySelect.SetCategory;
-  idSelect:=  CategorySelect.Id;
-  nameSelect:= queryCategoty.FieldByName('name').AsString;
+  //CategorySelect.SetCategory;
+  idSelect:=  fieldCategoryid.Value;
+  nameSelect:= fieldCategoryname.Value;
+  selectNextLevel:=fieldCategoryNext_level.Text;
+  //ModalResult := mrOk;
+end;
 
-  ModalResult := mrOk;
+procedure TfrmSelectTree.FormShow(Sender: TObject);
+begin
+  memCategory.Active:=False;
+  memCategory.Active:=True;
+  memCategory.Locate('id',idLocate,[])  ;
+  lstCategory.SetFocus;
 end;
 
 procedure TfrmSelectTree.init(category: TCategory);
@@ -60,7 +83,7 @@ end;
 
 procedure TfrmSelectTree.ShowCategory;
 begin
-  // with qu
+
 end;
 
 end.
