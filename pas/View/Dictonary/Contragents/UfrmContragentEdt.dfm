@@ -61,20 +61,14 @@ object frmContragentEdt: TfrmContragentEdt
     ExplicitWidth = 349
     inherited Panel1: TPanel
       Width = 349
-      ExplicitTop = 0
       ExplicitWidth = 349
-      ExplicitHeight = 30
       inherited Button1: TButton
         Left = 247
         OnClick = frameSave1Button1Click
         ExplicitLeft = 247
-        ExplicitTop = 0
-        ExplicitHeight = 30
       end
-      inherited Button2: TButton
+      inherited btnCancel: TButton
         ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitHeight = 30
       end
     end
   end

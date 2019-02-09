@@ -44,9 +44,11 @@ type
     procedure edtParentNameClick(Sender: TObject);
     procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
     procedure FormShow(Sender: TObject);
+    procedure frameSave1btnAbortClick(Sender: TObject);
     procedure frameSave1Button1Click(Sender: TObject);
   private
     FId: Integer;
+    FisAbortImport: Boolean;
     FisSave: Boolean;
     FName: string;
     _senderQuery: TUniQuery;
@@ -60,6 +62,7 @@ type
     procedure init(product: TProduct; senderQuery: TUniQuery; isNew: Boolean);
     procedure SelectCategory;
     property Id: Integer read FId write FId;
+    property isAbortImport: Boolean read FisAbortImport write FisAbortImport;
     property isSave: Boolean read FisSave write FisSave;
     { Public declarations }
   end;
@@ -77,7 +80,7 @@ constructor TfrmProductEdit.Create(AOwner: TComponent; AId, AParentId: Integer; 
   ABarcode: string = '');
 begin
   inherited Create(AOwner);
-  CodeSite.Send( csmLevel1, 'data', AId );
+ // CodeSite.Send(csmLevel1, 'data', AId);
   Id := AId;
   queryProduct.ParamByName('id').AsInteger := Id;
   queryProduct.Open;
@@ -169,8 +172,16 @@ end;
 procedure TfrmProductEdit.FormShow(Sender: TObject);
 begin
   edtname.SetFocus;
-  if edtParentName.Text='' then SelectCategory;
+  if edtParentName.Text = '' then
+    SelectCategory;
+  if edtBarCode.Text = '' then
+    if Application.MessageBox('Сгенерировать штрих-код?', 'Вопрос', MB_YESNO + MB_ICONQUESTION) = mrYes then
+      edtBarCode.Text := UFuncAndProc.GenBarcode;
+end;
 
+procedure TfrmProductEdit.frameSave1btnAbortClick(Sender: TObject);
+begin
+  isAbortImport:=True;
 end;
 
 procedure TfrmProductEdit.frameSave1Button1Click(Sender: TObject);
@@ -214,7 +225,7 @@ procedure TfrmProductEdit.SelectCategory;
 begin
   Application.CreateForm(TfrmSelectTree, frmSelectTree);
   frmSelectTree.idLocate := fieldProductcategory_id.Value;
-    frmSelectTree.lblProduct.Caption:='Номенклатура: '+fieldProductname.Value;
+  frmSelectTree.lblProduct.Caption := 'Номенклатура: ' + fieldProductname.Value;
   frmSelectTree.ShowModal;
   if frmSelectTree.ModalResult = mrYes then
   begin

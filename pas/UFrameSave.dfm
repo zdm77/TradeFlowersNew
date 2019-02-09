@@ -12,8 +12,6 @@ object frameSave: TframeSave
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = 3
-    ExplicitHeight = 34
     object Button1: TButton
       Left = 549
       Top = 0
@@ -25,11 +23,21 @@ object frameSave: TframeSave
       ImageIndex = 13
       Images = frmMain.imgMidle
       TabOrder = 1
-      ExplicitLeft = 462
-      ExplicitTop = 6
-      ExplicitHeight = 25
     end
-    object Button2: TButton
+    object btnAbort: TButton
+      Left = 75
+      Top = 0
+      Width = 166
+      Height = 30
+      Align = alLeft
+      Cancel = True
+      Caption = #1054#1090#1084#1077#1085#1080#1090#1100' '#1076#1072#1083#1100#1085#1077#1081#1096#1080#1081' '#1080#1084#1087#1086#1088#1090
+      Images = frmMain.imgMidle
+      ModalResult = 2
+      TabOrder = 0
+      Visible = False
+    end
+    object btnCancel: TButton
       Left = 0
       Top = 0
       Width = 75
@@ -39,10 +47,8 @@ object frameSave: TframeSave
       Caption = #1054#1090#1084#1077#1085#1072
       Images = frmMain.imgMidle
       ModalResult = 2
-      TabOrder = 0
-      ExplicitLeft = 648
-      ExplicitTop = 6
-      ExplicitHeight = 25
+      TabOrder = 2
+      ExplicitLeft = 8
     end
   end
 end

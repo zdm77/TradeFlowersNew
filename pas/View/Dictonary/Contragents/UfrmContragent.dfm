@@ -36,6 +36,9 @@ object frmContragent: TfrmContragent
       inherited cxGroupBox4: TcxGroupBox
         ExplicitWidth = 755
         Width = 755
+        inherited btnAdd: TButton
+          OnClick = frameTopPanel1btnAddClick
+        end
         inherited btnEdit: TButton
           OnClick = frameTopPanel1btnEditClick
         end

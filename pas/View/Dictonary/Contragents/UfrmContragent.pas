@@ -11,13 +11,14 @@ uses
   cxDataControllerConditionalFormattingRulesManagerDialog, Data.DB, cxDBData,
   MemDS, DBAccess, Uni, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
-  cxGroupBox, UFrameContragent;
+  cxGroupBox, UFrameContragent, CodeSiteLogging;
 
 type
   TfrmContragent = class(TForm)
     FrameContragent1: TFrameContragent;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure frameTopPanel1btnAddClick(Sender: TObject);
     procedure frameTopPanel1btnEditClick(Sender: TObject);
   private
     { Private declarations }
@@ -34,11 +35,13 @@ implementation
 
 procedure TfrmContragent.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  if FormStyle = fsMDIChild then
-  begin
-    Action := caFree;
-    frmContragent := nil;
-  end;
+
+  CodeSite.Send( csmLevel1, 'data', '' );
+    if FormStyle = fsMDIChild then
+    begin
+      Action := caFree;
+      frmContragent := nil;
+    end;
 end;
 
 procedure TfrmContragent.FormShow(Sender: TObject);
@@ -50,10 +53,14 @@ begin
   // FrameContragent1.ShowContragents();
 end;
 
+procedure TfrmContragent.frameTopPanel1btnAddClick(Sender: TObject);
+begin
+  FrameContragent1.frameTopPanel1btnAddClick(Sender);
+end;
+
 procedure TfrmContragent.frameTopPanel1btnEditClick(Sender: TObject);
 begin
   FrameContragent1.frameTopPanel1btnEditClick(Sender);
-  
 end;
 
 end.

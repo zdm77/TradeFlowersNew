@@ -64,6 +64,7 @@ type
     fieldProductcategory_name: TStringField;
     procedure btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
+    procedure frameTopPanel1btnEditClick(Sender: TObject);
     procedure frameTopPanel2btnAddClick(Sender: TObject);
     procedure frameTopPanel2btnEditClick(Sender: TObject);
     procedure frameTopPanel2btnImportClick(Sender: TObject);
@@ -130,6 +131,11 @@ begin
   CategoryInsEdt(0);
 end;
 
+procedure TframeProduct.frameTopPanel1btnEditClick(Sender: TObject);
+begin
+CategoryInsEdt(fieldCategoryid.Value);
+end;
+
 procedure TframeProduct.frameTopPanel2btnAddClick(Sender: TObject);
 begin
   InsUpd(0);
@@ -142,6 +148,7 @@ end;
 
 procedure TframeProduct.frameTopPanel2btnImportClick(Sender: TObject);
 begin
+ if frmImport = nil then
   Application.CreateForm(TfrmImport, frmImport);
   frmImport.Show;
 end;

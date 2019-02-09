@@ -113,8 +113,10 @@ begin
   f.Update;
   LoadProduct;
   f.Update;
-  f.Close;
-  f.Free;
+ // f.Close;
+//  f.Free;
+  f.top:=-100;
+
 
 end;
 

@@ -3,8 +3,8 @@ object frmProductEdit: TfrmProductEdit
   Top = 0
   BorderStyle = bsDialog
   Caption = #1053#1086#1084#1077#1085#1082#1083#1072#1090#1091#1088#1072
-  ClientHeight = 508
-  ClientWidth = 497
+  ClientHeight = 427
+  ClientWidth = 496
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,8 +22,9 @@ object frmProductEdit: TfrmProductEdit
     Align = alTop
     Caption = #1058#1086#1074#1072#1088
     TabOrder = 0
+    ExplicitWidth = 960
     Height = 97
-    Width = 497
+    Width = 496
     object lbl2: TLabel
       Left = 8
       Top = 21
@@ -84,15 +85,19 @@ object frmProductEdit: TfrmProductEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    Height = 381
-    Width = 497
+    ExplicitWidth = 960
+    ExplicitHeight = 473
+    Height = 300
+    Width = 496
     object cxGrid1: TcxGrid
       Left = 2
       Top = 57
-      Width = 493
-      Height = 322
+      Width = 492
+      Height = 241
       Align = alClient
       TabOrder = 1
+      ExplicitWidth = 956
+      ExplicitHeight = 414
       object cxGridDBTableView1: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps
@@ -121,8 +126,9 @@ object frmProductEdit: TfrmProductEdit
       Align = alTop
       PanelStyle.Active = True
       TabOrder = 0
+      ExplicitWidth = 956
       Height = 39
-      Width = 493
+      Width = 492
       object btnFromBase: TButton
         Left = 3
         Top = 3
@@ -138,29 +144,23 @@ object frmProductEdit: TfrmProductEdit
   end
   inline frameSave1: TframeSave
     Left = 0
-    Top = 478
-    Width = 497
+    Top = 397
+    Width = 496
     Height = 30
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 478
-    ExplicitWidth = 497
+    ExplicitTop = 570
+    ExplicitWidth = 960
     inherited Panel1: TPanel
-      Width = 497
-      ExplicitTop = 0
-      ExplicitWidth = 497
-      ExplicitHeight = 30
+      Width = 496
+      ExplicitWidth = 960
       inherited Button1: TButton
-        Left = 395
+        Left = 394
         OnClick = frameSave1Button1Click
-        ExplicitLeft = 395
-        ExplicitTop = 0
-        ExplicitHeight = 30
+        ExplicitLeft = 858
       end
-      inherited Button2: TButton
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitHeight = 30
+      inherited btnAbort: TButton
+        OnClick = frameSave1btnAbortClick
       end
     end
   end

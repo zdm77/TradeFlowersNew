@@ -57,6 +57,9 @@ object frmProduct: TfrmProduct
         inherited cxGroupBox4: TcxGroupBox
           ExplicitWidth = 514
           Width = 514
+          inherited btnImport: TButton
+            OnClick = frameTopPanel2btnImportClick
+          end
         end
       end
     end

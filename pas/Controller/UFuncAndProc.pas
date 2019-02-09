@@ -19,6 +19,7 @@ function getNewId(tableName: string): Integer;
 procedure deleteById(Id: Integer; tableName: string);
 function getIdByName(ATableName, AName: string): Integer;
 function Validate(AQuery: TUniQuery; AId: TIntegerField; ATableName: string): Boolean;
+function GenBarcode: String;
 
 implementation
 
@@ -121,6 +122,51 @@ begin
     end;
   end;
   Result := true;
+end;
+
+function GenBarcode: String;
+  function SumEven(S: String): Integer;
+  const
+    a: array [0 .. 5] of Integer = (2, 4, 6, 8, 10, 12);
+  var
+    i: Integer;
+  begin
+    Result := 0;
+    for i := Low(a) to High(a) do
+      Result := Result + StrToInt(S[a[i]]);
+  end;
+  function SumOdd(S: String): Integer;
+  const
+    a: array [0 .. 5] of Integer = (1, 3, 5, 7, 9, 11);
+  var
+    i: Integer;
+  begin
+    Result := 0;
+    for i := Low(a) to High(a) do
+      Result := Result + StrToInt(S[a[i]]);
+  end;
+
+var
+  query: TUniQuery;
+  lb: string;
+
+begin
+  query := TUniQuery.Create(nil);
+  query.Connection := DMMain.conMain;
+  // смотрим последний штрих-код
+  with query do
+  begin
+    Close;
+    SQL.Text :=concat( 'SELECT CAST(last_barcode AS NUMERIC(12,0))+1 FROM DICTONARY.SETTINGS ');
+    Open;
+    lb := fields[0].AsString;
+
+    Close;
+    SQL.Text := 'UPDATE dictonary.settings SET  last_barcode = :last_barcode';
+    ParamByName('last_barcode').AsString:=lb;
+    ExecSQL;
+    Result := concat(lb, (IntToStr((10 - (SumOdd(lb) + SumEven(lb) * 3) mod 10) mod 10))[1]);
+  end;
 end;
 
 end.

@@ -10,7 +10,8 @@ type
   TframeSave = class(TFrame)
     Panel1: TPanel;
     Button1: TButton;
-    Button2: TButton;
+    btnAbort: TButton;
+    btnCancel: TButton;
   private
     { Private declarations }
   public

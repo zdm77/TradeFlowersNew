@@ -14,50 +14,58 @@ uses
   dxSpreadSheetFormattedTextUtils, dxBarBuiltInMenu, dxSpreadSheet, cxCustomData, cxFilter, cxData, cxDataStorage,
   cxNavigator, dxDateRanges, cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, cxGroupBox, CodeSiteLogging, MemTableDataEh, DataDriverEh, MemTableEh,
-  System.Actions, Vcl.ActnList;
+  System.Actions, Vcl.ActnList, cxSplitter;
 
 type
   TfrmImport = class(TForm)
     queryFieldValues: TUniQuery;
     dlgOpen1: TOpenDialog;
     dsFieldValues: TUniDataSource;
-    grid1: TdxSpreadSheet;
     group1: TcxGroupBox;
-    lbl1: TLabel;
-    edtContrName: TcxButtonEdit;
-    edtFile: TcxButtonEdit;
-    group2: TcxGroupBox;
-    cxGroupBox1: TcxGroupBox;
-    cxGrid1DBTableView1: TcxGridDBTableView;
-    cxGrid1Level1: TcxGridLevel;
-    cxGrid1: TcxGrid;
-    cxGrid1DBTableView1name: TcxGridDBColumn;
-    cxGrid1DBTableView1barcode: TcxGridDBColumn;
     queryProduct: TUniQuery;
     memProduct: TMemTableEh;
     DataDriverProduct: TDataSetDriverEh;
-    lbl2: TLabel;
-    edtCategory: TcxButtonEdit;
-    Label1: TLabel;
-    chkAuto: TCheckBox;
     actlst1: TActionList;
     actClear: TAction;
     actSelect: TAction;
-    cxGroupBox2: TcxGroupBox;
-    btnImport: TButton;
     fieldProductid: TIntegerField;
     fieldProductname: TStringField;
     fieldProductcategory_id: TIntegerField;
     fieldProductsuffix: TStringField;
     fieldProductbarcode: TStringField;
+    group2: TcxGroupBox;
+    cxGrid1: TcxGrid;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1DBTableView1name: TcxGridDBColumn;
+    cxGrid1DBTableView1barcode: TcxGridDBColumn;
+    cxGrid1Level1: TcxGridLevel;
+    btnSavePos: TButton;
+    group3: TcxGroupBox;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    edtContrName: TcxButtonEdit;
+    edtFile: TcxButtonEdit;
+    chkAuto: TCheckBox;
+    edtCategory: TcxButtonEdit;
+    Label1: TLabel;
+    cxGroupBox1: TcxGroupBox;
+    grid1: TdxSpreadSheet;
+    cxGroupBox2: TcxGroupBox;
+    btnImport: TButton;
+    cxSplitter1: TcxSplitter;
+    field_ValuesName: TIntegerField;
+    field_ValuesBarcode: TIntegerField;
     procedure actClearExecute(Sender: TObject);
     procedure actSelectExecute(Sender: TObject);
     procedure btnImportClick(Sender: TObject);
+    procedure btnSavePosClick(Sender: TObject);
     procedure edtContrNameClick(Sender: TObject);
     procedure edtContrNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
     procedure edtFileClick(Sender: TObject);
     procedure edt1PropertiesChange(Sender: TObject);
     procedure edtCategoryClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
   private
     FContragentId: Integer;
     FIdCategory: Integer;
@@ -68,6 +76,7 @@ type
     property NextLevel: string read FNextLevel write FNextLevel;
     { Private declarations }
   public
+    procedure EnableImport;
     procedure LoadExcel;
     procedure SelectCategory;
     { Public declarations }
@@ -80,7 +89,7 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmContragent, UDmMain, UProductEdit, UfrmSelectTree, UfrmSplash;
+uses UfrmContragent, UDmMain, UProductEdit, UfrmSelectTree, UfrmSplash, UFuncAndProc;
 
 procedure TfrmImport.actClearExecute(Sender: TObject);
 begin
@@ -105,11 +114,10 @@ var
   f: TfrmProductEdit;
   fSplah: tfrmSplash;
 begin
-  fSplah := tfrmSplash.Create(Self);
-  fSplah.lblMessage.Caption := 'Выполняется импорт.';
-  fSplah.Show;
-  fSplah.Update;
-  // IdCategory := 0;
+  // fSplah := tfrmSplash.Create(Self);
+  // fSplah.lblMessage.Caption := 'Выполняется импорт.';
+  // fSplah.Show;
+  // fSplah.Update;
   queryProduct.Close;
   queryProduct.Open;
   // query1.SQL.Text := 'select id from dictonary.product where barcode=:barcode';
@@ -120,7 +128,7 @@ begin
   ATable := (grid1.Sheets[0] as TdxSpreadSheetTableView);
   for i := 0 to ATable.Rows.Count - 1 do
   begin
-    fSplah.Update;
+    // fSplah.Update;
     try
       s := 'Наименование : ' + ATable.Cells[i, AName].DisplayText + ' Штрих-код: ' + ATable.Cells[i, ABarcode]
         .DisplayText;
@@ -128,70 +136,71 @@ begin
       if (ATable.Cells[i, AName].DisplayText) <> '' then
       begin
         // проверяем штрих-код
-        if (ATable.Cells[i, ABarcode].DisplayText <> '') and (ATable.Cells[i, ABarcode].DisplayText.Length = 13) then
+        // if (ATable.Cells[i, ABarcode].DisplayText <> '') then
+        // begin
+        // if (ATable.Cells[i, ABarcode].DisplayText.Length = 13) then
+        // begin
+        // проверяем наличие
+        memProduct.Filtered := False;
+        memProduct.Filter := 'barcode=' + QuotedStr(ATable.Cells[i, ABarcode].DisplayText);
+        memProduct.Filtered := True;
+        // end;
+        if (memProduct.IsEmpty = True) or (ATable.Cells[i, ABarcode].DisplayText = '') then
         begin
-          // проверяем наличие
-          memProduct.Filtered := False;
-          memProduct.Filter := 'barcode=' + QuotedStr(ATable.Cells[i, ABarcode].DisplayText);
-          memProduct.Filtered := True;
-          if memProduct.IsEmpty = True then
+          // если категория не выбрана, даем выбор
+          if IdCategory = 0 then
           begin
-            // если категория не выбрана, даем выбор
-            if IdCategory = 0 then
+            f := TfrmProductEdit.Create(Self, 0, IdCategory, '', ATable.Cells[i, AName].DisplayText,
+              ATable.Cells[i, ABarcode].DisplayText);
+            f.frameSave1.btnAbort.Visible := True;
+            f.ShowModal;
+            if f.isAbortImport = True then
+              break;
+            IdCategory := f.fieldProductcategory_id.Value;
+          end
+          else
+          begin
+            // если категория выбрана, но режим не автомат
+            if chkAuto.Checked = False then
             begin
-              f := TfrmProductEdit.Create(Self, 0, IdCategory, '', ATable.Cells[i, AName].DisplayText,
+              f := TfrmProductEdit.Create(Self, 0, IdCategory, edtCategory.Text, ATable.Cells[i, AName].DisplayText,
                 ATable.Cells[i, ABarcode].DisplayText);
+              f.frameSave1.btnAbort.Visible := True;
               f.ShowModal;
-              IdCategory := f.fieldProductcategory_id.Value;
+              if f.isAbortImport = True then
+                break;
             end
             else
+            // полный автомат
             begin
-              // если категория выбрана, но режим не автомат
-              if chkAuto.Checked = False then
-              begin
-                f := TfrmProductEdit.Create(Self, 0, IdCategory, edtCategory.Text, ATable.Cells[i, AName].DisplayText,
-                  ATable.Cells[i, ABarcode].DisplayText);
-                f.ShowModal;
-              end
-              else
-              // полный автомат
-              begin
-                queryProduct.Insert;
-                fieldProductcategory_id.Value := IdCategory;
-                fieldProductbarcode.Value := ATable.Cells[i, ABarcode].DisplayText;
-                fieldProductname.Value := ATable.Cells[i, AName].DisplayText;
-                // fieldProductlevel.Value:=
-                queryProduct.Post;
-              end;
+              queryProduct.Insert;
+              fieldProductcategory_id.Value := IdCategory;
+              fieldProductbarcode.Value := ATable.Cells[i, ABarcode].DisplayText;
+              fieldProductname.Value := ATable.Cells[i, AName].DisplayText;
+              // fieldProductlevel.Value:=
+              queryProduct.Post;
             end;
-            // CodeSite.Send('Найден', s);
           end;
+          // CodeSite.Send('Найден', s);
         end
-        else
-          // CodeSite.Send('Нет штрих-кода: ', ATable.Cells[i, AName].DisplayText);
+        // end
+        // else
+        // CodeSite.Send('Нет штрих-кода: ', ATable.Cells[i, AName].DisplayText);
       end;
     except
       Continue;
     end;
   end;
-  fSplah.Close;
-  fSplah.Free;
-  Application.MessageBox('Импорт завершен.','Сообщение',MB_OK);
-  // qqq := TdxSpreadSheetFormulaErrorCode.ecValue;
-  // ASheet := grid1.ActiveSheetAsTable;
-  // ASheet.GetCellValue(1, 1, s, TdxSpreadSheetFormulaErrorCode.ecNone);
-  // CodeSite.Send('Comment', ATable.Cells[i,2].DisplayText);
-  // if ASheet.Selection.Count > 0 then
-  // ASheet.Columns.Groups.Add(ASheet.Selection.Area.Left, ASheet.Selection.Area.Right);
-  // with grid1 do
-  // begin
-  // while not eof do
-  // begin
-  // grid1.Sheets[1].
-  // CodeSite.Send('Comment',       ACell[1,3]);
-  // Next;
-  // end;
-  // end;
+  // fSplah.Close;
+  // fSplah.Free;
+  Application.MessageBox('Импорт завершен.', 'Сообщение', MB_OK);
+end;
+
+procedure TfrmImport.btnSavePosClick(Sender: TObject);
+begin
+  queryFieldValues.Edit;
+  queryFieldValues.Post;
+  EnableImport;
 end;
 
 procedure TfrmImport.edtContrNameClick(Sender: TObject);
@@ -218,6 +227,7 @@ begin
   end;
   frmContragent := nil;
   frmContragent.Free;
+  EnableImport;
 end;
 
 procedure TfrmImport.edtContrNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
@@ -242,6 +252,7 @@ begin
   begin
     edtFile.Text := dlgOpen1.FileName;
     grid1.LoadFromFile(dlgOpen1.FileName);
+    EnableImport;
     // // создание OLE-объекта Excel
     // ExcelApp := CreateOleObject('Excel.Application');
     // // открытие книги Excel
@@ -281,6 +292,26 @@ end;
 procedure TfrmImport.edtCategoryClick(Sender: TObject);
 begin
   SelectCategory;
+end;
+
+procedure TfrmImport.EnableImport;
+begin
+  if (edtContrName.Text <> '') and (edtFile.Text <> '') and (field_ValuesName.Value <> 0) and
+    (field_ValuesBarcode.Value <> 0) then
+    btnImport.Enabled := True
+  else
+    btnImport.Enabled := False;
+end;
+
+procedure TfrmImport.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmImport := nil;
+end;
+
+procedure TfrmImport.FormShow(Sender: TObject);
+begin
+  EnableImport;
 end;
 
 procedure TfrmImport.SelectCategory;

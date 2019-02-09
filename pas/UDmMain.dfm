@@ -1,7 +1,7 @@
 object DMMain: TDMMain
   OldCreateOrder = False
-  Height = 588
-  Width = 991
+  Height = 607
+  Width = 877
   object conMain: TUniConnection
     DataTypeMap = <
       item

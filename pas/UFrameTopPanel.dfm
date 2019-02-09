@@ -46,8 +46,6 @@ object frameTopPanel: TframeTopPanel
       ImageIndex = 5
       Images = frmMain.imgMidle
       TabOrder = 3
-      ExplicitLeft = 131
-      ExplicitTop = 3
     end
     object btnRefresh: TButton
       Left = 162
@@ -70,8 +68,6 @@ object frameTopPanel: TframeTopPanel
       Caption = #1059#1076#1072#1083#1077#1085#1085#1099#1077
       TabOrder = 5
       OnClick = chkShowDelClick
-      ExplicitLeft = 452
-      ExplicitTop = 3
     end
     object btnRestore: TButton
       Left = 273
@@ -85,8 +81,6 @@ object frameTopPanel: TframeTopPanel
       ImageIndex = 6
       Images = frmMain.imgMidle
       TabOrder = 2
-      ExplicitLeft = 285
-      ExplicitTop = 1
     end
     object btnSelect: TButton
       Left = 393
@@ -100,7 +94,6 @@ object frameTopPanel: TframeTopPanel
       ModalResult = 6
       TabOrder = 6
       OnClick = btnSelectClick
-      ExplicitLeft = 384
     end
     object btnImport: TButton
       Left = 199

@@ -2,7 +2,7 @@ object frmSelectTree: TfrmSelectTree
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'frmSelectTree'
+  Caption = #1042#1099#1073#1086#1088' '#1080#1079' '#1089#1090#1088#1091#1082#1090#1091#1088#1099
   ClientHeight = 551
   ClientWidth = 642
   Color = clBtnFace
@@ -55,7 +55,6 @@ object frmSelectTree: TfrmSelectTree
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 1
-    ExplicitTop = 49
     Height = 486
     Width = 642
     object lstCategory: TcxDBTreeList
@@ -76,8 +75,6 @@ object frmSelectTree: TfrmSelectTree
       OptionsSelection.CellSelect = False
       RootValue = -1
       TabOrder = 0
-      ExplicitTop = 40
-      ExplicitHeight = 460
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'

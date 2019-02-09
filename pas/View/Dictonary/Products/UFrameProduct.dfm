@@ -70,6 +70,9 @@ object frameProduct: TframeProduct
         inherited btnAdd: TButton
           OnClick = frameTopPanel1btnAddClick
         end
+        inherited btnEdit: TButton
+          OnClick = frameTopPanel1btnEditClick
+        end
       end
     end
   end
