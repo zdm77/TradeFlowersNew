@@ -149,7 +149,6 @@ function GenBarcode: String;
 var
   query: TUniQuery;
   lb: string;
-
 begin
   query := TUniQuery.Create(nil);
   query.Connection := DMMain.conMain;
@@ -157,13 +156,12 @@ begin
   with query do
   begin
     Close;
-    SQL.Text :=concat( 'SELECT CAST(last_barcode AS NUMERIC(12,0))+1 FROM DICTONARY.SETTINGS ');
+    SQL.Text := concat('SELECT CAST(last_barcode AS NUMERIC(12,0))+1 FROM DICTONARY.SETTINGS ');
     Open;
     lb := fields[0].AsString;
-
     Close;
     SQL.Text := 'UPDATE dictonary.settings SET  last_barcode = :last_barcode';
-    ParamByName('last_barcode').AsString:=lb;
+    ParamByName('last_barcode').AsString := lb;
     ExecSQL;
     Result := concat(lb, (IntToStr((10 - (SumOdd(lb) + SumEven(lb) * 3) mod 10) mod 10))[1]);
   end;

@@ -36,7 +36,9 @@ uses
   UfrmPostEdt in '..\pas\View\Dictonary\Orgstract\UfrmPostEdt.pas' {frmPostEdt},
   UfrmUserEdt in '..\pas\View\Dictonary\Orgstract\UfrmUserEdt.pas' {frmUserEdt},
   UfrmSplash in '..\pas\UfrmSplash.pas' {frmSplash},
-  UfrmImport in '..\pas\View\Dictonary\Products\UfrmImport.pas' {frmImport};
+  UfrmImport in '..\pas\View\Dictonary\Products\UfrmImport.pas' {frmImport},
+  UDMSite in '..\pas\UDMSite.pas' {dmSite: TDataModule},
+  UfrmInternetStore in '..\pas\View\InternetStore\UfrmInternetStore.pas' {frmInternetStore};
 
 {$R *.res}
 
@@ -45,5 +47,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
+  Application.CreateForm(TdmSite, dmSite);
+
   Application.Run;
 end.

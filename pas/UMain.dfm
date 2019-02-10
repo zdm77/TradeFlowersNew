@@ -46,6 +46,10 @@ object frmMain: TfrmMain
         OnClick = N7Click
       end
     end
+    object N8: TMenuItem
+      Caption = #1048#1085#1090#1077#1088#1085#1077#1090' '#1084#1072#1075#1072#1079#1080#1085
+      OnClick = N8Click
+    end
   end
   object tabMain: TdxTabbedMDIManager
     Active = True

@@ -42,12 +42,14 @@ type
     N5: TMenuItem;
     N6: TMenuItem;
     N7: TMenuItem;
+    N8: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N4Click(Sender: TObject);
     procedure N6Click(Sender: TObject);
     procedure N7Click(Sender: TObject);
+    procedure N8Click(Sender: TObject);
     { Private declarations }
   public
   end;
@@ -60,7 +62,8 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent, UfrmUser, UfrmPost, UDmMain, UfrmSplash;
+  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent, UfrmUser, UfrmPost, UDmMain, UfrmSplash,
+  UfrmInternetStore;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
@@ -119,6 +122,13 @@ begin
   if frmPost = nil then
     Application.CreateForm(TfrmPost, frmPost);
   frmPost.Show;
+end;
+
+procedure TfrmMain.N8Click(Sender: TObject);
+begin
+  if frmInternetStore = nil then
+    Application.CreateForm(TfrmInternetStore, frmInternetStore);
+  frmInternetStore.Show;
 end;
 
 end.

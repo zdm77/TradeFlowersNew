@@ -162,6 +162,23 @@ object frameProduct: TframeProduct
         end
       end
     end
+    object btn1: TButton
+      Left = 88
+      Top = 192
+      Width = 75
+      Height = 25
+      Caption = 'btn1'
+      TabOrder = 2
+      OnClick = btn1Click
+    end
+    object btn2: TButton
+      Left = 208
+      Top = 184
+      Width = 75
+      Height = 25
+      Caption = 'btn2'
+      TabOrder = 3
+    end
   end
   object dsCategory: TUniDataSource
     DataSet = memCategory
@@ -212,7 +229,7 @@ object frameProduct: TframeProduct
       Size = 100
     end
   end
-  object query1: TUniQuery
+  object queryLevel: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
       'select * from product')
@@ -470,5 +487,13 @@ object frameProduct: TframeProduct
     ProviderDataSet = DMMain.queryProduct
     Left = 456
     Top = 256
+  end
+  object query1: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'select * from product')
+    DetailFields = 'product_category_id'
+    Left = 496
+    Top = 400
   end
 end

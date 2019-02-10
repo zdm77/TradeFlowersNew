@@ -34,7 +34,7 @@ type
     level1: TcxGridLevel;
     columnBarCode: TcxGridDBColumn;
     memCategory: TMemTableEh;
-    query1: TUniQuery;
+    queryLevel: TUniQuery;
     fieldCategoryid: TIntegerField;
     fieldCategoryname: TStringField;
     fieldCategorypid: TIntegerField;
@@ -62,6 +62,10 @@ type
     fieldProductsuffix: TStringField;
     fieldProductbarcode: TStringField;
     fieldProductcategory_name: TStringField;
+    btn1: TButton;
+    btn2: TButton;
+    query1: TUniQuery;
+    procedure btn1Click(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
     procedure frameTopPanel1btnEditClick(Sender: TObject);
@@ -74,6 +78,7 @@ type
   private
     product: TProduct;
     category: TCategory;
+    CountParent: Integer;
     FCategoryId: Integer;
     FProductId: Integer;
     // FSelCategoryID: Integer;
@@ -86,8 +91,10 @@ type
     property ProductId: Integer read FProductId write FProductId;
     { Private declarations }
   public
+    procedure InsertLinks(AParentId, AId: Integer);
     // property SelCategoryID: Integer read FSelCategoryID write SetSelCategoryID;
     procedure Init;
+    function GetCountParent(AParentId: Integer): Integer;
     { Public declarations }
   end;
 
@@ -96,7 +103,111 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategoryEdit, UDmMain, UProductEdit, UfrmImport;
+  UCategoryEdit, UDmMain, UProductEdit, UfrmImport, UDMSite;
+
+procedure TframeProduct.btn1Click(Sender: TObject);
+var
+  level: Integer;
+
+  I: Integer;
+begin
+  queryLevel.Close;
+  queryLevel.SQL.Text := 'select * from dictonary.category where level like :level';
+  memCategory.First;
+  dmSite.conSite.Connected := True;
+  with dmSite.querySIte2 do
+  begin
+    Close;
+    SQL.Text := 'delete from category';
+    ExecSQL;
+    Close;
+    SQL.Text := 'delete from category_description';
+    ExecSQL;
+    Close;
+    SQL.Text := 'delete from category_path';
+    ExecSQL;
+    Close;
+    SQL.Text := 'delete from category_to_store';
+    ExecSQL;
+    Close;
+    SQL.Text := 'ALTER TABLE category AUTO_INCREMENT=0';
+    ExecSQL;
+    Close;
+    SQL.Clear;
+    SQL.Add(' INSERT INTO');
+    SQL.Add(' `category_description`');
+    SQL.Add(' (');
+    SQL.Add(' `category_id`,');
+    SQL.Add(' `language_id`,');
+    SQL.Add(' `name`,');
+    SQL.Add(' `description`,');
+    SQL.Add(' `meta_title`,');
+    SQL.Add(' `meta_description`,');
+    SQL.Add(' `meta_keyword`)');
+    SQL.Add(' VALUE (');
+    SQL.Add(' :category_id,');
+    SQL.Add(' :language_id,');
+    SQL.Add(' :name,');
+    SQL.Add(' :description,');
+    SQL.Add(' :meta_title,');
+    SQL.Add(' :meta_description,');
+    SQL.Add(' :meta_keyword);');
+  end;
+  with dmSite.querySite3 do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(' INSERT INTO');
+    SQL.Add(' `category_path`');
+    SQL.Add(' (');
+    SQL.Add(' `category_id`,');
+    SQL.Add(' `path_id`,');
+    SQL.Add(' `level`)');
+    SQL.Add(' VALUE (');
+    SQL.Add(' :category_id,');
+    SQL.Add(' :path_id,');
+    SQL.Add(' :level);');
+  end;
+  with dmSite.querySiteUpd do
+  begin
+    while not memCategory.Eof do
+    begin
+      Close;
+      SQL.Text :=
+        concat('insert into category (category_id, parent_id, `top`, `column`, status, date_added, date_modified)',
+        ' values (:category_id, :parent_id, 1, 5, :status, :date_added, :date_modified)');
+      ParamByName('category_id').Value := memCategory.FieldByName('id').Value;
+      ParamByName('parent_id').Value := memCategory.FieldByName('pid').Value;
+      ParamByName('status').Value := 1;
+      ParamByName('date_added').AsDateTime := now;
+      ParamByName('date_modified').AsDateTime := now;
+      ExecSQL;
+      dmSite.querySIte2.Close;
+      dmSite.querySIte2.ParamByName('category_id').Value := memCategory.FieldByName('id').Value;
+      dmSite.querySIte2.ParamByName('language_id').Value := 1;
+      dmSite.querySIte2.ParamByName('name').Value := memCategory.FieldByName('name').Value;
+      dmSite.querySIte2.ParamByName('description').Value := memCategory.FieldByName('name').Value;
+      dmSite.querySIte2.ParamByName('meta_title').Value := memCategory.FieldByName('name').Value;
+      dmSite.querySIte2.ParamByName('meta_description').Value := memCategory.FieldByName('name').Value;
+      dmSite.querySIte2.ParamByName('meta_keyword').Value := memCategory.FieldByName('name').Value;
+      dmSite.querySIte2.ExecSQL;
+      CountParent := 0;
+      // вычисляем сколько родителей
+      GetCountParent(memCategory.FieldByName('pid').Value);
+      // добавляем себя с максимум родителей
+      dmSite.querySite3.Close;
+      dmSite.querySite3.Close;
+      dmSite.querySite3.ParamByName('category_id').Value := memCategory.FieldByName('id').Value;
+      dmSite.querySite3.ParamByName('path_id').Value := memCategory.FieldByName('id').Value;
+      dmSite.querySite3.ParamByName('level').Value := CountParent;
+      dmSite.querySite3.ExecSQL;
+
+      // добавляем родителей
+       InsertLinks(memCategory.FieldByName('pid').AsInteger, memCategory.FieldByName('id').AsInteger);
+      memCategory.Next;
+    end;
+  end;
+end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
@@ -116,7 +227,7 @@ begin
   // Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
   // frmCategoryEdit.Init(category, id, queryCategoty);
   f.ShowModal;
-  if f.isSave = true then
+  if f.isSave = True then
     CategoryId := f.id;
   ShowCategory;
   // frmCategoryEdit.Show;
@@ -133,7 +244,7 @@ end;
 
 procedure TframeProduct.frameTopPanel1btnEditClick(Sender: TObject);
 begin
-CategoryInsEdt(fieldCategoryid.Value);
+  CategoryInsEdt(fieldCategoryid.Value);
 end;
 
 procedure TframeProduct.frameTopPanel2btnAddClick(Sender: TObject);
@@ -148,8 +259,8 @@ end;
 
 procedure TframeProduct.frameTopPanel2btnImportClick(Sender: TObject);
 begin
- if frmImport = nil then
-  Application.CreateForm(TfrmImport, frmImport);
+  if frmImport = nil then
+    Application.CreateForm(TfrmImport, frmImport);
   frmImport.Show;
 end;
 
@@ -159,11 +270,50 @@ begin
   ShowProduct;
 end;
 
+procedure TframeProduct.InsertLinks(AParentId, AId: Integer);
+var
+  I: Integer;
+begin
+  with query1 do
+  begin
+    Close;
+    SQL.Text := 'select * from dictonary.category where id=' + AParentId.ToString;
+    Open;
+    if RecordCount > 0 then
+    begin
+      CountParent := CountParent - 1;
+      dmSite.querySite3.Close;
+      dmSite.querySite3.ParamByName('category_id').Value := AId;
+      dmSite.querySite3.ParamByName('path_id').Value := FieldByName('id').Value;
+      dmSite.querySite3.ParamByName('level').Value := CountParent;
+      dmSite.querySite3.ExecSQL;
+      InsertLinks(FieldByName('pid').AsInteger, AId);
+    end;
+  end;
+end;
+
 procedure TframeProduct.Init;
 begin
   product := TProduct.Create;
   ShowCategory;
   ShowProduct;
+end;
+
+function TframeProduct.GetCountParent(AParentId: Integer): Integer;
+var
+  I: Integer;
+begin
+  with query1 do
+  begin
+    Close;
+    SQL.Text := 'select * from dictonary.category where id=' + AParentId.ToString;
+    Open;
+    if RecordCount > 0 then
+    begin
+      CountParent := CountParent + 1;
+      GetCountParent(FieldByName('pid').AsInteger);
+    end;
+  end;
 end;
 
 procedure TframeProduct.InsUpd(AId: Integer);
@@ -177,7 +327,7 @@ begin
   // Application.CreateForm(TfrmCategoryEdit, frmCategoryEdit);
   // frmCategoryEdit.Init(category, id, queryCategoty);
   f.ShowModal;
-  if f.isSave = true then
+  if f.isSave = True then
     ProductId := f.id;
   ShowProduct;
   // Application.CreateForm(TfrmProductEdit, frmProductEdit);
@@ -212,18 +362,18 @@ end;
 procedure TframeProduct.ShowCategory;
 begin
   memCategory.Active := false;
-  memCategory.Active := true;
+  memCategory.Active := True;
   memCategory.Locate('id', CategoryId, []);
 end;
 
 procedure TframeProduct.ShowProduct;
 begin
-  frameTopPanel2.btnImport.Visible := true;
+  frameTopPanel2.btnImport.Visible := True;
   memProduct.Filtered := false;
   // memProduct.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
   memProduct.Filter := ' level  like ' + QuotedStr(fieldCategorylevel.Value + '%');
-  memProduct.Filtered := true;
-  memProduct.Active := true;
+  memProduct.Filtered := True;
+  memProduct.Active := True;
   memProduct.Locate('id', ProductId, []);
 end;
 
