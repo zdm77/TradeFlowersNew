@@ -22,7 +22,6 @@ object frmProductEdit: TfrmProductEdit
     Align = alTop
     Caption = #1058#1086#1074#1072#1088
     TabOrder = 0
-    ExplicitWidth = 960
     Height = 97
     Width = 496
     object lbl2: TLabel
@@ -85,8 +84,6 @@ object frmProductEdit: TfrmProductEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    ExplicitWidth = 960
-    ExplicitHeight = 473
     Height = 300
     Width = 496
     object cxGrid1: TcxGrid
@@ -126,7 +123,6 @@ object frmProductEdit: TfrmProductEdit
       Align = alTop
       PanelStyle.Active = True
       TabOrder = 0
-      ExplicitWidth = 956
       Height = 39
       Width = 492
       object btnFromBase: TButton

@@ -25,10 +25,21 @@ object frmInternetStore: TfrmInternetStore
     TabOrder = 0
     OnClick = btnSincClick
   end
+  object btnDelAll: TButton
+    Left = 151
+    Top = 24
+    Width = 129
+    Height = 41
+    Caption = #1059#1076#1072#1083#1080#1090#1100' '#1074#1089#1105
+    TabOrder = 1
+    OnClick = btnDelAllClick
+  end
   object queryCategory: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from dictonary.category ')
+      'select * from dictonary.category '
+      ''
+      '')
     Left = 688
     Top = 56
   end
@@ -38,5 +49,14 @@ object frmInternetStore: TfrmInternetStore
       'select * from dictonary.category ')
     Left = 688
     Top = 112
+  end
+  object queryProduct: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'select * from dictonary.product '
+      ''
+      '')
+    Left = 544
+    Top = 64
   end
 end

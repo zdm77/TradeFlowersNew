@@ -34,8 +34,7 @@ begin
 end;
 
 procedure TProps.DeleteE();
-var
-  s: string;
+
 begin
   UFuncAndProc.standartDelete(QueryProp);
   // посмотреть не использоуется ли
