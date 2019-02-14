@@ -236,6 +236,7 @@ end;
 
 procedure TfrmProductEdit.showProps;
 begin
+
   with queryProps do
   begin
     Close;

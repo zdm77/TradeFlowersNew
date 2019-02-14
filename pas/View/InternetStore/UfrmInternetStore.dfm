@@ -59,4 +59,11 @@ object frmInternetStore: TfrmInternetStore
     Left = 544
     Top = 64
   end
+  object queryUpd: TUniQuery
+    Connection = dmSite.conSite
+    SQL.Strings = (
+      'select * from dictonary.category ')
+    Left = 568
+    Top = 160
+  end
 end

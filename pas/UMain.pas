@@ -14,7 +14,7 @@ uses
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
   Vcl.Menus, Vcl.ImgList, cxLocalization, MemTableDataEh, MemTableEh,
-  cxImageList, System.ImageList;
+  cxImageList, System.ImageList, CodeSiteLogging;
 
 type
   TProduct = class
@@ -67,6 +67,7 @@ uses
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
+
   cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) + '\..\INI\LanguagesUnicode.ini');
   cxLocalizer1.Active := true;
   cxLocalizer1.Locale := 1049;

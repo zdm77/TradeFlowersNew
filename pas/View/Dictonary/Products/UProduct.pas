@@ -27,6 +27,7 @@ implementation
 
 procedure TfrmProduct.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+
  Action := caFree;
  frmProduct:=nil;
 end;

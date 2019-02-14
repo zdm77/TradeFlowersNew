@@ -62,8 +62,6 @@ type
     fieldProductsuffix: TStringField;
     fieldProductbarcode: TStringField;
     fieldProductcategory_name: TStringField;
-    btn1: TButton;
-    btn2: TButton;
     query1: TUniQuery;
     procedure btn1Click(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
@@ -83,10 +81,10 @@ type
     FProductId: Integer;
     // FSelCategoryID: Integer;
     procedure CategoryInsEdt(id: Integer);
-    procedure InsUpd(AId: Integer);
     procedure ShowCategory;
     procedure ShowProduct;
     procedure Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure InsUpd(AId: Integer);
     property CategoryId: Integer read FCategoryId write FCategoryId;
     property ProductId: Integer read FProductId write FProductId;
     { Private declarations }
@@ -111,7 +109,7 @@ var
 
   I: Integer;
 begin
-WriteLn('Standard output (= MainChannel) used');
+
 end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);

@@ -93,8 +93,6 @@ object frmProductEdit: TfrmProductEdit
       Height = 241
       Align = alClient
       TabOrder = 1
-      ExplicitWidth = 956
-      ExplicitHeight = 414
       object cxGridDBTableView1: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps
@@ -145,18 +143,21 @@ object frmProductEdit: TfrmProductEdit
     Height = 30
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 570
-    ExplicitWidth = 960
+    ExplicitTop = 397
+    ExplicitWidth = 496
     inherited Panel1: TPanel
       Width = 496
-      ExplicitWidth = 960
+      ExplicitWidth = 496
       inherited Button1: TButton
         Left = 394
         OnClick = frameSave1Button1Click
-        ExplicitLeft = 858
+        ExplicitLeft = 394
       end
       inherited btnAbort: TButton
         OnClick = frameSave1btnAbortClick
+      end
+      inherited btnCancel: TButton
+        ExplicitLeft = 0
       end
     end
   end

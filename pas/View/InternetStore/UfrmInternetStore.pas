@@ -13,6 +13,7 @@ type
     query1: TUniQuery;
     btnDelAll: TButton;
     queryProduct: TUniQuery;
+    queryUpd: TUniQuery;
     procedure btnDelAllClick(Sender: TObject);
     procedure btnSincClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -51,11 +52,11 @@ uses
 
 procedure TfrmInternetStore.btnDelAllClick(Sender: TObject);
 begin
+  dmSite.conSite.Connected := True;
   DeleteAll;
 end;
 
 procedure TfrmInternetStore.btnSincClick(Sender: TObject);
-
 begin
   dmSite.conSite.Connected := True;
   // DeleteAll;
@@ -369,7 +370,6 @@ end;
 procedure TfrmInternetStore.InsertProduct;
 var
   querySite: TUniQuery;
-
 begin
   querySite := TUniQuery.Create(nil);
   querySite.Connection := dmSite.conSite;
@@ -481,7 +481,6 @@ procedure TfrmInternetStore.InsertProductDescription;
 var
   querySite: TUniQuery;
 begin
-
   querySite := TUniQuery.Create(nil);
   querySite.Connection := dmSite.conSite;
   with querySite do
@@ -622,7 +621,6 @@ begin
     // определяем имеющиеся
     querySite.ParamByName('id').AsInteger := queryProduct.FieldByName('id').AsInteger;
     querySite.Open;
-
     if querySite.IsEmpty = True then
     begin
       InsertProduct;

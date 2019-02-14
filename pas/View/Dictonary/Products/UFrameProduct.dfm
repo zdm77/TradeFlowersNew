@@ -162,23 +162,6 @@ object frameProduct: TframeProduct
         end
       end
     end
-    object btn1: TButton
-      Left = 88
-      Top = 192
-      Width = 75
-      Height = 25
-      Caption = 'btn1'
-      TabOrder = 2
-      OnClick = btn1Click
-    end
-    object btn2: TButton
-      Left = 208
-      Top = 184
-      Width = 75
-      Height = 25
-      Caption = 'btn2'
-      TabOrder = 3
-    end
   end
   object dsCategory: TUniDataSource
     DataSet = memCategory
