@@ -73,6 +73,11 @@ object frameProduct: TframeProduct
         inherited btnEdit: TButton
           OnClick = frameTopPanel1btnEditClick
         end
+        inherited chkShowDel: TCheckBox
+          Visible = False
+          ExplicitLeft = 316
+          ExplicitTop = -2
+        end
       end
     end
   end
@@ -156,6 +161,9 @@ object frameProduct: TframeProduct
         end
         inherited btnRefresh: TButton
           OnClick = frameTopPanel2btnRefreshClick
+        end
+        inherited chkShowDel: TCheckBox
+          Visible = False
         end
         inherited btnImport: TButton
           OnClick = frameTopPanel2btnImportClick

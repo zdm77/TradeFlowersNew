@@ -12,7 +12,7 @@ uses
   DBAccess, Uni, MemDS, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxContainer,
   Vcl.StdCtrls, cxGroupBox, UContragent, cxSplitter, CodeSiteLogging,
-  dxDateRanges, dxBarBuiltInMenu, cxPC, UFrameTopPanel, Vcl.Grids, Vcl.DBGrids, dxmdaset, MemTableDataEh, DataDriverEh,
+   dxBarBuiltInMenu, cxPC, UFrameTopPanel, Vcl.Grids, Vcl.DBGrids, dxmdaset, MemTableDataEh, DataDriverEh,
   MemTableEh;
 
 type
@@ -36,7 +36,6 @@ type
     DataDriverContr: TDataSetDriverEh;
     DataDriverContrType: TDataSetDriverEh;
     procedure btnAddClick(Sender: TObject);
-    procedure btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
     procedure frameTopPanel1btnDelClick(Sender: TObject);
     procedure frameTopPanel1btnEditClick(Sender: TObject);
@@ -73,14 +72,8 @@ begin
   InsUpd(0);
 end;
 
-procedure TFrameContragent.btnEditClick(Sender: TObject);
-begin
-  // InsUpd(fieldContrid.Value);
-end;
-
 procedure TFrameContragent.Expand(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  // CodeSite.send(TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.ClassName);
 end;
 
 procedure TFrameContragent.frameTopPanel1btnAddClick(Sender: TObject);
@@ -119,8 +112,6 @@ end;
 
 procedure TFrameContragent.init;
 begin
-  // FindPanel:= TcxGridFindPanelAccess(TFindControl(viewContragent.Controller)
-  // .FindPanel);
   TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.OnKeyUp := Self.Expand;
   ShowTypeTab;
 end;
@@ -134,15 +125,14 @@ begin
   if f.ModalResult = mrYes then
   begin
     Id := f.Id;
-    // DMMain.LoadContragent;
+
     ShowContragents(true);
   end;
 end;
 
 procedure TFrameContragent.RefreshMemo;
 begin
-  // DMMain.LoadContragent;
-  // ShowContragents;
+
 end;
 
 procedure TFrameContragent.ShowContragents(doRefresh: Boolean);
@@ -150,26 +140,10 @@ begin
   if memContrType.IsEmpty = false then
   begin
     TypeId := memContrType.FieldByName('id').AsInteger;
-    // if memContr.Active = true then
-    // begin
-    // // DMMain.DataDriverContr.RefreshReader;
-    // // DMMain.queryContragentMem.RefreshRecord;
-    // // memContr.RefreshRecord;
-    // // if isNew = 1 then
-    // // memContr.RefreshRecord
-    // // else
-    // // memContr.Refresh;
-    // // memContr.ApplyUpdates(0);
-    // // memContr.RefreshRecord;
-    // // memContr.Active := false;
-    // // memContr.Active:=True;
-    // end
-    // else
-    // begin
     if doRefresh = true then
     begin
       memContr.Active := false;
-      // memContr.LoadFromDataSet(DMMain.memContragent, -1, lmCopy, true);
+
       memContr.Active := true;
     end;
     memContr.Filtered := false;
@@ -177,8 +151,6 @@ begin
     memContr.Filter := memContr.Filter + ' AND contragent_type_id=' + memContrType.FieldByName('id').AsString;
     memContr.Filtered := true;
     memContr.locate('id', Id, []);
-    // end;
-  //  memContr.locate('id', Id, []);
     // установить фокус в поиск
     TcxGridFindPanelAccess(TFindControl(viewContragent.Controller).FindPanel).Edit.SetFocus;
   end;
@@ -190,7 +162,6 @@ begin
   with memContrType do
   begin
     Active := false;
-    // LoadFromDataSet(DMMain.memContrType, -1, lmCopy, true);
     Active := true;
     First;
     while not eof do

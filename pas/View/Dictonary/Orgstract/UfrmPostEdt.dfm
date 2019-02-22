@@ -3,7 +3,7 @@ object frmPostEdt: TfrmPostEdt
   Top = 0
   BorderStyle = bsDialog
   Caption = #1044#1086#1083#1078#1085#1086#1089#1090#1100
-  ClientHeight = 71
+  ClientHeight = 67
   ClientWidth = 343
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -35,29 +35,23 @@ object frmPostEdt: TfrmPostEdt
   end
   inline frameSave1: TframeSave
     Left = 0
-    Top = 41
+    Top = 37
     Width = 343
     Height = 30
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 41
-    ExplicitWidth = 343
+    ExplicitTop = 279
+    ExplicitWidth = 550
     inherited Panel1: TPanel
       Width = 343
-      ExplicitTop = 0
-      ExplicitWidth = 343
-      ExplicitHeight = 30
+      ExplicitWidth = 550
       inherited Button1: TButton
         Left = 241
         OnClick = frameSave1Button1Click
-        ExplicitLeft = 241
-        ExplicitTop = 0
-        ExplicitHeight = 30
+        ExplicitLeft = 448
       end
-      inherited Button2: TButton
+      inherited btnCancel: TButton
         ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitHeight = 30
       end
     end
   end
@@ -79,14 +73,14 @@ object frmPostEdt: TfrmPostEdt
         Name = 'Id'
         Value = nil
       end>
-    object fieldPostId: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'id'
-    end
     object fieldPostName: TStringField
       FieldName = 'name'
       Required = True
       Size = 255
+    end
+    object fieldPostId: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'id'
     end
   end
   object dsPostEdt: TDataSource

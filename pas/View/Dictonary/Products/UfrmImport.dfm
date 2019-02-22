@@ -168,6 +168,13 @@ object frmImport: TfrmImport
     TabOrder = 1
     Height = 418
     Width = 1184
+    object Label2: TLabel
+      Left = 160
+      Top = 112
+      Width = 19
+      Height = 13
+      Caption = 'test'
+    end
     object grid1: TdxSpreadSheet
       Left = 2
       Top = 41
@@ -225,6 +232,22 @@ object frmImport: TfrmImport
       HotZoneClassName = 'TcxMediaPlayer9Style'
       HotZone.SizePercent = 35
     end
+    object mmo1: TcxRichEdit
+      Left = 769
+      Top = 41
+      Align = alClient
+      TabOrder = 3
+      Height = 375
+      Width = 413
+    end
+    object Button1: TButton
+      Left = 672
+      Top = 152
+      Width = 75
+      Height = 25
+      Caption = 'Button1'
+      TabOrder = 4
+    end
   end
   object queryFieldValues: TUniQuery
     Connection = DMMain.conMain
@@ -237,6 +260,18 @@ object frmImport: TfrmImport
     end
     object field_ValuesBarcode: TIntegerField
       FieldName = 'barcode'
+    end
+    object FieldValuesid: TIntegerField
+      FieldName = 'id'
+    end
+    object FieldValuescontragent_id: TIntegerField
+      FieldName = 'contragent_id'
+      Required = True
+    end
+    object FieldValuestest: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'test'
+      Calculated = True
     end
   end
   object dlgOpen1: TOpenDialog
@@ -289,8 +324,8 @@ object frmImport: TfrmImport
     Top = 272
   end
   object actlst1: TActionList
-    Left = 448
-    Top = 309
+    Left = 472
+    Top = 285
     object actClear: TAction
       Caption = 'actClear'
       OnExecute = actClearExecute
@@ -299,5 +334,13 @@ object frmImport: TfrmImport
       Caption = 'actSelect'
       OnExecute = actSelectExecute
     end
+  end
+  object queryAssign: TUniQuery
+    Connection = DMMain.conMain
+    SQL.Strings = (
+      'select * from  dictonary.product'
+      ' where id=0;')
+    Left = 200
+    Top = 368
   end
 end

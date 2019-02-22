@@ -71,7 +71,6 @@ object FrameContragent: TFrameContragent
     TabOrder = 2
     LookAndFeel.Kind = lfOffice11
     LookAndFeel.NativeStyle = True
-    ExplicitTop = 70
     object viewContragent: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       FilterBox.Position = fpTop

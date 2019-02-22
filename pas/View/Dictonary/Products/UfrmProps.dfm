@@ -24,9 +24,8 @@ object frmProps: TfrmProps
     Height = 561
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 34
     ExplicitWidth = 811
-    ExplicitHeight = 527
+    ExplicitHeight = 561
     inherited cxGroupBox1: TcxGroupBox
       ExplicitWidth = 811
       Width = 811
@@ -40,17 +39,13 @@ object frmProps: TfrmProps
         Width = 807
         Height = 519
         ExplicitWidth = 807
-        ExplicitHeight = 485
+        ExplicitHeight = 519
         inherited viewProps: TcxGridDBTableView
           inherited columnName: TcxGridDBColumn
             LayoutItem = viewPropsLayoutItem1.Owner
           end
-          inherited viewPropsRootGroup: TcxGridInplaceEditFormGroup
-            Index = -1
-          end
           inherited viewPropsLayoutItem1: TcxGridInplaceEditFormLayoutItem
             SizeOptions.Width = 440
-            Index = 0
           end
         end
       end

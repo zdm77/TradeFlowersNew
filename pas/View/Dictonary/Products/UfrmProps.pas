@@ -24,8 +24,6 @@ implementation
 
 {$R *.dfm}
 
-
-
 procedure TfrmProps.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caFree;

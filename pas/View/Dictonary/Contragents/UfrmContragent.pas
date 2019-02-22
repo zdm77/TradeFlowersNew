@@ -35,13 +35,11 @@ implementation
 
 procedure TfrmContragent.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-
-  CodeSite.Send( csmLevel1, 'data', '' );
-    if FormStyle = fsMDIChild then
-    begin
-      Action := caFree;
-      frmContragent := nil;
-    end;
+  if FormStyle = fsMDIChild then
+  begin
+    Action := caFree;
+    frmContragent := nil;
+  end;
 end;
 
 procedure TfrmContragent.FormShow(Sender: TObject);

@@ -38,7 +38,8 @@ uses
   UfrmSplash in '..\pas\UfrmSplash.pas' {frmSplash},
   UfrmImport in '..\pas\View\Dictonary\Products\UfrmImport.pas' {frmImport},
   UDMSite in '..\pas\UDMSite.pas' {dmSite: TDataModule},
-  UfrmInternetStore in '..\pas\View\InternetStore\UfrmInternetStore.pas' {frmInternetStore};
+  UfrmInternetStore in '..\pas\View\InternetStore\UfrmInternetStore.pas' {frmInternetStore},
+  UfrmQuestAssign in '..\pas\View\Dictonary\Products\UfrmQuestAssign.pas' {frmQuestAssign};
 
 {$R *.res}
 

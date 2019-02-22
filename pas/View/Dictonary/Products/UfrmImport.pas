@@ -12,9 +12,9 @@ uses
   dxSpreadSheetClasses, dxSpreadSheetContainers, dxSpreadSheetFormulas, dxSpreadSheetHyperlinks, dxSpreadSheetFunctions,
   dxSpreadSheetStyles, dxSpreadSheetGraphics, dxSpreadSheetPrinting, dxSpreadSheetTypes, dxSpreadSheetUtils,
   dxSpreadSheetFormattedTextUtils, dxBarBuiltInMenu, dxSpreadSheet, cxCustomData, cxFilter, cxData, cxDataStorage,
-  cxNavigator, dxDateRanges, cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
+  cxNavigator, cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, cxGroupBox, CodeSiteLogging, MemTableDataEh, DataDriverEh, MemTableEh,
-  System.Actions, Vcl.ActnList, cxSplitter;
+  System.Actions, Vcl.ActnList, cxSplitter, cxMemo, cxRichEdit, DBSumLst, Vcl.Mask, Vcl.DBCtrls, dxDateRanges;
 
 type
   TfrmImport = class(TForm)
@@ -55,6 +55,13 @@ type
     cxSplitter1: TcxSplitter;
     field_ValuesName: TIntegerField;
     field_ValuesBarcode: TIntegerField;
+    queryAssign: TUniQuery;
+    mmo1: TcxRichEdit;
+    FieldValuesid: TIntegerField;
+    FieldValuescontragent_id: TIntegerField;
+    FieldValuestest: TFloatField;
+    Button1: TButton;
+    Label2: TLabel;
     procedure actClearExecute(Sender: TObject);
     procedure actSelectExecute(Sender: TObject);
     procedure btnImportClick(Sender: TObject);
@@ -70,6 +77,9 @@ type
     FContragentId: Integer;
     FIdCategory: Integer;
     FNextLevel: string;
+    procedure AddAssign(AName, ABarCode: string; AId: Integer);
+    function GetAssignBarCode(ABarCode: string): boolean;
+    function GetAssignName(AName: string): boolean;
     procedure SelectContragent;
     property ContragentId: Integer read FContragentId write FContragentId;
     property IdCategory: Integer read FIdCategory write FIdCategory;
@@ -89,7 +99,7 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmContragent, UDmMain, UProductEdit, UfrmSelectTree, UfrmSplash, UFuncAndProc;
+uses UfrmContragent, UDmMain, UProductEdit, UfrmSelectTree, UfrmSplash, UFuncAndProc, UfrmQuestAssign, UProduct;
 
 procedure TfrmImport.actClearExecute(Sender: TObject);
 begin
@@ -104,16 +114,49 @@ begin
   SelectCategory;
 end;
 
+procedure TfrmImport.AddAssign(AName, ABarCode: string; AId: Integer);
+begin
+  with queryAssign do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add(' INSERT INTO');
+    SQL.Add(' dictonary.assoc_product_client');
+    SQL.Add(' (');
+    SQL.Add(' contragent_id,');
+    SQL.Add(' barcode,');
+    SQL.Add(' name,');
+    SQL.Add(' id_product');
+    SQL.Add(' )');
+    SQL.Add(' VALUES (');
+    SQL.Add(' :contragent_id,');
+    SQL.Add(' :barcode,');
+    SQL.Add(' :name,');
+    SQL.Add(' :id_product');
+    SQL.Add(' );');
+    ParamByName('contragent_id').Value := ContragentId;
+    ParamByName('barcode').Value := ABarCode;
+    ParamByName('name').Value := AName;
+    ParamByName('id_product').Value := AId;
+    ExecSQL;
+  end;
+end;
+
 procedure TfrmImport.btnImportClick(Sender: TObject);
 var
   i: Integer;
   ATable: TdxSpreadSheetTableView;
-  AName, ABarcode: Integer;
+  // числовые поля в таблице соответствия колонка/столбец
+  AName, ABarCode: Integer;
+  ANameValue, ABarcodeValue: string;
   s: string;
-var
+  // найден в нашей базе но не найден в таблице соответствия поставщика
+  isAssign: boolean;
   f: TfrmProductEdit;
   fSplah: tfrmSplash;
 begin
+  CodeSite.Clear;
+  mmo1.Lines.Clear;
   // fSplah := tfrmSplash.Create(Self);
   // fSplah.lblMessage.Caption := 'Выполняется импорт.';
   // fSplah.Show;
@@ -124,72 +167,137 @@ begin
   memProduct.Active := False;
   memProduct.Active := True;
   AName := queryFieldValues.FieldByName('name').AsInteger - 1;
-  ABarcode := queryFieldValues.FieldByName('barcode').AsInteger - 1;
+  ABarCode := queryFieldValues.FieldByName('barcode').AsInteger - 1;
   ATable := (grid1.Sheets[0] as TdxSpreadSheetTableView);
   for i := 0 to ATable.Rows.Count - 1 do
   begin
     // fSplah.Update;
     try
-      s := 'Наименование : ' + ATable.Cells[i, AName].DisplayText + ' Штрих-код: ' + ATable.Cells[i, ABarcode]
-        .DisplayText;
+      isAssign := False;
+      ABarcodeValue := ATable.Cells[i, ABarCode].DisplayText;
+      // если поле заполненно но не 13 символов то что то сдесь не так
+      // if (ABarcodeValue.Length +1<> 13) then
+      // begin
+      // Application.MessageBox('Поле штрих-кода не 13 символов, проверьте соответствие полей.', 'Сообщение',
+      // MB_OK + MB_ICONERROR);
+      // Exit;
+      // end;
+      ANameValue := ATable.Cells[i, AName].DisplayText;
+      s := 'Наименование : ' + ANameValue + ' Штрих-код: ' + ABarcodeValue;
       // проверяем наименование
-      if (ATable.Cells[i, AName].DisplayText) <> '' then
+      if (ANameValue) <> '' then
       begin
+        mmo1.Lines.Add('');
         // проверяем штрих-код
         // if (ATable.Cells[i, ABarcode].DisplayText <> '') then
         // begin
         // if (ATable.Cells[i, ABarcode].DisplayText.Length = 13) then
         // begin
-        // проверяем наличие
-        memProduct.Filtered := False;
-        memProduct.Filter := 'barcode=' + QuotedStr(ATable.Cells[i, ABarcode].DisplayText);
-        memProduct.Filtered := True;
-        // end;
-        if (memProduct.IsEmpty = True) or (ATable.Cells[i, ABarcode].DisplayText = '') then
+        // ==============================================================================
+        // Соответствие
+        // ==============================================================================
+        // проверяем по штрих-коду в таблице клиента если он есть
+        // если есть то следующая итерация
+        if (ABarcodeValue <> '') then
+          if GetAssignBarCode(ABarcodeValue) = False then
+          begin
+            mmo1.SelAttributes.Color := clBlue;
+            mmo1.Lines.Add('Товар "' + ANameValue + '" найден по штрих-коду');
+            Continue;
+          end;
+        // если не нашли по штриху или он пуст , смотрим по имени
+        // если есть то следующая итреация (необходимо доработать доп. подтверждения)
+        if GetAssignName(ANameValue) = False then
         begin
-          // если категория не выбрана, даем выбор
-          if IdCategory = 0 then
+          mmo1.SelAttributes.Color := clGreen;
+          mmo1.Lines.Add('Товар "' + ANameValue + '" найден по наименованию');
+          Continue;
+        end;
+        // если дошли до сюда, значит не нашли
+        mmo1.SelAttributes.Color := clRed;
+        mmo1.Lines.Add('Товар "' + ANameValue + '" не найден в таблице соответствия');
+        // пробуем найти в нашей базе
+        memProduct.Filtered := False;
+        memProduct.Filter := 'barcode=' + QuotedStr(ATable.Cells[i, ABarCode].DisplayText);
+        memProduct.Filtered := True;
+        // если нашли в нашей базе, то будем требовать соответствия
+        if (memProduct.IsEmpty = False) then
+        begin
+          AddAssign(ANameValue, ABarcodeValue, memProduct.FieldByName('id').Value);
+          mmo1.SelAttributes.Color := clBlack;
+          mmo1.Lines.Add('Товар "' + ANameValue + '" найден по штрих-коду в базе и добавлен в соответствие');
+          Continue;
+        end;
+        // если не нашли нигде
+        if (memProduct.IsEmpty = True) or (ATable.Cells[i, ABarCode].DisplayText = '') then
+        begin
+          // даем выбор, новый или соответствие
+          Application.CreateForm(TfrmQuestAssign, frmQuestAssign);
+          frmQuestAssign.lblProduct.Caption := 'Товар: "' + ANameValue + '" не найден.';
+          frmQuestAssign.ShowModal;
+          if frmQuestAssign.ActionSelect = 0 then
+            Continue;
+          // новый
+          if frmQuestAssign.ActionSelect = 1 then
           begin
-            f := TfrmProductEdit.Create(Self, 0, IdCategory, '', ATable.Cells[i, AName].DisplayText,
-              ATable.Cells[i, ABarcode].DisplayText);
-            f.frameSave1.btnAbort.Visible := True;
-            f.ShowModal;
-            if f.isAbortImport = True then
-              break;
-            IdCategory := f.fieldProductcategory_id.Value;
-          end
-          else
-          begin
-            // если категория выбрана, но режим не автомат
-            if chkAuto.Checked = False then
+            // если категория не выбрана, даем выбор
+            if IdCategory = 0 then
             begin
-              f := TfrmProductEdit.Create(Self, 0, IdCategory, edtCategory.Text, ATable.Cells[i, AName].DisplayText,
-                ATable.Cells[i, ABarcode].DisplayText);
+              f := TfrmProductEdit.Create(Self, 0, IdCategory, '', ATable.Cells[i, AName].DisplayText,
+                ATable.Cells[i, ABarCode].DisplayText);
               f.frameSave1.btnAbort.Visible := True;
               f.ShowModal;
               if f.isAbortImport = True then
                 break;
+              IdCategory := f.fieldProductcategory_id.Value;
             end
             else
-            // полный автомат
             begin
-              queryProduct.Insert;
-              fieldProductcategory_id.Value := IdCategory;
-              fieldProductbarcode.Value := ATable.Cells[i, ABarcode].DisplayText;
-              fieldProductname.Value := ATable.Cells[i, AName].DisplayText;
-              // fieldProductlevel.Value:=
-              queryProduct.Post;
+              // если категория выбрана, но режим не автомат
+              if chkAuto.Checked = False then
+              begin
+                f := TfrmProductEdit.Create(Self, 0, IdCategory, edtCategory.Text, ATable.Cells[i, AName].DisplayText,
+                  ATable.Cells[i, ABarCode].DisplayText);
+                f.frameSave1.btnAbort.Visible := True;
+                f.ShowModal;
+                if f.isAbortImport = True then
+                  break;
+              end
+              else
+              // полный автомат
+              begin
+                queryProduct.Insert;
+                fieldProductcategory_id.Value := IdCategory;
+                fieldProductbarcode.Value := ATable.Cells[i, ABarCode].DisplayText;
+                fieldProductname.Value := ATable.Cells[i, AName].DisplayText;
+                // fieldProductlevel.Value:=
+                queryProduct.Post;
+              end;
+            end;
+            mmo1.SelAttributes.Color := clBlack;
+            mmo1.Lines.Add('Товар "' + ANameValue + '" добавлен');
+            AddAssign(ANameValue, ABarcodeValue, f.Id);
+            // CodeSite.Send('Найден', s);
+          end
+          else
+          begin
+            Application.CreateForm(TfrmProduct, frmProduct);
+            frmProduct.ShowModal;
+            if frmProduct.isSelect = True then
+            begin
+              if ABarcodeValue = '' then
+                ABarcodeValue := frmProduct.frameProduct1.fieldProductbarcode.Value;
+              mmo1.SelAttributes.Color := clGreen;
+              mmo1.Lines.Add('Товар "' + ANameValue + '" не найден. Ассоциирован с "' +
+                frmProduct.frameProduct1.fieldProductname.Value + '"');
+              AddAssign(ANameValue, ABarcodeValue, frmProduct.frameProduct1.fieldProductid.Value);
             end;
           end;
-          // CodeSite.Send('Найден', s);
-        end
-        // end
-        // else
-        // CodeSite.Send('Нет штрих-кода: ', ATable.Cells[i, AName].DisplayText);
+        end;
       end;
     except
       Continue;
-    end;
+    end
   end;
   // fSplah.Close;
   // fSplah.Free;
@@ -312,6 +420,30 @@ end;
 procedure TfrmImport.FormShow(Sender: TObject);
 begin
   EnableImport;
+end;
+
+function TfrmImport.GetAssignBarCode(ABarCode: string): boolean;
+begin
+  queryAssign.Close;
+  queryAssign.SQL.Text :=
+    'select id from dictonary.assoc_product_client where barcode=:barcode and contragent_id=:contragent_id';
+  queryAssign.ParamByName('barcode').asString := ABarCode;
+  queryAssign.ParamByName('contragent_id').AsInteger := ContragentId;
+  queryAssign.Open;
+  Result := queryAssign.IsEmpty;
+  // TODO -cMM: TfrmImport.GetAssignBarCode default body inserted
+end;
+
+function TfrmImport.GetAssignName(AName: string): boolean;
+begin
+  queryAssign.Close;
+  queryAssign.SQL.Text :=
+    'select id from dictonary.assoc_product_client where UPPER(name)=:name and contragent_id=:contragent_id';
+  queryAssign.ParamByName('name').asString := AnsiUpperCase(AName);
+  queryAssign.ParamByName('contragent_id').AsInteger := ContragentId;
+  queryAssign.Open;
+  Result := queryAssign.IsEmpty;
+  // TODO -cMM: TfrmImport.GetAssignName default body inserted
 end;
 
 procedure TfrmImport.SelectCategory;

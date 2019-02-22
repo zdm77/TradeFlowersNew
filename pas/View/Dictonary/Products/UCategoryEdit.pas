@@ -14,7 +14,7 @@ uses
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
   cxMaskEdit, UProps, UCategoryProperty, cxGroupBox,
   cxDataControllerConditionalFormattingRulesManagerDialog, cxDropDownEdit,
-  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, dxDateRanges, MemTableEh;
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,  MemTableEh, dxDateRanges;
 
 type
   TfrmCategoryEdit = class(TForm)

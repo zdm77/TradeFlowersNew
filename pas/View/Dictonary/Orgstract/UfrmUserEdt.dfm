@@ -48,20 +48,11 @@ object frmUserEdt: TfrmUserEdt
     ExplicitWidth = 340
     inherited Panel1: TPanel
       Width = 560
-      ExplicitTop = 0
       ExplicitWidth = 340
-      ExplicitHeight = 30
       inherited Button1: TButton
         Left = 458
         OnClick = frameSave1Button1Click
         ExplicitLeft = 238
-        ExplicitTop = 0
-        ExplicitHeight = 30
-      end
-      inherited Button2: TButton
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitHeight = 30
       end
     end
   end

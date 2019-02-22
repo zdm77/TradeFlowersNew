@@ -22,7 +22,7 @@ object frmSelectTree: TfrmSelectTree
     Align = alTop
     PanelStyle.Active = True
     TabOrder = 0
-    Height = 65
+    Height = 41
     Width = 642
     object lblProduct: TLabel
       Left = 3
@@ -51,17 +51,19 @@ object frmSelectTree: TfrmSelectTree
   end
   object cxGroupBox2: TcxGroupBox
     Left = 0
-    Top = 65
+    Top = 41
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 1
-    Height = 486
+    ExplicitTop = 65
+    ExplicitHeight = 486
+    Height = 510
     Width = 642
     object lstCategory: TcxDBTreeList
       Left = 2
       Top = 2
       Width = 638
-      Height = 482
+      Height = 506
       Align = alClient
       Bands = <
         item
@@ -75,6 +77,7 @@ object frmSelectTree: TfrmSelectTree
       OptionsSelection.CellSelect = False
       RootValue = -1
       TabOrder = 0
+      ExplicitHeight = 482
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'

@@ -3,8 +3,8 @@ object frmContragentEdt: TfrmContragentEdt
   Top = 0
   BorderStyle = bsDialog
   Caption = #1050#1086#1085#1090#1088#1072#1075#1077#1085#1090
-  ClientHeight = 295
-  ClientWidth = 349
+  ClientHeight = 647
+  ClientWidth = 958
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -35,7 +35,7 @@ object frmContragentEdt: TfrmContragentEdt
   object DBEdit1: TDBEdit
     Left = 85
     Top = 8
-    Width = 255
+    Width = 339
     Height = 21
     DataField = 'name'
     DataSource = dsContragent
@@ -44,7 +44,7 @@ object frmContragentEdt: TfrmContragentEdt
   object DBLookupComboBox1: TDBLookupComboBox
     Left = 85
     Top = 35
-    Width = 255
+    Width = 339
     Height = 21
     DataField = 'type_name'
     DataSource = dsContragent
@@ -52,20 +52,20 @@ object frmContragentEdt: TfrmContragentEdt
   end
   inline frameSave1: TframeSave
     Left = 0
-    Top = 265
-    Width = 349
+    Top = 617
+    Width = 958
     Height = 30
     Align = alBottom
     TabOrder = 3
-    ExplicitTop = 265
-    ExplicitWidth = 349
+    ExplicitTop = 280
+    ExplicitWidth = 432
     inherited Panel1: TPanel
-      Width = 349
-      ExplicitWidth = 349
+      Width = 958
+      ExplicitWidth = 432
       inherited Button1: TButton
-        Left = 247
+        Left = 856
         OnClick = frameSave1Button1Click
-        ExplicitLeft = 247
+        ExplicitLeft = 330
       end
       inherited btnCancel: TButton
         ExplicitLeft = 0
@@ -74,13 +74,15 @@ object frmContragentEdt: TfrmContragentEdt
   end
   object gridCat: TcxDBVerticalGrid
     Left = 0
-    Top = 65
-    Width = 349
-    Height = 200
+    Top = 399
+    Width = 958
+    Height = 218
     Align = alBottom
     Navigator.Buttons.CustomButtons = <>
     TabOrder = 2
     DataController.DataSource = dsCat
+    ExplicitTop = 62
+    ExplicitWidth = 432
     Version = 1
     object gridCatname: TcxDBEditorRow
       Properties.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077

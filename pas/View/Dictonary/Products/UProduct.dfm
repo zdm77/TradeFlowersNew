@@ -10,9 +10,7 @@ object frmProduct: TfrmProduct
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsMDIChild
   OldCreateOrder = False
-  Visible = True
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
@@ -35,6 +33,14 @@ object frmProduct: TfrmProduct
         OptionsBehavior.ExpandOnIncSearch = False
         ExplicitHeight = 462
       end
+      inherited frameTopPanel1: TframeTopPanel
+        inherited cxGroupBox4: TcxGroupBox
+          inherited chkShowDel: TCheckBox
+            ExplicitLeft = 310
+            ExplicitTop = 2
+          end
+        end
+      end
     end
     inherited cxSplitter1: TcxSplitter
       Height = 504
@@ -50,6 +56,9 @@ object frmProduct: TfrmProduct
         Height = 462
         ExplicitWidth = 514
         ExplicitHeight = 462
+        inherited viewProduct: TcxGridDBTableView
+          OnDblClick = frameProduct1viewProductDblClick
+        end
       end
       inherited frameTopPanel2: TframeTopPanel
         Width = 514

@@ -117,7 +117,6 @@ begin
 //  f.Free;
   f.top:=-100;
 
-
 end;
 
 procedure TDMMain.LoadPost;

@@ -7,7 +7,7 @@ uses
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
-  cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, MemDS,
+  cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData,
   DBAccess,
   Uni, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
@@ -93,6 +93,7 @@ procedure TfrmMain.N2Click(Sender: TObject);
 begin
   if frmProduct = nil then
     Application.CreateForm(TfrmProduct, frmProduct);
+  frmProduct.FormStyle:=fsMDIChild;
   frmProduct.Show;
 end;
 

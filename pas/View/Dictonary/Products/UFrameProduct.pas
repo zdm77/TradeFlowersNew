@@ -11,9 +11,9 @@ uses
   cxGridCustomView, cxGrid, MemDS, DBAccess, Uni, cxCustomData, cxFilter, cxData,
   UCategory, cxTL, cxMaskEdit, cxTLdxBarBuiltInMenu, cxInplaceContainer, cxDBTL,
   cxTLData, UProductModel, cxDBNavigator, cxContainer, cxSplitter, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges,
+  cxDataControllerConditionalFormattingRulesManagerDialog,
   MemTableDataEh, MemTableEh, cxMemo, CodeSiteLogging, UFrameTopPanel,
-  DataDriverEh;
+  DataDriverEh, frxClass, dxDateRanges;
 
 type
   TcxGridTableControllerAccess = class(TcxTreeListController);
@@ -63,7 +63,6 @@ type
     fieldProductbarcode: TStringField;
     fieldProductcategory_name: TStringField;
     query1: TUniQuery;
-    procedure btn1Click(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure frameTopPanel1btnAddClick(Sender: TObject);
     procedure frameTopPanel1btnEditClick(Sender: TObject);
@@ -73,6 +72,7 @@ type
     procedure frameTopPanel2btnRefreshClick(Sender: TObject);
     procedure lstCategoryClick(Sender: TObject);
     procedure lstCategoryDblClick(Sender: TObject);
+
   private
     product: TProduct;
     category: TCategory;
@@ -102,15 +102,6 @@ implementation
 
 uses
   UCategoryEdit, UDmMain, UProductEdit, UfrmImport, UDMSite;
-
-procedure TframeProduct.btn1Click(Sender: TObject);
-var
-  level: Integer;
-
-  I: Integer;
-begin
-
-end;
 
 procedure TframeProduct.btnEditClick(Sender: TObject);
 begin
@@ -259,8 +250,13 @@ end;
 
 procedure TframeProduct.lstCategoryDblClick(Sender: TObject);
 begin
+  if True then
+  begin
+  end;
   btnEditClick(Sender);
 end;
+
+
 
 procedure TframeProduct.ShowCategory;
 begin
@@ -269,8 +265,10 @@ begin
   memCategory.Locate('id', CategoryId, []);
 end;
 
+
 procedure TframeProduct.ShowProduct;
 begin
+
   frameTopPanel2.btnImport.Visible := True;
   memProduct.Filtered := false;
   // memProduct.Filter := 'is_delete = ' + BoolToStr(frameTopPanel1.isShowDel);
