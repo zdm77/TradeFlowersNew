@@ -288,7 +288,7 @@ begin
               if ABarcodeValue = '' then
                 ABarcodeValue := frmProduct.frameProduct1.fieldProductbarcode.Value;
               mmo1.SelAttributes.Color := clGreen;
-              mmo1.Lines.Add('Товар "' + ANameValue + '" не найден. Ассоциирован с "' +
+              mmo1.Lines.Add('Товар "' + ANameValue + '". Ассоциирован с "' +
                 frmProduct.frameProduct1.fieldProductname.Value + '"');
               AddAssign(ANameValue, ABarcodeValue, frmProduct.frameProduct1.fieldProductid.Value);
             end;

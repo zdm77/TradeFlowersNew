@@ -13,7 +13,7 @@ uses
   cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxContainer,
   Vcl.StdCtrls, cxGroupBox, UContragent, cxSplitter, CodeSiteLogging,
    dxBarBuiltInMenu, cxPC, UFrameTopPanel, Vcl.Grids, Vcl.DBGrids, dxmdaset, MemTableDataEh, DataDriverEh,
-  MemTableEh;
+  MemTableEh, dxDateRanges;
 
 type
   TFindControl = class(TcxGridTableController);

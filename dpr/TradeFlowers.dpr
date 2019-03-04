@@ -49,6 +49,5 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
   Application.CreateForm(TdmSite, dmSite);
-
   Application.Run;
 end.

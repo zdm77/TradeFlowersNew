@@ -31,7 +31,7 @@ object frmImport: TfrmImport
       Top = 2
       Align = alClient
       PanelStyle.Active = True
-      TabOrder = 0
+      TabOrder = 1
       Height = 88
       Width = 381
       object cxGrid1: TcxGrid
@@ -40,7 +40,7 @@ object frmImport: TfrmImport
         Width = 377
         Height = 48
         Align = alBottom
-        TabOrder = 0
+        TabOrder = 1
         object cxGrid1DBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = dsFieldValues
@@ -71,7 +71,7 @@ object frmImport: TfrmImport
         Width = 75
         Height = 30
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
-        TabOrder = 1
+        TabOrder = 0
         OnClick = btnSavePosClick
       end
     end
@@ -79,7 +79,7 @@ object frmImport: TfrmImport
       Left = 2
       Top = 2
       Align = alLeft
-      TabOrder = 1
+      TabOrder = 0
       Height = 88
       Width = 799
       object lbl1: TLabel
@@ -98,7 +98,7 @@ object frmImport: TfrmImport
       end
       object Label1: TLabel
         Left = 454
-        Top = 14
+        Top = 15
         Width = 58
         Height = 13
         Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1103':'
@@ -126,7 +126,7 @@ object frmImport: TfrmImport
             Kind = bkEllipsis
           end>
         Properties.ReadOnly = True
-        TabOrder = 1
+        TabOrder = 2
         OnClick = edtFileClick
         Width = 361
       end
@@ -137,7 +137,7 @@ object frmImport: TfrmImport
         Height = 17
         Caption = #1040#1074#1090#1086#1084#1072#1090#1080#1095#1077#1089#1082#1080#1081' '#1088#1077#1078#1080#1084'('#1085#1077' '#1073#1077#1079#1086#1087#1072#1089#1085#1086')'
         Enabled = False
-        TabOrder = 2
+        TabOrder = 3
       end
       object edtCategory: TcxButtonEdit
         Left = 518
@@ -155,7 +155,7 @@ object frmImport: TfrmImport
           end>
         Properties.ReadOnly = True
         Properties.OnChange = edt1PropertiesChange
-        TabOrder = 3
+        TabOrder = 1
         Width = 275
       end
     end
