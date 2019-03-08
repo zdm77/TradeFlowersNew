@@ -93,7 +93,6 @@ object frmProductEdit: TfrmProductEdit
       Height = 241
       Align = alClient
       TabOrder = 1
-      ExplicitLeft = 1
       object cxGridDBTableView1: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps
