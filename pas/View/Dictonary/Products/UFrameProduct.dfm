@@ -75,8 +75,6 @@ object frameProduct: TframeProduct
         end
         inherited chkShowDel: TCheckBox
           Visible = False
-          ExplicitLeft = 316
-          ExplicitTop = -2
         end
       end
     end
@@ -192,7 +190,7 @@ object frameProduct: TframeProduct
   object memCategory: TMemTableEh
     Params = <>
     DataDriver = DataDriverCategory
-    Left = 136
+    Left = 152
     Top = 360
     object fieldCategoryid: TIntegerField
       FieldName = 'id'
