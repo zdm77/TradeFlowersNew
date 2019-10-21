@@ -2,8 +2,8 @@ object frmImport: TfrmImport
   Left = 0
   Top = 0
   Caption = #1048#1084#1087#1086#1088#1090
-  ClientHeight = 510
-  ClientWidth = 1184
+  ClientHeight = 857
+  ClientWidth = 1356
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,23 +24,26 @@ object frmImport: TfrmImport
     Align = alTop
     PanelStyle.Active = True
     TabOrder = 0
+    ExplicitWidth = 1184
     Height = 92
-    Width = 1184
+    Width = 1356
     object group2: TcxGroupBox
       Left = 801
       Top = 2
       Align = alClient
       PanelStyle.Active = True
       TabOrder = 1
+      ExplicitWidth = 381
       Height = 88
-      Width = 381
+      Width = 553
       object cxGrid1: TcxGrid
         Left = 2
         Top = 38
-        Width = 377
+        Width = 549
         Height = 48
         Align = alBottom
         TabOrder = 1
+        ExplicitWidth = 377
         object cxGrid1DBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.DataSource = dsFieldValues
@@ -166,8 +169,10 @@ object frmImport: TfrmImport
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 1
-    Height = 418
-    Width = 1184
+    ExplicitWidth = 1184
+    ExplicitHeight = 418
+    Height = 765
+    Width = 1356
     object Label2: TLabel
       Left = 160
       Top = 112
@@ -179,9 +184,10 @@ object frmImport: TfrmImport
       Left = 2
       Top = 41
       Width = 759
-      Height = 375
+      Height = 722
       Align = alLeft
       OptionsView.R1C1Reference = True
+      ExplicitHeight = 375
       Data = {
         A402000044585353763242460C00000042465320000000000100000001000101
         010100000000000001004246532000000000424653200200000001000000200B
@@ -212,8 +218,9 @@ object frmImport: TfrmImport
       Align = alTop
       PanelStyle.Active = True
       TabOrder = 0
+      ExplicitWidth = 1180
       Height = 39
-      Width = 1180
+      Width = 1352
       object btnImport: TButton
         Left = 3
         Top = 3
@@ -228,17 +235,20 @@ object frmImport: TfrmImport
       Left = 761
       Top = 41
       Width = 8
-      Height = 375
+      Height = 722
       HotZoneClassName = 'TcxMediaPlayer9Style'
       HotZone.SizePercent = 35
+      ExplicitHeight = 375
     end
     object mmo1: TcxRichEdit
       Left = 769
       Top = 41
       Align = alClient
       TabOrder = 3
-      Height = 375
-      Width = 413
+      ExplicitWidth = 413
+      ExplicitHeight = 375
+      Height = 722
+      Width = 585
     end
     object Button1: TButton
       Left = 672
