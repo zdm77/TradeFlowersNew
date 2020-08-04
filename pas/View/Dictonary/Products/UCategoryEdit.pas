@@ -13,7 +13,7 @@ uses
   cxData, UCategory, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
   Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
   cxMaskEdit, UProps, UCategoryProperty, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog;
+  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges;
 
 type
   TfrmCategoryEdit = class(TForm)

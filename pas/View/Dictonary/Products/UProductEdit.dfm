@@ -132,7 +132,6 @@ object frmProductEdit: TfrmProductEdit
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 2
     ExplicitTop = 73
-    ExplicitHeight = 377
     Height = 353
     Width = 502
     object cxGrid1: TcxGrid

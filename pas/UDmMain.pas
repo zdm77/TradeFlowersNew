@@ -21,9 +21,9 @@ var
   DMMain: TDMMain;
 
 const
-  TABLE_CATEGORY = 'dictonary.category';
+  TABLE_CATEGORY = 'product_category';
  const
-  TABLE_PRODUCT = 'dictonary.product';
+  TABLE_PRODUCT = 'product';
 const
   TABLE_PROPERTIES = 'dictonary.properties';
  const

@@ -21,7 +21,6 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alTop
     PanelStyle.Active = True
     TabOrder = 0
-    ExplicitWidth = 553
     Height = 65
     Width = 552
     object lbl2: TLabel
@@ -67,8 +66,6 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    ExplicitWidth = 553
-    ExplicitHeight = 395
     Height = 401
     Width = 552
     object cxGroupBox3: TcxGroupBox
@@ -76,8 +73,6 @@ object frmCategoryEdit: TfrmCategoryEdit
       Top = 358
       Align = alBottom
       TabOrder = 0
-      ExplicitTop = 464
-      ExplicitWidth = 745
       Height = 41
       Width = 548
       object btnSave: TButton

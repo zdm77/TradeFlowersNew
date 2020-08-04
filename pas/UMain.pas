@@ -11,19 +11,14 @@ uses
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
-  Vcl.Menus, Vcl.ImgList, cxLocalization, MemTableDataEh, MemTableEh,
+  Vcl.Menus, Vcl.ImgList, cxLocalization,
   cxImageList, System.ImageList;
 
 type
   TProduct = class
-  private
-    FId: Integer;
-    FName: string;
-    FPid: Integer;
+
   public
-    property Id: Integer read FId;
-    property Name: string read FName write FName;
-    property Pid: Integer read FPid;
+
   end;
 
   TfrmMain = class(TForm)
@@ -36,7 +31,6 @@ type
     imgSmall: TcxImageList;
     imgLarge: TcxImageList;
     cxLocalizer1: TcxLocalizer;
-    procedure btn1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
@@ -55,21 +49,6 @@ implementation
 
 uses
   UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps;
-
-procedure TfrmMain.btn1Click(Sender: TObject);
-var
-  product: TProduct;
-  i: Integer;
-  // s:TStringBuilder;
-begin
-  product := TProduct.Create;
-  product.Name := 'Иван';
-  listProduct := TList<TProduct>.Create;
-  listProduct.Add(product);
-  listProduct.Add(product);
-  // for  I := 0 to listProduct.Count-1 do
-  // OutputDebugString(PChar(product.Name));
-end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin

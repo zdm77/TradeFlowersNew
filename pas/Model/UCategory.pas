@@ -31,12 +31,14 @@ type
     /// type:string
     property Name: string read FName write SetName;
     property ParentId: Integer read FParentId write SetParentId;
-    property queryCategory: TUniQuery read FqueryCategory write SetqueryCategory;
+    property queryCategory: TUniQuery read FqueryCategory
+      write SetqueryCategory;
     procedure AddProperty(categoryId, propertyId: Integer; inName: Boolean);
     procedure GetCategories;
     procedure assignCategoryById(_id: Integer; query: TUniQuery);
     procedure DeleteCategory;
-    procedure GeneratePropertiesFromParent(categoryId: Integer; query: TUniQuery; ParentId: Integer);
+    procedure GeneratePropertiesFromParent(categoryId: Integer;
+      query: TUniQuery; ParentId: Integer);
     /// <summary>Вернуть объект Category по параметру родителя
     /// </summary>
     /// <returns> TCategory
@@ -61,7 +63,8 @@ begin
   SetqueryCategory(query);
 end;
 
-procedure TCategory.AddProperty(categoryId, propertyId: Integer; inName: Boolean);
+procedure TCategory.AddProperty(categoryId, propertyId: Integer;
+  inName: Boolean);
 var
   query: TUniQuery;
   SQL: TStringBuilder;
@@ -78,6 +81,7 @@ begin
     maxOrder := query.Fields[0].AsInteger + 1;
   query.Close;
   SQL.Clear;
+
   SQL.Append(' INSERT INTO');
   SQL.Append(' dictonary.properties_category');
   SQL.Append(' (');
@@ -113,7 +117,7 @@ begin
     SQL.Add(' SELECT');
     SQL.Add(' id,');
     SQL.Add(' name,');
-    SQL.Add(' pid');
+    SQL.Add(' parent_id');
     SQL.Add(' FROM ');
     SQL.Add(TABLE_CATEGORY);
     Open;
@@ -131,10 +135,10 @@ begin
   SQL.Append(' SELECT');
   SQL.Append(' id,');
   SQL.Append(' name,');
-  SQL.Append(' pid');
+  SQL.Append(' parent_id');
   SQL.Append(' FROM ');
   SQL.Append(TABLE_CATEGORY);
-  SQL.Append(' order by pid,  name ');
+  SQL.Append(' order by parent_id,  name ');
   FqueryCategory.SQL.Text := SQL.ToString;
   FqueryCategory.Open;
   SetCategory;
@@ -150,7 +154,7 @@ begin
   SQL.Append(' SELECT');
   SQL.Append(' id,');
   SQL.Append(' name,');
-  SQL.Append(' pid');
+  SQL.Append(' parent_id');
   SQL.Append(' FROM ');
   SQL.Append(TABLE_CATEGORY);
   SQL.Append(' where ');
@@ -178,7 +182,8 @@ begin
   // TODO -cMM: TCategory.DeleteCategory default body inserted
 end;
 
-procedure TCategory.GeneratePropertiesFromParent(categoryId: Integer; query: TUniQuery; ParentId: Integer);
+procedure TCategory.GeneratePropertiesFromParent(categoryId: Integer;
+  query: TUniQuery; ParentId: Integer);
 var
   queryUpd, querySel: TUniQuery;
   SQL: TStringBuilder;
@@ -237,9 +242,11 @@ begin
       order := order + 1;
       queryUpd.Close;
       queryUpd.ParamByName('category_id').Value := categoryId;
-      queryUpd.ParamByName('prop_id').Value := querySel.FieldByName('prop_id').Value;
+      queryUpd.ParamByName('prop_id').Value :=
+        querySel.FieldByName('prop_id').Value;
       queryUpd.ParamByName('order_by').Value := order;
-      queryUpd.ParamByName('in_name').Value := querySel.FieldByName('in_name').Value;
+      queryUpd.ParamByName('in_name').Value :=
+        querySel.FieldByName('in_name').Value;
       queryUpd.ExecSQL;
       querySel.Next;
     end;
@@ -281,7 +288,7 @@ begin
   SQL.Append(' SELECT');
   SQL.Append(' id,');
   SQL.Append(' name,');
-  SQL.Append(' pid');
+  SQL.Append(' parent_id');
   SQL.Append(' FROM ');
   SQL.Append(TABLE_CATEGORY);
   SQL.Append(' where ');
@@ -309,7 +316,7 @@ begin
   if FqueryCategory.RecordCount > 0 then
   begin
     SetId(FqueryCategory.FieldByName('id').Value);
-    SetParentId(FqueryCategory.FieldByName('pid').Value);
+    SetParentId(FqueryCategory.FieldByName('parent_id').Value);
     SetName(FqueryCategory.FieldByName('name').Value);
   end;
 end;
