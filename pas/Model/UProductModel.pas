@@ -137,7 +137,7 @@ begin
   QueryIns := TUniQuery.Create(nil);
   QueryIns.Connection := DMMain.conMain;
   SQL.Append(' INSERT INTO');
-  SQL.Append(' dictonary.product');
+  SQL.Append('  product');
   SQL.Append(' (');
   SQL.Append(' id,');
   SQL.Append(' name,');
@@ -193,8 +193,8 @@ begin
   category.assignCategoryById(categoryId, QueryCat);
   categoryName := QueryCat.FieldByName('name').Value;
   Name := query.FieldByName('name').Value;
-  Suffix := query.FieldByName('suffix').Value;
-  BarCode := query.FieldByName('barcode').Value;
+  Suffix := query.FieldByName('suffix').AsString;
+  BarCode := query.FieldByName('barcode').AsString;
 
 end;
 

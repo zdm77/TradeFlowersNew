@@ -12,3 +12,5 @@ __history
 *.~dsk
 *.dsk
 *.local
+/doc
+/.idea

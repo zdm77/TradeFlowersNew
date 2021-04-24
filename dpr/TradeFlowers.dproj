@@ -74,6 +74,7 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <BT_BuildType>Debug</BT_BuildType>
+        <VerInfo_Keys>CompanyName=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName);ProductName=$(MSBuildProjectName)</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -150,6 +151,14 @@
         <DCCReference Include="..\pas\Model\UCategoryProperty.pas"/>
         <DCCReference Include="..\pas\View\UfrmOnlyName.pas">
             <Form>frmOnlyName</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Contragents\UfrmClient.pas">
+            <Form>frmClient</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Contragents\UfrmClientEdt.pas">
+            <Form>frmClientEdt</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <None Include="ModelSupport_TradeFlowers\default.txvpck"/>

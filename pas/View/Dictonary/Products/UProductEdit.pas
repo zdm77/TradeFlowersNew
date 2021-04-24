@@ -11,7 +11,8 @@ uses
   cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView, cxGrid,
   cxCustomData, cxFilter, cxData,
   cxDataControllerConditionalFormattingRulesManagerDialog, UProductModel,
-  cxMaskEdit, cxButtonEdit, UProps, cxGroupBox, dxDateRanges;
+  cxMaskEdit, cxButtonEdit, UProps, cxGroupBox, dxDateRanges, Vcl.Controls,
+  System.Classes;
 
 type
   TfrmProductEdit = class(TForm)
@@ -19,11 +20,6 @@ type
     queryProduct: TUniQuery;
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
-    fieldProductid: TIntegerField;
-    fieldProductname: TStringField;
-    fieldProductcategory_id: TIntegerField;
-    fieldProductsuffix: TStringField;
-    fieldProductbarcode: TStringField;
     cxGroupBox1: TcxGroupBox;
     lbl2: TLabel;
     edtParentName: TcxButtonEdit;
@@ -45,6 +41,11 @@ type
     btnSave: TButton;
     lbl3: TLabel;
     edtBarCode: TcxDBTextEdit;
+    fieldProductid: TIntegerField;
+    fieldProductname: TStringField;
+    fieldProductcategory_id: TIntegerField;
+    fieldProductsuffix: TStringField;
+    fieldProductbarcode: TStringField;
     procedure btnFromBaseClick(Sender: TObject);
 
     procedure btnSaveClick(Sender: TObject);
@@ -75,7 +76,7 @@ implementation
 
 uses
   UDmMain, UfrmSelectTree,
-  Vcl.Controls, System.SysUtils;
+  System.SysUtils;
 
 {$R *.dfm}
 

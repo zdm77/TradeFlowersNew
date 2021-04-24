@@ -3,7 +3,7 @@ object frmProductEdit: TfrmProductEdit
   Top = 0
   BorderStyle = bsDialog
   Caption = #1053#1086#1084#1077#1085#1082#1083#1072#1090#1091#1088#1072
-  ClientHeight = 489
+  ClientHeight = 501
   ClientWidth = 502
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -79,10 +79,11 @@ object frmProductEdit: TfrmProductEdit
   end
   object cxGroupBox2: TcxGroupBox
     Left = 0
-    Top = 450
+    Top = 462
     Align = alBottom
     PanelStyle.Active = True
     TabOrder = 1
+    ExplicitTop = 450
     Height = 39
     Width = 502
     object gridProp: TcxGrid
@@ -131,15 +132,17 @@ object frmProductEdit: TfrmProductEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 2
-    Height = 353
+    ExplicitHeight = 353
+    Height = 365
     Width = 502
     object cxGrid1: TcxGrid
       Left = 2
       Top = 57
       Width = 498
-      Height = 294
+      Height = 306
       Align = alClient
       TabOrder = 0
+      ExplicitHeight = 294
       object cxGridDBTableView1: TcxGridDBTableView
         Navigator.Buttons.CustomButtons = <>
         DataController.DataSource = dsProps
@@ -191,7 +194,7 @@ object frmProductEdit: TfrmProductEdit
   object queryProduct: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from dictonary.product')
+      'select * from  product')
     Left = 536
     Top = 9
     object fieldProductid: TIntegerField
@@ -199,10 +202,12 @@ object frmProductEdit: TfrmProductEdit
     end
     object fieldProductname: TStringField
       FieldName = 'name'
+      Required = True
       Size = 255
     end
     object fieldProductcategory_id: TIntegerField
       FieldName = 'category_id'
+      Required = True
     end
     object fieldProductsuffix: TStringField
       FieldName = 'suffix'
@@ -220,7 +225,7 @@ object frmProductEdit: TfrmProductEdit
   end
   object queryProps: TUniQuery
     SQLUpdate.Strings = (
-      'update dictonary.properties_product'
+      'update  properties_product'
       'set  prop_value=:prop_value'
       'where id=:id')
     Connection = DMMain.conMain
@@ -230,11 +235,11 @@ object frmProductEdit: TfrmProductEdit
       '  p.name,'
       '  prd.prop_value'
       'FROM'
-      ' dictonary.properties_product prd'
+      '  properties_product prd'
       
-        '  INNER JOIN dictonary.properties_category cp ON (prd.category_p' +
-        'rops_id = cp.id)'
-      '  INNER JOIN dictonary.properties p ON (cp.prop_id = p.id)'
+        '  INNER JOIN  properties_category cp ON (prd.properties_id = cp.' +
+        'id)'
+      '  INNER JOIN  properties p ON (cp.prop_id = p.id)'
       'where  prd.product_id=:id'
       'order by cp.order_by')
     Left = 440

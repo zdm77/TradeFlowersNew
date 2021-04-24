@@ -3,10 +3,12 @@ unit UMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
-  cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, MemDS, DBAccess,
+  cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, MemDS,
+  DBAccess,
   Uni, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
@@ -16,9 +18,7 @@ uses
 
 type
   TProduct = class
-
   public
-
   end;
 
   TfrmMain = class(TForm)
@@ -31,7 +31,10 @@ type
     imgSmall: TcxImageList;
     imgLarge: TcxImageList;
     cxLocalizer1: TcxLocalizer;
+    mmClient: TMenuItem;
+    N4: TMenuItem;
     procedure FormShow(Sender: TObject);
+    procedure mmClientClick(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
   private
@@ -48,14 +51,14 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps;
+  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmClient;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
-  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) + '\..\INI\LanguagesUnicode.ini');
+  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) +
+    '\..\INI\LanguagesUnicode.ini');
   cxLocalizer1.Active := true;
   cxLocalizer1.Locale := 1049;
-
   // with queryMain do
   // begin
   // Close;
@@ -68,6 +71,13 @@ begin
   // SQL.Text := 'select * from prod_poduct';
   // Open;
   // end;
+end;
+
+procedure TfrmMain.mmClientClick(Sender: TObject);
+begin
+  if frmClient = nil then
+    Application.CreateForm(TfrmClient, frmClient);
+  frmClient.Show;
 end;
 
 procedure TfrmMain.N2Click(Sender: TObject);

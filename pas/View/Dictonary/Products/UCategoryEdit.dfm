@@ -213,32 +213,32 @@ object frmCategoryEdit: TfrmCategoryEdit
   end
   object queryCategory: TUniQuery
     SQLInsert.Strings = (
-      'INSERT INTO dictonary.category'
+      'INSERT INTO  product_category'
       '  ( name, parent_id)'
       'VALUES'
-      '  ( :name, :pid)')
+      '  ( :name, :parent_id)')
     SQLDelete.Strings = (
-      'DELETE FROM dictonary.category'
+      'DELETE FROM  product_category'
       'WHERE'
       '  id = :Old_id')
     SQLUpdate.Strings = (
-      'UPDATE dictonary.category'
+      'UPDATE  product_category'
       'SET'
-      '  id = :id, name = :name, pid = :pid'
+      '  id = :id, name = :name, parent_id = :parent_id'
       'WHERE'
       '  id = :Old_id')
     SQLLock.Strings = (
-      'SELECT * FROM dictonary.category'
+      'SELECT * FROM  category'
       'WHERE'
       '  id = :Old_id'
       'FOR UPDATE NOWAIT')
     SQLRefresh.Strings = (
-      'SELECT id, name, pid FROM dictonary.category'
+      'SELECT id, name, parent_id FROM  product_category'
       'WHERE'
       '  id = :id')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
-      'SELECT * FROM dictonary.category'
+      'SELECT * FROM  category'
       ''
       ') t')
     Connection = DMMain.conMain
@@ -267,32 +267,32 @@ object frmCategoryEdit: TfrmCategoryEdit
   end
   object queryProps: TUniQuery
     SQLInsert.Strings = (
-      'INSERT INTO dictonary.properties'
+      'INSERT INTO  properties'
       '  (id, name)'
       'VALUES'
       '  (:id, :name)')
     SQLDelete.Strings = (
-      'DELETE FROM dictonary.properties'
+      'DELETE FROM  properties'
       'WHERE'
       '  id = :Old_id')
     SQLUpdate.Strings = (
-      'UPDATE dictonary.properties'
+      'UPDATE  properties'
       'SET'
       '  id = :id, name = :name'
       'WHERE'
       '  id = :Old_id')
     SQLLock.Strings = (
-      'SELECT * FROM dictonary.properties'
+      'SELECT * FROM  properties'
       'WHERE'
       '  id = :Old_id'
       'FOR UPDATE NOWAIT')
     SQLRefresh.Strings = (
-      'SELECT id, name FROM dictonary.properties'
+      'SELECT id, name FROM  properties'
       'WHERE'
       '  id = :id')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
-      'SELECT * FROM dictonary.properties'
+      'SELECT * FROM  properties'
       ''
       ') t')
     Connection = DMMain.conMain

@@ -96,7 +96,7 @@ implementation
 
 uses
   UPropEdit, UDmMain, UfrmSelectTree, UFuncAndProc,
-  Vcl.Controls, System.SysUtils;
+   System.SysUtils;
 
 procedure TfrmCategoryEdit.UpDawnProp(up: Boolean);
 var
@@ -134,7 +134,7 @@ end;
 
 procedure TfrmCategoryEdit.btnSaveClick(Sender: TObject);
 begin
-  fieldCategoryid.Value := _category.ParentId;
+  fieldCategoryparent_id.Value := _category.ParentId;
   queryCategory.Post;
   _senderQuery.Refresh;
   // ShowMessage(queryCategory.FieldByName('id').AsString);

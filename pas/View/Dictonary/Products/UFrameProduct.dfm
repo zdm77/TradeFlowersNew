@@ -22,7 +22,7 @@ object frameProduct: TframeProduct
         item
         end>
       DataController.DataSource = dsCategory
-      DataController.ParentField = 'pid'
+      DataController.ParentField = 'parent_id'
       DataController.KeyField = 'id'
       FindPanel.ApplyInputDelay = 200
       FindPanel.DisplayMode = fpdmAlways
@@ -42,6 +42,8 @@ object frameProduct: TframeProduct
       TabOrder = 0
       OnClick = lstCategoryClick
       OnDblClick = lstCategoryDblClick
+      ExplicitLeft = 3
+      ExplicitTop = 45
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
@@ -228,7 +230,7 @@ object frameProduct: TframeProduct
   object queryCategoty: TUniQuery
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from category')
+      'select * from product_category')
     Left = 264
     Top = 456
   end
