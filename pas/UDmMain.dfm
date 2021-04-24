@@ -1,7 +1,7 @@
 object DMMain: TDMMain
   OldCreateOrder = False
-  Height = 487
-  Width = 723
+  Height = 601
+  Width = 886
   object conMain: TUniConnection
     ProviderName = 'PostgreSQL'
     Port = 5432
