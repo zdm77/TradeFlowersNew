@@ -3,29 +3,25 @@ unit UCategoryEdit;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
+  Vcl.Forms, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxStyles,
   cxDataStorage, cxNavigator, Data.DB, cxDBData,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls, cxTextEdit, cxDBEdit, MemDS,
   DBAccess, Uni, cxButtonEdit, cxCheckBox, cxCalc, cxCustomData, cxFilter,
-  cxData, UCategory, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
-  Data.Bind.EngExt, Vcl.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
+  cxData, UCategory, Data.Bind.Components, Data.Bind.DBScope,
   cxMaskEdit, UProps, UCategoryProperty, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges;
+  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges,
+  Data.Bind.EngExt, Vcl.Bind.DBEngExt, Vcl.Controls, System.Classes;
 
 type
   TfrmCategoryEdit = class(TForm)
     dsMain: TUniDataSource;
     queryCategory: TUniQuery;
-    fieldMainid: TIntegerField;
-    fieldMainname: TStringField;
     dsProps: TUniDataSource;
     queryProps: TUniQuery;
     bind1: TBindSourceDB;
     bindList1: TBindingsList;
-    queryCategorypid: TIntegerField;
     cxGroupBox1: TcxGroupBox;
     lbl2: TLabel;
     edtParentName: TcxButtonEdit;
@@ -47,15 +43,27 @@ type
     levelProp: TcxGridLevel;
     btnUp: TButton;
     btnDawn: TButton;
+    fieldCategoryid: TIntegerField;
+    fieldCategoryname: TMemoField;
+    fieldCategoryparent_id: TIntegerField;
     procedure btnSaveClick(Sender: TObject);
+
     procedure btnDawnClick(Sender: TObject);
+
     procedure btnEditClick(Sender: TObject);
+
     procedure btnFromParentClick(Sender: TObject);
+
     procedure btnPropAddClick(Sender: TObject);
+
     procedure btnPropEditClick(Sender: TObject);
+
     procedure btnUpClick(Sender: TObject);
+
     procedure viewPropDblClick(Sender: TObject);
+
     procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
+
   private
     FEnableDawn: Boolean;
     FEnableUp: Boolean;
@@ -64,12 +72,16 @@ type
     categoryProperty: TCategoryProperty;
     prop: TProps;
     procedure SetEnableDawn(const Value: Boolean);
+
     procedure SetEnableUp(const Value: Boolean);
+
     procedure UpDawnProp(up: Boolean);
     { Private declarations }
   public
     procedure init(category: TCategory; isNew: Boolean; senderQuery: TUniQuery);
+
     procedure InsUpdProp(isNew: Boolean);
+
     property EnableDawn: Boolean read FEnableDawn write SetEnableDawn;
     property EnableUp: Boolean read FEnableUp write SetEnableUp;
     // property EnableDawn: Boolean read FEnableDawn write SetEnableDawn;
@@ -83,7 +95,8 @@ implementation
 {$R *.dfm}
 
 uses
-  UMain, UPropEdit, UDmMain, UfrmSelectTree, UFuncAndProc;
+  UPropEdit, UDmMain, UfrmSelectTree, UFuncAndProc,
+  Vcl.Controls, System.SysUtils;
 
 procedure TfrmCategoryEdit.UpDawnProp(up: Boolean);
 var
@@ -105,7 +118,7 @@ begin
     queryUpd := TUniQuery.Create(nil);
     queryUpd.Connection := DMMain.conMain;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(new_order) + ' where id=' + id;
+    queryUpd.SQL.Text := 'update ' + TABLE_CATEGORY_PROPERTY + ' set order_by=' + IntToStr(new_order) + ' where id=' + id;
     queryUpd.ExecSQL;
     if (up = True) then
       queryProps.Prior
@@ -113,7 +126,7 @@ begin
       queryProps.Next;
     id := queryProps.FieldByName('id').AsString;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update dictonary.properties_category set order_by=' + IntToStr(order) + ' where id=' + id;
+    queryUpd.SQL.Text := 'update ' + TABLE_CATEGORY_PROPERTY + ' set order_by=' + IntToStr(order) + ' where id=' + id;
     queryUpd.ExecSQL;
     queryProps.Refresh;
   end;
@@ -121,7 +134,7 @@ end;
 
 procedure TfrmCategoryEdit.btnSaveClick(Sender: TObject);
 begin
-  queryCategorypid.Value := _category.ParentId;
+  fieldCategoryid.Value := _category.ParentId;
   queryCategory.Post;
   _senderQuery.Refresh;
   // ShowMessage(queryCategory.FieldByName('id').AsString);

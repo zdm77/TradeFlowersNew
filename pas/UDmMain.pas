@@ -25,11 +25,11 @@ const
  const
   TABLE_PRODUCT = 'product';
 const
-  TABLE_PROPERTIES = 'dictonary.properties';
+  TABLE_PROPERTIES = 'properties';
  const
-  TABLE_CATEGORY_PROPERTY = 'dictonary.properties_category';
+   TABLE_CATEGORY_PROPERTY = 'properties_category';
   const
-  TABLE_PRODUCT_PROPERTY = 'dictonary.properties_product';
+    TABLE_PRODUCT_PROPERTY = 'properties_product';
 implementation
 
 { %CLASSGROUP 'Vcl.Controls.TControl' }

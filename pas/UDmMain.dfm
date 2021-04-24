@@ -1,11 +1,11 @@
 object DMMain: TDMMain
   OldCreateOrder = False
-  Height = 601
-  Width = 886
+  Height = 679
+  Width = 1041
   object conMain: TUniConnection
     ProviderName = 'PostgreSQL'
     Port = 5432
-    Database = 'trade2020'
+    Database = 'trade'
     Username = 'postgres'
     Server = 'localhost'
     LoginPrompt = False

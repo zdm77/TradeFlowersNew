@@ -214,7 +214,7 @@ object frmCategoryEdit: TfrmCategoryEdit
   object queryCategory: TUniQuery
     SQLInsert.Strings = (
       'INSERT INTO dictonary.category'
-      '  ( name, pid)'
+      '  ( name, parent_id)'
       'VALUES'
       '  ( :name, :pid)')
     SQLDelete.Strings = (
@@ -243,19 +243,21 @@ object frmCategoryEdit: TfrmCategoryEdit
       ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from dictonary.category')
+      'select * from product_category')
     Left = 109
     Top = 314
-    object fieldMainid: TIntegerField
+    object fieldCategoryid: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'id'
     end
-    object fieldMainname: TStringField
+    object fieldCategoryname: TMemoField
       FieldName = 'name'
-      Size = 255
+      Required = True
+      BlobType = ftMemo
     end
-    object queryCategorypid: TIntegerField
-      FieldName = 'pid'
+    object fieldCategoryparent_id: TIntegerField
+      FieldName = 'parent_id'
+      Required = True
     end
   end
   object dsProps: TUniDataSource

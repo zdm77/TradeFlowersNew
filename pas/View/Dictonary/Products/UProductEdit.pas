@@ -3,14 +3,13 @@ unit UProductEdit;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
+  Vcl.Forms, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxTextEdit,
   cxDBEdit, Vcl.StdCtrls, Data.DB, MemDS, DBAccess, Uni, cxStyles,
   cxVGrid, cxInplaceContainer, cxDBVGrid,
   cxDataStorage, cxNavigator, cxDBData, cxGridCustomTableView, cxGridTableView,
-  cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Vcl.ExtCtrls,
-  Vcl.DBCtrls, cxCustomData, cxFilter, cxData,
+  cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView, cxGrid,
+  cxCustomData, cxFilter, cxData,
   cxDataControllerConditionalFormattingRulesManagerDialog, UProductModel,
   cxMaskEdit, cxButtonEdit, UProps, cxGroupBox, dxDateRanges;
 
@@ -47,11 +46,15 @@ type
     lbl3: TLabel;
     edtBarCode: TcxDBTextEdit;
     procedure btnFromBaseClick(Sender: TObject);
-    procedure btnSaveClick(Sender: TObject);
-    procedure edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
-    procedure FormShow(Sender: TObject);
-  private
 
+    procedure btnSaveClick(Sender: TObject);
+
+    procedure edtParentNamePropertiesButtonClick(Sender: TObject;
+                                                    AButtonIndex: Integer);
+
+    procedure FormShow(Sender: TObject);
+
+  private
     FidSave: Boolean;
     _senderQuery: TUniQuery;
     _product: TProduct;
@@ -60,6 +63,7 @@ type
     { Private declarations }
   public
     procedure init(product: TProduct; senderQuery: TUniQuery; isNew: Boolean);
+
     property idSave: Boolean read FidSave write FidSave;
     { Public declarations }
   end;
@@ -70,7 +74,9 @@ var
 implementation
 
 uses
-  UDmMain, UfrmSelectTree;
+  UDmMain, UfrmSelectTree,
+  Vcl.Controls, System.SysUtils;
+
 {$R *.dfm}
 
 procedure TfrmProductEdit.btnFromBaseClick(Sender: TObject);
@@ -86,38 +92,39 @@ begin
     queryProduct.Edit;
     idSave := True;
   end;
-
   queryTempPropCat := TUniQuery.Create(nil);
   queryTempPropCat.Connection := DMMain.conMain;
   queryUpd := TUniQuery.Create(nil);
   queryUpd.Connection := DMMain.conMain;
   queryUpd.Close;
-  queryUpd.SQL.Text :=
-    'insert into  dictonary.properties_product ( category_props_id,  product_id) values (:category_props_id, :product_id)';
+  queryUpd.SQL.Text := 'insert into  ' + TABLE_PRODUCT_PROPERTY +
+' ( category_props_id,  product_id) values (:category_props_id, :product_id)';
   with queryTempPropCat do
   begin
     Close;
     SQL.Clear;
     SQL.Add(' select cp.id,');
     SQL.Add(' p.name');
-    SQL.Add(' from');
-    SQL.Add(' dictonary.properties_category');
+    SQL.Add(' from ');
+    SQL.Add(TABLE_CATEGORY_PROPERTY);
     SQL.Add(' cp');
-    SQL.Add(' inner join');
-    SQL.Add(' dictonary.properties');
+    SQL.Add(' inner join ');
+    SQL.Add(TABLE_PROPERTIES);
     SQL.Add(' p on p.id = cp.prop_id');
-    SQL.Add(' where cp.category_id = ' + IntToStr(_product.categoryId) + ' and');
+    SQL.Add(' where cp.category_id = ' + IntToStr(_product.categoryId)
+    + ' and');
     SQL.Add(' cp.id not in (');
     SQL.Add(' select pp.category_props_id');
-    SQL.Add(' from');
-    SQL.Add(' dictonary.properties_product');
+    SQL.Add(' from ');
+    SQL.Add(TABLE_PRODUCT_PROPERTY);
     SQL.Add(' pp');
     SQL.Add(' where pp.product_id = ' + IntToStr(_product.id));
     SQL.Add(' )');
     Open;
     while not eof do
     begin
-      queryUpd.ParamByName('category_props_id').Value := FieldByName('id').Value;
+      queryUpd.ParamByName('category_props_id').Value :=
+                                                        FieldByName('id').Value;
       queryUpd.ParamByName('product_id').Value := _product.id;
       queryUpd.ExecSQL;
       Next;
@@ -146,7 +153,8 @@ begin
   Close;
 end;
 
-procedure TfrmProductEdit.edtParentNamePropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
+procedure TfrmProductEdit.edtParentNamePropertiesButtonClick(Sender: TObject;
+                                                                AButtonIndex: Integer);
 begin
   Application.CreateForm(TfrmSelectTree, frmSelectTree);
   frmSelectTree.init(_product.category);
@@ -164,7 +172,8 @@ begin
   edtname.SetFocus;
 end;
 
-procedure TfrmProductEdit.init(product: TProduct; senderQuery: TUniQuery; isNew: Boolean);
+procedure TfrmProductEdit.init(product: TProduct; senderQuery: TUniQuery;
+                                  isNew: Boolean);
 begin
   _props := TProps.Create(queryProps);
   _senderQuery := senderQuery;
