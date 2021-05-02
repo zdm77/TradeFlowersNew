@@ -24,6 +24,7 @@ object frmClient: TfrmClient
     PanelStyle.Active = True
     PanelStyle.OfficeBackgroundKind = pobkStyleColor
     TabOrder = 0
+    ExplicitTop = -6
     Height = 38
     Width = 934
     object btnProductAdd: TButton
