@@ -12,7 +12,6 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure frameProduct1viewProductDblClick(Sender: TObject);
-    procedure frameTopPanel2btnImportClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,11 +47,6 @@ begin
     isSelect := true;
     Close;
   end;
-end;
-
-procedure TfrmProduct.frameTopPanel2btnImportClick(Sender: TObject);
-begin
-  frameProduct1.frameTopPanel2btnImportClick(Sender);
 end;
 
 end.
