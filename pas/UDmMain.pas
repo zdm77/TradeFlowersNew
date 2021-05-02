@@ -19,17 +19,25 @@ type
 
 var
   DMMain: TDMMain;
+ ///------Справочники------///////
+const
+  DICT_TABLE_CATEGORY = 'product_category';
 
 const
-  TABLE_CATEGORY = 'product_category';
- const
-  TABLE_PRODUCT = 'product';
+  DICT_TABLE_PRODUCT = 'product';
+
 const
-  TABLE_PROPERTIES = 'properties';
- const
-   TABLE_CATEGORY_PROPERTY = 'properties_category';
-  const
-    TABLE_PRODUCT_PROPERTY = 'properties_product';
+  DICT_TABLE_PROPERTIES = 'properties';
+
+const
+  DICT_TABLE_CATEGORY_PROPERTY = 'properties_category';
+
+const
+  DICT_TABLE_PRODUCT_PROPERTY = 'properties_product';
+
+const
+  DICT_TABLE_CLIENT = 'client';
+
 implementation
 
 { %CLASSGROUP 'Vcl.Controls.TControl' }

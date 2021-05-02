@@ -45,7 +45,6 @@ object frmPropEdit: TfrmPropEdit
     Top = 51
     Caption = #1042' '#1085#1072#1079#1074#1072#1085#1080#1080
     TabOrder = 2
-    Width = 121
   end
   object dsProp: TUniDataSource
     DataSet = queryProp

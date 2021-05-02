@@ -118,7 +118,7 @@ begin
     queryUpd := TUniQuery.Create(nil);
     queryUpd.Connection := DMMain.conMain;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update ' + TABLE_CATEGORY_PROPERTY + ' set order_by=' + IntToStr(new_order) + ' where id=' + id;
+    queryUpd.SQL.Text := 'update ' + DICT_TABLE_CATEGORY_PROPERTY + ' set order_by=' + IntToStr(new_order) + ' where id=' + id;
     queryUpd.ExecSQL;
     if (up = True) then
       queryProps.Prior
@@ -126,7 +126,7 @@ begin
       queryProps.Next;
     id := queryProps.FieldByName('id').AsString;
     queryUpd.Close;
-    queryUpd.SQL.Text := 'update ' + TABLE_CATEGORY_PROPERTY + ' set order_by=' + IntToStr(order) + ' where id=' + id;
+    queryUpd.SQL.Text := 'update ' + DICT_TABLE_CATEGORY_PROPERTY + ' set order_by=' + IntToStr(order) + ' where id=' + id;
     queryUpd.ExecSQL;
     queryProps.Refresh;
   end;
@@ -164,7 +164,7 @@ end;
 
 procedure TfrmCategoryEdit.btnPropEditClick(Sender: TObject);
 begin
-  UFuncAndProc.deleteById(queryProps.FieldByName('id').AsInteger, TABLE_CATEGORY_PROPERTY);
+  UFuncAndProc.deleteById(queryProps.FieldByName('id').AsInteger, DICT_TABLE_CATEGORY_PROPERTY);
   queryProps.Refresh;
 end;
 

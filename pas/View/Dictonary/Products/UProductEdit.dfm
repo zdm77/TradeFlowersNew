@@ -83,7 +83,6 @@ object frmProductEdit: TfrmProductEdit
     Align = alBottom
     PanelStyle.Active = True
     TabOrder = 1
-    ExplicitTop = 450
     Height = 39
     Width = 502
     object gridProp: TcxGrid
@@ -132,7 +131,6 @@ object frmProductEdit: TfrmProductEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 2
-    ExplicitHeight = 353
     Height = 365
     Width = 502
     object cxGrid1: TcxGrid

@@ -73,8 +73,6 @@ object frmCategoryEdit: TfrmCategoryEdit
       Top = 358
       Align = alBottom
       TabOrder = 0
-      ExplicitLeft = 3
-      ExplicitTop = 365
       Height = 41
       Width = 548
       object btnSave: TButton

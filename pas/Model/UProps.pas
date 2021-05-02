@@ -1,4 +1,4 @@
-unit UProps;
+﻿unit UProps;
 
 interface
 
@@ -60,7 +60,7 @@ begin
   SQL.Append(' id,');
   SQL.Append(' name');
   SQL.Append(' FROM ');
-  SQL.Append(TABLE_PROPERTIES);
+  SQL.Append(DICT_TABLE_PROPERTIES);
   SQL.Append(' ORDER BY name ');
   QueryProp.SQL.Text := SQL.ToString;
   QueryProp.Open;
@@ -81,7 +81,7 @@ begin
   SQL.Append(' pc.in_name');
   SQL.Append(' FROM');
   SQL.Append(' properties_category pc');
-  SQL.Append(' INNER JOIN ' + TABLE_PROPERTIES + ' pr ON (pc.prop_id = pr.id)');
+  SQL.Append(' INNER JOIN ' + DICT_TABLE_PROPERTIES + ' pr ON (pc.prop_id = pr.id)');
   SQL.Append(' where pc.category_id=' + IntToStr(category_id));
   SQL.Append(' order by pc.order_by');
   query.SQL.Text := SQL.ToString();

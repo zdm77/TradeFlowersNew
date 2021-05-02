@@ -19,8 +19,7 @@ type
   private
     { Private declarations }
   public
-    isSave : boolean;
-
+    isSave: boolean;
     { Public declarations }
   end;
 
@@ -36,7 +35,7 @@ uses UfrmClient;
 procedure TfrmClientEdt.btnSaveClick(Sender: TObject);
 begin
   isSave := true;
-  CloseModal;
+  Close;
 end;
 
 end.

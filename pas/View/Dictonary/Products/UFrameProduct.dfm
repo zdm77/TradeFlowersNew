@@ -42,8 +42,6 @@ object frameProduct: TframeProduct
       TabOrder = 0
       OnClick = lstCategoryClick
       OnDblClick = lstCategoryDblClick
-      ExplicitLeft = 3
-      ExplicitTop = 45
       object columnNameC: TcxDBTreeListColumn
         Caption.Text = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         DataBinding.FieldName = 'name'
@@ -62,8 +60,6 @@ object frameProduct: TframeProduct
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
       TabOrder = 1
-      ExplicitLeft = 6
-      ExplicitTop = 3
       Height = 42
       Width = 373
       object btnAdd: TButton

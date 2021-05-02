@@ -116,7 +116,7 @@ begin
   SQL.Append(' suffix,');
   SQL.Append(' barcode');
   SQL.Append(' FROM ');
-  SQL.Append(TABLE_PRODUCT);
+  SQL.Append(DICT_TABLE_PRODUCT);
   SQL.Append(' where id=');
   SQL.Append(IntToStr(Id));
   query.Close;
@@ -132,7 +132,7 @@ var
 
 begin
 
-  product.Id := UFuncAndProc.getNewId(TABLE_PRODUCT);
+  product.Id := UFuncAndProc.getNewId(DICT_TABLE_PRODUCT);
   SQL := TStringBuilder.Create;
   QueryIns := TUniQuery.Create(nil);
   QueryIns.Connection := DMMain.conMain;

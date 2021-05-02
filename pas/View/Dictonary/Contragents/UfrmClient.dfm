@@ -50,7 +50,7 @@ object frmClient: TfrmClient
     end
     object btnProductDel: TButton
       Left = 126
-      Top = 5
+      Top = 4
       Width = 37
       Height = 32
       ImageAlignment = iaCenter
@@ -59,14 +59,15 @@ object frmClient: TfrmClient
       TabOrder = 2
     end
     object btnProductRefresh: TButton
-      Left = 163
-      Top = 5
+      Left = 169
+      Top = 4
       Width = 37
       Height = 32
       ImageAlignment = iaCenter
       ImageIndex = 11
       Images = frmMain.imgMidle
       TabOrder = 3
+      OnClick = btnProductRefreshClick
     end
   end
   object gridProduct: TcxGrid
@@ -78,7 +79,6 @@ object frmClient: TfrmClient
     TabOrder = 1
     LookAndFeel.Kind = lfOffice11
     LookAndFeel.NativeStyle = True
-    ExplicitTop = 43
     object viewProduct: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       FilterBox.Position = fpTop
@@ -134,10 +134,6 @@ object frmClient: TfrmClient
       'WHERE'
       '  id = :Old_id'
       'FOR UPDATE NOWAIT')
-    SQLRefresh.Strings = (
-      'SELECT name FROM client'
-      'WHERE'
-      '  id = :id')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
       'SELECT * FROM client'

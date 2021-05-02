@@ -25,7 +25,7 @@ uses UFuncAndProc, UDmMain;
 
 procedure TCategoryProperty.DeleteProperty;
 begin
-   UFuncAndProc.deleteById(Id, TABLE_CATEGORY_PROPERTY);
+   UFuncAndProc.deleteById(Id, DICT_TABLE_CATEGORY_PROPERTY);
   // TODO -cMM: TCategoryProperty.DeleteProperty default body inserted
 end;
 

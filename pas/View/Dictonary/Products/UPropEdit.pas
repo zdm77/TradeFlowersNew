@@ -53,10 +53,10 @@ begin
     with queryProp do
     begin
       Close;
-      sql.Text := 'select * from ' + TABLE_PROPERTIES;
+      sql.Text := 'select * from ' + DICT_TABLE_PROPERTIES;
       if (senderQuery.RecordCount > 0) then
       begin
-        sql.Add(' where id not in (select prop_id from ' + TABLE_CATEGORY_PROPERTY +
+        sql.Add(' where id not in (select prop_id from ' + DICT_TABLE_CATEGORY_PROPERTY +
           ' where category_id=' + inttostr(categoryProp.Id) + ')');
       end;
       sql.Add(' order by name');
@@ -71,7 +71,7 @@ begin
     begin
       categoryProp.Id := senderQuery.FieldByName('prop_id').AsInteger;
       Close;
-      sql.Text := 'select * from ' + TABLE_PROPERTIES + ' where id=:id';
+      sql.Text := 'select * from ' + DICT_TABLE_PROPERTIES + ' where id=:id';
       ParamByName('id').Value := categoryProp.Id;
       Open;
       categoryProp.InName :=senderQuery. FieldByName('in_name').AsBoolean;
@@ -88,7 +88,7 @@ var
 begin
   queryUpd := TUniQuery.Create(nil);
   queryUpd.Connection := DMMain.conMain;
-  queryUpd.sql.Text := 'update ' + TABLE_CATEGORY_PROPERTY + ' set in_name=:in_name where id=:id';
+  queryUpd.sql.Text := 'update ' + DICT_TABLE_CATEGORY_PROPERTY + ' set in_name=:in_name where id=:id';
   queryUpd.ParamByName('in_name').Value := chkInName.Checked;
   queryUpd.ParamByName('id').Value := query.FieldByName('id').Value;
   queryUpd.ExecSQL;

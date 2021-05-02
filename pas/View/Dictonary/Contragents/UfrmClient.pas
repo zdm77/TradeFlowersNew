@@ -1,4 +1,4 @@
-unit UfrmClient;
+﻿unit UfrmClient;
 
 interface
 
@@ -29,6 +29,7 @@ type
     fieldQueryClientname: TStringField;
     procedure btnProductAddClick(Sender: TObject);
     procedure btnProductEdtClick(Sender: TObject);
+    procedure btnProductRefreshClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
@@ -46,7 +47,7 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmClientEdt;
+uses UfrmClientEdt, UFuncAndProc, UDmMain;
 
 procedure TfrmClient.btnProductAddClick(Sender: TObject);
 begin
@@ -56,6 +57,12 @@ end;
 procedure TfrmClient.btnProductEdtClick(Sender: TObject);
 begin
   InsUpdClient(false);
+end;
+
+procedure TfrmClient.btnProductRefreshClick(Sender: TObject);
+begin
+
+   QueryClient.Locate('id', 6, [loPartialKey])
 end;
 
 procedure TfrmClient.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -72,6 +79,7 @@ end;
 procedure TfrmClient.InsUpdClient(isNew: Boolean = true);
 begin
   Application.CreateForm(TfrmClientEdt, frmClientEdt);
+  viewProduct.DataController.BeginFullUpdate;
   if isNew = true then
     QueryClient.Insert
   else
@@ -79,11 +87,15 @@ begin
   frmClientEdt.ShowModal;
   if frmClientEdt.isSave = true then
   begin
+    if isNew then
+      fieldQueryClientid.Value := UFuncAndProc.getNewId(DICT_TABLE_CLIENT);
     QueryClient.Post;
-    ShowClients(0);
+    QueryClient.Cancel;
+    ShowClients(fieldQueryClientid.Value);
   end
   else
     QueryClient.Cancel;
+  viewProduct.DataController.EndFullUpdate;
 end;
 
 procedure TfrmClient.ShowClients(id: Integer);

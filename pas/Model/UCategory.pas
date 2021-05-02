@@ -1,4 +1,4 @@
-unit UCategory;
+﻿unit UCategory;
 
 interface
 
@@ -88,7 +88,7 @@ begin
   query := TUniQuery.Create(nil);
   query.Connection := DMMain.conMain;
   SQL := TStringBuilder.Create;
-  SQL.Append('select max(order_by) from ' + TABLE_CATEGORY_PROPERTY);
+  SQL.Append('select max(order_by) from ' + DICT_TABLE_CATEGORY_PROPERTY);
   SQL.Append(' where category_id=' + IntToStr(categoryId));
   query.SQL.Text := SQL.ToString;
   query.Open;
@@ -98,7 +98,7 @@ begin
   SQL.Clear;
 
   SQL.Append(' INSERT INTO ');
-  SQL.Append(TABLE_CATEGORY_PROPERTY);
+  SQL.Append(DICT_TABLE_CATEGORY_PROPERTY);
   SQL.Append(' (');
   SQL.Append(' category_id,');
   SQL.Append(' prop_id,');
@@ -134,7 +134,7 @@ begin
     SQL.Add(' name,');
     SQL.Add(' parent_id');
     SQL.Add(' FROM ');
-    SQL.Add(TABLE_CATEGORY);
+    SQL.Add(DICT_TABLE_CATEGORY);
     Open;
   end;
   dsCategory.DataSet := query;
@@ -152,7 +152,7 @@ begin
   SQL.Append(' name,');
   SQL.Append(' parent_id');
   SQL.Append(' FROM ');
-  SQL.Append(TABLE_CATEGORY);
+  SQL.Append(DICT_TABLE_CATEGORY);
   SQL.Append(' order by parent_id,  name ');
   FqueryCategory.SQL.Text := SQL.ToString;
   FqueryCategory.Open;
@@ -171,7 +171,7 @@ begin
   SQL.Append(' name,');
   SQL.Append(' parent_id');
   SQL.Append(' FROM ');
-  SQL.Append(TABLE_CATEGORY);
+  SQL.Append(DICT_TABLE_CATEGORY);
   SQL.Append(' where ');
   SQL.Append(' id= ');
   SQL.Append(IntToStr(_id));
@@ -189,7 +189,7 @@ begin
   query.Connection := DMMain.conMain;
   SQL := TStringBuilder.Create;
   SQL.Append(' DELETE FROM ');
-  SQL.Append(TABLE_CATEGORY);
+  SQL.Append(DICT_TABLE_CATEGORY);
   SQL.Append(' WHERE ID=');
   SQL.Append(queryCategory.FieldByName('id').AsString);
   query.SQL.Text := SQL.ToString;
@@ -217,13 +217,13 @@ begin
   SQL.Append(' pc.prop_id,');
   SQL.Append(' pc.order_by,');
   SQL.Append(' pc.in_name');
-  SQL.Append(' FROM ' + TABLE_CATEGORY_PROPERTY + ' pc');
-  SQL.Append(' INNER JOIN ' + TABLE_PROPERTIES + ' pr ON (pc.prop_id = pr.id)');
+  SQL.Append(' FROM ' + DICT_TABLE_CATEGORY_PROPERTY + ' pc');
+  SQL.Append(' INNER JOIN ' + DICT_TABLE_PROPERTIES + ' pr ON (pc.prop_id = pr.id)');
   SQL.Append(' WHERE pc.category_id =  ');
   SQL.Append(IntToStr(ParentId));
   SQL.Append(' and pc.prop_id not in (');
   SQL.Append(' select prop_id');
-  SQL.Append(' from ' + TABLE_CATEGORY_PROPERTY);
+  SQL.Append(' from ' + DICT_TABLE_CATEGORY_PROPERTY);
   SQL.Append(' where category_id = ');
   SQL.Append(IntToStr(categoryId));
   SQL.Append(' )');
@@ -235,7 +235,7 @@ begin
 
   SQL.Clear;
   SQL.Append(' INSERT INTO ');
-  SQL.Append(TABLE_CATEGORY_PROPERTY);
+  SQL.Append(DICT_TABLE_CATEGORY_PROPERTY);
   SQL.Append(' (');
   SQL.Append(' category_id,');
   SQL.Append(' prop_id,');
@@ -278,7 +278,7 @@ begin
   query.Connection := DMMain.conMain;
   SQL := TStringBuilder.Create;
   SQL.Append(' select max(order_by)');
-  SQL.Append(' from ' + TABLE_CATEGORY_PROPERTY + ' c');
+  SQL.Append(' from ' + DICT_TABLE_CATEGORY_PROPERTY + ' c');
   SQL.Append(' where c.category_id = ');
   SQL.Append(IntToStr(categoryId));
   query.SQL.Text := SQL.ToString;
@@ -305,7 +305,7 @@ begin
   SQL.Append(' name,');
   SQL.Append(' parent_id');
   SQL.Append(' FROM ');
-  SQL.Append(TABLE_CATEGORY);
+  SQL.Append(DICT_TABLE_CATEGORY);
   SQL.Append(' where ');
   SQL.Append(' id= ');
   SQL.Append(IntToStr(_pid));

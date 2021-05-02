@@ -36,9 +36,6 @@ object frmClientEdt: TfrmClientEdt
     Top = 305
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = 3
-    ExplicitTop = 365
-    ExplicitWidth = 548
     Height = 41
     Width = 749
     object btnSave: TButton

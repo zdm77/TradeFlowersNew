@@ -98,7 +98,7 @@ begin
   queryUpd := TUniQuery.Create(nil);
   queryUpd.Connection := DMMain.conMain;
   queryUpd.Close;
-  queryUpd.SQL.Text := 'insert into  ' + TABLE_PRODUCT_PROPERTY +
+  queryUpd.SQL.Text := 'insert into  ' + DICT_TABLE_PRODUCT_PROPERTY +
 ' ( category_props_id,  product_id) values (:category_props_id, :product_id)';
   with queryTempPropCat do
   begin
@@ -107,17 +107,17 @@ begin
     SQL.Add(' select cp.id,');
     SQL.Add(' p.name');
     SQL.Add(' from ');
-    SQL.Add(TABLE_CATEGORY_PROPERTY);
+    SQL.Add(DICT_TABLE_CATEGORY_PROPERTY);
     SQL.Add(' cp');
     SQL.Add(' inner join ');
-    SQL.Add(TABLE_PROPERTIES);
+    SQL.Add(DICT_TABLE_PROPERTIES);
     SQL.Add(' p on p.id = cp.prop_id');
     SQL.Add(' where cp.category_id = ' + IntToStr(_product.categoryId)
     + ' and');
     SQL.Add(' cp.id not in (');
     SQL.Add(' select pp.category_props_id');
     SQL.Add(' from ');
-    SQL.Add(TABLE_PRODUCT_PROPERTY);
+    SQL.Add(DICT_TABLE_PRODUCT_PROPERTY);
     SQL.Add(' pp');
     SQL.Add(' where pp.product_id = ' + IntToStr(_product.id));
     SQL.Add(' )');
