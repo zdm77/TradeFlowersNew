@@ -1,4 +1,4 @@
-﻿~*dsk
+~*dsk
 .*dsk*
 *~
 ~*~
@@ -12,7 +12,5 @@ __history
 *.~dsk
 *.dsk
 *.local
-грунты
 /doc
-/dpr/ModelSupport_TradeFlowers
-/dpr/TradeFlowers.stat
+/.idea

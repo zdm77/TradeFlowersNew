@@ -1,9 +1,9 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  Caption = 'Trade'
-  ClientHeight = 629
-  ClientWidth = 1008
+  Caption = 'frmMain'
+  ClientHeight = 747
+  ClientWidth = 1434
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -31,24 +31,15 @@ object frmMain: TfrmMain
         OnClick = N3Click
       end
       object N4: TMenuItem
-        Caption = #1050#1086#1085#1090#1088#1072#1075#1077#1085#1090#1099
-        OnClick = N4Click
-      end
-      object N5: TMenuItem
         Caption = '-'
       end
-      object N6: TMenuItem
-        Caption = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
-        OnClick = N6Click
+      object mmContr: TMenuItem
+        Caption = #1050#1086#1085#1090#1088#1072#1075#1077#1085#1090#1099
+        object mmClient: TMenuItem
+          Caption = #1050#1083#1080#1077#1085#1090#1099
+          OnClick = mmClientClick
+        end
       end
-      object N7: TMenuItem
-        Caption = #1044#1086#1083#1078#1085#1086#1089#1090#1080
-        OnClick = N7Click
-      end
-    end
-    object N8: TMenuItem
-      Caption = #1048#1085#1090#1077#1088#1085#1077#1090' '#1084#1072#1075#1072#1079#1080#1085
-      OnClick = N8Click
     end
   end
   object tabMain: TdxTabbedMDIManager

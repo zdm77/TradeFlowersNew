@@ -3,8 +3,8 @@ object frmCategoryEdit: TfrmCategoryEdit
   Top = 0
   BorderStyle = bsDialog
   Caption = #1050#1072#1090#1077#1075#1086#1088#1080#1103
-  ClientHeight = 470
-  ClientWidth = 562
+  ClientHeight = 466
+  ClientWidth = 552
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,7 +13,6 @@ object frmCategoryEdit: TfrmCategoryEdit
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object cxGroupBox1: TcxGroupBox
@@ -23,7 +22,7 @@ object frmCategoryEdit: TfrmCategoryEdit
     PanelStyle.Active = True
     TabOrder = 0
     Height = 65
-    Width = 562
+    Width = 552
     object lbl2: TLabel
       Left = 3
       Top = 9
@@ -67,15 +66,15 @@ object frmCategoryEdit: TfrmCategoryEdit
     Align = alClient
     Caption = #1057#1074#1086#1081#1089#1090#1074#1072
     TabOrder = 1
-    Height = 405
-    Width = 562
+    Height = 401
+    Width = 552
     object cxGroupBox3: TcxGroupBox
       Left = 2
-      Top = 362
+      Top = 358
       Align = alBottom
-      TabOrder = 8
+      TabOrder = 0
       Height = 41
-      Width = 558
+      Width = 548
       object btnSave: TButton
         Left = 3
         Top = 7
@@ -96,7 +95,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
       ImageIndex = 3
       Images = frmMain.imgMidle
-      TabOrder = 0
+      TabOrder = 1
       OnClick = btnPropAddClick
     end
     object btnEdit: TButton
@@ -107,7 +106,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       ImageAlignment = iaCenter
       ImageIndex = 4
       Images = frmMain.imgMidle
-      TabOrder = 1
+      TabOrder = 2
       OnClick = btnEditClick
     end
     object btnPropEdit: TButton
@@ -118,7 +117,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       ImageAlignment = iaCenter
       ImageIndex = 5
       Images = frmMain.imgMidle
-      TabOrder = 2
+      TabOrder = 3
       OnClick = btnPropEditClick
     end
     object btnFromParent: TButton
@@ -129,7 +128,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       Caption = #1048#1079' '#1088#1086#1076#1080#1090#1077#1083#1103
       ImageIndex = 20
       Images = frmMain.imgMidle
-      TabOrder = 3
+      TabOrder = 4
       OnClick = btnFromParentClick
     end
     object btnFormat: TButton
@@ -138,14 +137,14 @@ object frmCategoryEdit: TfrmCategoryEdit
       Width = 146
       Height = 32
       Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1085#1072#1079#1074#1072#1085#1080#1103
-      TabOrder = 4
+      TabOrder = 5
     end
     object gridProp: TcxGrid
       Left = 3
       Top = 62
       Width = 497
       Height = 297
-      TabOrder = 5
+      TabOrder = 6
       LookAndFeel.Kind = lfOffice11
       LookAndFeel.NativeStyle = True
       object viewProp: TcxGridDBTableView
@@ -193,7 +192,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       Height = 32
       ImageIndex = 19
       Images = frmMain.imgMidle
-      TabOrder = 6
+      TabOrder = 7
       OnClick = btnUpClick
     end
     object btnDawn: TButton
@@ -203,7 +202,7 @@ object frmCategoryEdit: TfrmCategoryEdit
       Height = 32
       ImageIndex = 20
       Images = frmMain.imgMidle
-      TabOrder = 7
+      TabOrder = 8
       OnClick = btnDawnClick
     end
   end
@@ -213,37 +212,52 @@ object frmCategoryEdit: TfrmCategoryEdit
     Top = 68
   end
   object queryCategory: TUniQuery
+    SQLInsert.Strings = (
+      'INSERT INTO  product_category'
+      '  ( name, parent_id)'
+      'VALUES'
+      '  ( :name, :parent_id)')
+    SQLDelete.Strings = (
+      'DELETE FROM  product_category'
+      'WHERE'
+      '  id = :Old_id')
+    SQLUpdate.Strings = (
+      'UPDATE  product_category'
+      'SET'
+      '  id = :id, name = :name, parent_id = :parent_id'
+      'WHERE'
+      '  id = :Old_id')
+    SQLLock.Strings = (
+      'SELECT * FROM  category'
+      'WHERE'
+      '  id = :Old_id'
+      'FOR UPDATE NOWAIT')
+    SQLRefresh.Strings = (
+      'SELECT id, name, parent_id FROM  product_category'
+      'WHERE'
+      '  id = :id')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
-      'SELECT * FROM dictonary.category'
+      'SELECT * FROM  category'
       ''
       ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from dictonary.category'
-      'where id=:id')
+      'select * from product_category')
     Left = 109
     Top = 314
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'id'
-        Value = nil
-      end>
-    object fieldId: TIntegerField
+    object fieldCategoryid: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'id'
     end
-    object fieldName: TStringField
+    object fieldCategoryname: TMemoField
       FieldName = 'name'
-      Size = 255
+      Required = True
+      BlobType = ftMemo
     end
-    object fieldParentId: TIntegerField
-      FieldName = 'pid'
-    end
-    object fieldLevel: TStringField
-      FieldName = 'level'
-      Size = 100
+    object fieldCategoryparent_id: TIntegerField
+      FieldName = 'parent_id'
+      Required = True
     end
   end
   object dsProps: TUniDataSource
@@ -253,32 +267,32 @@ object frmCategoryEdit: TfrmCategoryEdit
   end
   object queryProps: TUniQuery
     SQLInsert.Strings = (
-      'INSERT INTO dictonary.properties'
+      'INSERT INTO  properties'
       '  (id, name)'
       'VALUES'
       '  (:id, :name)')
     SQLDelete.Strings = (
-      'DELETE FROM dictonary.properties'
+      'DELETE FROM  properties'
       'WHERE'
       '  id = :Old_id')
     SQLUpdate.Strings = (
-      'UPDATE dictonary.properties'
+      'UPDATE  properties'
       'SET'
       '  id = :id, name = :name'
       'WHERE'
       '  id = :Old_id')
     SQLLock.Strings = (
-      'SELECT * FROM dictonary.properties'
+      'SELECT * FROM  properties'
       'WHERE'
       '  id = :Old_id'
       'FOR UPDATE NOWAIT')
     SQLRefresh.Strings = (
-      'SELECT id, name FROM dictonary.properties'
+      'SELECT id, name FROM  properties'
       'WHERE'
       '  id = :id')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
-      'SELECT * FROM dictonary.properties'
+      'SELECT * FROM  properties'
       ''
       ') t')
     Connection = DMMain.conMain
@@ -315,13 +329,5 @@ object frmCategoryEdit: TfrmCategoryEdit
     OutputConverters = <>
     Left = 572
     Top = 17
-  end
-  object query1: TUniQuery
-    Connection = DMMain.conMain
-    SQL.Strings = (
-      'select * from product')
-    DetailFields = 'product_category_id'
-    Left = 520
-    Top = 312
   end
 end

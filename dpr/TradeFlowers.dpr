@@ -23,23 +23,11 @@ uses
   UfrmSelectTree in '..\pas\UfrmSelectTree.pas' {frmSelectTree},
   UCategoryProperty in '..\pas\Model\UCategoryProperty.pas',
   UfrmOnlyName in '..\pas\View\UfrmOnlyName.pas' {frmOnlyName},
-  UFrameContragent in '..\pas\View\Dictonary\Contragents\UFrameContragent.pas' {FrameContragent: TFrame},
-  UContragent in '..\pas\Model\Dictonary\Contragents\UContragent.pas',
-  UfrmContragent in '..\pas\View\Dictonary\Contragents\UfrmContragent.pas' {frmContragent},
-  UfrmContragentEdt in '..\pas\View\Dictonary\Contragents\UfrmContragentEdt.pas' {frmContragentEdt},
-  Vcl.Themes,
-  Vcl.Styles,
-  UFrameTopPanel in '..\pas\UFrameTopPanel.pas' {frameTopPanel: TFrame},
-  UfrmUser in '..\pas\View\Dictonary\Orgstract\UfrmUser.pas' {frmUser},
-  UfrmPost in '..\pas\View\Dictonary\Orgstract\UfrmPost.pas' {frmPost},
-  UFrameSave in '..\pas\UFrameSave.pas' {frameSave: TFrame},
-  UfrmPostEdt in '..\pas\View\Dictonary\Orgstract\UfrmPostEdt.pas' {frmPostEdt},
-  UfrmUserEdt in '..\pas\View\Dictonary\Orgstract\UfrmUserEdt.pas' {frmUserEdt},
-  UfrmSplash in '..\pas\UfrmSplash.pas' {frmSplash},
-  UfrmImport in '..\pas\View\Dictonary\Products\UfrmImport.pas' {frmImport},
-  UDMSite in '..\pas\UDMSite.pas' {dmSite: TDataModule},
-  UfrmInternetStore in '..\pas\View\InternetStore\UfrmInternetStore.pas' {frmInternetStore},
-  UfrmQuestAssign in '..\pas\View\Dictonary\Products\UfrmQuestAssign.pas' {frmQuestAssign};
+  UfrmClient in '..\pas\View\Dictonary\Contragents\UfrmClient.pas' {frmClient},
+  UfrmClientEdt in '..\pas\View\Dictonary\Contragents\UfrmClientEdt.pas' {frmClientEdt},
+  UIClient in '..\pas\View\Dictonary\Contragents\UIClient.pas',
+  UICrud in '..\pas\UICrud.pas',
+  UIEdit in '..\pas\UIEdit.pas';
 
 {$R *.res}
 
@@ -48,6 +36,9 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDMMain, DMMain);
-  Application.CreateForm(TdmSite, dmSite);
+  // Application.CreateForm(TfrmClientEdt, frmClientEdt);
+  //Application.CreateForm(TfrmClient, frmClient);
+  // Application.CreateForm(TfrmOnlyName, frmOnlyName);
+  // Application.CreateForm(TfrmSelect, frmSelect);
   Application.Run;
 end.

@@ -67,7 +67,7 @@ object frmSelectTree: TfrmSelectTree
         item
         end>
       DataController.DataSource = dsCategory
-      DataController.ParentField = 'pid'
+      DataController.ParentField = 'parent_id'
       DataController.KeyField = 'id'
       Navigator.Buttons.CustomButtons = <>
       OptionsData.Editing = False

@@ -65,14 +65,14 @@ begin
   query.Close;
   SQL.Append(' WITH RECURSIVE r AS (');
   SQL.Append(' SELECT id');
-  SQL.Append(' FROM dictonary.category');
-  SQL.Append(' WHERE pid = ' + IntToStr(parentId));
+  SQL.Append(' FROM product_category');
+  SQL.Append(' WHERE parent_id = ' + IntToStr(parentId));
   SQL.Append(' UNION');
   SQL.Append(' SELECT cat.id');
-  SQL.Append(' FROM dictonary.category cat');
-  SQL.Append(' JOIN r ON cat.pid = r.id)');
+  SQL.Append(' FROM product_category cat');
+  SQL.Append(' JOIN r ON cat.parent_id = r.id)');
   SQL.Append(' select * ');
-  SQL.Append(' from dictonary.product ');
+  SQL.Append(' from product ');
   SQL.Append(' where category_id in (');
   SQL.Append(' SELECT id');
   SQL.Append(' FROM r');
@@ -116,7 +116,7 @@ begin
   SQL.Append(' suffix,');
   SQL.Append(' barcode');
   SQL.Append(' FROM ');
-  SQL.Append(TABLE_PRODUCT);
+  SQL.Append(DICT_TABLE_PRODUCT);
   SQL.Append(' where id=');
   SQL.Append(IntToStr(Id));
   query.Close;
@@ -132,12 +132,12 @@ var
 
 begin
 
-  product.Id := UFuncAndProc.getNewId(TABLE_PRODUCT);
+  product.Id := UFuncAndProc.getNewId(DICT_TABLE_PRODUCT);
   SQL := TStringBuilder.Create;
   QueryIns := TUniQuery.Create(nil);
   QueryIns.Connection := DMMain.conMain;
   SQL.Append(' INSERT INTO');
-  SQL.Append(' dictonary.product');
+  SQL.Append('  product');
   SQL.Append(' (');
   SQL.Append(' id,');
   SQL.Append(' name,');

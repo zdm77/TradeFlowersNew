@@ -117,32 +117,32 @@ object frameProps: TframeProps
   end
   object queryProps: TUniQuery
     SQLInsert.Strings = (
-      'INSERT INTO dictonary.properties'
+      'INSERT INTO properties'
       '  ( name)'
       'VALUES'
       '  ( :name)')
     SQLDelete.Strings = (
-      'DELETE FROM dictonary.properties'
+      'DELETE FROM  properties'
       'WHERE'
       '  id = :Old_id')
     SQLUpdate.Strings = (
-      'UPDATE dictonary.properties'
+      'UPDATE  properties'
       'SET'
       '  id = :id, name = :name'
       'WHERE'
       '  id = :Old_id')
     SQLLock.Strings = (
-      'SELECT * FROM dictonary.properties'
+      'SELECT * FROM  properties'
       'WHERE'
       '  id = :Old_id'
       'FOR UPDATE NOWAIT')
     SQLRefresh.Strings = (
-      'SELECT id, name FROM dictonary.properties'
+      'SELECT id, name FROM  properties'
       'WHERE'
       '  id = :id')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
-      'SELECT * FROM dictonary.properties'
+      'SELECT * FROM  properties'
       ''
       ') t')
     Connection = DMMain.conMain

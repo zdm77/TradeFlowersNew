@@ -7,25 +7,18 @@ uses
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
-  cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData,
+  cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, MemDS,
   DBAccess,
   Uni, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
   PostgreSQLUniProvider, cxGridBandedTableView, System.Generics.Collections,
   Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, cxPC, dxBarBuiltInMenu, dxTabbedMDI,
-  Vcl.Menus, Vcl.ImgList, cxLocalization, MemTableDataEh, MemTableEh,
-  cxImageList, System.ImageList, CodeSiteLogging;
+  Vcl.Menus, Vcl.ImgList, cxLocalization,
+  cxImageList, System.ImageList;
 
 type
   TProduct = class
-  private
-    FId: Integer;
-    FName: string;
-    FPid: Integer;
   public
-    property Id: Integer read FId;
-    property Name: string read FName write FName;
-    property Pid: Integer read FPid;
   end;
 
   TfrmMain = class(TForm)
@@ -38,18 +31,15 @@ type
     imgSmall: TcxImageList;
     imgLarge: TcxImageList;
     cxLocalizer1: TcxLocalizer;
+    mmContr: TMenuItem;
     N4: TMenuItem;
-    N5: TMenuItem;
-    N6: TMenuItem;
-    N7: TMenuItem;
-    N8: TMenuItem;
+    mmClient: TMenuItem;
     procedure FormShow(Sender: TObject);
+    procedure mmClientClick(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
-    procedure N4Click(Sender: TObject);
-    procedure N6Click(Sender: TObject);
-    procedure N7Click(Sender: TObject);
-    procedure N8Click(Sender: TObject);
+  private
+    listProduct: TList<TProduct>;
     { Private declarations }
   public
   end;
@@ -62,19 +52,14 @@ implementation
 {$R *.dfm}
 
 uses
-  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmContragent, UfrmUser, UfrmPost, UDmMain, UfrmSplash,
-  UfrmInternetStore;
+  UCategory, UProductEdit, UCategoryEdit, UProduct, UfrmProps, UfrmClient;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
-
-  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) + '\..\INI\LanguagesUnicode.ini');
+  cxLocalizer1.LoadFromFile(ExtractFileDir(Application.ExeName) +
+    '\..\INI\LanguagesUnicode.ini');
   cxLocalizer1.Active := true;
   cxLocalizer1.Locale := 1049;
-  frmMain.Enabled := False;
-  DMMain.LoadDictonary;
-  frmMain.Enabled := true;
-  frmMain.BringToFront;
   // with queryMain do
   // begin
   // Close;
@@ -89,11 +74,19 @@ begin
   // end;
 end;
 
+procedure TfrmMain.mmClientClick(Sender: TObject);
+begin
+    if frmClient = nil then
+  begin
+    Application.CreateForm(TfrmClient, frmClient);
+  end;
+  frmClient.Show;
+end;
+
 procedure TfrmMain.N2Click(Sender: TObject);
 begin
   if frmProduct = nil then
     Application.CreateForm(TfrmProduct, frmProduct);
-  frmProduct.FormStyle:=fsMDIChild;
   frmProduct.Show;
 end;
 
@@ -102,35 +95,6 @@ begin
   if frmProps = nil then
     Application.CreateForm(TfrmProps, frmProps);
   frmProps.Show;
-end;
-
-procedure TfrmMain.N4Click(Sender: TObject);
-begin
-  if frmContragent = nil then
-    Application.CreateForm(TfrmContragent, frmContragent);
-  frmContragent.FormStyle := fsMDIChild;
-  frmContragent.Show;
-end;
-
-procedure TfrmMain.N6Click(Sender: TObject);
-begin
-  if frmUser = nil then
-    Application.CreateForm(TfrmUser, frmUser);
-  frmUser.Show;
-end;
-
-procedure TfrmMain.N7Click(Sender: TObject);
-begin
-  if frmPost = nil then
-    Application.CreateForm(TfrmPost, frmPost);
-  frmPost.Show;
-end;
-
-procedure TfrmMain.N8Click(Sender: TObject);
-begin
-  if frmInternetStore = nil then
-    Application.CreateForm(TfrmInternetStore, frmInternetStore);
-  frmInternetStore.Show;
 end;
 
 end.

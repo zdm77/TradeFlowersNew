@@ -81,7 +81,7 @@ end;
 procedure TframeProps.InsEdit(isNew: Boolean);
 begin
   Application.CreateForm(TfrmOnlyName, frmOnlyName);
-  frmOnlyName.Init(TABLE_PROPERTIES, true, isNew, queryProps, prop.Id, prop.Name);
+  frmOnlyName.Init(DICT_TABLE_PROPERTIES, true, isNew, queryProps, prop.Id, prop.Name);
   frmOnlyName.Show;
 end;
 

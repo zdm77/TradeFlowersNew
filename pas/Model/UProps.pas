@@ -1,9 +1,9 @@
-unit UProps;
+п»їunit UProps;
 
 interface
 
 uses
-  Classes, Uni, System.SysUtils, TypInfo;
+  Classes, Uni, TypInfo;
 
 type
   TProps = class(TObject)
@@ -12,21 +12,30 @@ type
     QueryProp: TUniQuery;
     FName: string;
     procedure SetId(const Value: Integer);
+
     procedure SetName(const Value: string);
+
   public
     procedure DeleteE();
+
     procedure GetProps();
-    property Id: Integer read FId write SetId;
+
+  property Id: Integer read FId write SetId;
     property Name: string read FName write SetName;
     constructor Create(query: TUniQuery); overload;
-    procedure GetPropsByCategoryId(category_id: Integer; query: TUniQuery);
-    procedure SetCategory;
-    procedure SetProp;
+
+  procedure GetPropsByCategoryId(category_id: Integer; query: TUniQuery);
+
+  procedure SetCategory;
+
+  procedure SetProp;
   end;
 
 implementation
 
-uses UFuncAndProc;
+uses UFuncAndProc,
+  UDmMain,
+  System.SysUtils;
 
 constructor TProps.Create(query: TUniQuery);
 begin
@@ -37,7 +46,7 @@ procedure TProps.DeleteE();
 
 begin
   UFuncAndProc.standartDelete(QueryProp);
-  // посмотреть не использоуется ли
+  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
 end;
 
 procedure TProps.GetProps();
@@ -49,8 +58,8 @@ begin
   SQL.Append(' SELECT');
   SQL.Append(' id,');
   SQL.Append(' name');
-  SQL.Append(' FROM');
-  SQL.Append(' dictonary.properties ');
+  SQL.Append(' FROM ');
+  SQL.Append(DICT_TABLE_PROPERTIES);
   SQL.Append(' ORDER BY name ');
   QueryProp.SQL.Text := SQL.ToString;
   QueryProp.Open;
@@ -70,8 +79,8 @@ begin
   SQL.Append(' pc.order_by,');
   SQL.Append(' pc.in_name');
   SQL.Append(' FROM');
-  SQL.Append(' dictonary.properties_category pc');
-  SQL.Append(' INNER JOIN dictonary.properties pr ON (pc.prop_id = pr.id)');
+  SQL.Append(' properties_category pc');
+  SQL.Append(' INNER JOIN ' + DICT_TABLE_PROPERTIES + ' pr ON (pc.prop_id = pr.id)');
   SQL.Append(' where pc.category_id=' + IntToStr(category_id));
   SQL.Append(' order by pc.order_by');
   query.SQL.Text := SQL.ToString();
