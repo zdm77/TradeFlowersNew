@@ -161,6 +161,9 @@
             <Form>frmClientEdt</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\pas\View\Dictonary\Contragents\UIClient.pas"/>
+        <DCCReference Include="..\pas\UICrud.pas"/>
+        <DCCReference Include="..\pas\UIEdit.pas"/>
         <None Include="ModelSupport_TradeFlowers\default.txvpck"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

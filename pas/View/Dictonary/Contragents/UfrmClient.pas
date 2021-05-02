@@ -10,10 +10,10 @@ uses
   cxData, cxDataStorage, cxNavigator, dxDateRanges, Data.DB, cxDBData, MemDS,
   DBAccess, Uni, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls,
-  cxGroupBox;
+  cxGroupBox, UICrud;
 
 type
-  TfrmClient = class(TForm)
+  TfrmClient = class(TForm, ICrud)
     groupTop: TcxGroupBox;
     btnProductAdd: TButton;
     btnProductEdt: TButton;
@@ -25,19 +25,20 @@ type
     level1: TcxGridLevel;
     dsClient: TUniDataSource;
     QueryClient: TUniQuery;
-    fieldQueryClientid: TIntegerField;
-    fieldQueryClientname: TStringField;
     procedure btnProductAddClick(Sender: TObject);
     procedure btnProductEdtClick(Sender: TObject);
     procedure btnProductRefreshClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
   private
-    procedure InsUpdClient(isNew: Boolean = true);
+    // procedure InsUpd(isNew: Boolean = true);
     { Private declarations }
+    procedure ShowEntity(Id: integer);
+    procedure InsUpd(isNew: boolean = true);
+    procedure Delete(Id: integer);
+    procedure Refresh();
   public
-    procedure ShowClients(id: Integer);
-    { Public declarations }
+    // procedure SaveClient(id: Integer);
   end;
 
 var
@@ -51,18 +52,22 @@ uses UfrmClientEdt, UFuncAndProc, UDmMain;
 
 procedure TfrmClient.btnProductAddClick(Sender: TObject);
 begin
-  InsUpdClient(true);
+  InsUpd(true);
 end;
 
 procedure TfrmClient.btnProductEdtClick(Sender: TObject);
 begin
-  InsUpdClient(false);
+  InsUpd(false);
 end;
 
 procedure TfrmClient.btnProductRefreshClick(Sender: TObject);
 begin
+  Refresh;
+end;
 
-   QueryClient.Locate('id', 6, [loPartialKey])
+procedure TfrmClient.Delete(Id: integer);
+begin
+  UFuncAndProc.deleteById(QueryClient['id'], DICT_TABLE_CLIENT);
 end;
 
 procedure TfrmClient.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -73,39 +78,42 @@ end;
 
 procedure TfrmClient.FormShow(Sender: TObject);
 begin
-  ShowClients(0);
+  ShowEntity(0);
 end;
 
-procedure TfrmClient.InsUpdClient(isNew: Boolean = true);
+procedure TfrmClient.InsUpd(isNew: boolean = true);
+var
+  Id: integer;
 begin
-  Application.CreateForm(TfrmClientEdt, frmClientEdt);
-  viewProduct.DataController.BeginFullUpdate;
-  if isNew = true then
-    QueryClient.Insert
-  else
-    QueryClient.Edit;
-  frmClientEdt.ShowModal;
-  if frmClientEdt.isSave = true then
+  Id := 0;
+  if frmClientEdt = nil then
   begin
-    if isNew then
-      fieldQueryClientid.Value := UFuncAndProc.getNewId(DICT_TABLE_CLIENT);
-    QueryClient.Post;
-    QueryClient.Cancel;
-    ShowClients(fieldQueryClientid.Value);
-  end
-  else
-    QueryClient.Cancel;
-  viewProduct.DataController.EndFullUpdate;
+    if isNew = false then
+      Id := QueryClient['id'];
+    frmClientEdt := TfrmClientEdt.Create(Self, Id, isNew, Self);
+    // Application.CreateForm(TfrmClientEdt, frmClientEdt);
+    // frmClientEdt.view := self;
+    // frmClientEdt.Show;
+    // frmClientEdt.isNew := isNew;
+    // if isNew = false then
+    // frmClientEdt.Id := QueryClient['id']
+  end;
+  frmClientEdt.Show;
 end;
 
-procedure TfrmClient.ShowClients(id: Integer);
+procedure TfrmClient.Refresh;
+begin
+  QueryClient.Refresh;
+end;
+
+procedure TfrmClient.ShowEntity(Id: integer);
 begin
   if QueryClient.Active = false then
     QueryClient.Open
   else
   begin
     QueryClient.Refresh;
-    QueryClient.Locate('id', id, [])
+    QueryClient.Locate('id', Id, [])
   end;
 end;
 

@@ -7,7 +7,8 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.StdCtrls, cxGroupBox,
-  cxTextEdit, cxDBEdit, Vcl.Mask, Vcl.DBCtrls;
+  cxTextEdit, cxDBEdit, Vcl.Mask, Vcl.DBCtrls, UICrud, Data.DB, MemDS, DBAccess,
+  Uni;
 
 type
   TfrmClientEdt = class(TForm)
@@ -15,11 +16,21 @@ type
     lbl1: TLabel;
     cxGroupBox3: TcxGroupBox;
     btnSave: TButton;
+    dsClient: TUniDataSource;
+    QueryClient: TUniQuery;
+    fieldQueryClientid: TIntegerField;
+    fieldQueryClientname: TStringField;
     procedure btnSaveClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
+    Id: Integer;
+    isNew: Boolean;
+    iView: ICrud;
+    procedure Save;
   public
-    isSave: boolean;
+    constructor Create(AOwner: TComponent; AId: Integer; AisNew: Boolean;
+      AIView: ICrud);
     { Public declarations }
   end;
 
@@ -30,12 +41,45 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmClient;
+uses UFuncAndProc, UDmMain;
+
+constructor TfrmClientEdt.Create(AOwner: TComponent; AId: Integer;
+  AisNew: Boolean; AIView: ICrud);
+begin
+  inherited Create(AOwner);
+  Id := AId;
+  isNew := AisNew;
+  iView := AIView;
+  with QueryClient do
+  begin
+    Close;
+    ParamByName('id').Value := Id;
+    Open;
+    if isNew then
+      Insert
+    else
+      Edit;
+  end;
+end;
 
 procedure TfrmClientEdt.btnSaveClick(Sender: TObject);
 begin
-  isSave := true;
+  Save;
   Close;
+end;
+
+procedure TfrmClientEdt.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmClientEdt := nil;
+end;
+
+procedure TfrmClientEdt.Save;
+begin
+  if isNew then
+    fieldQueryClientid.Value := UFuncAndProc.getNewId(DICT_TABLE_CLIENT);
+  QueryClient.Post;
+  iView.ShowEntity(fieldQueryClientid.Value);
 end;
 
 end.

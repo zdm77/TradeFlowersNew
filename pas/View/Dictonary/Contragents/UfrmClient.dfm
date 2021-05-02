@@ -24,11 +24,11 @@ object frmClient: TfrmClient
     PanelStyle.Active = True
     PanelStyle.OfficeBackgroundKind = pobkStyleColor
     TabOrder = 0
-    Height = 42
+    Height = 38
     Width = 934
     object btnProductAdd: TButton
       Left = 3
-      Top = 5
+      Top = 3
       Width = 86
       Height = 32
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
@@ -38,8 +38,8 @@ object frmClient: TfrmClient
       OnClick = btnProductAddClick
     end
     object btnProductEdt: TButton
-      Left = 89
-      Top = 5
+      Left = 91
+      Top = 3
       Width = 37
       Height = 32
       ImageAlignment = iaCenter
@@ -49,8 +49,8 @@ object frmClient: TfrmClient
       OnClick = btnProductEdtClick
     end
     object btnProductDel: TButton
-      Left = 126
-      Top = 4
+      Left = 130
+      Top = 3
       Width = 37
       Height = 32
       ImageAlignment = iaCenter
@@ -60,7 +60,7 @@ object frmClient: TfrmClient
     end
     object btnProductRefresh: TButton
       Left = 169
-      Top = 4
+      Top = 3
       Width = 37
       Height = 32
       ImageAlignment = iaCenter
@@ -72,9 +72,9 @@ object frmClient: TfrmClient
   end
   object gridProduct: TcxGrid
     Left = 0
-    Top = 42
+    Top = 38
     Width = 934
-    Height = 627
+    Height = 631
     Align = alClient
     TabOrder = 1
     LookAndFeel.Kind = lfOffice11
@@ -116,24 +116,28 @@ object frmClient: TfrmClient
   object QueryClient: TUniQuery
     SQLInsert.Strings = (
       'INSERT INTO client'
-      '  (name)'
+      '  (id, name)'
       'VALUES'
-      '  (:name)')
+      '  (:id, :name)')
     SQLDelete.Strings = (
       'DELETE FROM client'
       'WHERE'
-      '  id = :Old_id')
+      '  id = :Old_id AND name = :Old_name')
     SQLUpdate.Strings = (
       'UPDATE client'
       'SET'
-      '  name = :name'
+      '  id = :id, name = :name'
       'WHERE'
-      '  id = :Old_id')
+      '  id = :Old_id AND name = :Old_name')
     SQLLock.Strings = (
       'SELECT * FROM client'
       'WHERE'
-      '  id = :Old_id'
+      '  id = :Old_id AND name = :Old_name'
       'FOR UPDATE NOWAIT')
+    SQLRefresh.Strings = (
+      'SELECT id, name FROM client'
+      'WHERE'
+      '  id = :id AND name = :name')
     SQLRecCount.Strings = (
       'SELECT count(*) FROM ('
       'SELECT * FROM client'
@@ -147,13 +151,5 @@ object frmClient: TfrmClient
     DetailFields = 'product_category_id'
     Left = 672
     Top = 464
-    object fieldQueryClientid: TIntegerField
-      AutoGenerateValue = arAutoInc
-      FieldName = 'id'
-    end
-    object fieldQueryClientname: TStringField
-      FieldName = 'name'
-      Size = 255
-    end
   end
 end

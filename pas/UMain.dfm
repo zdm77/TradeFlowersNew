@@ -33,9 +33,12 @@ object frmMain: TfrmMain
       object N4: TMenuItem
         Caption = '-'
       end
-      object mmClient: TMenuItem
-        Caption = #1050#1083#1080#1077#1085#1090#1099
-        OnClick = mmClientClick
+      object mmContr: TMenuItem
+        Caption = #1050#1086#1085#1090#1088#1072#1075#1077#1085#1090#1099
+        object mmClient: TMenuItem
+          Caption = #1050#1083#1080#1077#1085#1090#1099
+          OnClick = mmClientClick
+        end
       end
     end
   end

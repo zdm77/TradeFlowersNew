@@ -31,8 +31,9 @@ type
     imgSmall: TcxImageList;
     imgLarge: TcxImageList;
     cxLocalizer1: TcxLocalizer;
-    mmClient: TMenuItem;
+    mmContr: TMenuItem;
     N4: TMenuItem;
+    mmClient: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure mmClientClick(Sender: TObject);
     procedure N2Click(Sender: TObject);
@@ -75,7 +76,7 @@ end;
 
 procedure TfrmMain.mmClientClick(Sender: TObject);
 begin
-  if frmClient = nil then
+    if frmClient = nil then
   begin
     Application.CreateForm(TfrmClient, frmClient);
   end;
