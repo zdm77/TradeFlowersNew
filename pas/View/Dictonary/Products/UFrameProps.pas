@@ -11,7 +11,7 @@ uses
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, UProps,
   cxDBLookupComboBox, dxLayoutContainer, cxGridInplaceEditForm, cxLabel,
   cxCheckBox, cxDBNavigator, cxTextEdit, cxContainer, cxGroupBox,
-  cxDataControllerConditionalFormattingRulesManagerDialog;
+  cxDataControllerConditionalFormattingRulesManagerDialog, dxDateRanges;
 
 type
   TframeProps = class(TFrame)

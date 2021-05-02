@@ -62,6 +62,8 @@ object frameProduct: TframeProduct
       PanelStyle.Active = True
       PanelStyle.OfficeBackgroundKind = pobkStyleColor
       TabOrder = 1
+      ExplicitLeft = 6
+      ExplicitTop = 3
       Height = 42
       Width = 373
       object btnAdd: TButton

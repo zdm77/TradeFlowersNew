@@ -25,12 +25,17 @@ type
     level1: TcxGridLevel;
     dsClient: TUniDataSource;
     QueryClient: TUniQuery;
+    fieldQueryClientid: TIntegerField;
+    fieldQueryClientname: TStringField;
     procedure btnProductAddClick(Sender: TObject);
+    procedure btnProductEdtClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
   private
     procedure InsUpdClient(isNew: Boolean = true);
     { Private declarations }
   public
+    procedure ShowClients(id: Integer);
     { Public declarations }
   end;
 
@@ -48,16 +53,48 @@ begin
   InsUpdClient(true);
 end;
 
+procedure TfrmClient.btnProductEdtClick(Sender: TObject);
+begin
+  InsUpdClient(false);
+end;
+
 procedure TfrmClient.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Action := caFree;
   frmClient := nil;
 end;
 
+procedure TfrmClient.FormShow(Sender: TObject);
+begin
+  ShowClients(0);
+end;
+
 procedure TfrmClient.InsUpdClient(isNew: Boolean = true);
 begin
   Application.CreateForm(TfrmClientEdt, frmClientEdt);
+  if isNew = true then
+    QueryClient.Insert
+  else
+    QueryClient.Edit;
   frmClientEdt.ShowModal;
+  if frmClientEdt.isSave = true then
+  begin
+    QueryClient.Post;
+    ShowClients(0);
+  end
+  else
+    QueryClient.Cancel;
+end;
+
+procedure TfrmClient.ShowClients(id: Integer);
+begin
+  if QueryClient.Active = false then
+    QueryClient.Open
+  else
+  begin
+    QueryClient.Refresh;
+    QueryClient.Locate('id', id, [])
+  end;
 end;
 
 end.

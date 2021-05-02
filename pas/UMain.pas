@@ -76,7 +76,9 @@ end;
 procedure TfrmMain.mmClientClick(Sender: TObject);
 begin
   if frmClient = nil then
+  begin
     Application.CreateForm(TfrmClient, frmClient);
+  end;
   frmClient.Show;
 end;
 

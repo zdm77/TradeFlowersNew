@@ -14,6 +14,7 @@ object frmClient: TfrmClient
   OldCreateOrder = False
   Visible = True
   OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object groupTop: TcxGroupBox
@@ -23,9 +24,6 @@ object frmClient: TfrmClient
     PanelStyle.Active = True
     PanelStyle.OfficeBackgroundKind = pobkStyleColor
     TabOrder = 0
-    ExplicitLeft = 2
-    ExplicitTop = 2
-    ExplicitWidth = 556
     Height = 42
     Width = 934
     object btnProductAdd: TButton
@@ -48,6 +46,7 @@ object frmClient: TfrmClient
       ImageIndex = 4
       Images = frmMain.imgMidle
       TabOrder = 1
+      OnClick = btnProductEdtClick
     end
     object btnProductDel: TButton
       Left = 126
@@ -79,10 +78,7 @@ object frmClient: TfrmClient
     TabOrder = 1
     LookAndFeel.Kind = lfOffice11
     LookAndFeel.NativeStyle = True
-    ExplicitLeft = 2
-    ExplicitTop = 44
-    ExplicitWidth = 556
-    ExplicitHeight = 493
+    ExplicitTop = 43
     object viewProduct: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       FilterBox.Position = fpTop
@@ -149,9 +145,19 @@ object frmClient: TfrmClient
       ') t')
     Connection = DMMain.conMain
     SQL.Strings = (
-      'select * from client')
+      'select *'
+      'from client'
+      'order by name;')
     DetailFields = 'product_category_id'
     Left = 672
-    Top = 456
+    Top = 464
+    object fieldQueryClientid: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'id'
+    end
+    object fieldQueryClientname: TStringField
+      FieldName = 'name'
+      Size = 255
+    end
   end
 end
